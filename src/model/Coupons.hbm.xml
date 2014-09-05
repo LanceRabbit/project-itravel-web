@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/9/2 ?U?? 07:18:15 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="model.Coupons" table="COUPONS" schema="dbo" catalog="iiiTravel">
+        <id name="couponId" type="string">
+            <column name="COUPON_ID" length="8" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="spotDetail" class="model.SpotDetail" fetch="select">
+            <column name="SPOT_ID" length="11" not-null="true" />
+        </many-to-one>
+        <property name="couponImg" type="binary">
+            <column name="COUPON_IMG" />
+        </property>
+        <property name="couponDescription" type="string">
+            <column name="COUPON_DESCRIPTION" />
+        </property>
+        <property name="validDay" type="date">
+            <column name="VALID_DAY" length="10" not-null="true" />
+        </property>
+        <property name="tempCouponId" type="string">
+            <column name="TEMP_COUPON_ID" length="8" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>

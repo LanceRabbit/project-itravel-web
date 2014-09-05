@@ -1,0 +1,168 @@
+package model.dao;
+
+import model.Account;
+import model.SpotDetail;
+import model.SpotDetailDAO;
+import model.util.HibernateUtil;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+
+public class SpotDetailDAOHibernate implements SpotDetailDAO {
+	private SessionFactory sessionFactory = null;
+	
+	private static void printSpotInfo (SpotDetail theSpot) {
+		System.out.println("spot : " + theSpot.getSpotName());
+		System.out.println("spot id : " + theSpot.getSpotId());
+		if(theSpot.getAddress() != null)
+			System.out.println("spot address : " + theSpot.getAddress());
+	}
+	
+	public SpotDetail insert(SpotDetail spot) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			
+			//spot.setAccount(account);
+			spot.setAccountId("M14090002");
+			
+			// test : add a new spot_detail
+			// modified by Lance.
+			session.save(spot);		
+			spot = (SpotDetail)session.get(SpotDetail.class, spot.getSpotId());
+			spot.setTempSpotId(spot.getSpotId());
+
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spot;
+	}
+
+	public int delete(SpotDetail spot) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		// 0 for success
+		int result = 0; 
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(spot);
+			tx.commit();
+		} catch (Exception e) {
+			result = 1;
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	public SpotDetail update(SpotDetail spot) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		SpotDetail restSpot = null;
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(spot);
+			restSpot = (SpotDetail)session.get(SpotDetail.class, spot.getSpotId());
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return restSpot;
+	}
+
+	public SpotDetail select(String id) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		SpotDetail spot = null;
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			spot = (SpotDetail)session.get(SpotDetail.class, id);
+			
+			// test : account
+			Account creater = spot.getAccount();
+			System.out.println("test account================================");
+			System.out.println("Account with id : " + creater.getAccountId() + " created spot("+ id + ")");
+			
+//			// test : list spot_like_record
+//			Set<SpotDetail> likedSpots = account.getSpotDetails_1();
+//			Iterator<SpotDetail> it = likedSpots.iterator();
+//			int i = 0;
+//			while(it.hasNext()) {
+//				i++;
+//				System.out.println((i) + " :");
+//				printSpotInfo(it.next());
+//			}
+//			
+//			// test : add a record into table spot_like_record
+//			Set<SpotDetail> newLikedSpots = new HashSet<SpotDetail>();
+//			newLikedSpots.add((SpotDetail)session.get(SpotDetail.class, "SWT14090002"));
+//			account.setSpotDetails_1(newLikedSpots);
+//			session.saveOrUpdate(account);
+
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spot;
+	}
+
+	public static void main(String[] args) {
+		SpotDetailDAO dao = new SpotDetailDAOHibernate();
+		SpotDetail spot = new SpotDetail();
+		
+		// insert 
+		spot.setTempSpotId("EMP");
+		spot.setSpotName("Pizza");
+		spot.setCityId(1);
+		spot.setCategoryId(1);
+		spot.setSubcategoryId("RES");
+		
+		spot = dao.insert(spot);
+		System.out.println("test : insert================================");
+		SpotDetailDAOHibernate.printSpotInfo(spot);
+		
+		// select 
+//		String spotId = spot.getSpotId();
+//		spot = dao.select(spotId);
+//		System.out.println("test : select================================");
+//		SpotDetailDAOHibernate.printSpotInfo(spot);
+		
+		// update 
+//		spot.setAddress("Taipei City");
+//		spot = dao.update(spot);
+//		System.out.println("test : update================================");
+//		SpotDetailDAOHibernate.printSpotInfo(dao.select(spot.getSpotId()));
+//		
+		// delete
+//		if( spot != null && dao.delete(spot) == 0) {
+//			if(dao.select(spotId) == null) {
+//				System.out.println("test : delete================================");
+//				System.out.println("Spot (" + spotId + ") has been deleted.");
+//			}
+//		}
+//		else 
+//			System.out.println("ERROR!!");
+	}
+}

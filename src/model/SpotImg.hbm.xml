@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/9/2 ?U?? 07:18:15 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="model.SpotImg" table="SPOT_IMG" schema="dbo" catalog="iiiTravel">
+        <id name="imgId" type="string">
+            <column name="IMG_ID" length="11" />
+            <generator class="select">
+            	<param name="key">tempImgId</param>
+            </generator>
+        </id>
+        <property name="spotId" type="string">
+        	<column name="SPOT_ID" length="11" not-null="true" />
+        </property>
+        <many-to-one insert="false" update="false" name="spotDetail" class="model.SpotDetail" fetch="select">
+            <column name="SPOT_ID" length="11" not-null="true" />
+        </many-to-one>
+        <property name="spotImg" type="binary">
+            <column name="SPOT_IMG" />
+        </property>
+        <property name="imgOrder" type="java.lang.Integer">
+            <column name="IMG_ORDER" />
+        </property>
+        <property name="tempImgId" type="string">
+            <column name="TEMP_IMG_ID" length="11" not-null="true" unique="true" />
+        </property>
+        <set name="tripDetails" table="TRIP_DETAIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="IMG_ID" length="11" not-null="true" />
+            </key>
+            <one-to-many class="model.TripDetail" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<table-filter match-catalog="iiiTravel" match-schema="dbo"
+		match-name="SPOT_COLLECT_RECORD" />
+	<table-filter match-catalog="iiiTravel" match-schema="dbo"
+		match-name="SPOT_COMMENT_RECORD" />
+	<table-filter match-catalog="iiiTravel" match-schema="dbo"
+		match-name="SPOT_LIKE_RECORD" />
+	<table-filter match-catalog="iiiTravel" match-schema="dbo"
+		match-name="TRIP_COLLECT_RECORD" />
+	<table-filter match-catalog="iiiTravel" match-schema="dbo"
+		match-name="TRIP_LIKE_RECORD" />
+	<table-filter match-name="ACCOUNT" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="AD" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="BLACKLIST_RECORD"
+		match-catalog="iiiTravel" match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="CODE_LIST" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="COUPONS" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="SER_NO_LENGTH" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="SPOT_DETAIL" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="SPOT_IMG" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="SPOT_OWNER" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TRIP" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="TRIP_DETAIL" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+
+</hibernate-reverse-engineering>

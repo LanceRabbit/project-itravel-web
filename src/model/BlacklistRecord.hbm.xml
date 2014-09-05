@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2014/9/2 ?U?? 07:18:15 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping>
+    <class name="model.BlacklistRecord" table="BLACKLIST_RECORD" schema="dbo" catalog="iiiTravel">
+        <composite-id name="id" class="model.BlacklistRecordId">
+            <key-property name="reporterId" type="string">
+                <column name="REPORTER_ID" length="9" />
+            </key-property>
+            <key-property name="reportedId" type="string">
+                <column name="REPORTED_ID" length="9" />
+            </key-property>
+            <key-property name="commentId" type="string">
+                <column name="COMMENT_ID" length="12" />
+            </key-property>
+        </composite-id>
+        <property name="reason" type="string">
+            <column name="REASON" />
+        </property>
+        <property name="reportDt" type="date">
+            <column name="REPORT_DT" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>
