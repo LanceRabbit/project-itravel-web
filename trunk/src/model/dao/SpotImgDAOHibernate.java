@@ -2,7 +2,9 @@ package model.dao;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import model.SpotDetail;
@@ -43,8 +45,24 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 	}
 
 	public int delete(SpotImg img) {
-		// TODO Auto-generated method stub
-		return 0;
+		int rest = 0;
+		
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			session.delete(img);	
+			tx.commit();
+		} catch (Exception e) {
+			rest = 1;
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return rest;
 	}
 
 	public int deleteBySpotId(String spotId) {
@@ -63,6 +81,7 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 
 			tx.commit();
 		} catch (Exception e) {
+			rest = 1;
 			if(tx != null)
 				tx.rollback();
 			e.printStackTrace();
@@ -72,18 +91,68 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 	}
 	
 	public SpotImg update(SpotImg img) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		SpotImg rest = null;
+		try {
+			tx = session.beginTransaction();
+			session.update(img);
+			
+			rest = (SpotImg)session.get(SpotImg.class, img.getImgId());
+
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return rest;
 	}
 
 	public SpotImg selectByImgId(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		SpotImg rest = null;
+		try {
+			tx = session.beginTransaction();
+			rest = (SpotImg)session.get(SpotImg.class, id);
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return rest;
 	}
 
-	public SpotImg selectBySpotId(String id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<SpotImg> selectBySpotId(String id) {
+		Set<SpotImg> rest = new HashSet<SpotImg>();
+		
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			List<?> imgs = session.createQuery("FROM SpotImg img where img.spotId = ? order by img.imgOrder asc").setString(0, id).list();	
+			for(Object img : imgs) {
+				rest.add((SpotImg)img);
+			}
+
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return rest;
 	}
 
 	public static void main(String[] args) {
