@@ -1,0 +1,21 @@
+1.先將本機端的iiiTravel資料庫刪除
+2.執行Easy.bat檔
+
+資料庫預設安裝路徑在 C: 
+如果安裝路徑不同，請根據以下範例修改
+
+ex.資料庫安裝在 F 磁碟，所以要修正 DB.sql裡面的一段code 
+
+ "C:" - > "F:"
+
+預設
+( NAME = N'iiiTravel', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\iiiTravel.mdf' , SIZE = 4160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'iiiTravel_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\iiiTravel_log.ldf' , SIZE = 1088KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
+
+修正
+( NAME = N'iiiTravel', FILENAME = N'F:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\iiiTravel.mdf' , SIZE = 4160KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+ LOG ON 
+( NAME = N'iiiTravel_log', FILENAME = N'F:\Program Files\Microsoft SQL Server\MSSQL11.MSSQLSERVER\MSSQL\DATA\iiiTravel_log.ldf' , SIZE = 1088KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+GO
