@@ -16,6 +16,12 @@ public class Coupons implements java.io.Serializable {
 	private Date validDay;
 	private String tempCouponId;
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return couponId+", "+spotDetail.getSpotId()+", "+validDay+", "+couponDescription;
+	}
+
 	public Coupons() {
 	}
 

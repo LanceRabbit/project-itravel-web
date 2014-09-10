@@ -85,11 +85,11 @@ public class TripDAOHibernate implements TripDAO {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
-		Trip trip= null;
+		Trip result= null;
 
 		try {
 			tx = session.beginTransaction();
-			trip = (Trip)session.get(Trip.class, id);
+			result = (Trip)session.get(Trip.class, id);
 			tx.commit();
 		} catch (Exception e) {
 			if(tx != null)
@@ -97,39 +97,35 @@ public class TripDAOHibernate implements TripDAO {
 			e.printStackTrace();
 		}
 			
-		return trip;
+		return result;
 	}
 	
 	
 	public static void main (String[] args){
 		TripDAOHibernate dao = new TripDAOHibernate();
 		Account test = new Account ();
-		test.setAccountId("M14090001");
+		test.setAccountId("M14090004");
 		Trip trip = new Trip ();
 		
 		// insert 
 		trip.setAccount(test);
-		trip.setTripName("7D6N");
+		trip.setTripName("3D2N");
 		java.util.Date date = new java.util.Date();
 		trip.setStartDate(date);
 		trip.setTempTripId("EMP");
-//		if(make!=null) {
-//			long temp = make.getTime();
-//			stmt.setDate(4, new java.sql.Date(temp));
-//		} else {
-//			stmt.setDate(4, null);
-//		}
+
 		
 		trip = dao.insert(trip);
 		System.out.println("test : insert================================");
-
-		
-//		trip.setTripId("T14090002");
-		//Trip tripId = spot.getSpotId();
-		trip = dao.select(trip.getTripId());
-//		int i = dao.delete(trip);
-		System.out.println("test : select================================");
 		System.out.println(trip);
+		
+//		trip.setTripId("T14090001");
+//		//Trip tripId = spot.getSpotId();
+//		trip = dao.select(trip.getTripId());
+//		int i = dao.delete(trip);
+//		System.out.println(i);
+//		System.out.println("test : select================================");
+//		System.out.println(trip);
 //		System.out.println("test : update================================");
 //		trip.setAccount(test);
 //		trip.setTripName("4D2N");

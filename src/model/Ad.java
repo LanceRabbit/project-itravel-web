@@ -18,6 +18,12 @@ public class Ad implements java.io.Serializable {
 	public Ad() {
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return adId+", "+spotDetail.getSpotId()+", "+validDay;
+	}
+
 	public Ad(String adId, SpotDetail spotDetail, Date validDay, String tempAdId) {
 		this.adId = adId;
 		this.spotDetail = spotDetail;

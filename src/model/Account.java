@@ -13,7 +13,7 @@ public class Account implements java.io.Serializable {
 
 	private String accountId;
 	private String email;
-	private String password;
+	private byte[] password;
 	private String nickname;
 	private Integer accountLevel;
 	private Date lastLogonDt;
@@ -38,7 +38,7 @@ public class Account implements java.io.Serializable {
 		return "AccountId:"+accountId+"; Email:"+email+"; Password:"+password+"; Nickname:"+nickname+"AccountLevel:"+accountLevel+"; LastLoginDate:"+lastLogonDt+"; BlacklistLevel:"+blacklistLevel;
 	}
 
-	public Account(String accountId, String email, String password,
+	public Account(String accountId, String email, byte[] password,
 			String nickname) {
 		this.accountId = accountId;
 		this.email = email;
@@ -46,7 +46,7 @@ public class Account implements java.io.Serializable {
 		this.nickname = nickname;
 	}
 
-	public Account(String accountId, String email, String password,
+	public Account(String accountId, String email, byte[] password,
 			String nickname, Integer accountLevel, Date lastLogonDt,
 			byte[] image, Integer blacklistLevel, Set<Trip> trips,
 			Set<SpotDetail> spotDetails,
@@ -89,11 +89,11 @@ public class Account implements java.io.Serializable {
 		this.email = email;
 	}
 
-	public String getPassword() {
+	public byte[] getPassword() {
 		return this.password;
 	}
 
-	public void setPassword(String password) {
+	public void setPassword(byte[] password) {
 		this.password = password;
 	}
 

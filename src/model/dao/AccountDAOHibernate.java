@@ -1,5 +1,7 @@
 package model.dao;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 
@@ -17,26 +19,45 @@ public class AccountDAOHibernate implements AccountDAO {
 	public static void main(String[] args) {
 		AccountDAO dao = new AccountDAOHibernate();
 		Account acc = new Account();
-
+		MessageDigest mDigest = null;
+		try {
+			mDigest = MessageDigest.getInstance("MD5");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		String pass = "user4";
+		byte[] temp = pass.getBytes();
+		temp = mDigest.digest(temp);
 		// Insert Test
-		// acc.setAccountId("M14090003");
-		// acc.setEmail("user4@gmail.com");
-		// acc.setPassword("user4");
-		// acc.setNickname("user4");
-		// acc = dao.insert(acc);
-		// System.out.println("Insert Account Data: "+acc);
+//		 acc.setAccountId("M14090003");
+//		 acc.setEmail("user4@gmail.com");
+//		 acc.setPassword(temp);
+//		 acc.setNickname("user4");
+//		 acc.setLastLogonDt(new Date());
+//		 acc = dao.insert(acc);
+//		 System.out.println("Insert Account Data: "+acc);
 
 		// Update Test
 		acc.setAccountId("M14090004");
 		acc.setEmail("user4@gmail.com");
-		acc.setPassword("user4");
+		acc.setPassword(temp);
 		acc.setNickname("user4");
 		acc.setLastLogonDt(new Date());
 		acc = dao.update(acc);
 		System.out.println("Update Test:" + acc);
 
 		// SelectById Test
-		acc = dao.selectById("M14090004");
+		acc = dao.selectById("M14090001");
+		//要抓景點或行程收藏時可直接用Account的get方法，Account.hbn.xml的lazy要設false
+//		Set<Trip> tripDetails = acc.getTrips_1();
+//		Iterator<Trip> tripDetail = tripDetails.iterator();
+//		
+//		int count = 0;
+//		while(tripDetail.hasNext()) {
+//			count++; 
+//			Trip trips = (Trip)tripDetail.next();
+//			System.out.println("GET TRIP FROM ACCOUNT: "+trips);
+//		}
 		System.out.println("SelectById Test:" + acc);
 		
 		//SelectAll Test
@@ -73,9 +94,13 @@ public class AccountDAOHibernate implements AccountDAO {
 		Account result = null;
 		try {
 			tx = session.beginTransaction();
-			session.update(account);
 			result = (Account) session.get(Account.class,
 					account.getAccountId());
+			if(result!=null){
+				result.setPassword(account.getPassword());
+				result.setNickname(account.getNickname());
+				result.setImage(account.getImage());
+			}
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)

@@ -6,7 +6,9 @@
     <class name="model.Ad" table="AD" schema="dbo" catalog="iiiTravel">
         <id name="adId" type="string">
             <column name="AD_ID" length="8" />
-            <generator class="assigned" />
+            <generator class="select">
+             <param name="key">tempAdId</param>
+            </generator>
         </id>
         <many-to-one name="spotDetail" class="model.SpotDetail" fetch="select">
             <column name="SPOT_ID" length="11" not-null="true" />
