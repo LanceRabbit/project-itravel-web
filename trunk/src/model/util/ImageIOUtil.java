@@ -32,6 +32,12 @@ public class ImageIOUtil {
 	}
 	
 	public static void saveImage(String destFilename, byte[] data) {
+		if(!((data != null) && (data.length != 0))) {
+			System.out.println("ERROR!! No data input!!");
+			return;
+		}
+			
+			
 		File dest = new File(ImageIOUtil.DIR_PATH + destFilename);
 		try {
 			org.apache.commons.io.FileUtils.writeByteArrayToFile(dest, data) ;
