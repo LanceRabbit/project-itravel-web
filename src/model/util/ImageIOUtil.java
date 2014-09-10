@@ -5,7 +5,7 @@ import java.io.IOException;
 
 
 public class ImageIOUtil {
-	public final static String DIR_PATH = "C:/Travel/workspace/images/";
+	public final static String DIR_PATH = "C:/Travel/apache-tomcat-7.0.55/webapps/TravelWeb/images/";
 	
 	public static byte[] getImageByFilename(String filename) {
 		File imgFile = new File(ImageIOUtil.DIR_PATH + filename);

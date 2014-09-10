@@ -15,7 +15,7 @@
 <body>
 <%
 	SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
-	SpotDetail spot = spotDetailDAO.select("RES14090001");
+	SpotDetail spot = spotDetailDAO.select("RES14090008");
 	
 	Set<SpotImg> images = spot.getSpotImgs();
 	
@@ -27,23 +27,25 @@
 	Iterator<SpotImg> it = images.iterator();
 	
 	out.println("<table>");
-	int count = 0;
+	String path = null;
+
 	while(it.hasNext()) {
 		out.println("<tr>");
-		count++; 
 		SpotImg image = (SpotImg)it.next();
 		if(!((image != null) && (image.getSpotImg() != null))) {
 			System.out.println("no image");
 			continue;	
 		}
 		
-		ImageIOUtil.saveImage(count+".jpg", image.getSpotImg());
+		path = "images/" + image.getSpotId() + "/" + image.getImgId();
+		System.out.println("path : " + path);
+		ImageIOUtil.saveImage(image.getSpotId(), image.getImgId(), image.getSpotImg());
 		session.setAttribute("spot", image.getSpotDetail());
 %>
 	<a href="<c:url value='SpotInfo.do?id=${spot.spotId}'/>">
 <%		
 		
-		out.println("<img src=\'images/"+count+".jpg\'/>");
+		out.println("<img src=\'"+path+"\'/>");
 %>
 	</a>
 <%
