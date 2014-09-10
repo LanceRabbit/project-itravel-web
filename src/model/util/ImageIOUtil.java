@@ -46,6 +46,20 @@ public class ImageIOUtil {
 		}
 	}
 	
+	public static void saveImage(String path, String destFilename, byte[] data) {
+		if(!((data != null) && (data.length != 0))) {
+			System.out.println("ERROR!! No data input!!");
+			return;
+		}
+			
+		File dest = new File(ImageIOUtil.DIR_PATH + (path!=null?(path+"/"):"") + destFilename);
+		try {
+			org.apache.commons.io.FileUtils.writeByteArrayToFile(dest, data) ;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		//ImageIOUtil.copyImage("src.jpg");
 		ImageIOUtil.saveImage("dest.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
