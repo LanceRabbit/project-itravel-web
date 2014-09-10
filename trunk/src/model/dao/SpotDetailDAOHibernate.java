@@ -1,10 +1,14 @@
 package model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import model.Account;
 import model.SpotDetail;
 import model.SpotDetailDAO;
 import model.util.HibernateUtil;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -128,26 +132,57 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return spot;
 	}
 
+	public List<SpotDetail> select(int pageNo) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		List<SpotDetail> spots = new ArrayList<SpotDetail>();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.spotId");
+			query.setFirstResult((pageNo-1)*9+1);
+			query.setMaxResults(9);
+			for(Object o : query.list()) {
+				spots.add((SpotDetail)o);
+			}
+					
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spots;
+	}
+	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
-		SpotDetail spot = new SpotDetail();
+//		SpotDetail spot = new SpotDetail();
 		
 		// insert 
-		spot.setTempSpotId("EMP");
-		spot.setSpotName("Pizza");
-		spot.setCityId(1);
-		spot.setCategoryId(1);
-		spot.setSubcategoryId("RES");
+//		spot.setTempSpotId("EMP");
+//		spot.setSpotName("Pizza");
+//		spot.setCityId(1);
+//		spot.setCategoryId(1);
+//		spot.setSubcategoryId("RES");
+//		
+//		spot = dao.insert(spot);
+//		System.out.println("test : insert================================");
+//		SpotDetailDAOHibernate.printSpotInfo(spot);
 		
-		spot = dao.insert(spot);
-		System.out.println("test : insert================================");
-		SpotDetailDAOHibernate.printSpotInfo(spot);
-		
+		// select first 9 spots
+		List<SpotDetail> spots = dao.select(1);
+		for(SpotDetail spot : spots) {
+			SpotDetailDAOHibernate.printSpotInfo(spot);
+		}
 		// select 
 //		String spotId = spot.getSpotId();
 //		spot = dao.select(spotId);
 //		System.out.println("test : select================================");
 //		SpotDetailDAOHibernate.printSpotInfo(spot);
+		
 		
 		// update 
 //		spot.setAddress("Taipei City");
