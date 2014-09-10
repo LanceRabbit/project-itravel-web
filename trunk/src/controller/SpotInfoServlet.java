@@ -26,6 +26,9 @@ public class SpotInfoServlet extends HttpServlet {
     	String spotId = request.getParameter("id");
     	System.out.println("SpotId : " + spotId);
     	
+    	String sessionId = request.getSession().getId();
+    	System.out.println("sessionId : " + sessionId);
+    	
     	// get spot detail 
     	SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
     	SpotDetail spotDetail = dao.select(spotId);
