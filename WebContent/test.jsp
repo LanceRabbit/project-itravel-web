@@ -18,6 +18,12 @@
 	SpotDetail spot = spotDetailDAO.select("RES14090001");
 	
 	Set<SpotImg> images = spot.getSpotImgs();
+	
+	if(images == null) {
+		System.out.println("no image got from spot");
+		return;
+	}
+	
 	Iterator<SpotImg> it = images.iterator();
 	
 	out.println("<table>");
@@ -26,6 +32,11 @@
 		out.println("<tr>");
 		count++; 
 		SpotImg image = (SpotImg)it.next();
+		if(!((image != null) && (image.getSpotImg() != null))) {
+			System.out.println("no image");
+			continue;	
+		}
+		
 		ImageIOUtil.saveImage(count+".jpg", image.getSpotImg());
 		session.setAttribute("spot", image.getSpotDetail());
 %>
