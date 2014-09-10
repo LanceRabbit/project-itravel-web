@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 
 import model.Account;
 import model.SpotDetail;
@@ -103,7 +102,7 @@ public class SpotDetailDAOJdbc implements SpotDetailDAO {
 			if(rset.next()) {
 				spot = new SpotDetail();
 				spot.setSpotId(rset.getString("SPOT_ID"));
-				spot.setAccount(new Account(rset.getString("ACCOUNT_ID"), "user1@gmail.com", "", ""));
+				spot.setAccount(new Account(rset.getString("ACCOUNT_ID"), "dummy@gmail.com", null, null));
 				spot.setSpotName(rset.getString("SPOT_NAME"));
 				spot.setCityId(rset.getInt("CITY_ID"));
 				spot.setSubcategoryId(rset.getString("SUBCATEGORY_ID"));
@@ -148,7 +147,7 @@ public class SpotDetailDAOJdbc implements SpotDetailDAO {
 		spot.setCityId(1);
 		spot.setCategoryId(1);
 		spot.setSubcategoryId("SWT");
-		spot.setAccount(new Account("M14090001", "user1@gmail.com", "", ""));
+		spot.setAccount(new Account("M14090001", "dummy@gmail.com", null, null));
 		
 		SpotDetail spotResult = dao.insert(spot);
 		
