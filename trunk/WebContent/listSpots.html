@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>List Spots</title>
+</head>
+<body>
+<div id='div1'>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>!window.jQuery && document.write("<script src='js/jquery-1.11.1.min.js'><\/script>")</script>
+<script>
+//為了避免$與別的函式庫發生衝突的寫法
+(function($){
+	  //程式碼寫在這裡
+	  console.log("Request to list spots...");
+	  $.ajax({
+			 url:"SpotInfo.do",
+			 type:"post",
+			 contentType: "application/json; charset=utf-8",
+			 dataType:"json", //xml,text
+			 success:function(data){
+				 console.log("get data from server....");
+				 console.log(data);
+				 $.each(data,function(index,value){
+					 //value -> object
+					 $('#div1').append("<h2>" + value.spotName + "</h2>");
+				 })
+			 }
+			 
+		 })
+})(jQuery)
+</script>
+</body>
+</html>
