@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,9 +32,10 @@ public class SpotInfoServlet extends HttpServlet {
     	
     	// get spot detail 
     	SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
-    	SpotDetail spotDetail = dao.select(spotId);
+    	List<SpotDetail> spots = dao.select(1);
+    	//SpotDetail spotDetail = dao.select(spotId);
     
-    	session.setAttribute("spotDetail", spotDetail);
+    	session.setAttribute("spots", spots);
     	response.sendRedirect("printSpotInfo.jsp");
     }
     

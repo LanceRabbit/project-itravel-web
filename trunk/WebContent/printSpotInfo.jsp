@@ -8,16 +8,39 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div>
+
+<%
+	int i = 0;
+%>
 <c:set value='images' var='imgDir'/>
 <c:set value='/' var='dir'/>
-<c:set value='${imgDir}${dir}${spotDetail.spotId}${dir}${spotDetail.spotImgs.size()}' var='path'>
-</c:set>
+<c:set value='0' var='counter' />
 
-<img src='${path}'/>
-<br/>
-<h2>${spotDetail.spotName}</h2>
+<c:forEach var='spot' items='${spots}'>
+	<c:set value='${imgDir}${dir}${spot.spotId}${dir}${spot.spotImgs.size()}' var='path'/>
+	
+	<!--  
+	<c:catch var='e'>
+    	<c:import url='${path}' />
+	</c:catch>
+	<c:if test='${!empty e}'>
+		<c:set value='dummy' var='dummy' />
+	    <c:set value='${imgDir}${dir}${dummy}' var='path'/>
+	</c:if>
+	-->
+	<div>
+		<img src='${path}'/>
+		<br/>
+		<h2>${spot.spotName}</h2>
+	</div>	
+	<%
+		i++;
+		if(i%3 == 0)
+			out.println("<br/>");
+	%>
+</c:forEach>
 
-</div>
+
+
 </body>
 </html>

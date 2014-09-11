@@ -157,11 +157,12 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 
 	public static void main(String[] args) {
 		SpotImgDAOHibernate dao = new SpotImgDAOHibernate();
+		String spotId = "RES14090008";
 		
 		for(int i=0; i<3; i++) {
 			SpotImg spotImg = new SpotImg();
-			spotImg.setSpotId("RES14090001");
-			spotImg.setSpotImg(ImageIOUtil.getImageByFilename("taipei_"+(i+1)+".jpg"));
+			spotImg.setSpotId(spotId);
+			spotImg.setSpotImg(ImageIOUtil.getImageByFilename(spotId+"_"+(i+1)));
 			spotImg.setImgOrder(i+1);
 			spotImg.setTempImgId("DUMMY");
 			
@@ -169,18 +170,16 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 		}
 		
 		SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
-		SpotDetail spot = spotDetailDAO.select("RES14090001");
+		SpotDetail spot = spotDetailDAO.select(spotId);
 		
 		Set<SpotImg> images = spot.getSpotImgs();
 		Iterator<SpotImg> it = images.iterator();
 		
-		int count = 0;
 		while(it.hasNext()) {
-			count++; 
 			SpotImg image = (SpotImg)it.next();
-			ImageIOUtil.saveImage(count+".jpg", image.getSpotImg());
+			ImageIOUtil.saveImage(spotId, image.getImgId(), image.getSpotImg());
 		}
 		
-		dao.deleteBySpotId("RES14090001");
+		//dao.deleteBySpotId("RES14090001");
 	}
 }
