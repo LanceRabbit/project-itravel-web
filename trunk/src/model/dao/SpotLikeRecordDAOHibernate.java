@@ -1,7 +1,9 @@
 package model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import model.BlacklistRecord;
 import model.SpotDetail;
 import model.SpotLikeRecord;
 import model.SpotLikeRecordDAO;
@@ -24,13 +26,13 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		
 		//test: insert 
 		//測試新增須先檢查DB內有沒有重複值
-		/*
-		spotRec.setAccountId("M14090001");
-		spotRec.setSpotId("RES14090010");
+		
+		spotRec.setAccountId("M14090002");
+		spotRec.setSpotId("RES14090002");
 		spot = new SpotLikeRecord(spotRec);
 		spot = dao.insert(spot);
 		System.out.println(spot);
-		*/
+		
 		
 		//test: delet
 		//測試刪除須先檢查DB內有無資料
@@ -42,14 +44,16 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		*/
 		
 		//test: select by accountId + spotId
-		//spotRec.setAccountId("M14090003");
-		//spotRec.setSpotId("RES14090002");
-		//spot.setId(spotRec);
-		//System.out.println(spot.getId());
+		//測試有沒有這筆使用者的按讚資料
+//		spotRec.setAccountId("M14090001");
+//		spotRec.setSpotId("RES14090001");
+//		spot = new SpotLikeRecord(spotRec);
+//		spot = dao.select(spot);
+//		System.out.println(spot);
 		
 		//test: select by account id
-		String accountId = "M14090002";
-		dao.select(accountId);
+//		String accountId = "M14090002";
+//		dao.select(accountId);
 		
 		
 	}
@@ -97,18 +101,16 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		return 0;
 	}
 
-	public SpotLikeRecord select(SpotLikeRecord spotid) {
+	public SpotLikeRecord select(SpotLikeRecord spotRec) {
 		
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
-		
+		SpotLikeRecord result = null;		
 		
 		try {
-			tx = session.beginTransaction();
-			
-			spotid = (SpotLikeRecord) session.get(SpotLikeRecord.class,spotid);
-			
+			tx = session.beginTransaction();			
+			result =(SpotLikeRecord) session.get(SpotLikeRecord.class, spotRec.getId());
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
@@ -119,7 +121,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		}
 		
 		
-		return spotid;
+		return result;
 	}
 
 	//下HQL的select

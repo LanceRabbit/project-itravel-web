@@ -1,6 +1,6 @@
 package model;
 
-// Generated 2014/9/2 �U�� 08:47:27 by Hibernate Tools 4.0.0
+// Generated 2014/9/11 �U�� 09:48:57 by Hibernate Tools 4.0.0
 
 import java.util.Date;
 
@@ -9,9 +9,9 @@ import java.util.Date;
  */
 public class SpotCommentRecord implements java.io.Serializable {
 
-	private SpotCommentRecordId id;
-	private Account account;
-	private SpotDetail spotDetail;
+	private String commentId;
+	private String accountId;
+	private String spotId;
 	private String comment;
 	private Date cmtDt;
 	private String tempCommentId;
@@ -19,39 +19,38 @@ public class SpotCommentRecord implements java.io.Serializable {
 	public SpotCommentRecord() {
 	}
 
-	public SpotCommentRecord(SpotCommentRecordId id, Account account,
-			SpotDetail spotDetail, String comment, Date cmtDt,
-			String tempCommentId) {
-		this.id = id;
-		this.account = account;
-		this.spotDetail = spotDetail;
+	public SpotCommentRecord(String commentId, String accountId, String spotId,
+			String comment, Date cmtDt, String tempCommentId) {
+		this.commentId = commentId;
+		this.accountId = accountId;
+		this.spotId = spotId;
 		this.comment = comment;
 		this.cmtDt = cmtDt;
 		this.tempCommentId = tempCommentId;
 	}
 
-	public SpotCommentRecordId getId() {
-		return this.id;
+	public String getCommentId() {
+		return this.commentId;
 	}
 
-	public void setId(SpotCommentRecordId id) {
-		this.id = id;
+	public void setCommentId(String commentId) {
+		this.commentId = commentId;
 	}
 
-	public Account getAccount() {
-		return this.account;
+	public String getAccountId() {
+		return this.accountId;
 	}
 
-	public void setAccount(Account account) {
-		this.account = account;
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
 
-	public SpotDetail getSpotDetail() {
-		return this.spotDetail;
+	public String getSpotId() {
+		return this.spotId;
 	}
 
-	public void setSpotDetail(SpotDetail spotDetail) {
-		this.spotDetail = spotDetail;
+	public void setSpotId(String spotId) {
+		this.spotId = spotId;
 	}
 
 	public String getComment() {

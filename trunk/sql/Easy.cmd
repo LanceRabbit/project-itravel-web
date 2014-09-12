@@ -1,17 +1,18 @@
 sqlcmd -E -i DB.sql
 
 sqlcmd -E -i Scripts/Account.sql
-sqlcmd -E -i Scripts/AD.sql
+
 sqlcmd -E -i Scripts/BlacklistRecord.sql
 sqlcmd -E -i Scripts/CodeList.sql
 sqlcmd -E -i Scripts/SerNoLength.sql
-sqlcmd -E -i Scripts/Coupons.sql
 sqlcmd -E -i Scripts/SpotDetail.sql
 sqlcmd -E -i Scripts/SpotImg.sql
 sqlcmd -E -i Scripts/SpotLikeRecord.sql
 sqlcmd -E -i Scripts/SpotCollectRecord.sql
 sqlcmd -E -i Scripts/SpotCommentRecord.sql
 sqlcmd -E -i Scripts/SpotOwner.sql
+sqlcmd -E -i Scripts/AD.sql
+sqlcmd -E -i Scripts/Coupons.sql
 sqlcmd -E -i Scripts/Trip.sql
 sqlcmd -E -i Scripts/TripCollectRecord.sql
 sqlcmd -E -i Scripts/TripDetail.sql
