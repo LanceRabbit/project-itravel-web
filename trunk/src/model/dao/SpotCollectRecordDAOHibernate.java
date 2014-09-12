@@ -110,7 +110,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		return spotColRec;
 	}
 
-	// 下HQL的select
+	
 	public void select(String accountId) {
 
 		sessionFactory = HibernateUtil.getSessionFactory();
