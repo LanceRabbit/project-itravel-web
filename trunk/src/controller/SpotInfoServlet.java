@@ -63,8 +63,8 @@ public class SpotInfoServlet extends HttpServlet {
 					 SpotImg img = it.next();
 					 String imgId = img.getImgId();
 					 String path = spot.getSpotId();
-					 ImageIOUtil.saveImage(path, imgId, img.getSpotImg());
-					 jsonSpot.put("spotThumbnailURL", DIR_PATH+path+"/"+imgId);
+					 ImageIOUtil.saveImage(path, imgId+".jpg", img.getSpotImg());
+					 jsonSpot.put("spotThumbnailURL", "images/"+path+"/"+imgId+".jpg");
 				 }
 
 				 jsonSpots.put(jsonSpot);       		
