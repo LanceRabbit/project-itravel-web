@@ -21,31 +21,38 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		TripLikeRecordDAO dao = new TripLikeRecordDAOHibernate();
 		TripLikeRecordId tripRec = new TripLikeRecordId();
 		TripLikeRecord trip = null;
-//尚未測試
+
 		
 		
 		// test: insert
 		// 測試新增須先檢查DB內有沒有重複值
 		
-		tripRec.setAccountId("");
-		tripRec.setTripId("");
+		tripRec.setAccountId("M14090001");
+		tripRec.setTripId("T14090003");
 		trip = new TripLikeRecord(tripRec);
 		trip = dao.insert(trip);
-		System.out.println(trip);
+		System.out.println("已新增 ="+trip);
 
 		// test: delet
 		// 測試刪除須先檢查DB內有無資料
 		
-		tripRec.setAccountId(""); 
-		tripRec.setTripId("");
-		trip = new TripLikeRecord(tripRec); dao.delete(trip);
+//		tripRec.setAccountId("M14090001"); 
+//		tripRec.setTripId("T14090003");
+//		trip = new TripLikeRecord(tripRec); 
+//		dao.delete(trip);
 		 
 
 		// test: select by accountId + tripId
-		// tripRec.setAccountId("");
-		// tripRec.setSpotId("");
-		// trip.setId(tripRec);
-		// System.out.println(trip.getId());
+		//測試有沒有這筆使用者的按讚資料
+//		 tripRec.setAccountId("M14090001");
+//		 tripRec.setTripId("T14090003");
+//		 trip= new TripLikeRecord(tripRec);
+//		 dao.select(trip);
+//		 System.out.println(trip);
+		
+		//test: select by account id
+//		String accountId = "M14090001";
+//		dao.select(accountId);
 
 	}
 
@@ -101,7 +108,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 			tx = session.beginTransaction();
 
 			TripRec = (TripLikeRecord) session.get(TripLikeRecord.class,
-					TripRec);
+					TripRec.getId());
 
 			tx.commit();
 		} catch (HibernateException e) {

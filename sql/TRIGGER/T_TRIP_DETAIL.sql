@@ -79,7 +79,7 @@ BEGIN
 							 TRIP_DESCRIPTION,
 							 STAY_TIME,
 							 SPOT_ID,
-							 IMG_ID,
+							 
 							 SPOT_ORDER,
 							 TEMP_TRIP_DETAIL_ID
 							 )
@@ -89,7 +89,7 @@ BEGIN
 							INSERTED.TRIP_DESCRIPTION,
 							INSERTED.STAY_TIME, 
 							INSERTED.SPOT_ID,
-							INSERTED.IMG_ID,
+							
 							INSERTED.SPOT_ORDER,
 							INSERTED.TEMP_TRIP_DETAIL_ID
 					FROM INSERTED	
