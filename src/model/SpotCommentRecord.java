@@ -77,4 +77,11 @@ public class SpotCommentRecord implements java.io.Serializable {
 		this.tempCommentId = tempCommentId;
 	}
 
+	@Override
+	public String toString() {
+		
+		return " [commentId: "+commentId+",comment: "+comment+"]";
+	}
+
+	
 }
