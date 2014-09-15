@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Add a Spot</title>
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.css" />  -->
+<!-- Optional theme -->
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.css" />  -->
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.css" />
+
+<style>
+.itravel-block{
+	display: inline-block;
+	border: 1px dotted #4F4F4F;
+	padding: 10px;
+	margin-left: auto;
+    margin-right: auto;
+	/*margin: 5px 5px 5px 0;*/
+	overflow:hidden;
+	/*width:49%;*/
+}
+</style>
+</head>
+<body>
+
+<!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+  <span class="glyphicon glyphicon-plus"></span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">新增景點</h4>
+      </div>
+      <div class="modal-body">
+        <!-- Nav tabs -->
+	  	<ul class="nav nav-tabs" role="tablist">
+			<li class="active"><a href="#add" role="tab"
+				data-toggle="tab">Add</a></li>
+			<li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
+			<li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
+			<li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+		</ul>
+		
+		<!-- Tab panes -->
+		<div class="tab-content">
+		  <div class="tab-pane active container-fluid" id="add">
+		  	<!-- <form class="fileupload" action="filehandler" method="POST" enctype="multipart/form-data">  -->
+		  	<form id="newSpot" action="SpotInfo.do" method="POST">
+			  	<div class="row">
+				  <div class="col-md-6 itravel-block" id="uploadImg">
+				  	<span class="glyphicon glyphicon-picture"></span>
+				  	<input type="file" name="files[]" multiple>
+				  </div>
+				  <div class="col-md-6 itravel-block">.col-md-6</div>
+				</div>
+				<div class="row">
+				  <div class="col-md-6 itravel-block">.col-md-6</div>
+				  <div class="col-md-6 itravel-block">.col-md-6</div>
+				</div>
+			</form>
+		  </div>
+		  <div class="tab-pane" id="profile" >
+		  	<div class="itravel-block">block1</div>
+		  	<div class="itravel-block">block2</div>
+		  	<div class="itravel-block">block3</div>
+		  	<div class="itravel-block">block4</div>
+		  </div>
+		  <div class="tab-pane" id="messages">
+		  	<div class="itravel-block">block1</div>
+		  	<div class="itravel-block">block2</div>
+		  	<div class="itravel-block">block3</div>
+		  	<div class="itravel-block">block4</div>	
+		  </div>
+		  <div class="tab-pane" id="settings">...</div>
+		</div>
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
+        <button id="saveBtn" type="button" class="btn btn-primary">儲存</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+<script>!window.jQuery && document.write("<script src='Scripts/jquery-1.11.1.min.js'><\/script>")</script>
+<script src="js/bootstrap.js"></script>
+
+<script>
+(function($){
+	$("#saveBtn").click(function(){
+		console.log("saveBtn pressed.....");
+	});
+	
+	$("#uploadImg").click(function(){
+		console.log("uploadImg pressed....");
+		//$("#newSpot").submit();
+	});
+	
+	$('.fileupload').fileupload({
+        dataType: 'json',
+        add: function (e, data) {
+        	console.log(data);
+        	$("#dispalyArea_1").append('<img src="' + URL.createObjectURL(data.files[0]) + '"/>');
+            data.context = $('<button/>').text('Upload')
+                .appendTo(document.body)
+                .click(function () {
+                    data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                    data.submit();
+                });
+        },
+        done: function (e, data) {
+            data.context.text('Upload finished.');
+        }
+    });
+})(jQuery)
+
+</script>
+</body>
+</html>
