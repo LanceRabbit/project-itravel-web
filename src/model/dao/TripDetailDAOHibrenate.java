@@ -11,13 +11,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import model.SpotDetail;
-import model.SpotImg;
-import model.SpotOwner;
 import model.Trip;
 import model.TripDetail;
 import model.TripDetailDAO;
 import model.util.HibernateUtil;
-import model.util.ImageIOUtil;
 
 public class TripDetailDAOHibrenate implements TripDetailDAO {
 	private SessionFactory sessionFactory = null;
@@ -139,12 +136,9 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		TripDetailDAOHibrenate dao = new TripDetailDAOHibrenate();
 
 		TripDetail tripDetail = new TripDetail();
-		SpotImg img = new SpotImg();
-		img.setImgId("I140900026");
-		tripDetail.setSpotImg(img);
 
 		SpotDetail spotDetail = new SpotDetail();
-		spotDetail.setSpotId("RES14090001");
+		spotDetail.setSpotId("RES14090008");
 		tripDetail.setSpotDetail(spotDetail);
 
 		Trip trip = new Trip();

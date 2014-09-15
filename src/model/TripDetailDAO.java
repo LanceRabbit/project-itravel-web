@@ -8,5 +8,5 @@ public interface TripDetailDAO {
 	public abstract int delete(TripDetail tripDetail);
 	public abstract TripDetail update(TripDetail tripDetail);
 	public abstract TripDetail selectById(String id);
-	public abstract List<TripDetail> selectAll();
+	public abstract List<TripDetail> selectAll(String id);
 }

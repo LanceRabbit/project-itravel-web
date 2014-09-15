@@ -3,37 +3,49 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-           	<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="hibernate.connection.password">passw0rd</property>
-        <property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;database=iiiTravel</property>
-        <property name="hibernate.connection.username">sa</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
-        
-        <property name="hibernate.current_session_context_class">thread</property>
-        <property name="show_sql">true</property> 
-        
-        
-        <mapping resource="model/Ad.hbm.xml" />
-        <mapping resource="model/Account.hbm.xml" />
-        <mapping resource="model/BlacklistRecord.hbm.xml" />
-        <mapping resource="model/Coupons.hbm.xml"/>
-        <mapping resource="model/SpotCollectRecord.hbm.xml"/>
-        <mapping resource="model/SpotCommentRecord.hbm.xml"/>        
-        <mapping resource="model/SpotDetail.hbm.xml"/>
-        <mapping resource="model/SpotImg.hbm.xml"/>
-        <mapping resource="model/SpotLikeRecord.hbm.xml"/>
-        <mapping resource="model/SpotOwner.hbm.xml"/>
-        <mapping resource="model/Trip.hbm.xml"/>
-        <mapping resource="model/TripCollectRecord.hbm.xml"/>
-        <mapping resource="model/TripDetail.hbm.xml"/>
-        <mapping resource="model/TripLikeRecord.hbm.xml"/>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+		<property name="hibernate.connection.password">passw0rd</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;database=iiiTravel</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
 
+		<property name="hibernate.current_session_context_class">thread</property>
+		<property name="show_sql">true</property>
         
         
-        
-        
-        
-        
-    </session-factory>
+		<mapping class="model.Account" />
+		<mapping class="model.Ad" />
+		<mapping class="model.BlacklistRecord" />
+		<mapping class="model.BlacklistRecordId" />
+		<mapping class="model.Coupons" />
+		<mapping class="model.SpotCollectRecord" />
+		<mapping class="model.SpotCollectRecordId" />
+		<mapping class="model.SpotCommentRecord" />
+		<mapping class="model.SpotLikeRecord" />
+		<mapping class="model.SpotLikeRecordId" />
+		<mapping class="model.SpotDetail" />
+		<mapping class="model.SpotOwner" />
+		<mapping class="model.SpotImg" />
+		<mapping class="model.Trip" />
+		<mapping class="model.TripDetail" />
+		<mapping class="model.TripCollectRecord" />
+		<mapping class="model.TripCollectRecordId" />
+		<mapping class="model.TripLikeRecord" />
+		<mapping class="model.TripLikeRecordId" />
+
+		<mapping class="model.dao.AccountDAOHibernate" />
+		<mapping class="model.dao.AdDAOHibernate" />
+		<mapping class="model.dao.BlacklistRecordDAOHibernate" />
+		<mapping class="model.dao.CouponsDAOHibernate" />
+		<mapping class="model.dao.SpotCollectRecordDAOHibernate" />
+		<mapping class="model.dao.SpotDetailDAOHibernate" />
+		<mapping class="model.dao.SpotImgDAOHibernate" />
+		<mapping class="model.dao.SpotLikeRecordDAOHibernate" />
+		<mapping class="model.dao.SpotOwnerDAOHibernate" />
+		<mapping class="model.dao.TripCollectRecordDAOHibernate" />
+		<mapping class="model.dao.TripDAOHibernate" />
+		<mapping class="model.dao.TripDetailDAOHibrenate" />
+		<mapping class="model.dao.TripLikeRecordDAOHibernate" />
+	</session-factory>
 </hibernate-configuration>
