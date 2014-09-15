@@ -55,32 +55,32 @@ public class SpotCommServlet extends HttpServlet {
 		
 		System.out.println(comm);
 		
-		/*
+		
 		try {
 			for (SpotCommentRecord spotcomm : comm) {
-				JSONObject jsonSpot = new JSONObject();
-				jsonSpot.put("userId", spotcomm.getAccountId());
-				jsonSpot.put("spotId", spotcomm.getSpotId());
-				jsonSpot.put("comId", spotcomm.getCommentId());
-				jsonSpot.put("txt", spotcomm.getComment());
-				// String userId = spotcomm.getAccountId();
-				// String spotId = spotcomm.getSpotId();
-				// String comId = spotcomm.getCommentId();
-				// String txt = spotcomm.getComment();
-				// System.out.println(userId+":"+ spotId +":"+comId+":"+txt);
-				jsonSpots.put(jsonSpot);
+//				JSONObject jsonSpot = new JSONObject();
+//				jsonSpot.put("userId", spotcomm.getAccountId());
+//				jsonSpot.put("spotId", spotcomm.getSpotId());
+//				jsonSpot.put("comId", spotcomm.getCommentId());
+//				jsonSpot.put("txt", spotcomm.getComment());
+				 String userId = spotcomm.getAccountId();
+				 String spotId = spotcomm.getSpotId();
+				 String comId = spotcomm.getCommentId();
+				 String txt = spotcomm.getComment();
+				 System.out.println(userId+":"+ spotId +":"+comId+":"+txt);
+//				jsonSpots.put(jsonSpot);
 
 			}
-			System.out.println(jsonSpots.toString());
+//			System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
-			os.write(jsonSpots.toString().getBytes("UTF-8"));
+//			os.write(jsonSpots.toString().getBytes("UTF-8"));
 			// writer.write(jsonSpots.toString());
-		} catch (JSONException e) {
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
-		 */
+		 
 	}
 
 	protected void doPost(HttpServletRequest request,
