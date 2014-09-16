@@ -54,11 +54,12 @@
 	display:none;
 }
 
-.scrollable-menu {
+.scrollable {
     height: auto;
     max-height: 150px;
     overflow-x: hidden;
 }
+
 </style>
 </head>
 <body>
@@ -120,7 +121,7 @@
 			<div class="row">
 				  <div class="col-md-6 itravel-block">
 				  		<div class="dropdown itravel-block-div">
-				  			
+				  			<div class="scrollable">
 				  			<form>	
 				  				<!-- 縣市 -->	
 								<span class="label label-primary">縣市</span>
@@ -129,7 +130,7 @@
 						                            	<span id="cityId">選擇</span>
 						          						<span class="caret"></span>
 						        	</a>
-							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        <ul class="dropdown-menu scrollable" role="menu">
 							        </ul>
 						      	</div> <!-- <div class="btn-group"> -->
 								<!-- 分類 -->
@@ -139,7 +140,7 @@
 						                            	<span id="categoryId">選擇</span>
 						          						<span class="caret"></span>
 						        	</a>
-							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        <ul class="dropdown-menu scrollable" role="menu">
 							        </ul>
 						      	</div> <!-- <div class="btn-group"> -->
 						      	
@@ -150,10 +151,26 @@
 						                            	<span id="subcategoryId">選擇</span>
 						          						<span class="caret"></span>
 						        	</a>
-							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        <ul class="dropdown-menu scrollable" role="menu">
 							        </ul>
 						      	</div> <!-- <div class="btn-group"> -->
+						      	<br/>
+						      	
+						      	<!-- 名稱 -->
+						      	<!-- 分店負責人 -->
+						      	<!-- 地址 -->
+						      	<!-- 電話 -->
+						      	<!-- 簡介 -->
+						      	<!-- 經緯度 -->
 							</form>
+							
+							DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>
+							DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>
+							DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>
+							DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>
+							DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>DUMMY<br/>
+							</div> <!-- <div class="scrollable"> -->
+							
 						</div>
 				  </div>
 				  <div class="col-md-6 itravel-block"></div>
@@ -310,7 +327,7 @@
 	$("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
 		console.log($(this).text());
 		$("#subcategoryId").text($(this).text());
-		$("#subcategoryIdMenu .scrollable-menu").hide();
+		$("#subcategoryIdMenu .scrollable").hide();
 	}) 
 })(jQuery)
 
