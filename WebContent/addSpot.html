@@ -53,6 +53,12 @@
 .hidden-element {
 	display:none;
 }
+
+.scrollable-menu {
+    height: auto;
+    max-height: 150px;
+    overflow-x: hidden;
+}
 </style>
 </head>
 <body>
@@ -107,16 +113,49 @@
 							<div class="itravel-block-div" id="imagePreview_zone_5">	
 							</div>
 						</div>
-						<!--  
-						<div class="itravel-block-div" id="imagePreview_zone_2">	
-						</div>
-						-->
 					</div> <!-- <div class="row"> -->		
 				</div>
 			</div>
 			
 			<div class="row">
-				  <div class="col-md-6 itravel-block">.col-md-6</div>
+				  <div class="col-md-6 itravel-block">
+				  		<div class="dropdown itravel-block-div">
+				  			
+				  			<form>	
+				  				<!-- 縣市 -->	
+								<span class="label label-primary">縣市</span>
+						  		<div class="btn-group" id="cityIdMenu">
+						        	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						                            	<span id="cityId">選擇</span>
+						          						<span class="caret"></span>
+						        	</a>
+							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        </ul>
+						      	</div> <!-- <div class="btn-group"> -->
+								<!-- 分類 -->
+								<span class="label label-primary">分類</span>
+						  		<div class="btn-group" id="categoryIdMenu">
+						        	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						                            	<span id="categoryId">選擇</span>
+						          						<span class="caret"></span>
+						        	</a>
+							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        </ul>
+						      	</div> <!-- <div class="btn-group"> -->
+						      	
+						      	<!-- 小分類 -->
+								<span class="label label-primary">小分類</span>
+						  		<div class="btn-group" id="subcategoryIdMenu">
+						        	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+						                            	<span id="subcategoryId">選擇</span>
+						          						<span class="caret"></span>
+						        	</a>
+							        <ul class="dropdown-menu scrollable-menu" role="menu">
+							        </ul>
+						      	</div> <!-- <div class="btn-group"> -->
+							</form>
+						</div>
+				  </div>
 				  <div class="col-md-6 itravel-block"></div>
 			</div>	  
 	  </div> <!-- <div class="modal-body"> -->
@@ -204,6 +243,75 @@
 		console.log("saveBtn pressed.....");
 	});
 	
+	
+	// populate city ids
+	var cities = ["基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投", "雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼", "澎湖", "金門", "馬祖"];
+	$.each(cities, function(index, value){
+		//console.log(value);
+		if(value == 'dummy')
+			$("#cityIdMenu ul:first").append("<li class='divider'></li>");
+		else
+			$("#cityIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+	});
+	
+	$('#cityIdMenu').on('show.bs.dropdown', function () {
+		$("#cityIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		$("#cityIdMenu .dropdown-menu").hide();
+	});
+	
+	$("#cityIdMenu .dropdown-menu li").click(function(){
+		//console.log($(this).index());
+		$("#cityId").text($(this).text());
+		$("#cityIdMenu .dropdown-menu").hide();
+	}) 
+	
+	// populate category
+	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
+	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
+	                  {"type":"住宿", "subtype":["飯店", "旅舍", "民宿", "營地", "其他"]},
+	                  {"type":"景點", "subtype":["風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
+	                  {"type":"活動", "subtype":["藝文展覽", "親子活動", "競賽活動", "其他"]}];
+	
+	$.each(categories, function(index, value){
+		var type = value.type;
+		$("#categoryIdMenu ul:first").append("<li><a href='#'>"+type+"</a></li>");
+	});
+	
+	$('#categoryIdMenu').on('show.bs.dropdown', function () {
+		$("#categoryIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		$("#categoryIdMenu .dropdown-menu").hide();
+	});
+	
+	$("#categoryIdMenu .dropdown-menu li").click(function(){
+		console.log($(this).index());
+		$("#categoryId").text($(this).text());
+		$("#categoryIdMenu .dropdown-menu").hide();
+		
+		// populate subcategory
+		var subcategories = categories[$(this).index()].subtype;
+		//console.log(subcategories);
+		$("#subcategoryId").text("選擇");
+		$("#subcategoryIdMenu ul:first").empty();
+		$.each(subcategories, function(index, value){
+			$("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		});
+	})
+	
+	// subcategory
+	
+	$('#subcategoryIdMenu').on('show.bs.dropdown', function () {
+		$("#subcategoryIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		$("#subcategoryIdMenu .dropdown-menu").hide();
+	});
+	
+	$("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
+		console.log($(this).text());
+		$("#subcategoryId").text($(this).text());
+		$("#subcategoryIdMenu .scrollable-menu").hide();
+	}) 
 })(jQuery)
 
 </script>
