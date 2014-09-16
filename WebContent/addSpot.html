@@ -27,13 +27,29 @@
 	border: 1px dotted #4B4B4B;
 	padding:3px;
 	width:100%;
-	height:100%
+	height:200px
 }
 
 .itravel-block-div-content {
-	margin-left:50%;
+	display:block;
+	margin-left: auto;
+    margin-right: auto;
 }
 
+
+.itravel-block-div-thumbnails{
+	display: inline-block;
+	border: 1px dotted #4B4B4B;
+	padding:1px;
+	width:50%;
+	height:100px
+}
+
+.itravel-block-div-content-thumbnails {
+	display:block;
+	margin-left: auto;
+    margin-right: auto;
+}
 .hidden-element {
 	display:none;
 }
@@ -70,7 +86,33 @@
 					
 					
 				</div> <!-- <div class="col-md-6 itravel-block">  -->	
-				<div class="col-md-6 itravel-block">.col-md-6</div>
+				<div class="col-md-6 itravel-block">
+					<div class="row">
+						<div class="col-md-6 itravel-block-div-thumbnails">
+							<div class="itravel-block-div" id="imagePreview_zone_2">	
+							</div>
+						</div>
+						<div class="col-md-6 itravel-block-div-thumbnails">
+							<div class="itravel-block-div" id="imagePreview_zone_3">	
+							</div>
+						</div>
+
+					</div> <!-- <div class="row"> -->
+					<div class="row">
+						<div class="col-md-6 itravel-block-div-thumbnails">
+							<div class="itravel-block-div" id="imagePreview_zone_4">	
+							</div>
+						</div>
+						<div class="col-md-6 itravel-block-div-thumbnails">
+							<div class="itravel-block-div" id="imagePreview_zone_5">	
+							</div>
+						</div>
+						<!--  
+						<div class="itravel-block-div" id="imagePreview_zone_2">	
+						</div>
+						-->
+					</div> <!-- <div class="row"> -->		
+				</div>
 			</div>
 			
 			<div class="row">
@@ -95,7 +137,9 @@
 
 <script>
 (function($){
-	var count = 1;
+	var index = 1;
+	
+	
 	// Get the template HTML and remove it from the doument
 	var previewNode = document.querySelector("#template_1");
 	previewNode.id = "";
@@ -105,9 +149,9 @@
 	var myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
 	  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
 	  url: "filehandler",
-	  thumbnailWidth: 200,
-	  thumbnailHeight: 200,
-	  parallelUploads: 20,
+	  //thumbnailWidth: 300,
+	  //thumbnailHeight: 200,
+	  parallelUploads: 5,
 	  previewTemplate: previewTemplate,
 	  
 	  
@@ -125,16 +169,31 @@
 
 	myDropzone.on("thumbnail", function(file, dataUrl){
 		console.log("thumbnail...");
+		var height, width, className;
+		
+		if(index != 1) {
+			height = '95px';
+			width = '150px';
+			className = 'itravel-block-div-content-thumbnails';
+		} else {
+			height = '190px';
+			width = '300px';
+			className = 'itravel-block-div-content';
+		}
 		
 		var oImg=document.createElement("img");
 	  	oImg.setAttribute('src', dataUrl);
-	  	oImg.setAttribute('alt', 'na');
-	  	oImg.setAttribute('height', '150px');
-	  	oImg.setAttribute('width', '150px');
+	  	oImg.setAttribute('height', height);
+	  	oImg.setAttribute('width', width);
+	  	oImg.setAttribute("class", className);
 	  	
-	  	$("#imagePreview_zone_1 .itravel-block-div-content").hide();
-	  	//$("#imagePreview_zone_1").appendChild(oImg);
-	  	document.getElementById("imagePreview_zone_1").appendChild(oImg);
+	  	// hide
+	  	//$("#fileinputBtn").hide();	  	
+	  	document.getElementById("imagePreview_zone_" + index).appendChild(oImg);
+	  	
+	  	// move and then show
+	  	index++; console.log("index : " + index);
+	  	$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + index);
 	});
 
 	myDropzone.on("queuecomplete", function(progress) {
