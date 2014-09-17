@@ -12,48 +12,55 @@
 <link rel="stylesheet" href="css/dropzone.css" />
 
 <style>
-.itravel-block{
+.itravel-block-frame{
 	display: inline-block;
-	border: 1px dotted #4F4F4F;
+	/*border: 1px dotted #4F4F4F;*/
 	padding: 10px;
 	
 	margin:auto;
-	/*
-	margin-left: auto;
-    margin-right: auto;*/
-	/*margin: 5px 5px 5px 0;*/
 	overflow:hidden;
-	/*width:49%;*/
 }
 
-.itravel-block-div{
+.itravel-block-1-pic{
 	display: inline-block;
-	border: 1px dotted #4B4B4B;
+	/*border: 1px dotted #4F4F4F;*/
 	padding:3px;
+	
+	margin:auto;
 	width:100%;
-	height:200px
+	height:220px;
+	
+	/*
+	background-image: url(images/thumbnail_128.png);
+	background-repeat: no-repeat;
+	opacity: 0.5;
+	background-size: 100%;
+	*/
 }
 
-.itravel-block-div-content {
-	display:block;
-	margin-left: auto;
-    margin-right: auto;
-}
 
-
-.itravel-block-div-thumbnails{
+.itravel-block-1-thumbnail{
 	display: inline-block;
-	border: 1px dotted #4B4B4B;
-	padding:1px;
-	width:50%;
+	/*border: 1px dotted #4F4F4F;*/
+	padding-top:3px;
+	padding-bottom:3px;
+	margin-left:5px;
+	width:48%;
 	height:100px
 }
 
-.itravel-block-div-content-thumbnails {
+.itravel-block-1-thumbnail-content {
 	display:block;
 	margin-left: auto;
     margin-right: auto;
 }
+
+.itravel-block-1-pic-content{
+	display:block;
+	margin-left: auto;
+    margin-right: auto;
+}
+
 .hidden-element {
 	display:none;
 }
@@ -62,6 +69,7 @@
     height: auto;
     max-height: 150px;
     overflow-x: hidden;
+    overflow-y:auto
 }
 
 </style>
@@ -88,12 +96,11 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-6 itravel-block">
+						<div class="col-md-6 itravel-block-frame">
 
-							<div class="itravel-block-div" id="imagePreview_zone_1">
-								<!--  <span class="btn btn-success fileinput-button" id="fileinputBtn"></span> -->
+							<div class="itravel-block-1-pic well" id="imagePreview_zone_1">
 								<span
-									class="glyphicon glyphicon-picture itravel-block-div-content fileinput-button"
+									class="glyphicon glyphicon-picture itravel-block-1-pic-content fileinput-button"
 									id="fileinputBtn"></span>
 							</div>
 							<div id="previews_zone_1">
@@ -102,29 +109,29 @@
 							</div>
 							<!-- <div id="previews_zone_1"> -->
 
-
 						</div>
 						<!-- <div class="col-md-6 itravel-block">  -->
-						<div class="col-md-6 itravel-block">
+						
+						<div class="col-md-6 itravel-block-frame">
 							<div class="row">
-								<div class="col-md-6 itravel-block-div-thumbnails">
-									<div class="itravel-block-div" id="imagePreview_zone_2">
+								<div class="col-md-6 itravel-block-1-thumbnail well">
+									<div id="imagePreview_zone_2">
 									</div>
 								</div>
-								<div class="col-md-6 itravel-block-div-thumbnails">
-									<div class="itravel-block-div" id="imagePreview_zone_3">
+								<div class="col-md-6 itravel-block-1-thumbnail well">
+									<div id="imagePreview_zone_3">
 									</div>
 								</div>
 
 							</div>
 							<!-- <div class="row"> -->
 							<div class="row">
-								<div class="col-md-6 itravel-block-div-thumbnails">
-									<div class="itravel-block-div" id="imagePreview_zone_4">
+								<div class="col-md-6 itravel-block-1-thumbnail well">
+									<div id="imagePreview_zone_4">
 									</div>
 								</div>
-								<div class="col-md-6 itravel-block-div-thumbnails">
-									<div class="itravel-block-div" id="imagePreview_zone_5">
+								<div class="col-md-6 itravel-block-1-thumbnail well">
+									<div id="imagePreview_zone_5">
 									</div>
 								</div>
 							</div>
@@ -133,7 +140,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-md-6 itravel-block">
+						<div class="col-md-6 itravel-block-frame">
 							<div class="well well-md">
 								<form class="form-horizontal" method="post">
 									<fieldset>
@@ -267,8 +274,8 @@
 								</form>
 							</div>
 						</div>
-						<div class="col-md-6 itravel-block">
-							<div class="itravel-block-div" id="map-container"></div>
+						<div class="col-md-6 itravel-block-frame">
+							<div class="itravel-block-1-pic" id="map-container"></div>
 						</div>
 					</div>
 				</div>
@@ -328,11 +335,11 @@
 		if(index != 1) {
 			height = '95px';
 			width = '150px';
-			className = 'itravel-block-div-content-thumbnails';
+			className = 'itravel-block-1-thumbnail-content';
 		} else {
 			height = '190px';
 			width = '300px';
-			className = 'itravel-block-div-content';
+			className = 'itravel-block-1-pic-content';
 		}
 		
 		var oImg=document.createElement("img");
