@@ -6,63 +6,71 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-body{
-padding: 20px;
+body {
+	padding: 20px;
 }
 </style>
+
 </head>
 <body>
-    <!-- Page Content -->
+	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
+	<!-- 引入輪播 -->
+	<jsp:include page="/slidepage.jsp" />
+	<!-- bootstrap 輪播圖片 -->
 	<div class="container-fluid">
-		<div class="row-fluid">
+		<div class="row">
 			<div class="col-xs-9">
-				<div class="row carousel-holder">
-					<div id="carousel-example-generic" class="carousel slide"
-						data-ride="carousel">
-						<ol class="carousel-indicators">
-							<li data-target="#carousel-example-generic" data-slide-to="0"
-								class="active"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-							<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-						</ol>
-						<div class="carousel-inner">
-							<div class="item active">
-								<img class="slide-image" src="images/slide1.jpg" alt="">
-								<!-- 輪播圖片上方可顯示資訊 -->
-								<div class="carousel-caption">
-									<h4>First Thumbnail label</h4>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-										quam. Donec id elit non mi porta gravida at eget metus. Nullam
-										id dolor id nibh ultricies vehicula ut id elit.</p>
-								</div>
+				<!--  <div class="row carousel-holder"> -->
+				<!-- 換看看carousel-inner -->
+				<div id="carousel-example-generic" class="carousel slide"
+					data-ride="carousel">
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0"
+							class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
+					<div class="carousel-inner">
+						<div class="item active">
+							<img class="slide-image" src="images/slide1.jpg" alt="">
+							<!-- 輪播圖片上方可顯示資訊 -->
+							<div class="carousel-caption">
+								<h4>First Thumbnail label</h4>
+								<p>Cras justo odio, dapibus ac facilisis in, egestas eget
+									quam. Donec id elit non mi porta gravida at eget metus. Nullam
+									id dolor id nibh ultricies vehicula ut id elit.</p>
+							</div>
 
-								<!-- 輪播圖片上方可顯示資訊 -->
-							</div>
-							<div class="item">
-								<img class="slide-image" src="images/slide2.jpg" alt="">
-							</div>
-							<div class="item">
-								<img class="slide-image" src="images/slide3.jpg" alt="">
-							</div>
+							<!-- 輪播圖片上方可顯示資訊 -->
 						</div>
-						<a class="left carousel-control" href="#carousel-example-generic"
-							data-slide="prev"> <span
-							class="glyphicon glyphicon-chevron-left"></span>
-						</a> <a class="right carousel-control"
-							href="#carousel-example-generic" data-slide="next"> <span
-							class="glyphicon glyphicon-chevron-right"></span>
-						</a>
+						<div class="item">
+							<img class="slide-image" src="images/slide2.jpg" alt="">
+						</div>
+						<div class="item">
+							<img class="slide-image" src="images/slide3.jpg" alt="">
+						</div>
 					</div>
+					<a class="left carousel-control" href="#carousel-example-generic"
+						data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left"></span>
+					</a> <a class="right carousel-control" href="#carousel-example-generic"
+						data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right"></span>
+					</a>
+
 				</div>
+
+				<!-- </div> -->
 			</div>
 			<div class="col-xs-3">
 				<table class="table table-hover table-bordered">
+
 					<tr class="success">
 						<td>花蓮吃吃喝喝一日遊</td>
 					</tr>
-					<tr class="error">
+					<tr class="info">
 						<td>台東那努彎飯店</td>
 					</tr>
 					<tr class="warning">
@@ -71,7 +79,7 @@ padding: 20px;
 					<tr class="success">
 						<td>日月潭下午茶</td>
 					</tr>
-					<tr class="error">
+					<tr class="info">
 						<td>清境農場趕羚羊</td>
 					</tr>
 					<tr class="warning">
@@ -79,15 +87,16 @@ padding: 20px;
 					</tr>
 
 				</table>
+
 			</div>
 
 		</div>
 
 	</div>
+	<!-- bootstrap 輪播圖片 -->
 	<!-- /.container -->
 	<p>
 	<h4>最受歡迎景點</h4>
-	
 	</p>
 
 	<div class="row">
@@ -185,6 +194,5 @@ padding: 20px;
 		</div>
 
 	</div>
-
 </body>
 </html>
