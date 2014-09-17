@@ -113,9 +113,9 @@ public class AdDAOHibernate implements AdDAO {
 		List<Ad> ads = new ArrayList<Ad>();
 		try {
 			tx = session.beginTransaction();
-
-			Query query = session						//2014-9-17  - 2014-9-24
-					.createQuery("FROM Ad ads where ((ads.validDay)-getDate()+7) order by ads.validDay DESC");
+													   
+			Query query = session					  
+					.createQuery("FROM Ad ads where (ads.validDay > getDate()-1 ) order by ads.validDay ASC");
 			query.setMaxResults(num);
 			for (Object o : query.list()) {
 				ads.add((Ad) o);
