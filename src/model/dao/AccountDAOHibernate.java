@@ -7,6 +7,7 @@ import java.util.List;
 
 import model.Account;
 import model.AccountDAO;
+import model.BlacklistRecord;
 import model.util.HibernateUtil;
 
 import org.hibernate.Query;
@@ -60,6 +61,9 @@ public class AccountDAOHibernate implements AccountDAO {
 //		}
 		System.out.println("SelectById Test:" + acc);
 		
+		//SelectByEmail Test
+		acc = dao.selectByEmail("user1@gmail.com");
+		System.out.println("SelectByEmail Test:" + acc);
 		//SelectAll Test
 		List<Account> accAll = dao.selectAll();
 		System.out.println("SelectAll Test:"+accAll);
@@ -67,7 +71,7 @@ public class AccountDAOHibernate implements AccountDAO {
 	}
 
 	private SessionFactory sessionFactory = null;
-
+	@Override
 	public Account insert(Account account) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -86,7 +90,7 @@ public class AccountDAOHibernate implements AccountDAO {
 		}
 		return result;
 	}
-
+	@Override
 	public Account update(Account account) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -109,7 +113,7 @@ public class AccountDAOHibernate implements AccountDAO {
 		}
 		return result;
 	}
-
+	@Override
 	public Account selectById(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -126,6 +130,27 @@ public class AccountDAOHibernate implements AccountDAO {
 		}
 		return result;
 	}
+	@Override
+	public Account selectByEmail(String email) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		Account result = null;
+		try {
+			tx = session.beginTransaction();
+			result = (Account) session
+					.createQuery(
+							"FROM Account ac where ac.email = ?")
+					.setString(0, email).uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+	@Override
 	public List<Account> selectAll() {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -143,5 +168,7 @@ public class AccountDAOHibernate implements AccountDAO {
 		}
 		return result;
 	}
+
+	
 
 }
