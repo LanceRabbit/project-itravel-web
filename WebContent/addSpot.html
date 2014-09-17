@@ -112,7 +112,7 @@
 						</div>
 						<!-- <div class="col-md-6 itravel-block">  -->
 						
-						<div class="col-md-6 itravel-block-frame">
+						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-thumbnails">
 							<div class="row">
 								<div class="col-md-6 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_2">
@@ -274,7 +274,7 @@
 								</form>
 							</div>
 						</div>
-						<div class="col-md-6 itravel-block-frame">
+						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-map">
 							<div class="itravel-block-1-pic" id="map-container"></div>
 						</div>
 					</div>
@@ -340,6 +340,8 @@
 			height = '190px';
 			width = '300px';
 			className = 'itravel-block-1-pic-content';
+			
+			$("#itravel-block-thumbnails").show();
 		}
 		
 		var oImg=document.createElement("img");
@@ -415,6 +417,16 @@
 	// others
 	$("#saveBtn").click(function(){
 		console.log("saveBtn pressed.....");
+	});
+	
+	$("#spotName").change(function(){
+		console.log("changing....");
+		if(!$("#itravel-block-map").is(':visible')) {
+			$("#itravel-block-map").show();
+			google.maps.event.trigger(var_map, "resize");
+			var_map.setCenter(var_location);
+			
+		}
 	});
 	
 	// drop zone
