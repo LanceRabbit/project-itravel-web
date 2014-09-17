@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.css" />
+
+</head>
+<body>
+	<div class="row text-center">
+		<h3>The Large Modal</h3>
+		<a href="#" class="btn btn-lg btn-primary" data-toggle="modal"
+			data-target="#largeModal">Click to open Modal</a>
+	</div>
+
+	<div class="modal fade" id="largeModal" tabindex="-1" role="dialog"
+		aria-labelledby="largeModal" aria-hidden="true">
+		<div class="modal-dialog ">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Large Modal</h4>
+				</div>
+				<div class="modal-body">
+					<form class="navbar-form ">
+						<div class="row">
+							<div class='col-sm-6'>
+								<div class="form-group">
+									<div class='input-group date' id='datetimepicker5'>
+										<input type='text' class="form-control"
+											data-date-format="YYYY/MM/DD" /> <span
+											class="input-group-addon"> <span
+											class="glyphicon glyphicon-calendar"></span>
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+	<script>
+		!window.jQuery
+				&& document
+						.write(
+								"<script src='Scripts/jquery-1.11.1.min.js'><\/script>")
+	</script>
+	<script src="js/bootstrap.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+	<script>
+		(function($) {
+
+							$("#datetimepicker5").datetimepicker({
+								showOtherMonths : true,
+								dateFormat : 'yy-mm-dd',
+								selectOtherMonths : true,
+								minDate : new Date(),
+								maxDate : '+30Y',
+							});
+
+						})
+	</script>
+
+</body>
+</html>
