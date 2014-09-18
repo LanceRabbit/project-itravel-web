@@ -33,7 +33,24 @@ public class SpotInfoServlet extends HttpServlet {
 
     private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
+    	request.setCharacterEncoding("UTF-8");
     	System.out.println("printParams......");
+    	String spotName = request.getParameter("spotName"); System.out.println("spotName : " + spotName);
+    	String spotOwner = request.getParameter("spotOwner"); System.out.println("spotOwner : " + spotOwner);
+    	String city = request.getParameter("dupCity"); System.out.println("city : " + city);
+    	String category = request.getParameter("dupCategory"); System.out.println("category : " + category);
+    	String subcategory = request.getParameter("dupSubcategory"); System.out.println("subcategory : " + subcategory); 	
+    	String address = request.getParameter("address"); System.out.println("address : " + address);
+    	String phone = request.getParameter("phone"); System.out.println("phone : " + phone);
+    	String intro = request.getParameter("intro"); System.out.println("intro : " + intro);
+    	String img1 = request.getParameter("imagePreview_zone_1"); System.out.println("img1 : " + img1);
+    	String img2 = request.getParameter("imagePreview_zone_2"); System.out.println("img2 : " + img2);
+    	String img3 = request.getParameter("imagePreview_zone_3"); System.out.println("img3 : " + img3);
+    	String img4 = request.getParameter("imagePreview_zone_4"); System.out.println("img4 : " + img4);
+    	String img5 = request.getParameter("imagePreview_zone_5"); System.out.println("img5 : " + img5);
+    	
+//    	SpotDetail spot = new SpotDetail("M14090001", account, spotName, cityId, categoryId, subcategoryId, tempSpotId)
+    	
 //    	HttpSession session = request.getSession();
 //    	
 ////    	String spotId = request.getParameter("id");

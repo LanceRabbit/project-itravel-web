@@ -447,18 +447,32 @@
 	$("#resetBtn").click(function(){
 		console.log("reset......");
 		
+		
+		
 		// add hidden fields for images into form
 		var name;
 		var value;
+		var content;
 		$(".imagePreview_zone").each(function(index){
 			
 			name = $(this).attr('id');
 			value = $(this).find('img:first').attr('alt'); console.log("value : " + value);
 			
-			var content = "<input type='text' name='"+name+"' value=' "+value+"'>";
-			console.log("content : "+content);
+			content = "<input type='hidden' name='"+name+"' value=' "+value+"'>";
+			//console.log("content : "+content);
 			$("#hiddens").append(content);
 		});
+		
+		
+		// add hidden fields for input field filled by drop down menu
+		content = "<input type='hidden' name='dupCity' value=' "+$("#city").val()+"'>";
+		$("#hiddens").append(content);
+		
+		content = "<input type='hidden' name='dupCategory' value=' "+$("#category").val()+"'>";
+		$("#hiddens").append(content);
+		
+		content = "<input type='hidden' name='dupSubcategory' value=' "+$("#subcategory").val()+"'>";
+		$("#hiddens").append(content);
 		
 		$("#infoForm").submit();
 	});
