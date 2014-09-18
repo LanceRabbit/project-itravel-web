@@ -98,7 +98,7 @@
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 
-							<div class="itravel-block-1-pic well" id="imagePreview_zone_1">
+							<div class="itravel-block-1-pic well imagePreview_zone" id="imagePreview_zone_1">
 								<span
 									class="glyphicon glyphicon-picture itravel-block-1-pic-content fileinput-button"
 									id="fileinputBtn"></span>
@@ -115,11 +115,11 @@
 						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-thumbnails">
 							<div class="row">
 								<div class="col-md-6 itravel-block-1-thumbnail well">
-									<div id="imagePreview_zone_2">
+									<div id="imagePreview_zone_2" class='imagePreview_zone'>
 									</div>
 								</div>
 								<div class="col-md-6 itravel-block-1-thumbnail well">
-									<div id="imagePreview_zone_3">
+									<div id="imagePreview_zone_3" class='imagePreview_zone'>
 									</div>
 								</div>
 
@@ -127,11 +127,11 @@
 							<!-- <div class="row"> -->
 							<div class="row">
 								<div class="col-md-6 itravel-block-1-thumbnail well">
-									<div id="imagePreview_zone_4">
+									<div id="imagePreview_zone_4" class='imagePreview_zone'>
 									</div>
 								</div>
 								<div class="col-md-6 itravel-block-1-thumbnail well">
-									<div id="imagePreview_zone_5">
+									<div id="imagePreview_zone_5" class='imagePreview_zone'>
 									</div>
 								</div>
 							</div>
@@ -142,7 +142,7 @@
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 							<div class="well well-md">
-								<form class="form-horizontal" method="post">
+								<form class="form-horizontal" method="post" id="infoForm" action='SpotInfo.do'>
 									<fieldset>
 										<legend class="text-center header">景點資訊</legend>
 
@@ -158,7 +158,8 @@
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
 													<input id="spotName" name="spotName" type="text"
-														placeholder="景點名稱" class="form-control">
+														placeholder="景點名稱" class="form-control" 
+														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
@@ -172,9 +173,9 @@
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
 
-													<div class="input-group">
+													<div class="input-group" id="cityGroup" data-toggle="popover" data-placement="top" data-content="請選擇縣市">
 														<input id="city" name="city" type="text" placeholder="縣市"
-															class="form-control" disabled />
+															class="form-control" disabled>
 														<div class="input-group-btn" id="cityIdMenu">
 															<button type="button"
 																class="btn btn-default dropdown-toggle"
@@ -197,9 +198,9 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
-													<div class="input-group">
+													<div class="input-group" id="categoryGroup" data-toggle="popover" data-toggle="popover" data-placement="top" data-content="請選擇分類">
 														<input id="category" name="category" type="text"
-															placeholder="分類" class="form-control" disabled />
+															placeholder="分類" class="form-control" disabled>
 														<div class="input-group-btn" id="categoryIdMenu">
 															<button type="button"
 																class="btn btn-default dropdown-toggle"
@@ -215,9 +216,9 @@
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
-													<div class="input-group" id="subcategoryGroup">
+													<div class="input-group" id="subcategoryGroup" data-toggle="popover" data-placement="top" data-content="請選擇子分類">
 														<input id="subcategory" name="subcategory" type="text"
-															placeholder="小分類" class="form-control" disabled />
+															placeholder="子分類" class="form-control" disabled>
 														<div class="input-group-btn" id="subcategoryIdMenu">
 															<button type="button"
 																class="btn btn-default dropdown-toggle"
@@ -262,14 +263,15 @@
 											</div>
 										</div>
 
-										<!--  
 										<div class="form-group">
-											<div class="col-md-12 text-center">
-												<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<div class="input-group" id="hiddens">
+													</div>
+												</div>
 											</div>
-										
 										</div>
--->
+
 									</fieldset>
 								</form>
 							</div>
@@ -282,7 +284,7 @@
 				<!-- <div class="modal-body"> -->
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
+					<button id="resetBtn" type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
 					<button id="saveBtn" type="button" class="btn btn-primary">儲存</button>
 				</div>
 			</div>
@@ -346,6 +348,7 @@
 		
 		var oImg=document.createElement("img");
 	  	oImg.setAttribute('src', dataUrl);
+	  	oImg.setAttribute('alt', file.name);
 	  	oImg.setAttribute('height', height);
 	  	oImg.setAttribute('width', width);
 	  	oImg.setAttribute("class", className);
@@ -390,7 +393,6 @@
 		// populate subcategory
 		var subcategories = categories[$(this).index()].subtype;
 		//console.log(subcategories);
-		$("#subcategory").val("子分類");
 		$("#subcategoryIdMenu ul:first").empty();
 		$.each(subcategories, function(index, value){
 			$("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
@@ -415,9 +417,52 @@
 	}) 
 	
 	// others
+	function popoverHandler(elem) {
+		
+		$(elem).popover('enable');	
+		$(elem).popover('show');
+		$(elem).on('click', function(){
+			$(elem).popover('disable');
+			$(elem).off('click');
+		});
+	}
+	
 	$("#saveBtn").click(function(){
 		console.log("saveBtn pressed.....");
+		
+		// check the fields
+		if($("#spotName").val().length == 0)
+			popoverHandler("#spotName", "#spotName");
+		else if($("#city").val().length == 0)
+			popoverHandler("#cityGroup");
+		else if($("#category").val().length == 0)
+			popoverHandler("#categoryGroup");
+		else if($("#subcategory").val().length == 0)
+			popoverHandler("#subcategoryGroup");
+		else { 
+			console.log("preparing json..... for server");
+		}
 	});
+	
+	$("#resetBtn").click(function(){
+		console.log("reset......");
+		
+		// add hidden fields for images into form
+		var name;
+		var value;
+		$(".imagePreview_zone").each(function(index){
+			
+			name = $(this).attr('id');
+			value = $(this).find('img:first').attr('alt'); console.log("value : " + value);
+			
+			var content = "<input type='text' name='"+name+"' value=' "+value+"'>";
+			console.log("content : "+content);
+			$("#hiddens").append(content);
+		});
+		
+		$("#infoForm").submit();
+	});
+	
 	
 	$("#spotName").change(function(){
 		console.log("changing....");
@@ -439,7 +484,7 @@
 
 		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
 		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
-		  url: "filehandler",
+		  url: "Fileuploader.do",
 		  //thumbnailWidth: 300,
 		  //thumbnailHeight: 200,
 		  parallelUploads: 5,
