@@ -160,11 +160,11 @@ public class AdDAOHibernate implements AdDAO {
 		// ad = dao.update(ad);
 		// System.out.println(ad);
 
-		List<Ad> list = new ArrayList<Ad>();
-		list = dao.selectTopN(10);
-		for (Object o : list) {
-			System.out.println(o);
-		}
+//		List<Ad> list = new ArrayList<Ad>();
+//		list = dao.selectTopN(10);
+//		for (Object o : list) {
+//			System.out.println(o);
+//		}
 
 	}
 

@@ -63,7 +63,7 @@ public class Ad implements java.io.Serializable {
 		this.adId = adId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SPOT_ID", nullable = false)
 	public SpotDetail getSpotDetail() {
 		return this.spotDetail;

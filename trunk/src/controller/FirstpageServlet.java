@@ -25,7 +25,6 @@ public class FirstpageServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		this.doGet(request, response);
-
+		this.doGet(request, response);		
 	}
 }
