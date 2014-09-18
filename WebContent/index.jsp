@@ -52,26 +52,26 @@
 			<hr />
 			<div class="row text-center">
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/preview.jpg" class="img-circle">
+					<img alt="" src="images/team1.jpg" class="img-circle">
 					
 					<h4>Angela</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Donec in sem cras amet. Donec in sem cras amet.</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/Bicycle.jpg" class="img-circle">
+					<img alt="" src="images/team2.jpg" class="img-circle">
 					<h4>Adela</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Donec in sem cras amet. Donec in sem cras amet.</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/02.jpg" class="img-circle">
+					<img alt="" src="images/team3.jpg" class="img-circle">
 					<h4>Lolita</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Donec in sem cras amet. Donec in sem cras amet.</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/Varios.jpg" class="img-circle">
+					<img alt="" src="images/team4.jpg" class="img-circle">
 					<h4>CH Lin</h4>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 						Donec in sem cras amet. Donec in sem cras amet.</p>

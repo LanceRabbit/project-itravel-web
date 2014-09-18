@@ -27,7 +27,7 @@ html, body {
 
 /* additional sections */
 #home {
-  background: url(../images/suitcase.png) no-repeat center center fixed ;   
+  background: url(../images/bg_suitcase.png) no-repeat center center fixed ;   
   background-color: #529abb;
   display: table;
   height: 100%;
@@ -63,7 +63,7 @@ html, body {
 }
 
 #information {
-  background: url(../images/Retro.jpg) no-repeat center center fixed; 
+  background: url(../images/bg_index3.jpg) no-repeat center center fixed; 
   display: table;
   height: 800px;
   position: relative;
