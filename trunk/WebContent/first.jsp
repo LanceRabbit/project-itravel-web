@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+
 <style type="text/css">
 body {
 	padding: 20px;
@@ -51,6 +52,7 @@ body {
 	}
 }
 </style>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 <body>
 	<!-- Page Content -->
@@ -59,12 +61,10 @@ body {
 
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
-
 				<div class="item active">
-					<img src="images/slide1.jpg">
+					<img src="images/D1409005.jpg">
 					<div class="carousel-caption">
 						<h4>
 							<a href="#">南投日月潭游湖1日船票</a>
@@ -79,7 +79,7 @@ body {
 				<!-- End Item -->
 
 				<div class="item">
-					<img src="images/slide2.jpg">
+					<img src="images/D1409006.jpg">
 					<div class="carousel-caption">
 						<h4>
 							<a href="#">阿里山小火車</a>
@@ -93,7 +93,7 @@ body {
 				<!-- End Item -->
 
 				<div class="item">
-					<img src="images/slide3.jpg">
+					<img src="images/D1409010.jpg">
 					<div class="carousel-caption">
 						<h4>
 							<a href="#">高雄愛河遊湖度假飯店</a>
@@ -107,7 +107,7 @@ body {
 				<!-- End Item -->
 
 				<div class="item">
-					<img src="images/slide4.jpg">
+					<img src="images/D1409011.jpg">
 					<div class="carousel-caption">
 						<h4>
 							<a href="#">霧上桃源~南投清境農場</a>
@@ -122,7 +122,7 @@ body {
 				<!-- End Item -->
 
 				<div class="item">
-					<img src="images/slide5.jpg">
+					<img src="images/D1409013.jpg">
 					<div class="carousel-caption">
 						<h4>
 							<a href="#">三仙台-台灣最美海岸線</a>
@@ -138,8 +138,6 @@ body {
 
 			</div>
 			<!-- End Carousel Inner -->
-
-
 			<ul class="list-group col-sm-4">
 				<li data-target="#myCarousel" data-slide-to="0"
 					class="list-group-item active"><h4>南投日月潭游湖1日船票</h4></li>
@@ -166,106 +164,104 @@ body {
 		</div>
 		<!-- End Carousel -->
 
-	
+		<h4>最受歡迎景點</h4>
 
-	<h4>最受歡迎景點</h4>
+		<div class="row">
 
-	<div class="row">
-
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<img src="http://placehold.it/300x300" alt="">
-				<div class="caption">
-					<h4>
-						<a href="#">資策會203教室</a>
-					</h4>
-					地址: 台北市大安區大安站斜對面
-				</div>
-				<div class="ratings">
-					<p class="pull-right">15 reviews</p>
-					<span class="glyphicon glyphicon-heart"></span> <span
-						class="glyphicon glyphicon-thumbs-up"></span> <span
-						class="glyphicon glyphicon-plus"></span>
+			<div class="col-xs-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x300" alt="">
+					<div class="caption">
+						<h4>
+							<a href="#">資策會203教室</a>
+						</h4>
+						地址: 台北市大安區大安站斜對面
+					</div>
+					<div class="ratings">
+						<p class="pull-right">15 reviews</p>
+						<span class="glyphicon glyphicon-heart"></span> <span
+							class="glyphicon glyphicon-thumbs-up"></span> <span
+							class="glyphicon glyphicon-plus"></span>
 
 
-				</div>
-			</div>
-		</div>
-
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<img src="http://placehold.it/300x300" alt="">
-				<div class="caption">
-					<h4>
-						<a href="#">資策會203教室</a>
-					</h4>
-					地址: 台北市大安區大安站斜對面
-				</div>
-				<div class="ratings">
-					<p class="pull-right">12 reviews</p>
-					<span class="glyphicon glyphicon-heart"></span> <span
-						class="glyphicon glyphicon-thumbs-up"></span> <span
-						class="glyphicon glyphicon-plus"></span>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<img src="http://placehold.it/300x300" alt="">
-				<div class="caption">
-					<h4>
-						<a href="#">資策會203教室</a>
-					</h4>
-					地址: 台北市大安區大安站斜對面
-				</div>
-				<div class="ratings">
-					<p class="pull-right">31 reviews</p>
-					<span class="glyphicon glyphicon-heart"></span> <span
-						class="glyphicon glyphicon-thumbs-up"></span> <span
-						class="glyphicon glyphicon-plus"></span>
+			<div class="col-xs-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x300" alt="">
+					<div class="caption">
+						<h4>
+							<a href="#">資策會203教室</a>
+						</h4>
+						地址: 台北市大安區大安站斜對面
+					</div>
+					<div class="ratings">
+						<p class="pull-right">12 reviews</p>
+						<span class="glyphicon glyphicon-heart"></span> <span
+							class="glyphicon glyphicon-thumbs-up"></span> <span
+							class="glyphicon glyphicon-plus"></span>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<img src="http://placehold.it/300x300" alt="">
-				<div class="caption">
-					<h4>
-						<a href="#">資策會203教室</a>
-					</h4>
-					地址: 台北市大安區大安站斜對面
-				</div>
-				<div class="ratings">
-					<p class="pull-right">6 reviews</p>
-					<span class="glyphicon glyphicon-heart"></span> <span
-						class="glyphicon glyphicon-thumbs-up"></span> <span
-						class="glyphicon glyphicon-plus"></span>
+			<div class="col-xs-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x300" alt="">
+					<div class="caption">
+						<h4>
+							<a href="#">資策會203教室</a>
+						</h4>
+						地址: 台北市大安區大安站斜對面
+					</div>
+					<div class="ratings">
+						<p class="pull-right">31 reviews</p>
+						<span class="glyphicon glyphicon-heart"></span> <span
+							class="glyphicon glyphicon-thumbs-up"></span> <span
+							class="glyphicon glyphicon-plus"></span>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<div class="col-xs-3">
-			<div class="thumbnail">
-				<img src="http://placehold.it/300x300" alt="">
-				<div class="caption">
-					<h4>
-						<a href="#">資策會203教室</a>
-					</h4>
-					地址: 台北市大安區大安站斜對面
-				</div>
-				<div class="ratings">
-					<p class="pull-right">18 reviews</p>
-					<span class="glyphicon glyphicon-heart "></span> <span
-						class="glyphicon glyphicon-thumbs-up"></span> <span
-						class="glyphicon glyphicon-plus"></span>
+			<div class="col-xs-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x300" alt="">
+					<div class="caption">
+						<h4>
+							<a href="#">資策會203教室</a>
+						</h4>
+						地址: 台北市大安區大安站斜對面
+					</div>
+					<div class="ratings">
+						<p class="pull-right">6 reviews</p>
+						<span class="glyphicon glyphicon-heart"></span> <span
+							class="glyphicon glyphicon-thumbs-up"></span> <span
+							class="glyphicon glyphicon-plus"></span>
+					</div>
 				</div>
 			</div>
-		</div>
 
+			<div class="col-xs-3">
+				<div class="thumbnail">
+					<img src="http://placehold.it/300x300" alt="">
+					<div class="caption">
+						<h4>
+							<a href="#">資策會203教室</a>
+						</h4>
+						地址: 台北市大安區大安站斜對面
+					</div>
+					<div class="ratings">
+						<p class="pull-right">18 reviews</p>
+						<span class="glyphicon glyphicon-heart "></span> <span
+							class="glyphicon glyphicon-thumbs-up"></span> <span
+							class="glyphicon glyphicon-plus"></span>
+					</div>
+				</div>
+			</div>
+
+		</div>
 	</div>
-</div>
 	<script type="text/javascript">
 		$(document).ready(function() {
 

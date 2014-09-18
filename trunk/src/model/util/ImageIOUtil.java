@@ -62,6 +62,6 @@ public class ImageIOUtil {
 	
 	public static void main(String[] args) {
 		//ImageIOUtil.copyImage("src.jpg");
-		ImageIOUtil.saveImage("dest.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
+		ImageIOUtil.saveImage("slide1.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
 	}
 }

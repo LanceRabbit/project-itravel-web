@@ -16,7 +16,9 @@ import model.AdDAO;
 import model.Coupons;
 import model.SpotCollectRecord;
 import model.SpotDetail;
+import model.SpotImg;
 import model.util.HibernateUtil;
+import model.util.ImageIOUtil;
 
 public class AdDAOHibernate implements AdDAO {
 	private SessionFactory sessionFactory = null;
@@ -113,8 +115,8 @@ public class AdDAOHibernate implements AdDAO {
 		List<Ad> ads = new ArrayList<Ad>();
 		try {
 			tx = session.beginTransaction();
-													   
-			Query query = session					  
+
+			Query query = session
 					.createQuery("FROM Ad ads where (ads.validDay > getDate()-1 ) order by ads.validDay ASC");
 			query.setMaxResults(num);
 			for (Object o : query.list()) {
@@ -140,41 +142,53 @@ public class AdDAOHibernate implements AdDAO {
 	private static Calendar fromCal = Calendar.getInstance();
 	private static DateFormat dateFormat = new SimpleDateFormat("(yyyy,MM,dd)");
 
-	public static void main(String[] args) {
-		AdDAOHibernate dao = new AdDAOHibernate();
-		Ad ad = new Ad();
-
-		SpotDetail spot = new SpotDetail();
-//		spot.setSpotId("RES14090019");
-//		ad.setSpotDetail(spot);
-//		java.util.Date date = new java.util.Date();
-//		//計算7天後到期的日期
-//		date=addDate(date, 7);
-//
-//		ad.setValidDay(date);
-//		ad.setTempAdId("EMP");
-//		ad = dao.insert(ad);
-
-		// System.out.println(ad);
-		// spot.setSpotId("RES14090007");
-		// ad = dao.update(ad);
-		// System.out.println(ad);
-
-//		List<Ad> list = new ArrayList<Ad>();
-//		list = dao.selectTopN(10);
-//		for (Object o : list) {
-//			System.out.println(o);
-//		}
-
-	}
-
+	// 計算七天後到期日期
 	public static java.util.Date addDate(java.util.Date now, int day) {
 		try {
-			
+
 			now.setTime(now.getTime() + day * 1000 * 60 * 60 * 24);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return now;
 	}
+
+	public static void main(String[] args) {
+		AdDAOHibernate dao = new AdDAOHibernate();
+		Ad ad = new Ad();			
+		SpotDetail spot = new SpotDetail();
+		// spot.setSpotId("RES14090019");
+		// ad.setSpotDetail(spot);
+		 java.util.Date date = new java.util.Date();
+		// //計算7天後到期的日期
+		 date=addDate(date, 7);
+		//
+		// ad.setValidDay(date);
+		// ad.setTempAdId("EMP");
+		// ad = dao.insert(ad);
+
+		// System.out.println(ad);
+		// spot.setSpotId("RES14090007");
+		// ad = dao.update(ad);
+		// System.out.println(ad);
+
+		// List<Ad> list = new ArrayList<Ad>();
+		// list = dao.selectTopN(10);
+		// for (Object o : list) {
+		// System.out.println(o);
+		// }
+
+		// 放圖片		
+//		  	spot.setSpotId("SWT14090001");
+//			String adImgId = "D1409010";
+//			ad.setAdId(adImgId);
+//			ad.setValidDay(date);
+//			ad.setSpotDetail(spot);
+//			ad.setAdImg(ImageIOUtil.getImageByFilename("slide5.jpg"));
+//			
+//			dao.update(ad);
+		
+
+	}
+
 }

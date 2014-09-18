@@ -25,15 +25,15 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 
 		// test: insert
 
-//		 java.util.Date date = new java.util.Date();
-//		 spot.setCmtDt(date);
-//		 spot.setComment("景色優美東西好吃!!!");
-//		 spot.setTempCommentId("CMT");
-//		 spot.setAccountId("M14090001");
-//		 spot.setSpotId("RES14090002");
-//		 spot = dao.insert(spot);
-//		 System.out.println(spot);
-//		
+		 java.util.Date date = new java.util.Date();
+		 spot.setCmtDt(date);
+		 spot.setComment("是我吃過最好吃的pizza了!!!");
+		 spot.setTempCommentId("CMT");
+		 spot.setAccountId("M14090001");
+		 spot.setSpotId("RES14090019");
+		 spot = dao.insert(spot);
+		 System.out.println(spot);
+		
 
 		// test: select
 //		java.util.Date date = new java.util.Date();
