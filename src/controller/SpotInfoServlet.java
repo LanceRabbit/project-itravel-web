@@ -1,36 +1,20 @@
 package controller;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.Iterator;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import model.SpotDetail;
-import model.SpotImg;
-import model.dao.SpotDetailDAOHibernate;
-import model.util.ImageIOUtil;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import model.util.ConstantsUtil;
 
 @WebServlet("/SpotInfo.do")
 public class SpotInfoServlet extends HttpServlet {
 	public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
 	private static final long serialVersionUID = 1L;
        
-    public SpotInfoServlet() {
-
-    }
-
     private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
     	request.setCharacterEncoding("UTF-8");
@@ -38,6 +22,8 @@ public class SpotInfoServlet extends HttpServlet {
     	String spotName = request.getParameter("spotName"); System.out.println("spotName : " + spotName);
     	String spotOwner = request.getParameter("spotOwner"); System.out.println("spotOwner : " + spotOwner);
     	String city = request.getParameter("dupCity"); System.out.println("city : " + city);
+    	Integer cityId = ConstantsUtil.getCityMap().get("city"); System.out.println("cityId : " + cityId);
+    	
     	String category = request.getParameter("dupCategory"); System.out.println("category : " + category);
     	String subcategory = request.getParameter("dupSubcategory"); System.out.println("subcategory : " + subcategory); 	
     	String address = request.getParameter("address"); System.out.println("address : " + address);
