@@ -157,34 +157,37 @@ public class AdDAOHibernate implements AdDAO {
 		AdDAOHibernate dao = new AdDAOHibernate();
 		Ad ad = new Ad();			
 		SpotDetail spot = new SpotDetail();
-		// spot.setSpotId("RES14090019");
-		// ad.setSpotDetail(spot);
+//		 spot.setSpotId("RES14090008");
+//		 ad.setSpotDetail(spot);
 		 java.util.Date date = new java.util.Date();
 		// //計算7天後到期的日期
 		 date=addDate(date, 7);
 		//
-		// ad.setValidDay(date);
-		// ad.setTempAdId("EMP");
-		// ad = dao.insert(ad);
+//		 ad.setValidDay(date);
+//		 ad.setTempAdId("EMP");
+//		 String imgNameId = ad.getAdId();
+//		 ad.setAdImg(ImageIOUtil.getImageByFilename("D1409005.jpg"));
+//		 
+//		 ad = dao.insert(ad);
 
 		// System.out.println(ad);
 		// spot.setSpotId("RES14090007");
 		// ad = dao.update(ad);
 		// System.out.println(ad);
 
-		// List<Ad> list = new ArrayList<Ad>();
-		// list = dao.selectTopN(10);
-		// for (Object o : list) {
-		// System.out.println(o);
-		// }
+//		 List<Ad> list = new ArrayList<Ad>();
+//		 list = dao.selectTopN(5);
+//		 for (Object o : list) {
+//		 System.out.println(o);
+//		 }
 
 		// 放圖片		
-//		  	spot.setSpotId("SWT14090001");
-//			String adImgId = "D1409010";
+//		  	spot.setSpotId("RES14090018");
+//			String adImgId = "D1409002";
 //			ad.setAdId(adImgId);
 //			ad.setValidDay(date);
 //			ad.setSpotDetail(spot);
-//			ad.setAdImg(ImageIOUtil.getImageByFilename("slide5.jpg"));
+//			ad.setAdImg(ImageIOUtil.getImageByFilename("D1409002.jpg"));
 //			
 //			dao.update(ad);
 		

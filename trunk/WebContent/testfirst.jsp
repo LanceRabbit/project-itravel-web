@@ -58,59 +58,77 @@ body {
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
-
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Wrapper for slides -->
-			<div class="carousel-inner" id="cardiv">
-				<div class="item active">
-					<img src="images/D1409005.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#"></a>
-						</h4>
-						<p>
-							<a class="label label-primary" href="#" target="_blank"></a>
-						</p>
-					</div>
-				</div>		
+			<div class="carousel-inner" id="itemtag">				
+					
+				
 			</div>
+
 			<!-- End Carousel Inner -->
-			<ul class="list-group col-sm-4">
-				<li data-target="#myCarousel" class="list-group-item active"><h4>南投日月潭游湖1日船票</h4></li>				
+			<ul class="list-group col-sm-4" id="list">
+				
 			</ul>
-
-			<!-- Controls -->
-			<div class="carousel-controls">
-				<a class="left carousel-control" href="#myCarousel"
-					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span>
-				</a> <a class="right carousel-control" href="#myCarousel"
-					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span>
-				</a>
-			</div>
+			
 		</div>
-		<!-- End Carousel -->
-	
 
-	<div class="aaa"></div>
-	<div class="aaa"></div>
-	<div class="aaa"></div>
-
+	</div>
+	<!-- End Carousel -->
+<div id="mydiv"></div>
 
 
 	<script type="text/javascript">
 		$(document).ready(function() {
+
+			var count1=1; //代表active
+			$.ajax({
+				 url:"FirstpageServlet",
+				 type:"post",
+				 contentType: "application/json; charset=utf-8",
+				 dataType:"json", //xml,text
+				 success:function(data){
+					 console.log("get data from server....");
+					 //console.log(String(data));
+					 $.each(data,function(index,value){						
+						 if(value.spotThumbnailURL) {
+							 console.log(value.spotThumbnailURL);
+							if(count1==1){
+							 $('#itemtag').append("<div class='item active' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");
+							}else{
+								$('#itemtag').append("<div class='item ' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");	
+							}
+							count1=0;
+						}
+						 else 
+							 $('#itemtag').append("<div class='content_box'><h2>"+value.spotName+"</h2></div>");
+					 });				 
+					
+				 }
+			 });
+			var count2=1;//代表active
+			var i = 0;
+			$.ajax({
+				 url:"FirstpageServlet",
+				 type:"post",
+				 contentType: "application/json; charset=utf-8",
+				 dataType:"json", //xml,text
+				 success:function(data){					
+					 $.each(data,function(index,value){						
+						 if(count2==1){
+						 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"+value.spotName+"</h4></li>");
+						 }else{
+							 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"+value.spotName+"</h4></li>");
+						 }
+						 count2=0;
+						 i++;
+					 });				 
+					
+				 }
+			 });
 			
 			
 			var clickEvent = false;
-
-			
-			
-			
-			
-			
 			$('#myCarousel').carousel({
 				interval : 4000
 			}).on('click', '.list-group li', function() {
@@ -129,20 +147,11 @@ body {
 				}
 				clickEvent = false;
 			});
-
+			
 		});
-
-		$(window).load(function() {
-			var boxheight = $('#myCarousel .carousel-inner').innerHeight();
-			var itemlength = $('#myCarousel .item').length;
-			var triggerheight = Math.round(boxheight / itemlength + 1);
-			$('#myCarousel .list-group-item').outerHeight(triggerheight);
-		});
-		
-		
-		
+			
 	</script>
-	
+
 
 </body>
 </html>

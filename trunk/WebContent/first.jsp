@@ -62,107 +62,14 @@ body {
 	<div class="container">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Wrapper for slides -->
-			<div class="carousel-inner">
-				<div class="item active">
-					<img src="images/D1409005.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#">南投日月潭游湖1日船票</a>
-						</h4>
-						<p>
-							日月潭位於南投縣魚池鄉水社村，是臺灣唯一的天然湖。
-							由玉山和阿里山之間的斷裂盆地積水而成。湖面海拔760米，面積約9平方千米，平均水深30米，湖周長約35千米。日月潭四周群山環抱，重巒迭嶂，潭水碧波晶瑩，湖面遼闊，群峰倒映湖中，優美如畫。
-							<a class="label label-primary" href="#" target="_blank">日月潭游湖之旅</a>
-						</p>
-					</div>
-				</div>
-				<!-- End Item -->
-
-				<div class="item">
-					<img src="images/D1409006.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#">阿里山小火車</a>
-						</h4>
-						<p>
-							火車鳴笛聲響徹整片山谷，阿里山森林小火車，是全世界三大登山鐵路之一。在這裡，你可以飽登山鐵路、茂密森林、雲海的眼福，當置身這仙境之中，耳邊仿佛又響起鄧麗君的那首美妙的《阿里山的姑娘》<a
-								class="label label-primary" href="#" target="_blank">阿里山小火車之旅</a>
-						</p>
-					</div>
-				</div>
-				<!-- End Item -->
-
-				<div class="item">
-					<img src="images/D1409010.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#">高雄愛河遊湖度假飯店</a>
-						</h4>
-						<p>
-							愛河，古名打狗川、高雄川，是一條位在臺灣高雄市境內的小型河川，也是臺灣少數以“河”為名的河川，源於高雄市仁武區八卦寮，流經高雄市中心後於高雄港出海。
-							<a class="label label-primary" href="#" target="_blank">高雄愛河遊湖渡假飯店</a>
-						</p>
-					</div>
-				</div>
-				<!-- End Item -->
-
-				<div class="item">
-					<img src="images/D1409011.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#">霧上桃源~南投清境農場</a>
-						</h4>
-						<p>
-							坐落在半山腰，海拔1750米的清境農場空氣清新、林木蒼鬱、繁花遍野、具北歐風光，素有“霧上桃源”之稱，是劉墉老師筆下的世外桃源、也是臺灣導演魏德聖史詩巨作《賽德克巴萊》的取景地。
-							<a class="label label-primary" href="#" target="_blank">
-								霧上桃源~南投清境農場</a>
-						</p>
-					</div>
-				</div>
-				<!-- End Item -->
-
-				<div class="item">
-					<img src="images/D1409013.jpg">
-					<div class="carousel-caption">
-						<h4>
-							<a href="#">三仙台-台灣最美海岸線</a>
-						</h4>
-						<p>
-							東部海岸線是臺灣海濱風光最美的地方，經過東海和太平洋，一邊是一望無際湛藍湛藍的海水，一邊是險峻的海岸山脈，沿海公路蜿蜒崎嶇，有的沿海公路乾脆就懸空在海面上，讓人直冒冷汗。由於臺灣東面山多，很多海灘不好開發，所以自然的海濱帶風光更加引人入勝。
-							太平洋近處海水呈湛藍色，遠處則為深藍，分界明顯，極目遠眺， 太平洋煙波浩淼，水天一色，偶有海輪從這裡穿過。 <a
-								class="label label-primary" href="#" target="_blank">三仙台-台灣最美海岸線</a>
-						</p>
-					</div>
-				</div>
-				<!-- End Item -->
+			<div class="carousel-inner" id="itemtag">
 
 			</div>
 			<!-- End Carousel Inner -->
-			<ul class="list-group col-sm-4">
-				<li data-target="#myCarousel" data-slide-to="0"
-					class="list-group-item active"><h4>南投日月潭游湖1日船票</h4></li>
-				<li data-target="#myCarousel" data-slide-to="1"
-					class="list-group-item"><h4>阿里山小火車之旅</h4></li>
-				<li data-target="#myCarousel" data-slide-to="2"
-					class="list-group-item"><h4>高雄愛河遊湖渡假飯店</h4></li>
-				<li data-target="#myCarousel" data-slide-to="3"
-					class="list-group-item"><h4>霧上桃源~南投清境農場</h4></li>
-				<li data-target="#myCarousel" data-slide-to="4"
-					class="list-group-item"><h4>三仙台-台灣最美海岸線</h4></li>
+			<ul class="list-group col-sm-4" id="list">
+				
 			</ul>
-
-			<!-- Controls -->
-			<div class="carousel-controls">
-				<a class="left carousel-control" href="#myCarousel"
-					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span>
-				</a> <a class="right carousel-control" href="#myCarousel"
-					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span>
-				</a>
-			</div>
-		</div>
-		<!-- End Carousel -->
+			
 
 		<h4>最受歡迎景點</h4>
 
@@ -265,6 +172,52 @@ body {
 	<script type="text/javascript">
 		$(document).ready(function() {
 
+			var picactive=true; 
+			$.ajax({
+				 url:"FirstpageServlet",
+				 type:"post",
+				 contentType: "application/json; charset=utf-8",
+				 dataType:"json", //xml,text
+				 success:function(data){
+					 console.log("get data from server....");
+					 //console.log(String(data));
+					 $.each(data,function(index,value){						
+						 if(value.spotThumbnailURL) {
+							 console.log(value.spotThumbnailURL);
+							if(picactive){
+							 $('#itemtag').append("<div class='item active' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");
+							}else{
+								$('#itemtag').append("<div class='item ' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");	
+							}
+							picactive=false;
+						}
+						 else 
+							 $('#itemtag').append("<div class='content_box'><h2>"+value.spotName+"</h2></div>");
+					 });				 
+					
+				 }
+			 });
+			var listactive=true; 
+			var i = 0; //滑動到第幾個數
+			$.ajax({
+				 url:"FirstpageServlet",
+				 type:"post",
+				 contentType: "application/json; charset=utf-8",
+				 dataType:"json", //xml,text
+				 success:function(data){					
+					 $.each(data,function(index,value){						
+						 if(listactive){
+						 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"+value.spotName+"</h4></li>");
+						 }else{
+							 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"+value.spotName+"</h4></li>");
+						 }
+						 listactive=false;
+						 i++;
+					 });				 
+					
+				 }
+			 });
+			
 			var clickEvent = false;
 			$('#myCarousel').carousel({
 				interval : 4000
