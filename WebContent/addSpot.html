@@ -356,6 +356,8 @@
 	  	// hide
 	  	//$("#fileinputBtn").hide();	  	
 	  	document.getElementById("imagePreview_zone_" + index).appendChild(oImg);
+	  	var imgPZ = "#imagePreview_zone_" + index;
+	  	$(imgPZ).append("<span class='glyphicon glyphicon-trash deleteImg '</span>");
 	  	
 	  	// move and then show
 	  	index++; console.log("index : " + index);
@@ -416,7 +418,13 @@
 		$("#subcategoryIdMenu .scrollable").hide();
 	}) 
 	
-	// others
+	// config image deletion
+	$('.imagePreview_zone').on('click', '.deleteImg', function(){
+		console.log('deleting image.....' + $(this));
+		$(this).closest('.imagePreview_zone').find('img:first').remove();
+	});
+	
+	// config buttons
 	function popoverHandler(elem) {
 		
 		$(elem).popover('enable');	
