@@ -32,65 +32,67 @@ public class SpotInfoServlet extends HttpServlet {
     }
 
     private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	HttpSession session = request.getSession();
     	
-//    	String spotId = request.getParameter("id");
-//    	System.out.println("SpotId : " + spotId);
-    	
-    	String sessionId = request.getSession().getId();
-    	System.out.println("sessionId : " + sessionId);
-    	
-    	// get spot detail 
-    	SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
-    	List<SpotDetail> spots = dao.select(1);
-    	//SpotDetail spotDetail = dao.select(spotId);
-    
-    	OutputStream os = response.getOutputStream();
-//        PrintWriter writer = response.getWriter();
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("application/json;charset=UTF-8");
-    	JSONArray jsonSpots = new JSONArray();
-    	
-    	try {
-			for(SpotDetail spot : spots) {
-				 JSONObject jsonSpot = new JSONObject();
-				 jsonSpot.put("spotId", spot.getSpotId());
-//				 jsonSpot.put("spotName", "中文");
-				 jsonSpot.put("spotName", spot.getSpotName());
-				 
-				 Iterator<SpotImg> it = spot.getSpotImgs().iterator();
-				 if((it != null) && it.hasNext()) {
-					 SpotImg img = it.next();
-					 String imgId = img.getImgId();
-					 String path = spot.getSpotId();
-					 ImageIOUtil.saveImage(path, imgId+".jpg", img.getSpotImg());
-					 jsonSpot.put("spotThumbnailURL", "images/"+path+"/"+imgId+".jpg");
-				 }
-
-				 jsonSpots.put(jsonSpot);       		
-			}
-			
-			System.out.println(jsonSpots.toString());
-//			os.write(jsonSpots.toString().getBytes());
-			os.write(jsonSpots.toString().getBytes("UTF-8"));
-//    		writer.write(jsonSpots.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-    	finally {
-//    		if(writer != null) {
-//    			writer.flush();
-//    			writer.close();
+    	System.out.println("printParams......");
+//    	HttpSession session = request.getSession();
+//    	
+////    	String spotId = request.getParameter("id");
+////    	System.out.println("SpotId : " + spotId);
+//    	
+//    	String sessionId = request.getSession().getId();
+//    	System.out.println("sessionId : " + sessionId);
+//    	
+//    	// get spot detail 
+//    	SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
+//    	List<SpotDetail> spots = dao.select(1);
+//    	//SpotDetail spotDetail = dao.select(spotId);
+//    
+//    	OutputStream os = response.getOutputStream();
+////        PrintWriter writer = response.getWriter();
+//        response.setCharacterEncoding("UTF-8");
+//        response.setContentType("application/json;charset=UTF-8");
+//    	JSONArray jsonSpots = new JSONArray();
+//    	
+//    	try {
+//			for(SpotDetail spot : spots) {
+//				 JSONObject jsonSpot = new JSONObject();
+//				 jsonSpot.put("spotId", spot.getSpotId());
+////				 jsonSpot.put("spotName", "中文");
+//				 jsonSpot.put("spotName", spot.getSpotName());
+//				 
+//				 Iterator<SpotImg> it = spot.getSpotImgs().iterator();
+//				 if((it != null) && it.hasNext()) {
+//					 SpotImg img = it.next();
+//					 String imgId = img.getImgId();
+//					 String path = spot.getSpotId();
+//					 ImageIOUtil.saveImage(path, imgId+".jpg", img.getSpotImg());
+//					 jsonSpot.put("spotThumbnailURL", "images/"+path+"/"+imgId+".jpg");
+//				 }
+//
+//				 jsonSpots.put(jsonSpot);       		
+//			}
+//			
+//			System.out.println(jsonSpots.toString());
+////			os.write(jsonSpots.toString().getBytes());
+//			os.write(jsonSpots.toString().getBytes("UTF-8"));
+////    		writer.write(jsonSpots.toString());
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+//    	finally {
+////    		if(writer != null) {
+////    			writer.flush();
+////    			writer.close();
+////    		}
+//    		
+//    		if(os != null) {
+//				os.flush();
+//				os.close();
 //    		}
-    		
-    		if(os != null) {
-				os.flush();
-				os.close();
-    		}
-    	}
-    	
-    	//session.setAttribute("spots", spots);
-    	//response.sendRedirect("printSpotInfo.jsp");
+//    	}
+//    	
+//    	//session.setAttribute("spots", spots);
+//    	//response.sendRedirect("printSpotInfo.jsp");
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
