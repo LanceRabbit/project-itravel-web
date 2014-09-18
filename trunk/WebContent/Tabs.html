@@ -4,213 +4,104 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet" type="text/css" /> -->
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
-<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/bootstrap-theme.css" />
+<link rel="stylesheet" href="css/jquery.datetimepicker.css" />
 
-<!-- Bootstrap core CSS -->
-<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" rel="stylesheet" media="screen">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<link
-	href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css"
-	rel="stylesheet" type="text/css" />
-
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+<script>
+	!window.jQuery && document.write("<script src='js/jquery-1.11.1.min.js'><\/script>")
+</script>
+<script src="js/bootstrap.js"></script>
 <style>
-#div1>img {
-	width: 150px;
-	height: 100px;
-}
 
-#map_canvas {
-	
-	height: 500px;
-	overflow: auto;
-}
 </style>
 
 
 </head>
 <body>
-
-	<div class="container">
-
-		<h2 style="text-align: center;">Bootstrap 3.1.0 - Modal Demo</h2>
-		<div class="row text-center">
-			<h3>The Basic Modal</h3>
-			<a href="#" class="btn btn-lg btn-success" data-toggle="modal"
-				data-target="#basicModal">Click to open Modal</a>
-		</div>
-		<hr>
-		<div class="row text-center">
-			<h3>The Large Modal</h3>
-			<a href="#mapmodals" class="btn btn-lg btn-primary"
-				data-toggle="modal" data-target="#mapmodals">Click to open Modal</a>
-		</div>
-		<hr>
-		<div class="row text-center">
-			<h3>The Small Modal</h3>
-			<a href="#" class="btn btn-lg btn-danger" data-toggle="modal"
-				data-target="#smallModal">Click to open Modal</a>
-		</div>
-		<a data-toggle="modal" href="#tallModal" class="btn btn-primary">Wide,
-			Tall Content</a>
-
-		<div class="row">
-
-			<div class="col-md-6"></div>
-			<!-- / column 1 -->
-
-			<div class="col-md-6">
-				<div class="col-md-offset-2 col-md-8">
-
-					<h2>Venice</h2>
-					<address>
-						<strong>Peggy Guggenheim Collection</strong><br> Dorsoduro,
-						701-704<br> 30123<br> Venezia<br> Italia<br> <abbr>P:</abbr>
-						+39 041 240 5411
-						<!-- Button to trigger modal -->
-						<p>
-							<a href="#mapmodals" data-toggle="modal" role="button"><img
-								src="img/moon1.jpg" width="64" height="64" alt="map Venice"
-								title="click to open Map"></a>
-						</p>
-					</address>
-				</div>
-			</div>
-			<!-- /column 2 -->
-		</div>
-		<!-- /row -->
-
-		<div id="tallModal" class="modal modal-wide fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						<p>One fine body&hellip;</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save
-							changes</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
-
-		<!-- Modal -->
-		<div class="modal modal-wide fade" id="mapmodals">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Peggy Guggenheim Collection - Venice</h4>
-					</div>
-					<div class="modal-body">
-						<div class="container-fluid">
-							<div class="row-fluid">
-								<div class="col-sm-4 scrollable">
-									<ul class="nav nav-tabs" id="myTab" style="">
-									<li class="active"><a data-toggle="tab" href="#page1">Home</a></li>
-									<li ><a data-toggle="tab" href="#page2">Home</a></li>
-									</ul>
-
-									<div class="tab-content" id="tabContent">
-									<div class="tab-pane active" id="page1" autofocus="">
-									
-									<div class="row">
-								      <div class="col-xs-6">
-								        <img
-										src="img/Desert.jpg"  height="100" alt="map Venice"
-										title="click to open Map"/>
-								      </div>
-								      <div class="col-xs-6">
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								      </div>
-								    </div>
-									<div class="row">
-								      <div class="col-xs-6">
-								        <img
-										src="img/Desert.jpg"  height="100" alt="map Venice"
-										title="click to open Map"/>
-								      </div>
-								      <div class="col-xs-6">
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								      </div>
-								    </div>
-									<div class="row">
-								      <div class="col-xs-6">
-								        <img
-										src="img/Desert.jpg"  height="100" alt="map Venice"
-										title="click to open Map"/>
-								      </div>
-								      <div class="col-xs-6" style="border: 1px solid;">
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								      </div>
-								    </div>
-									<div class="row">
-								      <div class="col-xs-6">
-								        <img
-										src="img/Desert.jpg"  height="100" alt="map Venice"
-										title="click to open Map"/>
-								      </div>
-								      <div class="col-xs-6">
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								       <div><label>45678</label></div>
-								      </div>
-								    </div>
-									</div>
-									<div class="tab-pane active" id="page2">
-									
-									
-									
-									</div>
-									
-									</div>
-								</div>
-								<div class="col-sm-8">
-									<div id="map-container"></div>
-								</div>
-
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="col-xs-12" style="border: 1px solid;">
+					<div class="row">
+						<div class="col-xs-6">
+							<ul class="nav nav-tabs" id="myTab" style="">
+								<li class="active"><a data-toggle="tab" href="#page1">Home</a></li>
+							</ul>
+		
+							<div class="tab-content" id="tabContent">
+								<div class="tab-pane active" id="page1" autofocus="">1234</div>
 							</div>
 						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="close" data-dismiss="modal">Close</button>
-					</div>
+						<div class="col-xs-6" style="border: 1px solid;">
+							<div id="map-container" style="border: 1px solid;">11111</div>
+						</div>
 				</div>
-				<!-- /.modal-content -->
+					
+				</div>
+
+
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
-		<!-- /.modal -->
-	</div>
-	<!-- /container -->
-
-
-
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script>
+	// when .modal-wide opened, set content-body height based on browser height; 
+	// 200 is appx height of modal padding, modal title and button bar
 
+	$(function() {
+		$("#myTab , #tabContent ").empty();
+		for(var pageNum=1,max=5;pageNum<max;pageNum++) { 
+			$('#myTab').append(
+					$('<li><a href="#page' 
+							+ pageNum 
+							+ '">' 
+							+'Page ' 
+							+ pageNum 
+							+'</a></li>'));
+			
+				$('#tabContent').append(
+					$('<div class="tab-pane" id="page' + pageNum +
+					'">	<div class="row" style="border: 1px solid;">' 
+					+'<div class="col-sm-4"  >'
+					+'<div class="title" style="border: 1px solid; padding:3px;"><img src="images/Desert.jpg"  height="100" alt="map Venice"'
+					+'title="click to open Map"/></div>'
+					+'</div>'
+					+'<div class="col-sm-4" style="border: 1px solid;">'
+					+'<div class="title"><label>45678</label></div>'+
+			       '<div class="title"><label>45678</label></div>'+
+			       '<div class="title"><label>45678</label></div>'+
+			      '</div>'+
+			    '</div>	</div>')
+				)
+				$('#page'+pageNum).append(
+						$('<div class="row" style="border: 1px solid;">' 
+								+'<div class="col-sm-4" style="border: 1px solid; padding:3px;" >'
+								+'<div class="title" ><img src="images/Desert.jpg"  height="100" alt="map Venice"'
+								+'title="click to open Map"/></div>'
+								+'</div>'
+								+'<div class="col-sm-4" style="border: 1px solid;">'
+								+'<div class="title"><label>45678</label></div>'+
+						       '<div class="title"><label>45678</label></div>'+
+						       '<div class="title"><label>45678</label></div>'+
+						      '</div>'+
+						    '</div>')
+							)
+
+				$('#page' + pageNum).tab('show');
+				$('#myTab a:first').tab('show');
+
+		} 
+		
+		/**
+		 * Click Tab to show its content 
+		 */
+
+		$("#myTab").on("click", "a", function(e) {
+				e.preventDefault();
+				$(this).tab('show');
+			});
+
+	});
 </script>
 </body>
 </html>
