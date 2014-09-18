@@ -62,7 +62,7 @@ body {
 .itravel-block-frame{
 	display: inline-block;
 	/*border: 1px dotted #4F4F4F;*/
-	padding: 10px;
+	padding: 5px;
 	
 	margin:auto;
 	overflow:hidden;
@@ -75,7 +75,7 @@ body {
 	
 	margin:auto;
 	width:100%;
-	height:220px;
+	height:270px;
 	
 	/*
 	background-image: url(images/thumbnail_128.png);
@@ -89,11 +89,11 @@ body {
 .itravel-block-1-thumbnail{
 	display: inline-block;
 	/*border: 1px dotted #4F4F4F;*/
-	padding-top:3px;
-	padding-bottom:3px;
-	margin-left:5px;
-	width:48%;
-	height:100px
+	padding-top:1px;
+	padding-bottom:1px;
+	margin-left:1px;
+	width:50%;
+	height:124px
 }
 
 .itravel-block-1-thumbnail-content {
@@ -165,11 +165,11 @@ body {
 						
 						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-thumbnails">
 							<div class="row">
-								<div class="col-md-6 itravel-block-1-thumbnail well">
+								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_2" class='imagePreview_zone'>
 									</div>
 								</div>
-								<div class="col-md-6 itravel-block-1-thumbnail well">
+								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_3" class='imagePreview_zone'>
 									</div>
 								</div>
@@ -177,11 +177,11 @@ body {
 							</div>
 							<!-- <div class="row"> -->
 							<div class="row">
-								<div class="col-md-6 itravel-block-1-thumbnail well">
+								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_4" class='imagePreview_zone'>
 									</div>
 								</div>
-								<div class="col-md-6 itravel-block-1-thumbnail well">
+								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_5" class='imagePreview_zone'>
 									</div>
 								</div>
