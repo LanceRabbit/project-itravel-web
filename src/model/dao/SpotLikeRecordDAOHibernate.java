@@ -27,8 +27,8 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		//test: insert 
 		//測試新增須先檢查DB內有沒有重複值
 		
-		spotRec.setAccountId("M14090002");
-		spotRec.setSpotId("RES14090002");
+		spotRec.setAccountId("M14090003");
+		spotRec.setSpotId("RES14090019");
 		spot = new SpotLikeRecord(spotRec);
 		spot = dao.insert(spot);
 		System.out.println(spot);
