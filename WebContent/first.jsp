@@ -10,6 +10,7 @@
 <style type="text/css">
 body {
 	padding: 20px;
+	background-color:#529abb;
 }
 
 #myCarousel .carousel-caption {
@@ -59,7 +60,7 @@ body {
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
 
-	<div class="container">
+	<div class="container" style="background-color:#529abb">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" id="itemtag">
