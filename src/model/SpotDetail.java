@@ -4,6 +4,7 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -114,7 +116,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.accountId = accountId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ACCOUNT_ID", nullable = false, insertable = false, updatable = false)
 	public Account getAccount() {
 		return this.account;
@@ -232,7 +234,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.tempSpotId = tempSpotId;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spotDetail")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spotDetail")
 	public Set<TripDetail> getTripDetails() {
 		return this.tripDetails;
 	}
@@ -241,7 +243,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.tripDetails = tripDetails;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spotDetail")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spotDetail")
 	public Set<Ad> getAds() {
 		return this.ads;
 	}
@@ -250,7 +252,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.ads = ads;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "spotDetail")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spotDetail")
 	public Set<Coupons> getCouponses() {
 		return this.couponses;
 	}
@@ -268,7 +270,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.spotImgs = spotImgs;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="SPOT_ID")
 	public Set<SpotCommentRecord> getSpotCommentRecords() {
 		return this.spotCommentRecords;
@@ -278,7 +280,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.spotCommentRecords = spotCommentRecords;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "spotCollect")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotCollect")
 	public Set<Account> getSpotCollect() {
 		return this.spotCollect;
 	}
@@ -287,13 +289,19 @@ public class SpotDetail implements java.io.Serializable {
 		this.spotCollect = spotCollect;
 	}
 
-	@ManyToMany(fetch = FetchType.LAZY, mappedBy = "spotLike")
+	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotLike")
 	public Set<Account> getSpotLike() {
 		return this.spotLike;
 	}
 
 	public void setSpotLike(Set<Account> spotLike) {
 		this.spotLike = spotLike;
+	}
+
+	@Override
+	public String toString() {
+		
+		return spotName+","+spotCommentRecords;
 	}
 
 }
