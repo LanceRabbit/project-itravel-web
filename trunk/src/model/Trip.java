@@ -2,9 +2,12 @@ package model;
 
 // Generated 2014/9/2 �U�� 08:47:27 by Hibernate Tools 4.0.0
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,7 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.Parameter;
 
 /**
@@ -145,6 +150,7 @@ public class Trip implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "trip")
+	@OrderBy(clause = "TRIP_DAY_ORDER , SPOT_ORDER ASC")
 	public Set<TripDetail> getTripDetails() {
 		return this.tripDetails;
 	}

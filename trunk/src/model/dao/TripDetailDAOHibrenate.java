@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -106,8 +107,8 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 
 		return result;
 	}
-
-	public List<TripDetail> selectAll(String id) {
+//"FROM TripDetail detail where detail.tripId = :id order by detail.tripDayOrder detail.spotOrder asc group by detail.tripDayOrder
+	public List<TripDetail> selectAllByTripId(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
@@ -115,13 +116,14 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		try {
 			tx = session.beginTransaction();
 			// Using HQL to search
-			List<?> trips = session
+			Query query = session
 					.createQuery(
-							"FROM TripDetail detail where detail.tripId = ? order by detail.tripDayOrder asc")
-					.setString(0, id).list();
-			for (Object trip : trips) {
-				result.add((TripDetail) trip);
-			}
+							"FROM TripDetail detail where detail.trip.tripId=? "
+					+"group by detail.tripDayOrder "
+					+"order by detail.spotOrder asc")
+				    .setParameter(0, id);
+			result = query.list();
+
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)
@@ -134,29 +136,53 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 
 	public static void main(String[] args) {
 		TripDetailDAOHibrenate dao = new TripDetailDAOHibrenate();
-
-		TripDetail tripDetail = new TripDetail();
-
-		SpotDetail spotDetail = new SpotDetail();
-		spotDetail.setSpotId("RES14090008");
-		tripDetail.setSpotDetail(spotDetail);
-
+		List<Set<TripDetail>> aaa = dao.selectByTripId("T14090004");
+		
+		
+		
+		
+//        for(List<TripDetail> arr : aaa){
+//            System.out.println(Arrays.toString(arr));
+//        }
+//	   List<TripDetail> trips = aaa[0].iterator();
+//	   aaa.
+//	   Iterator<TripDetail> tripDetail =
+//			
+//			while(tripDetail.hasNext()) {
+//				Trip tripss = (Trip)tripDetail.next();
+//				System.out.println(tripss);
+//			}
+		
+		
+//		List<TripDetail> all = dao.selectAllByTripId("T14090004");
+//		for (TripDetail trip : aaa) {
+//			for (int i = 0 ; i < trip.length; i++){
+//			System.out.println(trip[i]);
+//			}
+//		}
 		Trip trip = new Trip();
-		trip.setTripId("T14090003");
-		tripDetail.setTrip(trip);
-		tripDetail.setSpotOrder(3);
-		tripDetail.setTripDayOrder(1);
-		tripDetail.setStayTime(240);
-		tripDetail.setTempTripDetailId("EMP");
+//		TripDetail tripDetail = new TripDetail();
+//
+//		SpotDetail spotDetail = new SpotDetail();
+//		spotDetail.setSpotId("RES14090008");
+//		tripDetail.setSpotDetail(spotDetail);
+//
 
-		tripDetail = dao.insert(tripDetail);
+//		trip.setTripId("T14090003");
+//		tripDetail.setTrip(trip);
+//		tripDetail.setSpotOrder(3);
+//		tripDetail.setTripDayOrder(1);
+//		tripDetail.setStayTime(240);
+//		tripDetail.setTempTripDetailId("EMP");
+//
+//		tripDetail = dao.insert(tripDetail);
 		// tripDetail.s
 		
 		
 		
 //		TripDAOHibernate tripDao = new TripDAOHibernate();
 //		
-//		trip = tripDao.select("T14090001");
+//		trip = tripDao.select("T14090004");
 //		
 //		Set<TripDetail> tripDetails = trip.getTripDetails();
 //		Iterator<TripDetail> tripDetail = tripDetails.iterator();
@@ -168,6 +194,35 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 //			System.out.println(trips);
 //		}
 
+	}
+
+	@Override
+	public List<Set<TripDetail>> selectByTripId(String id) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Set<TripDetail>> result = null;
+		try {
+			tx = session.beginTransaction();
+			// Using HQL to search
+			Query query = session
+					.createQuery(
+							"select detail.tripDayOrder FROM TripDetail detail where detail.trip.tripId=? "
+					+"group by detail.tripDayOrder "
+					)
+				    .setParameter(0, id);
+			result = query.list();
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return result;
+		
+		
 	}
 
 }

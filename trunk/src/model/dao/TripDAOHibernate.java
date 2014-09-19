@@ -1,12 +1,16 @@
 package model.dao;
 
 import java.io.Serializable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import model.Account;
+import model.AccountDAO;
 import model.Trip;
 import model.TripDAO;
 import model.util.HibernateUtil;
@@ -115,7 +119,7 @@ public class TripDAOHibernate implements TripDAO {
 		trip.setTempTripId("EMP");
 
 		
-		trip = dao.insert(trip);
+//		trip = dao.insert(trip);
 		System.out.println("test : insert================================");
 		System.out.println(trip);
 		
@@ -135,5 +139,19 @@ public class TripDAOHibernate implements TripDAO {
 //		trip = dao.update(trip);
 //		System.out.println(trip);
 		
+		//find out all of trip via account
+		AccountDAO aDao = new AccountDAOHibernate();
+		Account acc = null;
+		acc = aDao.selectById("M14090001");
+		if (acc != null ){
+			Set<Trip> trips = acc.getTrips();
+			Iterator<Trip> tripDetail = trips.iterator();
+			
+			while(tripDetail.hasNext()) {
+				Trip tripss = (Trip)tripDetail.next();
+				System.out.println(tripss);
+			}
+			
+		}
 	}
 }

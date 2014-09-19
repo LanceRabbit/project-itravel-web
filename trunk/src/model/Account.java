@@ -5,6 +5,7 @@ package model;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +19,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.Parameter;
 
 /**
@@ -164,6 +167,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+	@OrderBy(clause = "TRIP_ID DESC")
 	public Set<Trip> getTrips() {
 		return this.trips;
 	}

@@ -33,7 +33,7 @@ public class TripDetail implements java.io.Serializable {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return tripDetailId + ", " + spotDetail.getSpotId() + ", " + stayTime
-				+ ", " + spotOrder+", " + tripDayOrder;
+				+ ", " + spotOrder+", " + tripDayOrder + ", "+trip.getTripId() ;
 	}
 	public TripDetail() {
 	}
@@ -70,7 +70,7 @@ public class TripDetail implements java.io.Serializable {
 		this.tripDetailId = tripDetailId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SPOT_ID")
 	public SpotDetail getSpotDetail() {
 		return this.spotDetail;
