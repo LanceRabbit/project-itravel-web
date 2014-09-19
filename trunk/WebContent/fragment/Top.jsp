@@ -25,17 +25,20 @@
 				<li><a href="#">coupon</a></li>
 
 			</ul>
+			<c:if test="${empty errorMsgs }">
+			
 			<c:if test="${empty user }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#mapmodals" data-toggle="modal">
 							<i class="glyphicon glyphicon-user"></i>登入
 					</a></li>
 			</c:if>
+			</c:if>
 			<c:if test="${! empty user }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
-							小花 <b class="caret"></b></a>
+							${user.nickname}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i
 									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
@@ -69,13 +72,45 @@
 							<h4 class="modal-title">登入</h4>
 						</div>
 						<div class="modal-body">
-							<p>One fine body&hellip;</p>
+
+							<form action="<c:url value="/controller/LoginServlet" />"
+								method="get">
+								<table>
+									<tr>
+										<td>ID :</td>
+										<td><input type="text" name="username"
+											value="${param.username}"></td>
+										<td><span class="error">${errorMsgs.username}</span></td>
+									</tr>
+									<tr>
+										<td>PWD :</td>
+										<td><input type="text" name="password"
+											value="${param.password}"></td>
+										<td><span class="error">${errorMsgs.password}</span></td>
+									</tr>
+									<tr>
+										<td></td>
+										<td align="right"><input
+											onclick="location.href='<c:url value="/secure/signUp.jsp" />';"
+											type="button" value="註冊" class="btn btn-primary"><input
+											onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';"
+											type="button" value="忘記密碼"><input type="submit"
+											value="登錄"></td>
+									</tr>
+								</table>
+							
+
+
+
 						</div>
-						<div class="modal-footer">							
-							<button type="button" class="btn btn-default"
-								data-dismiss="modal">註冊</button></a>
-							<button type="button" class="btn btn-primary">忘記密碼</button>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/secure/signUp.jsp" />';"
+								data-dismiss="modal">註冊</button>
+							</a>
+							<button type="button" class="btn btn-default">忘記密碼</button>
+							<input type="submit" class="btn btn-primary"></button>
 						</div>
+						</form>
 					</div>
 					<!-- /.modal-content -->
 				</div>

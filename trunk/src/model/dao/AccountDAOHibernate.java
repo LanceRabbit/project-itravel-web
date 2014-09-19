@@ -114,6 +114,28 @@ public class AccountDAOHibernate implements AccountDAO {
 		return result;
 	}
 	@Override
+	public boolean updateAccountLevel(String accountId, int accountLevel) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		int result = 0;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("update Stock set accountLevel = "+accountLevel+
+		    				" where accountId = "+accountId).executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		if(result==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	@Override
 	public Account selectById(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -168,6 +190,7 @@ public class AccountDAOHibernate implements AccountDAO {
 		}
 		return result;
 	}
+	
 
 	
 
