@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,31 +15,35 @@
 				data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="#">iTravel</a>
+			</button>			
+			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">iTravel</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
+				<li><a href="#">News</a></li>
 				<li><a href="#">找景點</a></li>
 				<li><a href="#">找行程</a></li>
 				<li><a href="#">coupon</a></li>
 
 			</ul>
 			<c:if test="${empty errorMsgs }">
-			
-			<c:if test="${empty user }">
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#mapmodals" data-toggle="modal">
-							<i class="glyphicon glyphicon-user"></i>登入
-					</a></li>
-			</c:if>
+
+				<c:if test="${empty user }">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#mapmodals" data-toggle="modal">
+								<i class="glyphicon glyphicon-user"></i>登入
+						</a></li>
+				</c:if>
 			</c:if>
 			<c:if test="${! empty user }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><c:if test="${! empty user.image }"><img width="30" height="30" src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" /></c:if>
-						<c:if test="${ empty user.image }"><i class="glyphicon glyphicon-user"></i></c:if>
-							${user.nickname}<b class="caret"></b></a>
+						data-toggle="dropdown"><c:if test="${! empty user.image }">
+								<img width="30" height="30"
+									src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
+							</c:if> <c:if test="${ empty user.image }">
+								<i class="glyphicon glyphicon-user"></i>
+							</c:if> ${user.nickname}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i
 									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
@@ -101,11 +105,13 @@
 								</table>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/secure/signup.jsp" />';"
+							<button type="button" class="btn btn-default"
+								onclick="location.href='<c:url value="/secure/signup.jsp" />';"
 								data-dismiss="modal">註冊</button>
 							</a>
 							<button type="button" class="btn btn-default">忘記密碼</button>
-							<input type="submit" class="btn btn-primary"></button>
+							<input type="submit" class="btn btn-primary">
+							</button>
 						</div>
 						</form>
 					</div>
