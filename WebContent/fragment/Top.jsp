@@ -37,7 +37,8 @@
 			<c:if test="${! empty user }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i>
+						data-toggle="dropdown"><c:if test="${! empty user.image }"><img width="30" height="30" src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" /></c:if>
+						<c:if test="${ empty user.image }"><i class="glyphicon glyphicon-user"></i></c:if>
 							${user.nickname}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
 							<li><a href="#"><i
@@ -91,7 +92,7 @@
 									<tr>
 										<td></td>
 										<td align="right"><input
-											onclick="location.href='<c:url value="/secure/signUp.jsp" />';"
+											onclick="location.href='<c:url value="/secure/signup.jsp" />';"
 											type="button" value="註冊" class="btn btn-primary"><input
 											onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';"
 											type="button" value="忘記密碼"><input type="submit"
@@ -100,7 +101,7 @@
 								</table>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/secure/signUp.jsp" />';"
+							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/secure/signup.jsp" />';"
 								data-dismiss="modal">註冊</button>
 							</a>
 							<button type="button" class="btn btn-default">忘記密碼</button>

@@ -84,7 +84,7 @@ public class AccountService {
 	}
 	public Account activateAccount(String accountId) {
 		boolean result =false;
-		int oAccLevel = dao.selectById(accountId).getAccountLevel();
+		int oAccLevel =(int) dao.selectById(accountId).getAccountLevel();
 		//1--Member; 2--Owner;  3--UnactivateMember; 5--UnactivateOwner
 		if(oAccLevel==3){
 			result = dao.updateAccountLevel(accountId,1);
@@ -122,11 +122,12 @@ public class AccountService {
 	public static void main(String[] args) {
 		AccountDAO dao = new AccountDAOHibernate();
 		AccountService service = new AccountService();
-		Account bean = service.login("user2@gmail.com", "user2");
-		System.out.println(bean);
+//		Account bean = service.login("user2@gmail.com", "user2");
+//		System.out.println(bean);
 //		 boolean result = service.changeAccount("M14090001", "user1", null,
 //		 "user1", null);
 //		 System.out.println(result);
+		
 	}
 
 }

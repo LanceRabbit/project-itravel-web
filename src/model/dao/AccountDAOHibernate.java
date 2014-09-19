@@ -121,8 +121,8 @@ public class AccountDAOHibernate implements AccountDAO {
 		int result = 0;
 		try {
 			tx = session.beginTransaction();
-			result = session.createQuery("update Stock set accountLevel = "+accountLevel+
-		    				" where accountId = "+accountId).executeUpdate();
+			result = session.createQuery("update Account ac set ac.accountLevel = "+accountLevel+
+		    				" where ac.accountId = '"+accountId+"'").executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)
