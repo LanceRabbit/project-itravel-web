@@ -40,14 +40,15 @@ public class FirstpageServlet extends HttpServlet {
 		String sessionId = request.getSession().getId();
 		System.out.println("sessionId : " + sessionId);
 		FirstpageService service = new FirstpageService();
+		
+		//find 廣告檔資料
 		List<Ad> result = service.findAD();
 		// System.out.println(result);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 		JSONArray jsonSpots = new JSONArray();
 		OutputStream os = response.getOutputStream();
-		request.setAttribute("Ad", result);
-
+		request.setAttribute("Ad", result);		
 		try {
 			for (Ad o : result) {
 				JSONObject jsonSpot = new JSONObject();
@@ -59,12 +60,16 @@ public class FirstpageServlet extends HttpServlet {
 				jsonSpots.put(jsonSpot);
 
 			}
+		
+		//find 最受歡迎的景點	
+			
+			
+			
 
 			System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
-			
-			
+
 			// String AdimgId = o.getAdId();
 			// System.out.println(AdimgId); // 圖檔名稱怎麼解決!?
 			// InputStream is = new FileInputStream(DIR_PATH + AdimgId +
@@ -82,15 +87,15 @@ public class FirstpageServlet extends HttpServlet {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally{
-			
-			if(os != null) {
+		} finally {
+
+			if (os != null) {
 				os.flush();
 				os.close();
-    		}
+			}
 		}
-//		request.getRequestDispatcher("testfirst.jsp")
-//				.forward(request, response);
+		// request.getRequestDispatcher("testfirst.jsp")
+		// .forward(request, response);
 
 	}
 

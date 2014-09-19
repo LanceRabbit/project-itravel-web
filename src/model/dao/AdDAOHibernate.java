@@ -182,14 +182,14 @@ public class AdDAOHibernate implements AdDAO {
 //		 }
 
 		// 放圖片		
-//		  	spot.setSpotId("RES14090018");
-//			String adImgId = "D1409002";
-//			ad.setAdId(adImgId);
-//			ad.setValidDay(date);
-//			ad.setSpotDetail(spot);
-//			ad.setAdImg(ImageIOUtil.getImageByFilename("D1409002.jpg"));
-//			
-//			dao.update(ad);
+		  	spot.setSpotId("RES14090019");
+			String adImgId = "D1409001";
+			ad.setAdId(adImgId);
+			ad.setValidDay(date);
+			ad.setSpotDetail(spot);
+			ad.setAdImg(ImageIOUtil.getImageByFilename("D1409001.jpg"));
+			
+			dao.update(ad);
 		
 
 	}
