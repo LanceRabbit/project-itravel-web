@@ -306,7 +306,7 @@
 <script>
 (function($){	
 	var myDropzone;
-	var index = 1;
+	var zone_index = 1;
 	var var_map;
 	var var_location = new google.maps.LatLng(45.430817, 12.331516);
 
@@ -329,16 +329,16 @@
 	
 	// config drop zone
 	myDropzone.on("addedfile", function(file) {
-		  console.log("addedfile...");
-		  console.log(file);
+		  //console.log("addedfile...");
+		  //console.log(file);
 		  
 		});
 
 	myDropzone.on("thumbnail", function(file, dataUrl){
-		console.log("thumbnail...");
+		//console.log("thumbnail...");
 		var height, width, className;
 		
-		if(index != 1) {
+		if(zone_index != 1) {
 			height = '95px';
 			width = '150px';
 			className = 'itravel-block-1-thumbnail-content';
@@ -357,19 +357,17 @@
 	  	oImg.setAttribute('width', width);
 	  	oImg.setAttribute("class", className);
 	  	
-	  	// hide
-	  	//$("#fileinputBtn").hide();	  	
-	  	document.getElementById("imagePreview_zone_" + index).appendChild(oImg);
-	  	var imgPZ = "#imagePreview_zone_" + index;
+	  	document.getElementById("imagePreview_zone_" + zone_index).appendChild(oImg);
+	  	var imgPZ = "#imagePreview_zone_" + zone_index;
 	  	$(imgPZ).append("<span class='glyphicon glyphicon-trash deleteImg '</span>");
 	  	
 	  	// move and then show
-	  	index++; console.log("index : " + index);
-	  	$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + index);
+	  	zone_index++; //console.log("zone index : " + zone_index);
+	  	$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + zone_index);
 	});
 
 	myDropzone.on("queuecomplete", function(progress) {
-		  console.log("finished");
+		  console.log("finished uploading");
 	});
 		
 	// config category
@@ -380,7 +378,7 @@
 	});
 	
 	$("#cityIdMenu .dropdown-menu li").click(function(){
-		console.log($(this).text());
+		//console.log($(this).text());
 		$("#city").val($(this).text());
 		$("#cityIdMenu .dropdown-menu").hide();
 	}) 
@@ -392,7 +390,7 @@
 	});
 	
 	$("#categoryIdMenu .dropdown-menu li").click(function(){
-		console.log($(this).index());
+		//console.log($(this).index());
 		$("#category").val($(this).text());
 		$("#categoryIdMenu .dropdown-menu").hide();
 		
@@ -417,15 +415,49 @@
 	});
 	
 	$("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
-		console.log($(this).text());
+		//console.log($(this).text());
 		$("#subcategory").val($(this).text());
 		$("#subcategoryIdMenu .scrollable").hide();
-	}) 
+	})
 	
 	// config image deletion
 	$('.imagePreview_zone').on('click', '.deleteImg', function(){
-		console.log('deleting image.....' + $(this));
-		$(this).closest('.imagePreview_zone').find('img:first').remove();
+		//console.log('deleting image.....' + $(this));
+		var zone = $(this).closest('.imagePreview_zone');
+		zone.find('img:first').remove();
+		
+		// reset icons and the zone_index
+		$(this).remove();
+		var curIndex = zone.attr('id').substr(zone.attr('id').lastIndexOf('_')+1);
+		
+		// create all the ids to be processed
+		var zoneIds = [];
+		for(var i = curIndex; i <= 5; i++)
+			zoneIds.push("#imagePreview_zone_" + i);
+	
+		var reachEmptyZone = false;
+		$(zoneIds).each(function(index){
+			if((index != 0) && !reachEmptyZone) {
+				var curZoneId = zoneIds[index];
+				var prevZoneId = zoneIds[index-1]; 
+				
+				//if(!$(curZoneId).is(':empty')) {
+				if($(curZoneId).html().trim().length > 0) {
+					
+					//console.log("children : " + $(curZoneId).html());
+					//console.log("children with length : " + $(curZoneId).html().length);
+					$(curZoneId).children().detach().appendTo($(prevZoneId));
+				}
+				else {
+						//console.log("index : " + index);
+						//console.log("current zone : " + zoneIds[index]);	
+						var emptyZoneId = zoneIds[index].substr(zoneIds[index].lastIndexOf('_')+1);
+						
+						zone_index = emptyZoneId - 2; // 1 for the original next preview zone; 1 for the deletion
+						reachEmptyZone = true;
+				}	
+			} 
+		});
 	});
 	
 	// config buttons
@@ -440,7 +472,7 @@
 	}
 	
 	$("#saveBtn").click(function(){
-		console.log("saveBtn pressed.....");
+		//console.log("saveBtn pressed.....");
 		
 		// check the fields
 		if($("#spotName").val().length == 0)
@@ -459,7 +491,7 @@
 			$(".imagePreview_zone").each(function(index){
 				
 				name = $(this).attr('id');
-				value = $(this).find('img:first').attr('alt'); console.log("value : " + value);
+				value = $(this).find('img:first').attr('alt'); //console.log("value : " + value);
 				
 				content = "<input type='hidden' name='"+name+"' value=' "+value+"'>";
 				//console.log("content : "+content);
@@ -483,29 +515,31 @@
 	});
 	
 	$("#resetBtn").click(function(){
-		console.log("reset......");
+		//console.log("reset......");
 		resetPage();
 	});
 	
 	
 	$("#spotName").change(function(){
-		console.log("changing....");
+		//console.log("changing....");
 		if(!$("#itravel-block-map").is(':visible')) {
 			$("#itravel-block-map").show();
 			google.maps.event.trigger(var_map, "resize");
 			var_map.setCenter(var_location);
-
 		}
 	});
 	
 	function resetPage() {
-			$('input').val('');
-			$('#intro').val('');
-			$('#subcategoryGroup').hide();
-			
-			$('.imagePreview_zone img').remove();
-			$("#fileinputBtn").detach().appendTo("#imagePreview_zone_1");
-			index = 1;
+		// reset the image zones
+		zone_index = 1;
+		$('.imagePreview_zone img').remove();
+		$("#fileinputBtn").detach().appendTo("#imagePreview_zone_1");
+		$('.deleteImg').remove();
+		
+		// reset the form
+		$('input').val('');
+		$('#intro').val('');
+		$('#subcategoryGroup').hide();
 	}
 	
 	// drop zone
@@ -588,7 +622,6 @@
 		});
 	} 
 }(jQuery, google));
-
 
 (function($){
 	console.log("Hello, jQuery!!");
