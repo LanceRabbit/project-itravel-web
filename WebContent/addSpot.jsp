@@ -13,52 +13,8 @@
 <link rel="stylesheet" href="css/bootstrap.css" />
 <link rel="stylesheet" href="css/bootstrap-theme.css" />
 <link rel="stylesheet" href="css/dropzone.css" />
-
+<link rel="stylesheet" href="css/container.css" />
 <style>
-body {
-	padding: 20px;
-}
-
-#myCarousel .carousel-caption {
-	left: 0;
-	right: 0;
-	bottom: 0;
-	text-align: left;
-	padding: 10px;
-	background: rgba(0, 0, 0, 0.6);
-	text-shadow: none;
-}
-
-#myCarousel .list-group {
-	position: absolute;
-	top: 0;
-	right: 0;
-}
-
-#myCarousel .list-group-item {
-	border-radius: 0px;
-	cursor: pointer;
-}
-
-#myCarousel .list-group .active {
-	background-color: #eee;
-}
-
-@media ( min-width : 992px) {
-	#myCarousel {
-		padding-right: 33.3333%;
-	}
-	#myCarousel .carousel-controls {
-		display: none;
-	}
-}
-
-@media ( max-width : 991px) {
-	.carousel-caption p,#myCarousel .list-group {
-		display: none;
-	}
-}
-
 .itravel-block-frame{
 	display: inline-block;
 	/*border: 1px dotted #4F4F4F;*/
@@ -343,10 +299,7 @@ body {
 		</div>
 	</div>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
-<script>!window.jQuery && document.write("<script src='Scripts/jquery-1.11.1.min.js'><\/script>")</script>
-<script src="js/bootstrap.js"></script>
+<jsp:include page="/fragment/bottom.jsp" />
 <script src="js/dropzone.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
@@ -634,7 +587,11 @@ body {
 			var_infowindow.open(var_map, var_marker);
 		});
 	} 
-	
+}(jQuery, google));
+
+
+(function($){
+	console.log("Hello, jQuery!!");
 }(jQuery, google));
 
 </script>
