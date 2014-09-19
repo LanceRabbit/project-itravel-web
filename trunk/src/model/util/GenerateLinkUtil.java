@@ -17,8 +17,8 @@ public class GenerateLinkUtil {
 	 * 生成帐户激活链接
 	 */
 	public static String generateActivateLink(Account user) {
-		return "http://localhost:8080/TravelWeb/controller/ActivateAccountServlet?accountId="
-				+ user.getAccountId() + "&" + CHECK_CODE + "="
+		return "http://localhost:8080/TravelWeb/controller/ActivateAccountServlet?email="
+				+ user.getEmail() + "&" + CHECK_CODE + "="
 				+ generateCheckcode(user);
 	}
 
@@ -26,8 +26,8 @@ public class GenerateLinkUtil {
 	 * 生成重设密码的链接
 	 */
 	public static String generateResetPwdLink(Account user) {
-		return "http://localhost:8080/TravelWeb/controller/ActivateAccountServlet?accountId="
-				+ user.getAccountId()
+		return "http://localhost:8080/TravelWeb/controller/ActivateAccountServlet?email="
+				+ user.getEmail()
 				+ "&"
 				+ CHECK_CODE
 				+ "="
@@ -42,7 +42,7 @@ public class GenerateLinkUtil {
 	 * @return 将用户名和密码组合后，通过md5加密后的16进制格式的字符串
 	 */
 	public static String generateCheckcode(Account user) {
-		return md5(user.getAccountId() + ":" + user.getPassword());
+		return md5(user.getAccountId() + ":" + user.getAccountLevel());
 	}
 
 	/**

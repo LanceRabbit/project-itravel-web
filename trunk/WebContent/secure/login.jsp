@@ -13,6 +13,7 @@
 <body>
 
 <h3>Login</h3>
+<h5>${errMsgs}</h5>
 <form action="<c:url value="/controller/LoginServlet" />" method="get">
 <table>
 	<tr>
