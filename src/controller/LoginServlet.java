@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import model.Account;
 import model.service.AccountService;
-@WebServlet("/secure/login.controller")
+@WebServlet("/controller/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private AccountService service = null;
 	
@@ -52,10 +52,11 @@ public class LoginServlet extends HttpServlet {
 		Account bean = service.login(username, password);
 		
 //根據Model執行結果呼叫View
+		
 		if(bean==null) {
 			errors.put("password", "Login failed, please try again.");
 			request.getRequestDispatcher(
-					"/secure/login.jsp").forward(request, response);
+					"/first.jsp").forward(request, response);
 		} else {
 			HttpSession session = request.getSession();
 			session.setAttribute("user", bean);
@@ -65,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 				session.removeAttribute("dest");
 			}else{
 				String path = request.getContextPath();
-				response.sendRedirect(path+"/accountTest.jsp");
+				response.sendRedirect(path+"/first.jsp");
 			}
 			
 			
