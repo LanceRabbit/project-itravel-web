@@ -1,10 +1,8 @@
 package model.dao;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
-import model.BlacklistRecord;
-import model.SpotDetail;
 import model.SpotLikeRecord;
 import model.SpotLikeRecordDAO;
 import model.SpotLikeRecordId;
@@ -23,12 +21,12 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		SpotLikeRecordDAO dao = new SpotLikeRecordDAOHibernate();
 		SpotLikeRecordId spotRec = new SpotLikeRecordId();
 		SpotLikeRecord spot =null;
-		
+	
 		//test: insert 
 		//測試新增須先檢查DB內有沒有重複值
 		
-		spotRec.setAccountId("M14090003");
-		spotRec.setSpotId("RES14090019");
+		spotRec.setAccountId("M14090001");
+		spotRec.setSpotId("RES14090014");
 		spot = new SpotLikeRecord(spotRec);
 		spot = dao.insert(spot);
 		System.out.println(spot);
@@ -153,4 +151,5 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 			e.printStackTrace();
 		}
 	}
+
 }
