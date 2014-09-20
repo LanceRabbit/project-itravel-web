@@ -10,7 +10,7 @@
 <script>
 	!window.jQuery && document.write("<script src='js/jquery-1.11.1.min.js'><\/script>")
 </script>
-
+<script src="js/bootstrap.min.js"></script>
 <style type="text/css">
 body {
 	padding: 20px;
