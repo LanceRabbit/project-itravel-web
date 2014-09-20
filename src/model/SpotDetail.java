@@ -301,7 +301,7 @@ public class SpotDetail implements java.io.Serializable {
 	@Override
 	public String toString() {
 		
-		return spotName+","+spotCommentRecords;
+		return spotName+","+spotIntro+","+likeCount;
 	}
 
 }

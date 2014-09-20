@@ -18,6 +18,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import model.Ad;
+import model.SpotDetail;
 import model.SpotImg;
 import model.service.FirstpageService;
 import model.util.ImageIOUtil;
@@ -25,12 +26,12 @@ import model.util.ImageIOUtil;
 /**
  * Servlet implementation class FirstpageServlet
  */
-@WebServlet("/FirstpageServlet")
-public class FirstpageServlet extends HttpServlet {
+@WebServlet("/FindTopAdServlet")
+public class FindTopAdServlet extends HttpServlet {
 	public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
 	private static final long serialVersionUID = 1L;
 
-	public FirstpageServlet() {
+	public FindTopAdServlet() {
 
 	}
 
@@ -44,11 +45,14 @@ public class FirstpageServlet extends HttpServlet {
 		//find 廣告檔資料
 		List<Ad> result = service.findAD();
 		// System.out.println(result);
+		
+		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 		JSONArray jsonSpots = new JSONArray();
+		
 		OutputStream os = response.getOutputStream();
-		request.setAttribute("Ad", result);		
+	
 		try {
 			for (Ad o : result) {
 				JSONObject jsonSpot = new JSONObject();
@@ -59,17 +63,12 @@ public class FirstpageServlet extends HttpServlet {
 				jsonSpot.put("spotThumbnailURL", "images/" + imgId + ".jpg");
 				jsonSpots.put(jsonSpot);
 
-			}
-		
-		//find 最受歡迎的景點	
+			}	
 			
-			
-			
-
 			System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
-
+			//os.write(jsonSpotsLike.toString().getBytes("UTF-8"));
 			// String AdimgId = o.getAdId();
 			// System.out.println(AdimgId); // 圖檔名稱怎麼解決!?
 			// InputStream is = new FileInputStream(DIR_PATH + AdimgId +
@@ -94,8 +93,8 @@ public class FirstpageServlet extends HttpServlet {
 				os.close();
 			}
 		}
-		// request.getRequestDispatcher("testfirst.jsp")
-		// .forward(request, response);
+//		 request.getRequestDispatcher("testfirst.jsp")
+//		 .forward(request, response);
 
 	}
 

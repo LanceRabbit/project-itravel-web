@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 public interface SpotLikeRecordDAO {
 	 
 	public abstract SpotLikeRecord insert(SpotLikeRecord spotRec);

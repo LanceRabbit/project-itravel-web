@@ -6,6 +6,7 @@ import java.util.List;
 import model.Account;
 import model.SpotDetail;
 import model.SpotDetailDAO;
+import model.Trip;
 import model.util.HibernateUtil;
 
 import org.hibernate.Query;
@@ -157,6 +158,32 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return spots;
 	}
 	
+	public List<SpotDetail> selectTopN(int num) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		List<SpotDetail> spots = new ArrayList<SpotDetail>();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+
+			Query query = session
+					.createQuery("FROM SpotDetail spot order by spot.likeCount DESC");
+			query.setMaxResults(num);
+			for (Object o : query.list()) {
+				spots.add((SpotDetail) o);
+			}
+					
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spots;
+	}
+	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 //		SpotDetail spot = new SpotDetail();
@@ -173,10 +200,10 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //		SpotDetailDAOHibernate.printSpotInfo(spot);
 		
 		// select first 9 spots
-		List<SpotDetail> spots = dao.select(1);
-		for(SpotDetail spot : spots) {
-			SpotDetailDAOHibernate.printSpotInfo(spot);
-		}
+//		List<SpotDetail> spots = dao.select(1);
+//		for(SpotDetail spot : spots) {
+//			SpotDetailDAOHibernate.printSpotInfo(spot);
+//		}
 		// select 
 //		String spotId = spot.getSpotId();
 //		spot = dao.select(spotId);
@@ -199,5 +226,10 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //		}
 //		else 
 //			System.out.println("ERROR!!");
+		
+		List<SpotDetail> list =dao.selectTopN(5);
+		for (Object o : list) {
+			 System.out.println(o);
+			 }
 	}
 }

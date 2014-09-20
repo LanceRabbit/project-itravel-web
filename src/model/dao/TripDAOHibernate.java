@@ -1,10 +1,12 @@
 package model.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -140,18 +142,58 @@ public class TripDAOHibernate implements TripDAO {
 //		System.out.println(trip);
 		
 		//find out all of trip via account
-		AccountDAO aDao = new AccountDAOHibernate();
-		Account acc = null;
-		acc = aDao.selectById("M14090001");
-		if (acc != null ){
-			Set<Trip> trips = acc.getTrips();
-			Iterator<Trip> tripDetail = trips.iterator();
+//		AccountDAO aDao = new AccountDAOHibernate();
+//		Account acc = null;
+//		acc = aDao.selectById("M14090001");
+//		if (acc != null ){
+//			Set<Trip> trips = acc.getTrips();
+//			Iterator<Trip> tripDetail = trips.iterator();
+//			
+//			while(tripDetail.hasNext()) {
+//				Trip tripss = (Trip)tripDetail.next();
+//				System.out.println(tripss);
+//			}
+//			
+//		}
+		
+		
+		 List<Trip> list = new ArrayList<Trip>();
+		 list = dao.selectTopN(5);
+		 for (Object o : list) {
+		 System.out.println(o);
+		 }
 			
-			while(tripDetail.hasNext()) {
-				Trip tripss = (Trip)tripDetail.next();
-				System.out.println(tripss);
+	}
+
+    //select like top 5
+	public List<Trip> selectTopN(int num) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Trip> trip = new ArrayList<Trip>();
+		try {
+			tx = session.beginTransaction();
+
+			Query query = session
+					.createQuery("FROM Trip trip order by trip.likeCount DESC");
+			query.setMaxResults(num);
+			for (Object o : query.list()) {
+				trip.add((Trip) o);
 			}
-			
+
+			// System.out.println("Top 10 Ad : " + ads.size());
+			// for (Object o : spots) {
+			// SpotCollectRecord spot = (SpotCollectRecord) o;
+			// System.out.println(accountId + "likes spot id: "
+			// + spot.getId().getSpotId());
+			// }
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
 		}
+		return trip;		
+	
 	}
 }
