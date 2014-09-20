@@ -15,8 +15,8 @@
 				data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button>			
-			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">iTravel</a>
+			</button>						
+			<a class="navbar-brand" href="<c:url value="/index.jsp"></c:url>">iTravel</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
