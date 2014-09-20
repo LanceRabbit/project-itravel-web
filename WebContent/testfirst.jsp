@@ -11,147 +11,144 @@
 body {
 	padding: 20px;
 }
-
 #myCarousel .carousel-caption {
-	left: 0;
-	right: 0;
-	bottom: 0;
-	text-align: left;
-	padding: 10px;
-	background: rgba(0, 0, 0, 0.6);
-	text-shadow: none;
+    left:0;
+	right:0;
+	bottom:0;
+	text-align:left;
+	padding:10px;
+	background:rgba(0,0,0,0.6);
+	text-shadow:none;
 }
 
 #myCarousel .list-group {
-	position: absolute;
-	top: 0;
-	right: 0;
+	position:absolute;
+	top:0;
+	right:0;
 }
-
 #myCarousel .list-group-item {
-	border-radius: 0px;
-	cursor: pointer;
+	border-radius:0px;
+	cursor:pointer;
 }
-
 #myCarousel .list-group .active {
-	background-color: #eee;
+	background-color:#eee;	
 }
 
-@media ( min-width : 992px) {
-	#myCarousel {
-		padding-right: 33.3333%;
-	}
-	#myCarousel .carousel-controls {
-		display: none;
-	}
+@media (min-width: 992px) { 
+	#myCarousel {padding-right:33.3333%;}
+	#myCarousel .carousel-controls {display:none;} 	
 }
-
-@media ( max-width : 991px) {
-	.carousel-caption p,#myCarousel .list-group {
-		display: none;
-	}
+@media (max-width: 991px) { 
+	.carousel-caption p,
+	#myCarousel .list-group {display:none;} 
 }
 </style>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 </head>
 <body>
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
 	<div class="container">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" id="itemtag">				
-					
-				
-			</div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+      
+        <div class="item active">
+          <img src="http://placehold.it/760x400/cccccc/ffffff">
+           <div class="carousel-caption">
+            <h4><a href="#">Lorem ipsum dolor sit amet consetetur sadipscing</a></h4>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <a class="label label-primary" href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank">Free Bootstrap Carousel Collection</a></p>
+          </div>
+        </div><!-- End Item -->
+ 
+         <div class="item">
+          <img src="http://placehold.it/760x400/999999/cccccc">
+           <div class="carousel-caption">
+            <h4><a href="#">consetetur sadipscing elitr, sed diam nonumy eirmod</a></h4>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <a class="label label-primary" href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank">Free Bootstrap Carousel Collection</a></p>
+          </div>
+        </div><!-- End Item -->
+        
+        <div class="item">
+          <img src="http://placehold.it/760x400/dddddd/333333">
+           <div class="carousel-caption">
+            <h4><a href="#">tempor invidunt ut labore et dolore</a></h4>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <a class="label label-primary" href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank">Free Bootstrap Carousel Collection</a></p>
+          </div>
+        </div><!-- End Item -->
+        
+        <div class="item">
+          <img src="http://placehold.it/760x400/999999/cccccc">
+           <div class="carousel-caption">
+            <h4><a href="#">magna aliquyam erat, sed diam voluptua</a></h4>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <a class="label label-primary" href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank">Free Bootstrap Carousel Collection</a></p>
+          </div>
+        </div><!-- End Item -->
 
-			<!-- End Carousel Inner -->
-			<ul class="list-group col-sm-4" id="list">
-				
-			</ul>
-			
-		</div>
+        <div class="item">
+          <img src="http://placehold.it/760x400/dddddd/333333">
+           <div class="carousel-caption">
+            <h4><a href="#">tempor invidunt ut labore et dolore magna aliquyam erat</a></h4>
+            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat. <a class="label label-primary" href="http://sevenx.de/demo/bootstrap-carousel/" target="_blank">Free Bootstrap Carousel Collection</a></p>
+          </div>
+        </div><!-- End Item -->
+                
+      </div><!-- End Carousel Inner -->
 
-	</div>
-	<!-- End Carousel -->
-<div id="mydiv"></div>
 
+    <ul class="list-group col-sm-4">
+      <li data-target="#myCarousel" data-slide-to="0" class="list-group-item active"><h4>Lorem ipsum dolor sit amet consetetur sadipscing</h4></li>
+      <li data-target="#myCarousel" data-slide-to="1" class="list-group-item"><h4>consetetur sadipscing elitr, sed diam nonumy eirmod</h4></li>
+      <li data-target="#myCarousel" data-slide-to="2" class="list-group-item"><h4>tempor invidunt ut labore et dolore</h4></li>
+      <li data-target="#myCarousel" data-slide-to="3" class="list-group-item"><h4>magna aliquyam erat, sed diam voluptua</h4></li>
+      <li data-target="#myCarousel" data-slide-to="4" class="list-group-item"><h4>tempor invidunt ut labore et dolore magna aliquyam erat</h4></li>
+    </ul>
 
-	<script type="text/javascript">
-		$(document).ready(function() {
+      <!-- Controls -->
+      <div class="carousel-controls">
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+      </div>
 
-			var count1=1; //代表active
-			$.ajax({
-				 url:"FirstpageServlet",
-				 type:"post",
-				 contentType: "application/json; charset=utf-8",
-				 dataType:"json", //xml,text
-				 success:function(data){
-					 console.log("get data from server....");
-					 //console.log(String(data));
-					 $.each(data,function(index,value){						
-						 if(value.spotThumbnailURL) {
-							 console.log(value.spotThumbnailURL);
-							if(count1==1){
-							 $('#itemtag').append("<div class='item active' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");
-							}else{
-								$('#itemtag').append("<div class='item ' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"+value.spotName+"</a></h4><p>"+value.spotIntro+"<br><br><a class='label label-primary' href='#' target='_blank'>"+value.spotName+"</a></p></div></div>");	
-							}
-							count1=0;
-						}
-						 else 
-							 $('#itemtag').append("<div class='content_box'><h2>"+value.spotName+"</h2></div>");
-					 });				 
-					
-				 }
-			 });
-			var count2=1;//代表active
-			var i = 0;
-			$.ajax({
-				 url:"FirstpageServlet",
-				 type:"post",
-				 contentType: "application/json; charset=utf-8",
-				 dataType:"json", //xml,text
-				 success:function(data){					
-					 $.each(data,function(index,value){						
-						 if(count2==1){
-						 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"+value.spotName+"</h4></li>");
-						 }else{
-							 $('#list').append("<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"+value.spotName+"</h4></li>");
-						 }
-						 count2=0;
-						 i++;
-					 });				 
-					
-				 }
-			 });
-			
-			
+    </div><!-- End Carousel -->
+</div>
+
+<script type="text/javascript">
+		$(document).ready(function(){
+		    
 			var clickEvent = false;
 			$('#myCarousel').carousel({
-				interval : 4000
+				interval:   4000	
 			}).on('click', '.list-group li', function() {
-				clickEvent = true;
-				$('.list-group li').removeClass('active');
-				$(this).addClass('active');
+					clickEvent = true;
+					$('.list-group li').removeClass('active');
+					$(this).addClass('active');		
 			}).on('slid.bs.carousel', function(e) {
-				if (!clickEvent) {
-					var count = $('.list-group').children().length - 1;
+				if(!clickEvent) {
+					var count = $('.list-group').children().length -1;
 					var current = $('.list-group li.active');
 					current.removeClass('active').next().addClass('active');
 					var id = parseInt(current.data('slide-to'));
-					if (count == id) {
-						$('.list-group li').first().addClass('active');
+					if(count == id) {
+						$('.list-group li').first().addClass('active');	
 					}
 				}
 				clickEvent = false;
 			});
-			
+		})
+		
+		$(window).load(function() {
+		    var boxheight = $('#myCarousel .carousel-inner').innerHeight();
+		    var itemlength = $('#myCarousel .item').length;
+		    var triggerheight = Math.round(boxheight/itemlength+1);
+			$('#myCarousel .list-group-item').outerHeight(triggerheight);
 		});
-			
-	</script>
-
-
+</script>
 </body>
 </html>

@@ -16,7 +16,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>						
-			<a class="navbar-brand" href="<c:url value="/index.jsp"></c:url>">iTravel</a>
+			
+			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">iTravel</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
 			<ul class="nav navbar-nav">
@@ -45,7 +46,7 @@
 								<i class="glyphicon glyphicon-user"></i>
 							</c:if> ${user.nickname}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"><i
+							<li><a href="<c:url value="/MySpot.jsp"/>"><i
 									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
 							<li><a href="#"><i class="glyphicon glyphicon-flag"></i>
 									我的行程</a></li>
