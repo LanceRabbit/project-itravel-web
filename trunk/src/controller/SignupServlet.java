@@ -1,12 +1,8 @@
 package controller;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +17,6 @@ import model.service.AccountService;
 import model.util.EmailUtil;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.tomcat.util.codec.binary.Base64;
 
 @WebServlet("/controller/SignupServlet")
 @MultipartConfig(maxFileSize = 16177215)
@@ -66,7 +61,7 @@ public class SignupServlet extends HttpServlet {
 		if(bean==null) {
 			
 			request.getRequestDispatcher(
-					"/signup.jsp").forward(request, response);
+					"/secure/signup.jsp").forward(request, response);
 		} else {
 			EmailUtil.sendAccountActivateEmail(bean);//send email
 			HttpSession session = request.getSession();

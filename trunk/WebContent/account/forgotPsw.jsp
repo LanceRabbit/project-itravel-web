@@ -9,7 +9,7 @@
 </head>
 <body>
 <h3>忘記密碼</h3>
-<form action="<c:url value="/account/forgotPsw.controller" />" method="get">  
+<form action="<c:url value="/controller/ForgotPswServlet" />" method="get">  
     <span style="color: red">${sendMailMsg}</span>
     <table>
 	<tr>

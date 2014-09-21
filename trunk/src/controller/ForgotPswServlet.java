@@ -15,7 +15,7 @@ import model.Account;
 import model.service.AccountService;
 import model.util.EmailUtil;
 
-@WebServlet("/account/forgotPsw.controller")
+@WebServlet("/controller/ForgotPswServlet")
 public class ForgotPswServlet extends HttpServlet {
 
 	// public ForgotPswServlet() {
