@@ -77,6 +77,12 @@ public class SpotCommServlet extends HttpServlet {
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+		}finally {
+
+			if (os != null) {
+				os.flush();
+				os.close();
+			}
 		}
 
 		 
