@@ -150,7 +150,7 @@
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 							<div class="well well-md">
-								<form class="form-horizontal" method="post" id="infoForm" action='SpotInfo.do'>
+								<form class="form-horizontal" method="post" id="infoForm" action='<c:url value="/controller/SpotInfo" />'>
 									<fieldset>
 										<legend class="text-center header">景點資訊</legend>
 
