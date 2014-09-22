@@ -28,9 +28,10 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		spotRec.setAccountId("M14090001");
 		spotRec.setSpotId("RES14090014");
 		spot = new SpotLikeRecord(spotRec);
-		spot = dao.insert(spot);
-		System.out.println(spot);
-		
+//		spot = dao.insert(spot);
+//		System.out.println(spot);
+		int i=dao.insert2(spot);
+		System.out.println(i);
 		
 		//test: delet
 		//測試刪除須先檢查DB內有無資料
@@ -150,6 +151,27 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 			}
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int insert2(SpotLikeRecord spotRec) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			session.save(spotRec);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+			e.printStackTrace();
+			return -100;
+		}
+		return 100;
 	}
 
 }

@@ -6,7 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Top Fragment</title>
+<<<<<<< .mine
+
+<link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
+=======
 <link href="<c:url value="/css/bootstrap.min.css" />" rel="stylesheet">
+>>>>>>> .r65
 </head>
 <body>
 	<div class="navbar navbar-default">
@@ -20,8 +25,8 @@
 			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">iTravel</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="#">News</a></li>
+			<ul class="nav navbar-nav">			
+				<li><a href="<c:url value="/first.jsp"/>">News</a></li>
 				<li><a href="#">找景點</a></li>
 				<li><a href="#">找行程</a></li>
 				<li><a href="#">coupon</a></li>

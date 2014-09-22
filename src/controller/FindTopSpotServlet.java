@@ -20,7 +20,7 @@ import model.service.FirstpageService;
 /**
  * Servlet implementation class FindTopSpotServlet
  */
-@WebServlet("/FindTopSpotServlet")
+@WebServlet("/controller/FindTopSpotServlet")
 public class FindTopSpotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
