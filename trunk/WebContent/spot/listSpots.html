@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>List Spots</title>
+<style>
+.content_box{
+	display: inline-block;
+	border: 1px dotted #4F4F4F;
+	padding: 10px;
+	margin: 5px 5px 5px 0;
+	overflow:hidden;
+	width:337px;
+}
+
+.container_box{
+	height:800px; 
+	width:728px; 
+	overflow:hidden; 
+	margin:0 auto;
+}
+</style>
+</head>
+<body>
+<div id='div1'>
+</div>
+
+<div id='container' class='js-masonry' class='container_box'>         
+     <!--  
+     <div class="content_box">內容1</div>
+     <div class="content_box">內容2</div>
+     <div class="content_box">內容3</div>
+     <div class="content_box">內容4</div>
+     <div class="content_box">內容5</div>
+     <div class="content_box">內容6</div>
+     -->
+</div>
+
+<!-- 只要jQuery.js可以從Google下載，我們就從Google下載 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+<script>!window.jQuery && document.write("<script src='Scripts/jquery-1.11.1.min.js'><\/script>")</script>
+<script src="js/masonry.pkgd.min.js"></script>
+
+
+<script>
+
+//為了避免$與別的函式庫發生衝突的寫法
+(function($){
+	  //程式碼寫在這裡
+	  $.ajax({
+			 url:"SpotInfo.do",
+			 type:"post",
+			 contentType: "application/json; charset=utf-8",
+			 dataType:"json", //xml,text
+			 success:function(data){
+				 console.log("get data from server....");
+				 //console.log(String(data));
+				 $.each(data,function(index,value){
+					 //value -> object
+					 <!--$('#div1').append("<h2>"+value.spotName+":"+value.spotThumbnailURL+"</h2>");-->
+					 if(value.spotThumbnailURL) {
+						 console.log(value.spotThumbnailURL);
+						 $('#container').append("<div class='content_box'><img src='" + value.spotThumbnailURL+"'/><br/><h2>"+value.spotName+"</h2></div>");
+					 }
+					 else 
+						 $('#container').append("<div class='content_box'><h2>"+value.spotName+"</h2></div>");
+				 })
+				 
+				 $('#container').masonry({        
+				            itemSelector: '.content_box',
+				            columnWidth: 364,
+				            animate:true
+				        });
+			 }
+		 })
+	  
+})(jQuery)
+</script>
+</body>
+</html>
