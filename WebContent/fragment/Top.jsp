@@ -48,7 +48,7 @@
 								<i class="glyphicon glyphicon-user"></i>
 							</c:if> ${user.nickname}<b class="caret"></b></a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/MySpot.jsp"/>"><i
+							<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
 									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
 							<li><a href="#"><i class="glyphicon glyphicon-flag"></i>
 									我的行程</a></li>
@@ -58,7 +58,7 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"> 景點</a></li>
+							<li><a href="<c:url value="/spot/addSpot.jsp"/>"> 景點</a></li>
 							<li><a href="#"> 行程</a></li>
 						</ul></li>
 
