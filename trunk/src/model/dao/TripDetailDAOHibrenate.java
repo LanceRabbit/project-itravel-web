@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -107,39 +108,23 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 
 		return result;
 	}
-//"FROM TripDetail detail where detail.tripId = :id order by detail.tripDayOrder detail.spotOrder asc group by detail.tripDayOrder
-	public List<TripDetail> selectAllByTripId(String id) {
-		sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = this.sessionFactory.getCurrentSession();
-		Transaction tx = null;
-		List<TripDetail> result = null;
-		try {
-			tx = session.beginTransaction();
-			// Using HQL to search
-			Query query = session
-					.createQuery(
-							"FROM TripDetail detail where detail.trip.tripId=? "
-					+"group by detail.tripDayOrder "
-					+"order by detail.spotOrder asc")
-				    .setParameter(0, id);
-			result = query.list();
-
-			tx.commit();
-		} catch (Exception e) {
-			if (tx != null)
-				tx.rollback();
-			System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return result;
-	}
 
 	public static void main(String[] args) {
 		TripDetailDAOHibrenate dao = new TripDetailDAOHibrenate();
-		List<Set<TripDetail>> aaa = dao.selectByTripId("T14090004");
 		
 		
 		
+		
+		
+//		for (int i = 1; i <= 2; i++) {
+//			List<TripDetail> aaa = dao.selectByTripId("T14090004", i);
+//			for (TripDetail trip : aaa) {
+//				// for (int x = 0 ; x < aaa.size(); i++){
+//				System.out.println(trip);
+//				// }
+//			}
+//
+//		}
 		
 //        for(List<TripDetail> arr : aaa){
 //            System.out.println(Arrays.toString(arr));
@@ -161,22 +146,23 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 //			}
 //		}
 		Trip trip = new Trip();
-//		TripDetail tripDetail = new TripDetail();
-//
-//		SpotDetail spotDetail = new SpotDetail();
-//		spotDetail.setSpotId("RES14090008");
-//		tripDetail.setSpotDetail(spotDetail);
-//
+		TripDetail tripDetail = new TripDetail();
 
-//		trip.setTripId("T14090003");
-//		tripDetail.setTrip(trip);
-//		tripDetail.setSpotOrder(3);
-//		tripDetail.setTripDayOrder(1);
-//		tripDetail.setStayTime(240);
-//		tripDetail.setTempTripDetailId("EMP");
-//
-//		tripDetail = dao.insert(tripDetail);
-		// tripDetail.s
+		SpotDetail spotDetail = new SpotDetail();
+		spotDetail.setSpotId("RES14090018");
+		tripDetail.setSpotDetail(spotDetail);
+//SWT14090001
+//RES14090014
+//RES14090018
+		trip.setTripId("T14090006");
+		tripDetail.setTrip(trip);
+		tripDetail.setSpotOrder(2);
+		tripDetail.setTripDayOrder(5);
+		tripDetail.setStayTime(240);
+		tripDetail.setTempTripDetailId("EMP");
+
+		tripDetail = dao.insert(tripDetail);
+		System.out.println(tripDetail);
 		
 		
 		
@@ -197,21 +183,25 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 	}
 
 	@Override
-	public List<Set<TripDetail>> selectByTripId(String id) {
+	public List<TripDetail> selectByTripId(String id, Integer index) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
-		List<Set<TripDetail>> result = null;
+		List<TripDetail> result = new ArrayList<TripDetail>();
+		System.out.println(id +", "+ index);
 		try {
 			tx = session.beginTransaction();
 			// Using HQL to search
 			Query query = session
 					.createQuery(
-							"select detail.tripDayOrder FROM TripDetail detail where detail.trip.tripId=? "
-					+"group by detail.tripDayOrder "
+							"FROM TripDetail detail where detail.trip.tripId=? "
+					+"and detail.tripDayOrder=? order by detail.spotOrder"
 					)
-				    .setParameter(0, id);
-			result = query.list();
+				    .setParameter(0, id).setParameter(1, index);
+			for(Object o : query.list()) {
+				result.add((TripDetail)o);
+			}
+			
 
 			tx.commit();
 		} catch (Exception e) {

@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.Account;
+import model.AccountDAO;
 import model.Ad;
+import model.Trip;
 import model.TripDetail;
+import model.dao.AccountDAOHibernate;
+import model.dao.TripDAOHibernate;
 import model.service.TripDetailService;
 import model.util.ImageIOUtil;
 
@@ -44,10 +49,11 @@ public class TripServlet extends HttpServlet {
 		String sessionId = request.getSession().getId();
 		System.out.println("sessionId : " + sessionId);
 //		String tripId = request.getParameter("id");
-		
-		service = new TripDetailService();
-
-		Set<TripDetail> tripDetails = service.findTripDetails("T14090004");
+		AccountDAO dao = new AccountDAOHibernate();
+//		TripDAOHibernate dao = new TripDAOHibernate();
+		Account test = new Account ();
+		test = dao.selectById("M14090004");
+		Set<Trip> trips = test.getTrips();
 		
 		OutputStream os = response.getOutputStream();
 		
@@ -56,17 +62,12 @@ public class TripServlet extends HttpServlet {
 		JSONArray jsonTrip = new JSONArray();
 		
 		try {
-			for (TripDetail detail : tripDetails) {
+			for (Trip trip : trips) {
 				JSONObject jsonDetail = new JSONObject();
-				
-				jsonDetail.put("spotName", detail.getSpotDetail().getSpotName());
-				jsonDetail.put("dayOrder", detail.getTripDayOrder());
-				jsonDetail.put("spotOrder", detail.getSpotOrder());
-				jsonDetail.put("description", detail.getTripDescription());
-				jsonDetail.put("stayTime", detail.getStayTime());
-				
-//			ImageIOUtil.saveImage(imgId + ".jpg", o.getAdImg());
-//			jsonSpot.put("spotThumbnailURL", "images/" + imgId + ".jpg");
+				jsonDetail.put("tripId", trip.getTripId());
+				jsonDetail.put("tripName", trip.getTripName());
+				jsonDetail.put("totalDay", trip.getTotalDay());
+				jsonDetail.put("startDate", trip.getStartDate());
 				jsonTrip.put(jsonDetail);
 			}
 			os.write(jsonTrip.toString().getBytes("UTF-8"));
