@@ -127,28 +127,7 @@ body p {
 		</div>
 		<!-- /row -->
 
-		<div id="tallModal" class="modal modal-wide fade">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						<p>One fine body&hellip;</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save
-							changes</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-			<!-- /.modal-dialog -->
-		</div>
-		<!-- /.modal -->
+
 
 		<!-- Modal -->
 		<div class="modal modal-wide fade" id="mapmodals">
@@ -251,16 +230,92 @@ body p {
 // 200 is appx height of modal padding, modal title and button bar
 
 	$(function() {
-		
+
 		$(".modal-wide").on("show.bs.modal",function() {
 							var height = $(window).height() - 200;
 							$(this).find(".modal-body").css("max-height",
 									height);
-							//According to trip day to dynamic create Tabs. 
+							//According to trip day to dynamic create Tabs.
+							
 							$("#myTab , #tabContent ").empty();
 							
-							$(".modal-header").html('<h4 class="modal-title">ABCDEFGH</h4>');
+/* 							 $.ajax({
+								 url:"GetEmployee.jsp",
+								 type:"get", //post
+								 data:{"name":"Tom","age":25},
+								 dataType:"json", //xml,text
+								 success:function(data){
+									 $.each(data,function(index,value){
+										 //value -> object
+										 $('#div1').append("<h2>" + value.name + "</h2>");
+									 })
+								 }
+							 }) */
 							$.ajax({
+								 url:"TripServlet",
+								 type:"post",
+								 contentType: "application/json; charset=utf-8",
+								 dataType:"json", //xml,text
+								 success:function(data){
+									 console.log("get data from server....");
+									 console.log(String(data));
+									 $.each(data,function(index,value){
+											console.log(value.tripName);
+											console.log(value.totalDay);
+											
+											$(".modal-header").html('<h4 class="modal-title">'+value.tripName+'</h4>');
+											
+											for(var pageNum=1,max=value.totalDay;pageNum<=max;pageNum++) { 
+												$('#myTab').append(
+														$('<li><a href="#day' 
+																+ pageNum 
+																+ '">' 
+																+'Day ' 
+																+ pageNum 
+																+'</a></li>'));
+
+													$('#tabContent').append(
+														$('<div class="tab-pane" id="day' + pageNum +
+														'">	<div class="row" style="border: 1px solid;">' 
+														+'<div class="col-sm-3"  style="padding:5px" >'
+														+'<img src="images/Desert.jpg"  height="100" alt="map Venice"'
+														+'title="click to open Map"/>'
+														+'</div>'
+														+'<div class="col-sm-9" style="padding:1px">'
+														+'<div class="title"><label>45678</label></div>'+
+												       '<div class="title"><label>45678</label></div>'+
+												       '<div class="title"><label>45678</label></div>'+
+												      '</div>'+
+												    '</div>	</div>')
+													)
+													$('#page'+pageNum).append(
+															$('<div class="row" style="border: 1px solid;">' 
+																	+'<div class="col-sm-3"  style="padding:5px">'
+																	+'<img  style="  content: 0px;" src="images/Desert.jpg"  height="100" alt="map Venice"'
+																	+'title="click to open Map"/>'
+																	+'</div>'
+																	+'<div class="col-sm-9" style="padding:1px">'
+																	+'<div class="title"><label>45678</label></div>'+
+															       '<div class="title"><label>45678</label></div>'+
+															       '<div class="title"><label>45678</label></div>'+
+															      '</div>'+
+															    '</div>')
+													)
+
+													$('#page' + pageNum).tab('show');
+													
+
+											} 
+											$('#myTab a:first').tab('show');	
+											
+											
+									 });
+									 
+							
+								 }
+							 });
+							 console.log("end getTrip....");
+/* 							$.ajax({
 								 url:"TripServlet",
 								 type:"post",
 								 contentType: "application/json; charset=utf-8",
@@ -275,63 +330,9 @@ body p {
 										 
 									 }
 									 console.log(maxDay);
-									 //console.log(data);
-									 //console.log(data.length);
-									 //console.log(data[0].spotName);
-									 
-			/* 						 $.each(data,function(index,value){
-										 window.maxDay = (window.maxDay < value.dayOrder)?value.dayOrder:window.maxDay;
-										 console.log(value.spotName +  value.stayTime );
-										 
-										 console.log(value.dayOrder +  value.spotOrder + value.stayTime );
-										
-										
-										
-									 });	 */
 								 }
-							 });
-							for(var pageNum=1,max=3;pageNum<=max;pageNum++) { 
-								$('#myTab').append(
-										$('<li><a href="#day' 
-												+ pageNum 
-												+ '">' 
-												+'Day ' 
-												+ pageNum 
-												+'</a></li>'));
+							 }); */
 
-									$('#tabContent').append(
-										$('<div class="tab-pane" id="day' + pageNum +
-										'">	<div class="row" style="border: 1px solid;">' 
-										+'<div class="col-sm-3"  style="padding:5px" >'
-										+'<img src="images/Desert.jpg"  height="100" alt="map Venice"'
-										+'title="click to open Map"/>'
-										+'</div>'
-										+'<div class="col-sm-9" style="padding:1px">'
-										+'<div class="title"><label>45678</label></div>'+
-								       '<div class="title"><label>45678</label></div>'+
-								       '<div class="title"><label>45678</label></div>'+
-								      '</div>'+
-								    '</div>	</div>')
-									)
-									$('#page'+pageNum).append(
-											$('<div class="row" style="border: 1px solid;">' 
-													+'<div class="col-sm-3"  style="padding:5px">'
-													+'<img  style="  content: 0px;" src="images/Desert.jpg"  height="100" alt="map Venice"'
-													+'title="click to open Map"/>'
-													+'</div>'
-													+'<div class="col-sm-9" style="padding:1px">'
-													+'<div class="title"><label>45678</label></div>'+
-											       '<div class="title"><label>45678</label></div>'+
-											       '<div class="title"><label>45678</label></div>'+
-											      '</div>'+
-											    '</div>')
-									)
-
-									$('#page' + pageNum).tab('show');
-									
-
-							} 
-							$('#myTab a:first').tab('show');
 							
 						});
 	

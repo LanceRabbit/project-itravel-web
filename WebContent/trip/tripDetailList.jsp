@@ -25,10 +25,10 @@
 <script type="text/javascript">
 		$(document).ready(function() {
 			 console.log("get data from server....");
-			var picactive=true; 
+
 			var maxDay = 0 ;
 			$.ajax({
-				 url:"TripServlet",
+				 url:"TripDetailServlet",
 				 type:"post",
 				 contentType: "application/json; charset=utf-8",
 				 dataType:"json", //xml,text
