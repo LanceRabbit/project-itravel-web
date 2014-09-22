@@ -33,7 +33,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 			tx = session.beginTransaction();
 			
 			//spot.setAccount(account);
-			spot.setAccountId("M14090002");
+			//spot.setAccountId("M14090002");
 			
 			// test : add a new spot_detail
 			// modified by Lance.

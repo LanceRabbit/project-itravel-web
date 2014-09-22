@@ -7,6 +7,19 @@ import java.io.IOException;
 public class ImageIOUtil {
 	public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
 	
+	public static byte[] getImageByFilename(String path, String filename) {
+		File imgFile = new File((path!=null?(path+"/"):ImageIOUtil.DIR_PATH) + filename);
+				
+		byte[] buffer = null;
+		try {
+			buffer = org.apache.commons.io.FileUtils.readFileToByteArray(imgFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return buffer;
+	}
+	
 	public static byte[] getImageByFilename(String filename) {
 		File imgFile = new File(ImageIOUtil.DIR_PATH + filename);
 				
@@ -52,7 +65,7 @@ public class ImageIOUtil {
 			return;
 		}
 			
-		File dest = new File(ImageIOUtil.DIR_PATH + (path!=null?(path+"/"):"") + destFilename);
+		File dest = new File((path!=null?(path+"/"):ImageIOUtil.DIR_PATH) + destFilename);
 		try {
 			org.apache.commons.io.FileUtils.writeByteArrayToFile(dest, data) ;
 		} catch (IOException e) {
