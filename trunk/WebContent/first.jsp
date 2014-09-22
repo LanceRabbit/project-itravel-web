@@ -13,7 +13,7 @@
 			&& document
 					.write("<script src='js/jquery-1.11.1.min.js'><\/script>")
 </script>
-<script src="js/bootstrap.min.js"></script>
+
 <style type="text/css">
 body {
 	padding: 20px;
@@ -94,7 +94,9 @@ body {
 		<div class="row" id="rowSpot">
 
 		</div>
+	
 	</div>
+	<jsp:include page="fragment/bottom.jsp"></jsp:include>
 	<script type="text/javascript">
 		$(document)
 				.ready(
@@ -102,7 +104,7 @@ body {
 							var picactive = true;
 							$
 									.ajax({
-										url : "FindTopAdServlet",
+										url : "controller/FindTopAdServlet",
 										type : "post",
 										contentType : "application/json; charset=utf-8",
 										dataType : "json", //xml,text
@@ -177,7 +179,7 @@ body {
 							var i = 0; //滑動到第幾個數
 							$
 									.ajax({
-										url : "FindTopAdServlet",
+										url : "controller/FindTopAdServlet",
 										type : "post",
 										contentType : "application/json; charset=utf-8",
 										dataType : "json", //xml,text
@@ -244,7 +246,7 @@ body {
 											});
 
 							$.ajax({
-								url : "FindTopSpotServlet",
+								url : "controller/FindTopSpotServlet",
 								type : "post",
 								contentType : "application/json; charset=utf-8",
 								dataType : "json", //xml,text

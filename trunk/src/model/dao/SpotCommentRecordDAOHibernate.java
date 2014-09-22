@@ -2,7 +2,6 @@ package model.dao;
 
 import java.util.List;
 
-import javafx.scene.effect.Light.Spot;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

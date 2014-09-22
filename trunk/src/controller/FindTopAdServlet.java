@@ -26,7 +26,7 @@ import model.util.ImageIOUtil;
 /**
  * Servlet implementation class FirstpageServlet
  */
-@WebServlet("/FindTopAdServlet")
+@WebServlet("/controller/FindTopAdServlet")
 public class FindTopAdServlet extends HttpServlet {
 	public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
 	private static final long serialVersionUID = 1L;
