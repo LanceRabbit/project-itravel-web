@@ -50,7 +50,7 @@ public class ImageIOUtil {
 			return;
 		}
 			
-			
+		System.out.println("save image at : " + (ImageIOUtil.DIR_PATH + destFilename));
 		File dest = new File(ImageIOUtil.DIR_PATH + destFilename);
 		try {
 			org.apache.commons.io.FileUtils.writeByteArrayToFile(dest, data) ;

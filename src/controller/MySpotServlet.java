@@ -58,10 +58,24 @@ public class MySpotServlet extends HttpServlet {
 				JSONObject jsonSpot = new JSONObject();
 				jsonSpot.put("spotName", o.getSpotName());
 				jsonSpot.put("spotIntro", o.getSpotIntro());
+				jsonSpot.put("spotID", o.getSpotId());
+				
 				//spot pic
+				/*
+				jsonSpot.put("LEADER", o.getLeader());
+				jsonSpot.put("CITY_ID", o.getCityId());
+				jsonSpot.put("ADDRESS", o.getAddress());
+				jsonSpot.put("PHONE", o.getPhone());
+				jsonSpot.put("LONGITUDE", o.getLongitude());
+				jsonSpot.put("LATITUDE", o.getLatitude());
+				jsonSpot.put("CATEGORY_ID", o.getCategoryId());
+				jsonSpot.put("SUBCATEGORY_ID", o.getSubcategoryId());
+			 	*/
+				
+				
 				jsonSpots.put(jsonSpot);
 			}
-			System.out.println(jsonSpots.toString());
+			//System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
