@@ -398,6 +398,8 @@
 		// populate subcategory
 		var subcategories = categories[$(this).index()].subtype;
 		//console.log(subcategories);
+		$("#subcategory").attr("placeholder", "子分類");
+		$("#subcategory").val("");
 		$("#subcategoryIdMenu ul:first").empty();
 		$.each(subcategories, function(index, value){
 			$("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
@@ -466,6 +468,7 @@
 		
 		$(elem).popover('enable');	
 		$(elem).popover('show');
+		//$('body').scrollTo('');
 		$(elem).on('click', function(){
 			$(elem).popover('disable');
 			$(elem).off('click');
