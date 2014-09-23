@@ -8,6 +8,7 @@ public interface TripDetailDAO {
 	public abstract TripDetail insert(TripDetail tripDetail);
 	public abstract int delete(TripDetail tripDetail);
 	public abstract TripDetail update(TripDetail tripDetail);
-	public abstract TripDetail selectById(String id);
+	public abstract TripDetail selectByTripDetailId(String id);
 	public abstract List<TripDetail> selectByTripId(String id, Integer index);
+	public abstract TripDetail selectOneByTripId(String id, Integer index);
 }

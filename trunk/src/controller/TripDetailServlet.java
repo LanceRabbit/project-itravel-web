@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -12,13 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Account;
-import model.AccountDAO;
 import model.Ad;
+import model.SpotImg;
 import model.Trip;
 import model.TripDetail;
-import model.dao.AccountDAOHibernate;
 import model.dao.TripDAOHibernate;
+import model.dao.TripDetailDAOHibrenate;
 import model.service.TripDetailService;
 import model.util.ImageIOUtil;
 
@@ -29,15 +29,15 @@ import org.json.JSONObject;
 /**
  * Servlet implementation class TripServlet
  */
-@WebServlet("/controller/TripServlet")
-public class TripServlet extends HttpServlet {
+@WebServlet("/controller/TripDetailServlet")
+public class TripDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TripDetailService service = null;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TripServlet() {
+    public TripDetailServlet() {
     	
     }
 
@@ -48,29 +48,48 @@ public class TripServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String sessionId = request.getSession().getId();
 		System.out.println("sessionId : " + sessionId);
-		String AccountId = request.getParameter("AccountId");
-		AccountDAO dao = new AccountDAOHibernate();
-//		TripDAOHibernate dao = new TripDAOHibernate();
-		Account account = new Account ();
-		account = dao.selectById("M14090004");
-		Set<Trip> trips = account.getTrips();
 		
+		String tripId = request.getParameter("TripId");
+		int days = Integer.parseInt(request.getParameter("totalDay"));
+		System.out.println("id:"+tripId+","+days);
 		OutputStream os = response.getOutputStream();
 		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
-		JSONArray jsonTrip = new JSONArray();
+		JSONArray jsonTrips = new JSONArray();
+		
+		Trip trip = new Trip();
+		TripDAOHibernate tripDao = new TripDAOHibernate();
+		TripDetailDAOHibrenate tripdetail = new TripDetailDAOHibrenate();
+	
 		
 		try {
-			for (Trip trip : trips) {
-				JSONObject jsonDetail = new JSONObject();
-				jsonDetail.put("tripId", trip.getTripId());
-				jsonDetail.put("tripName", trip.getTripName());
-				jsonDetail.put("totalDay", trip.getTotalDay());
-				jsonDetail.put("startDate", trip.getStartDate());
-				jsonTrip.put(jsonDetail);
+			trip = tripDao.select(tripId);
+			List<TripDetail> detail = tripdetail.selectByTripId(
+					trip.getTripId(), days);
+			if (detail != null) {
+				for (TripDetail details : detail) {
+//					System.out.println(details);
+					JSONObject jsonDetail = new JSONObject();
+					jsonDetail.put("spotId", details.getSpotDetail().getSpotId());
+					jsonDetail.put("spotName", details.getSpotDetail()
+							.getSpotName());
+					jsonDetail.put("spotAddress", details.getSpotDetail()
+							.getAddress());
+					jsonDetail.put("stayTime", details.getStayTime());
+					jsonTrips.put(jsonDetail);
+					// Set<SpotImg> images = details.getSpotDetail().getSpotImgs();
+					// Iterator<SpotImg> it = images.iterator();
+					//
+					// while(it.hasNext()) {
+					// SpotImg image = (SpotImg)it.next();
+					// ImageIOUtil.saveImage(details.getSpotDetail().getSpotId(),
+					// image.getImgId(), image.getSpotImg());
+					// }
+				}
 			}
-			os.write(jsonTrip.toString().getBytes("UTF-8"));
+
+			os.write(jsonTrips.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());

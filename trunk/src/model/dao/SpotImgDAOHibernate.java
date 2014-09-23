@@ -13,6 +13,7 @@ import model.SpotImgDAO;
 import model.util.HibernateUtil;
 import model.util.ImageIOUtil;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -181,5 +182,34 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 		}
 		
 		//dao.deleteBySpotId("RES14090001");
+	}
+
+	@Override
+	public SpotImg selectOneBySpotId(String id, int index) {
+		SpotImg result = null;
+		
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			Query query = session
+					.createQuery("FROM SpotImg img where img.spotId = ? and img.imgOrder = ?")
+					.setString(0, id)
+					.setInteger(1, index);
+					
+			for(Object obj : query.list()) {
+				result = (SpotImg)obj;
+			}
+
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 }

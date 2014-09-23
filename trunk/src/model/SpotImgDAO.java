@@ -9,4 +9,5 @@ public interface SpotImgDAO {
 	public abstract SpotImg update(SpotImg img);
 	public abstract SpotImg selectByImgId(String id);
 	public abstract Set<SpotImg> selectBySpotId(String id);
+	public abstract SpotImg selectOneBySpotId(String id, int index);
 }
