@@ -54,12 +54,12 @@ body p {
 }
 
 
-	    .title {
-	        width:100px;
-	      
-	        text-align:right;
-	        padding-right:10px;
-	    }
+.title {
+    width:300px;
+  
+    text-align:left;
+    padding-left:40px;
+}
 
 	
 
@@ -78,11 +78,47 @@ body p {
     max-height: 400px;
     overflow-x: hidden;
 }
+
+
+
+#social:hover {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+}
+
+#social {
+	-webkit-transform: scale(0.8);
+	/* Browser Variations: */
+	-moz-transform: scale(0.8);
+	-o-transform: scale(0.8);
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-duration: 0.5s;
+	-o-transition-duration: 0.5s;
+}
+/* 
+    Only Needed in Multi-Coloured Variation 
+                                               */
+.social-fb:hover {
+	color: #3B5998;
+}
+
+.social-tw:hover {
+	color: #4099FF;
+}
+
+.social-gp:hover {
+	color: #d34836;
+}
+
+.social-em:hover {
+	color: #f39c12;
+}
+
 </style>
 </head>
 <body>
-<div id="showTrip">
-
+<div class="row" id="showTrip">
 </div>
 
 
@@ -183,9 +219,10 @@ body p {
 		$(document).ready(function() {
 
 			$.ajax({
-				 url:"../TripServlet",
+				 url:"../controller/TripServlet",
 				 type:"post",
-				 contentType: "application/json; charset=utf-8",
+				 async : false,
+				 data : {AccountId : "${user.accountId}"	},
 				 dataType:"json", //xml,text
 				 success:function(data){
 					 console.log("get data from server....");
@@ -197,25 +234,32 @@ body p {
 						 //console.log(value.totalDay);
 						 //console.log(value.startDate);
 						 
-						 if (count!=1) {
-							 
-							$("#showTrip").append('<div id="'+count+'" class="row text-center">'+
-									'<a href="#mapmodals" class="btn btn-lg btn-primary"'+
-										'data-toggle="modal" data-target="#mapmodals">Click to open Modal'+
-										'<span id="tripId" hidden>'+value.tripId+'</span>'+
-										'<span id="tripName" hidden>'+value.tripName+'</span>'+
-										'<span id="totalDay" hidden>'+value.totalDay+'</span>'+
-										'</a>'+'</div>');	 
-						 } else {
-								$("#showTrip").append('<div id="'+count+'" class="row text-center">'+
-										'<a href="#mapmodals" class="btn btn-lg btn-primary"'+
-											'data-toggle="modal" data-target="#mapmodals">Click to open Modal'+
-											'<span id="tripId" hidden>'+value.tripId+'</span>'+
+					/* 	 "<div id="+count+" class='col-xs-3'><a href='#mapmodals' "
+								 			+"'data-toggle='modal' data-target='#mapmodals'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a href='#'>"
+											+ value.tripName
+											+ "</a></h4>"
+											+ value.totalDay
+											+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a class='icon' id='heart"
+											+count+"' href=''><i id='social' class='fa fa-heart fa-2x'></i>"
+											+"</a><a class='icon' id='thumbs' href=''><i id='social'class='fa fa-thumbs-up fa-2x '>"
+											+"</i></a> <a class='icon' id='plus' href=''><i id='social' class='fa fa-plus fa-2x'>"
+											+"</i></a></div></div></div>" */
+
+					 		 
+							
+						 		
+								 	$("#showTrip").append('<div id="'+count+'" class="col-xs-3">'+
+											'<a href="#mapmodals" '+
+											'data-toggle="modal" data-target="#mapmodals"><div class="thumbnail">'
+											+'<img src="<c:url value="/controller/TripImageServlet?id='
+											+value.tripId+'"/>""></a><div class="caption"><h4>'
+											+value.tripName+'</h4></div></div>'
+											+'<span id="tripId" hidden>'+value.tripId+'</span>'+
 											'<span id="tripName" hidden>'+value.tripName+'</span>'+
 											'<span id="totalDay" hidden>'+value.totalDay+'</span>'+
-											'</a>'+'</div>');	
-							 
-						 }
+											'</div>')
+								
+
 						 count++;
 					 });	
 				 }
@@ -244,12 +288,21 @@ body p {
 				
 				for(var dayNum=1,max=$("#"+($(this).index()+1)+" span:last").text();dayNum<=max;dayNum++) { 
 					
+					$('#myTab').append(
+							$('<li><a href="#day' 
+									+ dayNum 
+									+ '">' 
+									+'Day ' 
+									+ dayNum 
+									+'</a></li>'));
+					
 					$.ajax({
-						 url:"../TripDetailServlet",
+						 url:"../controller/TripDetailServlet",
 						 type:"post",
 						
-						 data:{"TripId":tripId,"totalDay":totalDay},
+						 data:{"TripId":tripId,"totalDay":dayNum},
 						 dataType:"json", //xml,text
+						 async: false,
 						 success:function(data){
 							 console.log("get data from server....");
 							 console.log(data);
@@ -260,49 +313,49 @@ body p {
 								 console.log(value.spotAddress);
 								 console.log(value.stayTime);
 								 //console.log(value.startDate);
-								 
+							
+										
+									(count==1) ?	
+										$('#tabContent').append(
+											$('<div class="tab-pane" id="day' + dayNum +
+											'">	<div class="row" style="border: 1px solid;">' 
+											+'<div class="col-sm-3"  style="padding:5px" >'
+											+'<img src="<c:url value="/controller/TripDetailImageServlet?id='
+											+value.spotId+'&index=1"/>" width="130" height="95" alt="map Venice"'
+											+'title="click to open Map"/>'
+											+'</div>'
+											+'<div class="col-sm-9" style="padding:1px">'
+											+'<div class="row">'
+											+'<div class="title"><label>'+value.spotName+'</label></div>'
+									        +'<div class="title"><label>'+value.spotAddress+'</label></div>'
+									        +'<div class="title"><label>'+value.stayTime+'</label></div>'
+									        +'</div></div>'+
+									        +'</div></div>')
+										) 
+										:
+										$('#day'+dayNum).append(
+											$('<div class="row" style="border-bottom: 1px solid;">' 
+													+'<div class="col-sm-3"  style="padding:5px">'
+													+'<img  style="  content: 0px;" src="<c:url value="/controller/TripDetailImageServlet?id='
+													+value.spotId+'&index=1"/>" width="130" height="95" alt="map Venice"'
+													+'title="click to open Map"/>'
+													+'</div>'
+													+'<div class="col-sm-9" style="padding:1px">'
+													+'<div class="row">'
+													+'<div class="title"><label>'+value.spotName+'</label></div>'
+											        +'<div class="title"><label>'+value.spotAddress+'</label></div>'
+											        +'<div class="title"><label>'+value.stayTime+'</label></div>'
+											        +'</div></div>'
+											    	+'</div>')
+										) ;
+									    count++;
+										$('#day' + dayNum).tab('show');	 
 							
 							 });	
 						 }
 					 });
 					
-					$('#myTab').append(
-							$('<li><a href="#day' 
-									+ dayNum 
-									+ '">' 
-									+'Day ' 
-									+ dayNum 
-									+'</a></li>'));
-
-						$('#tabContent').append(
-							$('<div class="tab-pane" id="day' + dayNum +
-							'">	<div class="row" style="border: 1px solid;">' 
-							+'<div class="col-sm-3"  style="padding:5px" >'
-							+'<img src="../images/Desert.jpg"  height="100" alt="map Venice"'
-							+'title="click to open Map"/>'
-							+'</div>'
-							+'<div class="col-sm-9" style="padding:1px">'
-							+'<div class="title"><label>45678</label></div>'+
-					       '<div class="title"><label>45678</label></div>'+
-					       '<div class="title"><label>45678</label></div>'+
-					      '</div>'+
-					    '</div>	</div>')
-						)
-						$('#day'+dayNum).append(
-								$('<div class="row" style="border: 1px solid;">' 
-										+'<div class="col-sm-3"  style="padding:5px">'
-										+'<img  style="  content: 0px;" src="../images/Desert.jpg"  height="100" alt="map Venice"'
-										+'title="click to open Map"/>'
-										+'</div>'
-										+'<div class="col-sm-9" style="padding:1px">'
-										+'<div class="title"><label>45678</label></div>'+
-								       '<div class="title"><label>45678</label></div>'+
-								       '<div class="title"><label>45678</label></div>'+
-								      '</div>'+
-								    '</div>')
-									)
-
-						$('#day' + dayNum).tab('show');
+				
 						
 
 				} 

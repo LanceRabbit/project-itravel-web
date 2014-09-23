@@ -13,6 +13,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import model.SpotDetail;
+import model.SpotImg;
 import model.Trip;
 import model.TripDetail;
 import model.TripDetailDAO;
@@ -90,7 +91,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		return result;
 	}
 
-	public TripDetail selectById(String id) {
+	public TripDetail selectByTripDetailId(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
@@ -111,20 +112,19 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 
 	public static void main(String[] args) {
 		TripDetailDAOHibrenate dao = new TripDetailDAOHibrenate();
-		
-		
-		
-		
-		
-//		for (int i = 1; i <= 2; i++) {
-//			List<TripDetail> aaa = dao.selectByTripId("T14090004", i);
+//		for (int i = 1; i <= 3; i++) {
+//			List<TripDetail> aaa = dao.selectByTripId("T14090008", i);
 //			for (TripDetail trip : aaa) {
 //				// for (int x = 0 ; x < aaa.size(); i++){
 //				System.out.println(trip);
 //				// }
 //			}
-//
 //		}
+		TripDetail test = dao.selectOneByTripId("T14090006", 1);
+		System.out.println(test);
+		test.getSpotDetail().getSpotId();
+		SpotImgDAOHibernate imgdao = new SpotImgDAOHibernate();
+		SpotImg img = imgdao.selectByImgId("I140900036");
 		
 //        for(List<TripDetail> arr : aaa){
 //            System.out.println(Arrays.toString(arr));
@@ -145,24 +145,24 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 //			System.out.println(trip[i]);
 //			}
 //		}
-		Trip trip = new Trip();
-		TripDetail tripDetail = new TripDetail();
-
-		SpotDetail spotDetail = new SpotDetail();
-		spotDetail.setSpotId("RES14090018");
-		tripDetail.setSpotDetail(spotDetail);
+//		Trip trip = new Trip();
+//		TripDetail tripDetail = new TripDetail();
+//
+//		SpotDetail spotDetail = new SpotDetail();
+//		spotDetail.setSpotId("RES14090018");
+//		tripDetail.setSpotDetail(spotDetail);
 //SWT14090001
 //RES14090014
 //RES14090018
-		trip.setTripId("T14090006");
-		tripDetail.setTrip(trip);
-		tripDetail.setSpotOrder(2);
-		tripDetail.setTripDayOrder(5);
-		tripDetail.setStayTime(240);
-		tripDetail.setTempTripDetailId("EMP");
-
-		tripDetail = dao.insert(tripDetail);
-		System.out.println(tripDetail);
+//		trip.setTripId("T14090006");
+//		tripDetail.setTrip(trip);
+//		tripDetail.setSpotOrder(2);
+//		tripDetail.setTripDayOrder(5);
+//		tripDetail.setStayTime(240);
+//		tripDetail.setTempTripDetailId("EMP");
+//
+//		tripDetail = dao.insert(tripDetail);
+//		System.out.println(tripDetail);
 		
 		
 		
@@ -188,18 +188,18 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
 		List<TripDetail> result = new ArrayList<TripDetail>();
-		System.out.println(id +", "+ index);
+//		System.out.println(id +", "+ index);
 		try {
 			tx = session.beginTransaction();
 			// Using HQL to search
 			Query query = session
 					.createQuery(
-							"FROM TripDetail detail where detail.trip.tripId=? "
-					+"and detail.tripDayOrder=? order by detail.spotOrder"
+							"FROM TripDetail detail where detail.trip.tripId=:tripId "
+					+"and detail.tripDayOrder=:index order by detail.spotOrder"
 					)
-				    .setParameter(0, id).setParameter(1, index);
-			for(Object o : query.list()) {
-				result.add((TripDetail)o);
+				    .setParameter("tripId", id).setParameter("index", index);
+			for(Object obj : query.list()) {
+				result.add((TripDetail)obj);
 			}
 			
 
@@ -213,6 +213,38 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		return result;
 		
 		
+	}
+
+	@Override
+	public TripDetail selectOneByTripId(String id, Integer index) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		TripDetail result = null;
+//		System.out.println(id +", "+ index);
+		try {
+			tx = session.beginTransaction();
+			// Using HQL to search
+			Query query = session
+					.createQuery(
+							"FROM TripDetail detail where detail.trip.tripId=:tripId "
+					+"and detail.tripDayOrder=:day and detail.spotOrder=:spot"
+					)
+				    .setParameter("tripId", id)
+				    .setParameter("day", index)
+				    .setParameter("spot", index);
+			for(Object obj : query.list()) {
+				result = (TripDetail)obj;
+			}
+
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
