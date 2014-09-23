@@ -300,8 +300,8 @@ public class SpotDetail implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		
-		return spotName+","+spotIntro+","+likeCount;
+		return spotName+","+cityId+","+categoryId+","+subcategoryId+","+
+				spotIntro+","+likeCount;
 	}
 
 }
