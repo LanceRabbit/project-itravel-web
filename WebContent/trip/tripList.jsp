@@ -18,6 +18,9 @@
 	!window.jQuery && document.write("<script src='js/jquery-1.11.1.min.js'><\/script>")
 </script>
 <script src="../js/bootstrap.js"></script>
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+	rel="stylesheet">
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style>
 #map-container {
@@ -44,9 +47,7 @@ border-collapse:collapse;
 }
 
 /* irrelevant styling */
-body {
-	text-align: center;
-}
+
 
 body p {
 	max-width: 400px;
@@ -58,10 +59,12 @@ body p {
     width:300px;
   
     text-align:left;
-    padding-left:40px;
+    padding-left:20px;
 }
 
-	
+#showTrip .caption{
+	text-align: center;
+}
 
 
 #tallModal .modal-body p {
@@ -72,7 +75,9 @@ body p {
 #mapmodals .modal-body {
  margin: 1px;
 } 
-
+#mapmodals .modal-title {
+	text-align: center;
+}
 .scrollable {
     height: auto;
     max-height: 400px;
@@ -135,7 +140,7 @@ body p {
 					<div class="modal-body" >
 						<div class="container-fluid">
 							<div class="row-fluid" style=" border-collapse:collapse;">
-								<div class="col-sm-4"  >
+								<div class="col-sm-5"  >
 									<ul class="nav nav-tabs" id="myTab" style=" margin: 0px;">
 									<li class="active"><a data-toggle="tab" href="#page1">Home</a></li>
 									</ul>
@@ -144,7 +149,7 @@ body p {
 									<div class="tab-pane active" id="page1" autofocus="">1234</div>
 									</div>
 								</div>
-								<div class="col-sm-8" style=" border: 1px solid; padding: 0px ;" >
+								<div class="col-sm-7" style=" border: 1px solid; padding: 0px ;" >
 									<div id="map-container" style="margin: 0px; padding: 0px;content: 0px;"></div>
 								</div>
 
@@ -248,16 +253,19 @@ body p {
 					 		 
 							
 						 		
-								 	$("#showTrip").append('<div id="'+count+'" class="col-xs-3">'+
-											'<a href="#mapmodals" '+
-											'data-toggle="modal" data-target="#mapmodals"><div class="thumbnail">'
-											+'<img src="<c:url value="/controller/TripImageServlet?id='
-											+value.tripId+'"/>""></a><div class="caption"><h4>'
-											+value.tripName+'</h4></div></div>'
-											+'<span id="tripId" hidden>'+value.tripId+'</span>'+
-											'<span id="tripName" hidden>'+value.tripName+'</span>'+
-											'<span id="totalDay" hidden>'+value.totalDay+'</span>'+
-											'</div>')
+								 	$("#showTrip").append("<div id='"+count+"' class='col-xs-3'>"
+											+"<a href='#mapmodals' "
+											+"data-toggle='modal' data-target='#mapmodals'><div class='thumbnail'>"
+											+"<img src='<c:url value='/controller/TripImageServlet?id="
+											+value.tripId+"'/>''></a><div class='caption'><h4>"
+											+value.tripName+"</h4></div>"
+											+"<div class='ratings'><p class='pull-right'>15 reviews</p><a class='icon' id='heart"
+											+count+"' href=''><i id='social' class='fa fa-heart fa-2x'></i>"
+											+"</a><a class='icon' id='plus' href=''><i id='social' class='fa fa-plus fa-2x'>"
+											+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+											"<span id='tripName' hidden>"+value.tripName+"</span>"+
+											"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+											"</div></div>")
 								
 
 						 count++;
@@ -292,7 +300,7 @@ body p {
 							$('<li><a href="#day' 
 									+ dayNum 
 									+ '">' 
-									+'Day ' 
+									+'Day' 
 									+ dayNum 
 									+'</a></li>'));
 					
@@ -321,8 +329,8 @@ body p {
 											'">	<div class="row" style="border: 1px solid;">' 
 											+'<div class="col-sm-3"  style="padding:5px" >'
 											+'<img src="<c:url value="/controller/TripDetailImageServlet?id='
-											+value.spotId+'&index=1"/>" width="130" height="95" alt="map Venice"'
-											+'title="click to open Map"/>'
+											+value.spotId+'&index=1"/>" width="150" height="95" alt="map Venice"'
+											+'title="'+value.spotName+'"/>'
 											+'</div>'
 											+'<div class="col-sm-9" style="padding:1px">'
 											+'<div class="row">'
@@ -337,8 +345,8 @@ body p {
 											$('<div class="row" style="border-bottom: 1px solid;">' 
 													+'<div class="col-sm-3"  style="padding:5px">'
 													+'<img  style="  content: 0px;" src="<c:url value="/controller/TripDetailImageServlet?id='
-													+value.spotId+'&index=1"/>" width="130" height="95" alt="map Venice"'
-													+'title="click to open Map"/>'
+													+value.spotId+'&index=1"/>" width="150" height="95" alt="map Venice"'
+													+'title="'+value.spotName+'"/>'
 													+'</div>'
 													+'<div class="col-sm-9" style="padding:1px">'
 													+'<div class="row">'
