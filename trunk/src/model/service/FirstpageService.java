@@ -18,8 +18,6 @@ import model.util.ImageIOUtil;
 
 /**
  * 1.取得廣告 AD的資訊放進輪播 
- * 2.取得SpotDetail的Top5資訊 
- * 3.取得Trip的Top5資訊
  * 
  * */
 public class FirstpageService {

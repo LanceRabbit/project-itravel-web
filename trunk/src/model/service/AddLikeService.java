@@ -8,24 +8,24 @@ import model.dao.SpotLikeRecordDAOHibernate;
 
 public class AddLikeService {
 	static SpotLikeRecordDAO dao = new SpotLikeRecordDAOHibernate();
-	public static void main(String[] args) {
-		SpotLikeRecordId spotRec = new SpotLikeRecordId();
-		SpotLikeRecord spot =null;
+	static SpotLikeRecordId spotRec = new SpotLikeRecordId();
+	static SpotLikeRecord spot =null;
+	public static void main(String[] args) {		
 		
-		spotRec.setAccountId("M14090004");
-		spotRec.setSpotId("RES14090002");
-		spot = new SpotLikeRecord(spotRec);
-		if(addSpotLike(spot)){
-			System.out.println("like成功");
-		}else{
-			System.out.println("重複資料");
-		}
+//		spotRec.setAccountId("M14090004");
+//		spotRec.setSpotId("RES14090002");
+//		spot = new SpotLikeRecord(spotRec);
+		
 		
 		
 	}
 	
-	public static boolean addSpotLike(SpotLikeRecord spot){
-			if(dao.insert2(spot)==100){
+	public static boolean addSpotLike(String AccountId,String SpotId){
+				
+		spotRec.setAccountId(AccountId);
+		spotRec.setSpotId(SpotId);
+		spot = new SpotLikeRecord(spotRec);
+		if(dao.insert2(spot)==100){
 				return true;
 			}else{
 				return false;

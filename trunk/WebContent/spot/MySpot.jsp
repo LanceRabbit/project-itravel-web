@@ -8,61 +8,25 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
-<title>我的景點</title>
+<title>Myspot</title>
 <style type="text/css">
 body {
 	padding: 20px;
 }
 
-#social:hover {
-	-webkit-transform: scale(1.1);
-	-moz-transform: scale(1.1);
-	-o-transform: scale(1.1);
-}
-
-#social {
-	-webkit-transform: scale(0.8);
-	/* Browser Variations: */
-	-moz-transform: scale(0.8);
-	-o-transform: scale(0.8);
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-o-transition-duration: 0.5s;
-}
-/* 
-    Only Needed in Multi-Coloured Variation 
-                                               */
-.social-fb:hover {
-	color: #3B5998;
-}
-
-.social-tw:hover {
-	color: #4099FF;
-}
-
-.social-gp:hover {
-	color: #d34836;
-}
-
-.social-em:hover {
-	color: #f39c12;
-}
 </style>
 
 </head>
 
 <body>
 	<!-- Page Content -->
-
 	<jsp:include page="/fragment/Top.jsp"/>
 	<!-- Page Content -->
 	<h3>測試取得的資料</h3>
 	AccountId= ${user.accountId}
-
 	<div class="container">		
 			<h4>我的景點</h4>
 			<div class="row" id="listDetails">
-				
 
 			</div>
 		
@@ -70,8 +34,40 @@ body {
 	
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script type="text/javascript">
+	function alter(id){
+		//按下修改後做的事情
+		//傳入的id是SpotId
+		alert("修改"+id);
+		jQuery.ajax({
+			url : "../controller/SpotAlterServlet",
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "json",	
+			data : {AccountId : "${user.accountId}",  
+					SpotId:id},								
+			success : function(data) {
+				jQuery.each(data,function(index,value) {
+					
+				});
+			},
+		});
+		
+		
+		
+		
+	}
+	
+	function delet(id){
+		alert("刪除"+id);
+		
+	}
+	</script>
+	<script type="text/javascript">
 		jQuery(document).ready(	function() {
 
+							
+			
 							var count = 0;
 							jQuery.ajax({
 								url : "../controller/MySpotServlet",
@@ -84,20 +80,15 @@ body {
 									jQuery.each(data,function(index,value) {
 										jQuery('#listDetails')
 																.append(
-																		"<div class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a href='#'>"
+																		"<div id='div"+count+"'class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a href='#'>"
 																				+ value.spotName
 																				+ "</a></h4>"
 																				+ value.spotIntro
-																				+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a class='icon' id='heart"+count+"' href=''><i id='social' class='fa fa-heart fa-2x'></i></a><a class='icon' id='thumbs' href=''><i id='social'class='fa fa-thumbs-up fa-2x '></i></a> <a class='icon' id='plus' href=''><i id='social' class='fa fa-plus fa-2x'></i></a></div></div></div>");
+																				+ "</div><div class='ratings'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p></div></div></div>");
 									count++;				
 									});
 								},
 							});
-							
-							
-							
-							
-							
 							
 							
 							
