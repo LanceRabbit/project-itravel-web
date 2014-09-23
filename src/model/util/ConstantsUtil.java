@@ -44,6 +44,9 @@ public class ConstantsUtil {
         result.put("澎湖", new Integer(16));
         result.put("金門", new Integer(17));
         result.put("馬祖", new Integer(18));
+        result.put("宜蘭", new Integer(19));
+        result.put("花蓮", new Integer(20));
+        result.put("台東", new Integer(21));
         return Collections.unmodifiableMap(result);
     }
     
