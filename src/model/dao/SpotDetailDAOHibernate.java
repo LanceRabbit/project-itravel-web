@@ -184,6 +184,33 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return spots;
 	}
 	
+	public List<SpotDetail> selectByHQL(String queryStr) {
+		if((queryStr == null) || (queryStr.length() <= 0))
+			return null;
+			
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		List<SpotDetail> spots = new ArrayList<SpotDetail>();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+
+			Query query = session.createQuery(queryStr);
+			for (Object o : query.list())
+				spots.add((SpotDetail) o);
+					
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spots;
+	}
+	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 //		SpotDetail spot = new SpotDetail();
@@ -227,9 +254,21 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //		else 
 //			System.out.println("ERROR!!");
 		
-		List<SpotDetail> list =dao.selectTopN(5);
-		for (Object o : list) {
-			 System.out.println(o);
-			 }
+//		List<SpotDetail> list =dao.selectTopN(5);
+//		for (Object o : list) {
+//			 System.out.println(o);
+//			 }
+		
+		String query = "FROM SpotDetail spot order by spot.likeCount DESC";
+		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
+		List<SpotDetail> list =hibernateDAO.selectByHQL(query);
+		if(list != null) {
+			for (Object o : list) {
+				System.out.println(o);
+			}
+		}
+		else {
+			System.out.println("null list....");
+		}
 	}
 }
