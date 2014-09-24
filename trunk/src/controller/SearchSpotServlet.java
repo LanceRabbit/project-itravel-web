@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -12,14 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import model.SpotDetail;
 import model.SpotImg;
 import model.service.SearchSpotService;
 import model.util.ImageIOUtil;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 @WebServlet("/controller/SearchSpot")
 public class SearchSpotServlet extends HttpServlet {
@@ -40,7 +40,7 @@ public class SearchSpotServlet extends HttpServlet {
 			String category = request.getParameter("category").trim();
 			String subcategory = request.getParameter("subcategory").trim();
 			
-			int pageNo = 0;
+			int pageNo = 2;
 			if(request.getParameter("pageNo") != null)
 				pageNo = Integer.parseInt(request.getParameter("pageNo").trim());
 //			System.out.println("spotName : " + spotName);
@@ -53,18 +53,20 @@ public class SearchSpotServlet extends HttpServlet {
 			List<SpotDetail> spots =  service.searchSpotByConditions(
 					spotName, city, category, subcategory, pageNo);
 			
-//			if(spots != null) {
-//				for (SpotDetail o : spots) {
-//					System.out.println(o.toString());
-//				}
-//			}
-//			else {
-//				System.out.println("null list....");
-//			}
+			if(spots != null) {
+				for (SpotDetail o : spots) {
+					System.out.println(o.toString());
+				}
+			}
+			else {
+				System.out.println("null list....");
+			}
 			
 			JSONArray jsonSpots = new JSONArray();
 			for(SpotDetail spot : spots) {
 				JSONObject jsonSpot = new JSONObject();
+		        
+//				System.out.println("spot name : " + spot.getSpotName());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
 				jsonSpot.put("spotLike", spot.getSpotLike());
@@ -74,38 +76,48 @@ public class SearchSpotServlet extends HttpServlet {
 				if(thumbnail != null) {
 					String imgPath = "images" + "/" + spot.getAccountId() + "/" + spot.getSpotId();
 					String deployDir = getServletContext().getRealPath("/");
-					//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
+					System.out.println("thumbnail saved at : " + (deployDir+imgPath));
 					
-					ImageIOUtil.saveImage((deployDir+imgPath), thumbnail.getImgId(), thumbnail.getSpotImg());
-					imgURL = "../" + imgPath + "/" + thumbnail.getImgId();
+					byte[] content = thumbnail.getSpotImg();
+					if(( content != null) && (content.length > 0)) {
+						ImageIOUtil.saveImage((deployDir+imgPath), thumbnail.getImgId(), thumbnail.getSpotImg());
+						imgURL = "../" + imgPath + "/" + thumbnail.getImgId();
+					} else {
+						imgURL = "../images/team1.jpg";
+					}
 				}
 				else 
 					imgURL = "../images/team1.jpg";
 				
 				//System.out.println("image url : " + imgURL);
 				jsonSpot.put("spotThumbnail", imgURL);
+				System.out.println("json : " + jsonSpot.toString());
+				jsonSpots.add(jsonSpot);
 				
-				jsonSpots.put(jsonSpot);
+
 			}
 			
-//			writer = response.getWriter();
-//			writer.write("success");
+
 			
-			os = response.getOutputStream();
-			os.write(jsonSpots.toString().getBytes("UTF-8"));
+		    StringWriter out = new StringWriter();
+		    jsonSpots.writeJSONString(out); System.out.println("jsons : " + out.toString());
+
+//			os = response.getOutputStream();
+//			os.write(out.toString().getBytes("UTF-8"));
+		    
+			writer = response.getWriter();
+			writer.write(out.toString());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} finally {
-//			if(writer != null) {
-//				writer.flush();
-//				writer.close();
-//			}
+		}  finally {
+			if(writer != null) {
+				writer.flush();
+				writer.close();
+			}
 			
 			if(os != null) {
 				try {
