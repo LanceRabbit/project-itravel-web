@@ -29,7 +29,7 @@ public class GenerateLinkUtil {
 	 * 生成重设密码的链接
 	 */
 	public static String generateResetPwdLink(Account user) {
-		return "http://localhost:8080/TravelWeb/account/resetPsw?email="
+		return "http://localhost:8080/TravelWeb/controller/ResetPswServlet?email="
 				+ user.getEmail()
 				+ "&"
 				+ CHECK_CODE
@@ -51,7 +51,7 @@ public class GenerateLinkUtil {
 	public static String generateCheckcodeForgotPassword(Account user) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
-		System.out.println(dateFormat.format(date));
+		//System.out.println(dateFormat.format(date));
 		return md5(user.getAccountId() + ":" + dateFormat.format(date));
 	}
 

@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +29,14 @@ public class ActivateAccountServlet extends HttpServlet {
     	String email = request.getParameter("email");
     	Account user = service.selectByEmail(email);
     	//若從request來的Checkcode跟從accountId產生的相同，則啟用帳戶
-    	System.out.println("AAAAAAActivateAccountServlet:"+user);
     	boolean unActivate = false;
     	if(user!=null){
+    		//確認帳號是否仍未啟用
     		unActivate = GenerateLinkUtil.verifyCheckcode(user, request);
     		if(unActivate){
         		user = service.activateAccount(user.getAccountId());
         	}
     	}
-    	System.out.println("BBBBBBBActivateAccountServlet:"+user);
     	//根據結果導向view。若成功啟用則導向首頁，否則導向錯誤頁面
     	String path = request.getContextPath();
     	if(user!=null && unActivate){
@@ -44,11 +45,18 @@ public class ActivateAccountServlet extends HttpServlet {
     		response.sendRedirect(path+"/first.jsp");
 			
     	}else if(user!=null && !unActivate){
-    		HttpSession session = request.getSession();
-			session.setAttribute("errMsgs", "此帳號已啟用，請登入後使用");
-    		response.sendRedirect(path+"/secure/login.jsp");
+    		Map<String, String> errors = new HashMap<String, String>();
+    		request.setAttribute("errorMsgs", errors);
+    		errors.put("alreadyActivate", "此帳號已啟用，請登入後使用");
+    		if (errors != null && !errors.isEmpty()) {
+    			request.getRequestDispatcher("/secure/login.jsp").forward(
+    					request, response);
+    		}
     	}else{
-    		response.sendRedirect(path+"/account/error.jsp");
+    		
+    		request.setAttribute("errorActivate", "帳號啟用發生錯誤，請聯絡客服人員");
+    		request.getRequestDispatcher("/account/error.jsp").forward(request, response);
+    		//response.sendRedirect(path+"/account/error.jsp");
     		
     	}
     	

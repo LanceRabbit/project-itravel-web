@@ -29,14 +29,10 @@ public class ForgotPswServlet extends HttpServlet {
 		String email = request.getParameter("email");
 
 		// 驗證資料
-		Map<String, String> errors = new HashMap<String, String>();
-		request.setAttribute("errorMsgs", errors);
 		service = new AccountService();
 		Account account = service.selectByEmail(email);
 		if (account==null) {
-			errors.put("email", "Email 錯誤");
-		}
-		if (errors != null && !errors.isEmpty()) {
+			request.setAttribute("errorEmail","Email 錯誤");
 			request.getRequestDispatcher("/account/forgotPsw.jsp").forward(
 					request, response);
 			return;
