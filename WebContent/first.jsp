@@ -135,9 +135,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
-																								+ "<br><br><a class='label label-primary' href='#' target='_blank'>"
-																								+ value.spotName
-																								+ "</a></p></div></div>");
+																								+ "<br><br></p></div></div>");
 																	} else {
 																		$(
 																				'#itemtag')
@@ -146,9 +144,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
-																								+ "<br><br><a class='label label-primary' href='#' target='_blank'>"
-																								+ value.spotName
-																								+ "</a></p></div></div>");
+																								+ "<br><br></p></div></div>");
+																		//buttom <a class='label label-primary' href='#' target='_blank'>"+ value.spotName+"</a>
 																	}
 																	picactive = false;
 																}

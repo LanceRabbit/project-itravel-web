@@ -69,11 +69,17 @@ body {
 	<jsp:include page="/fragment/bottom.jsp" />
 
 	<script type="text/javascript">
-	/*	
+	
 	function like(id) {
+			
 			//按下修改後做的事情
 			//傳入的id是SpotId
 			alert("按讚" + id);
+			var s = document.getElementById(id).childNodes.attr("fa fa-heart fa-2x");
+		   console.log(s);
+		  document.getElementsByTagName("i")
+		   
+			/*
 			jQuery.ajax({
 				url : "../controller/AddLikeServlet",
 				type : "GET",
@@ -90,6 +96,7 @@ body {
 					});
 				},
 			});
+			*/
 
 		}
 
@@ -97,7 +104,7 @@ body {
 			alert("收藏" + id);
 
 		}
-		*/
+		
 	</script>
 
 	<script type="text/javascript">

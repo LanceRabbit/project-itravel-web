@@ -8,21 +8,14 @@
 <title>This is a test page.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="../css/bootstrap.css" />
-<link rel="stylesheet" href="../css/bootstrap-theme.css" />
 <link rel="stylesheet" href="../css/jquery.datetimepicker.css" />
-
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
-<script>
-	!window.jQuery && document.write("<script src='js/jquery-1.11.1.min.js'><\/script>")
-</script>
-<script src="../js/bootstrap.js"></script>
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style>
+body{
+padding: 20px;}
 #map-container {
 	height: 450px
 }
