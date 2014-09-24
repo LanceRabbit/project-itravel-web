@@ -142,8 +142,8 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		try {
 			tx = session.beginTransaction();
 			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.spotId");
-			query.setFirstResult((pageNo-1)*9+1);
-			query.setMaxResults(9);
+			query.setFirstResult((pageNo-1)*4+1);
+			query.setMaxResults(4);
 			for(Object o : query.list()) {
 				spots.add((SpotDetail)o);
 			}
@@ -211,6 +211,37 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return spots;
 	}
 	
+	public List<SpotDetail> selectByHQL(String queryStr, int pageNo) {
+		if((queryStr == null) || (queryStr.length() <= 0))
+			return null;
+			
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		List<SpotDetail> spots = new ArrayList<SpotDetail>();
+		Transaction tx = null;
+		
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery(queryStr);
+			if(pageNo > 0) {
+				query.setFirstResult((pageNo-1)*4+1);
+				query.setMaxResults(4);
+			}
+			
+			for (Object o : query.list())
+				spots.add((SpotDetail) o);
+					
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spots;
+	}
+	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 //		SpotDetail spot = new SpotDetail();
@@ -259,7 +290,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //			 System.out.println(o);
 //			 }
 		
-		String query = "FROM SpotDetail spot order by spot.likeCount DESC";
+		String query = "FROM SpotDetail spot  WHERE spot.cityId = 2 AND spot.spotName LIKE '%花博%'";
 		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
 		List<SpotDetail> list =hibernateDAO.selectByHQL(query);
 		if(list != null) {
