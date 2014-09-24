@@ -36,6 +36,8 @@ public class TripDetailImageServlet extends HttpServlet {
 		if (img != null) {
 			OutputStream out = null;
 			byte[] image = img.getSpotImg();
+			if(image==null||image.length==0)
+				return;
 			out = response.getOutputStream();
 
 			out.write(image); // 直接把byte[]用OutputStream寫出
