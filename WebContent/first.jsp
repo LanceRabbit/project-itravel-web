@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -13,15 +14,16 @@ body {
 	background-color: #529abb;
 }
 
-p {/*用於內文   多行文字溢出用...取代*/
+p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
-	text-overflow: ellipsis; display : -webkit-box;
+	text-overflow: ellipsis;
+	display: -webkit-box;
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 }
 
-h4 {/*用於標題   單行文字溢出用...取代*/
+h4 { /*用於標題   單行文字溢出用...取代*/
 	white-space: nowrap;
 	width: 100%; /* IE6 需要定义宽度 */
 	overflow: hidden;
@@ -105,22 +107,19 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	</div>
 	<jsp:include page="fragment/bottom.jsp"></jsp:include>
 	<script type="text/javascript">
-		$(document)
-				.ready(
+		jQuery(document).ready(
 						function() {
 							var picactive = true;
-							$
-									.ajax({
-										url : "controller/FindTopAdServlet",
+
+							jQuery.ajax({
+										url : '<c:url value='/controller/FindTopAdServlet' />',
 										type : "post",
 										contentType : "application/json; charset=utf-8",
 										dataType : "json", //xml,text
 										success : function(data) {
-											console
-													.log("get data from server....");
+											console.log("get data from server....");
 											//console.log(String(data));
-											$
-													.each(
+											jQuery.each(
 															data,
 															function(index,
 																	value) {
@@ -128,7 +127,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 																	console
 																			.log(value.spotThumbnailURL);
 																	if (picactive) {
-																		$(
+																		jQuery(
 																				'#itemtag')
 																				.append(
 																						"<div class='item active' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"
@@ -137,7 +136,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 																								+ value.spotIntro
 																								+ "<br><br></p></div></div>");
 																	} else {
-																		$(
+																		jQuery(
 																				'#itemtag')
 																				.append(
 																						"<div class='item ' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"
@@ -157,26 +156,29 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 
 							var listactive = true;
 							var i = 0; //滑動到第幾個數
-							$
-									.ajax({
-										url : "controller/FindTopAdServlet",
+
+							
+							jQuery.ajax({
+										url:'<c:url value='/controller/FindTopAdServlet' />',
 										type : "post",
 										contentType : "application/json; charset=utf-8",
 										dataType : "json", //xml,text
 										success : function(data) {
-											$
+											jQuery
 													.each(
 															data,
 															function(index,
 																	value) {
 																if (listactive) {
-																	$('#list')
+																	jQuery(
+																			'#list')
 																			.append(
 																					"<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"
 																							+ value.spotName
 																							+ "</h4></li>");
 																} else {
-																	$('#list')
+																	jQuery(
+																			'#list')
 																			.append(
 																					"<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"
 																							+ value.spotName
@@ -190,7 +192,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 
 							var clickEvent = false;
 
-							$('#myCarousel')
+							jQuery('#myCarousel')
 									.carousel({
 										interval : 4000
 									})
@@ -199,24 +201,25 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 											'.list-group li',
 											function() {
 												clickEvent = true;
-												$('.list-group li')
+												jQuery('.list-group li')
 														.removeClass('active');
-												$(this).addClass('active');
+												jQuery(this).addClass('active');
 											})
 									.on(
 											'slid.bs.carousel',
 											function(e) {
 												if (!clickEvent) {
-													var count = $('.list-group')
+													var count = jQuery(
+															'.list-group')
 															.children().length - 1;
-													var current = $('.list-group li.active');
+													var current = jQuery('.list-group li.active');
 													current.removeClass(
 															'active').next()
 															.addClass('active');
 													var id = parseInt(current
 															.data('slide-to'));
 													if (count == id) {
-														$('.list-group li')
+														jQuery('.list-group li')
 																.first()
 																.addClass(
 																		'active');
@@ -225,14 +228,14 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 												clickEvent = false;
 											});
 
-							$
-									.ajax({
-										url : "controller/FindTopSpotServlet",
+							
+							jQuery.ajax({
+										url:'<c:url value='/controller/FindTopSpotServlet' />',
 										type : "post",
 										contentType : "application/json; charset=utf-8",
 										dataType : "json", //xml,text
 										success : function(data) {
-											$
+											jQuery
 													.each(
 															data,
 															function(index,
@@ -242,7 +245,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 																			.log(value.spotLikeName
 																					+ ":"
 																					+ value.spotThumbnailURL);
-																	$(
+																	jQuery(
 																			'#rowSpot')
 																			.append(
 																					"<div class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnailURL+"' alt=''><h4><a href='#'>"
@@ -259,12 +262,15 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 
 						});
 
-		$(window).load(function() {
-			var boxheight = $('#myCarousel .carousel-inner').innerHeight();
-			var itemlength = $('#myCarousel .item').length;
-			var triggerheight = Math.round(boxheight / itemlength + 1);
-			$('#myCarousel .list-group-item').outerHeight(triggerheight);
-		});
+		jQuery(window).load(
+				function() {
+					var boxheight = jQuery('#myCarousel .carousel-inner')
+							.innerHeight();
+					var itemlength = jQuery('#myCarousel .item').length;
+					var triggerheight = Math.round(boxheight / itemlength + 1);
+					jQuery('#myCarousel .list-group-item').outerHeight(
+							triggerheight);
+				});
 	</script>
 
 
