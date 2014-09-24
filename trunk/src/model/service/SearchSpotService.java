@@ -12,7 +12,7 @@ public class SearchSpotService {
 	}
 	
 	public List<SpotDetail> searchSpotByConditions(String spotName, String city,
-			String category, String subcategory) {
+			String category, String subcategory, int pageNo) {
 		Boolean multiConditions = false;
 		List<SpotDetail> result = null;
 		
@@ -48,14 +48,27 @@ public class SearchSpotService {
 			}
 		}
 		
+		if((spotName != null) && (spotName.length() > 0)) {
+			if(multiConditions)
+				query.append(" AND spot.spotName LIKE '%" + spotName + "%'");
+			else {
+				query.append(" WHERE spot.spotName LIKE '%" + spotName + "%'");
+				multiConditions = true;
+			}
+		}
+		
 		System.out.println("query string : " + query.toString());
 		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
-		return dao.selectByHQL(query.append(" ORDER BY spot.likeCount").toString());
+		
+		if(pageNo <= 0)
+			pageNo = 1;
+		
+		return dao.selectByHQL(query.append(" ORDER BY spot.spotId").toString(), pageNo);
 	}
 	
 	public static void main(String[] args) {
 		SearchSpotService service = new SearchSpotService();
-		List<SpotDetail> list = service.searchSpotByConditions(null, null, null, null);
+		List<SpotDetail> list = service.searchSpotByConditions(null, null, null, null, 1);
 		
 		if(list != null) {
 			for (Object o : list) {

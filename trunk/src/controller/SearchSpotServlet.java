@@ -30,13 +30,18 @@ public class SearchSpotServlet extends HttpServlet {
 			String city = request.getParameter("city").trim();
 			String category = request.getParameter("category").trim();
 			String subcategory = request.getParameter("subcategory").trim();
+			
+			int pageNo = 0;
+			if(request.getParameter("pageNo") != null)
+				pageNo = Integer.parseInt(request.getParameter("pageNo").trim());
 //			System.out.println("spotName : " + spotName);
 //			System.out.println("city : " + city);
 //			System.out.println("category : " + category);
 //			System.out.println("subcategory : " + subcategory);
+//			System.out.println("pageNo : " + pageNo);
 			
 			List<SpotDetail> spots =  (new SearchSpotService()).searchSpotByConditions(
-					spotName, city, category, subcategory);
+					spotName, city, category, subcategory, pageNo);
 			
 			if(spots != null) {
 				for (SpotDetail o : spots) {
@@ -51,10 +56,10 @@ public class SearchSpotServlet extends HttpServlet {
 			writer.write("success");
 			
 		} catch (UnsupportedEncodingException e) {
-			
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
-			
 			e.printStackTrace();
 		} finally {
 			if(writer != null) {
