@@ -13,6 +13,22 @@ body {
 	background-color: #529abb;
 }
 
+p {/*用於內文   多行文字溢出用...取代*/
+	overflow: hidden;
+	text-overflow: ellipsis; display : -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+}
+
+h4 {/*用於標題   單行文字溢出用...取代*/
+	white-space: nowrap;
+	width: 100%; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+}
+
 #myCarousel .carousel-caption {
 	left: 0;
 	right: 0;
@@ -84,10 +100,8 @@ body {
 
 		<h4>最受歡迎景點</h4>
 
-		<div class="row" id="rowSpot">
+		<div class="row" id="rowSpot"></div>
 
-		</div>
-	
 	</div>
 	<jsp:include page="fragment/bottom.jsp"></jsp:include>
 	<script type="text/javascript">
@@ -137,30 +151,6 @@ body {
 																								+ "</a></p></div></div>");
 																	}
 																	picactive = false;
-																} else {
-																	if (picactive) {
-																		$(
-																				'#itemtag')
-																				.append(
-																						"<div class='item active' ><img src='images/D1409001.jpg'/><div class='carousel-caption'><h4><a href='#'>"
-																								+ value.spotName
-																								+ "</a></h4><p>"
-																								+ value.spotIntro
-																								+ "<br><br><a class='label label-primary' href='#' target='_blank'>"
-																								+ value.spotName
-																								+ "</a></p></div></div>");
-																	} else {
-																		$(
-																				'#itemtag')
-																				.append(
-																						"<div class='item ' ><img src='images/D1409001.jpg'/><div class='carousel-caption'><h4><a href='#'>"
-																								+ value.spotName
-																								+ "</a></h4><p>"
-																								+ value.spotIntro
-																								+ "<br><br><a class='label label-primary' href='#' target='_blank'>"
-																								+ value.spotName
-																								+ "</a></p></div></div>");
-																	}
 																}
 															});
 
@@ -238,19 +228,38 @@ body {
 												clickEvent = false;
 											});
 
-							$.ajax({
-								url : "controller/FindTopSpotServlet",
-								type : "post",
-								contentType : "application/json; charset=utf-8",
-								dataType : "json", //xml,text
-								success : function(data) {			
-											$.each(data,function(index,value){							
-												$('#rowSpot').append("<div class='col-xs-3'><div class='thumbnail'><img src='images/D1409001.jpg' alt=''><h4><a href='#'>"+value.spotLikeName+"</a></h4>"+value.spotLikeIntro+"</div></div></div>");
-											});
-								}
-									
-							  });	
-						
+							$
+									.ajax({
+										url : "controller/FindTopSpotServlet",
+										type : "post",
+										contentType : "application/json; charset=utf-8",
+										dataType : "json", //xml,text
+										success : function(data) {
+											$
+													.each(
+															data,
+															function(index,
+																	value) {
+																if (value.spotThumbnailURL) {
+																	console
+																			.log(value.spotLikeName
+																					+ ":"
+																					+ value.spotThumbnailURL);
+																	$(
+																			'#rowSpot')
+																			.append(
+																					"<div class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnailURL+"' alt=''><h4><a href='#'>"
+																							+ value.spotLikeName
+																							+ "</a></h4>"
+																							+ "<p>"
+																							+ value.spotLikeIntro
+																							+ "</p></div></div></div>");
+																}
+															});
+										}
+
+									});
+
 						});
 
 		$(window).load(function() {

@@ -158,7 +158,7 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 
 	public static void main(String[] args) {
 		SpotImgDAOHibernate dao = new SpotImgDAOHibernate();
-		String spotId = "RES14090008";
+		String spotId = "RES14090019";
 		
 		for(int i=0; i<3; i++) {
 			SpotImg spotImg = new SpotImg();

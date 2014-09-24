@@ -26,11 +26,11 @@ import model.util.ImageIOUtil;
 /**
  * Servlet implementation class SearchSpotServlet
  */
-@WebServlet("/controller/SearchSpotServlet")
-public class SearchSpotServlet extends HttpServlet {
+@WebServlet("/controller/SearchSpotTestServlet")
+public class SearchSpotTestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public SearchSpotServlet() {
+	public SearchSpotTestServlet() {
 
 	}
 
@@ -50,9 +50,8 @@ public class SearchSpotServlet extends HttpServlet {
 		
 		try {
 			for (SpotDetail o : result) {
-				JSONObject jsonSpot = new JSONObject();
-				String spotId = o.getSpotId();
-				String imgId="";
+				JSONObject jsonSpot = new JSONObject();	
+				String imgId="team1.jpg";
 				jsonSpot.put("spotName", o.getSpotName());
 				jsonSpot.put("spotIntro", o.getSpotIntro());
 				Set<SpotImg> imgs = o.getSpotImgs();
@@ -63,13 +62,11 @@ public class SearchSpotServlet extends HttpServlet {
 					
 					if(image.getSpotImg() != null) {
 						ImageIOUtil.saveImage(image.getImgId(), image.getSpotImg());
-						imgId = image.getImgId();
-						
+						imgId = image.getImgId();						
 						break;
 					}
 				}
-				
-				
+								
 //				ImageIOUtil.saveImage(imgId + ".jpg", o.getSpotImgs());
 				jsonSpot.put("spotThumbnailURL", "../images/" + imgId);
 				jsonSpots.put(jsonSpot);

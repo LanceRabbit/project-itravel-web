@@ -103,7 +103,7 @@ body {
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 			
-			jQuery.ajax({url : "../controller/SearchSpotServlet",
+			jQuery.ajax({url : "../controller/SearchSpotTestServlet",
 						type : "GET",
 						contentType : "application/json; charset=utf-8",
 						async : false,
