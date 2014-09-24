@@ -50,7 +50,7 @@
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
 									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-flag"></i>
+							<li><a href="<c:url value="/trip/MyTrip.jsp"/>"><i class="glyphicon glyphicon-flag"></i>
 									我的行程</a></li>
 							<li><a href="#"><i class="glyphicon glyphicon-heart"></i>
 									我的收藏</a></li>
