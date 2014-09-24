@@ -234,7 +234,7 @@ $(document).ready(function() {
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3'>"
+			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3 temp'>"
 						+"<a href='#tripmodals' "
 						+"data-toggle='modal' data-target='#tripmodals'><div class='thumbnail'>"
 						+"<img src='<c:url value='/controller/TripImageServlet?id="
@@ -253,13 +253,13 @@ $(document).ready(function() {
 		 }
 	 });  //--ajax
 	 
-	$("#showtrip").on("click","div", function() {
+	$("#showtrip").on("click",".temp", function() {
 		var tripId = $("#"+($(this).index()+1)+" span:first").text();
 		var totalDay =$("#"+($(this).index()+1)+" span:last").text();
 		var tripName = $("#"+($(this).index()+1)+" span:eq(1)").text();
 		console.log(tripId);
-		console.log(totalDay);
-		console.log(tripName);
+		//console.log(totalDay);
+		//console.log(tripName);
 		
 		// when .modal-wide opened, set content-body height based on browser height; 
 		// 200 is appx height of modal padding, modal title and button bar
@@ -293,17 +293,21 @@ $(document).ready(function() {
 				 success:function(data){
 					 console.log("get data from server....");
 					 console.log(data);
+					 console.log(data.length);
 					 count = 1 ;
+
+					 (data.length==0)?$('#tabContent').append('<div class="tab-pane" id="day' 
+							 + dayNum +'"><div class="row" "></div></div>'):
 					 $.each(data,function(index,value){
-						 console.log(value.spotName);
-						 console.log(value.spotId);
-						 console.log(value.spotAddress);
-						 console.log(value.stayTime);
+						 //console.log(value.spotName);
+						 //console.log(value.spotId);
+						 //console.log(value.spotAddress);
+						 //console.log(value.stayTime);
 						 //console.log(value.startDate);
 						(count==1) ?	
 							$('#tabContent').append(
 								$('<div class="tab-pane" id="day' + dayNum +
-								'">	<div class="row" style="border: 1px solid;">' 
+								'">	<div class="row" style="border-bottom: 1px solid;">' 
 								+'<div class="col-sm-3"  style="padding:5px" >'
 								+'<img src="<c:url value="/controller/TripDetailImageServlet?id='
 								+value.spotId+'&index=1"/>" width="150" height="95" alt="map Venice"'

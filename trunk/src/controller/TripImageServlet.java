@@ -34,10 +34,13 @@ public class TripImageServlet extends HttpServlet {
 		TripDetail detail = tripdetail.selectOneByTripId(id, 1);
 		if (detail != null) {
 			SpotImgDAOHibernate imgdao = new SpotImgDAOHibernate();
+			System.out.println(detail.getSpotDetail().getSpotId());
 			SpotImg img = imgdao.selectOneBySpotId(detail.getSpotDetail().getSpotId(),1);
 			if (img != null) {
 				OutputStream out = null;
 				byte[] image = img.getSpotImg();
+				if(image==null||image.length==0)
+					return;
 				out = response.getOutputStream();
 				
 				out.write(image); //直接把byte[]用OutputStream寫出

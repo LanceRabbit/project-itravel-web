@@ -253,7 +253,7 @@ body p {
 					 		 
 							
 						 		
-								 	$("#showTrip").append("<div id='"+count+"' class='col-xs-3'>"
+								 	$("#showTrip").append("<div id='"+count+"' class='col-xs-3 temp'>"
 											+"<a href='#mapmodals' "
 											+"data-toggle='modal' data-target='#mapmodals'><div class='thumbnail'>"
 											+"<img src='<c:url value='/controller/TripImageServlet?id="
@@ -272,7 +272,9 @@ body p {
 					 });	
 				 }
 			 });
-			$("#showTrip").on("click","div", function() {
+			$("#showTrip").on("click",".temp", function(event) {
+				event.preventDefault();
+				
 				//console.log($(this).index());
 				var tripId = $("#"+($(this).index()+1)+" span:first").text();
 				var totalDay =$("#"+($(this).index()+1)+" span:last").text();
@@ -316,10 +318,10 @@ body p {
 							 console.log(data);
 							 count = 1 ;
 							 $.each(data,function(index,value){
-								 console.log(value.spotName);
-								 console.log(value.spotId);
-								 console.log(value.spotAddress);
-								 console.log(value.stayTime);
+								 //console.log(value.spotName);
+								 //console.log(value.spotId);
+								 //console.log(value.spotAddress);
+								 //console.log(value.stayTime);
 								 //console.log(value.startDate);
 							
 										
