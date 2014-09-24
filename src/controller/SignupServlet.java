@@ -19,7 +19,7 @@ import model.service.AccountService;
 import org.apache.commons.io.IOUtils;
 
 @WebServlet("/controller/SignupServlet")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 8388608) //limitation 8MB
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = -1623656324694499109L;
 	private AccountService service = null;
@@ -28,39 +28,50 @@ public class SignupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// 接收資料
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String nickname = request.getParameter("nickname");
-		byte[] image=null;
-		InputStream inputStream = null;
-		Part filePart = request.getPart("image");
-		System.out.println("Print FilePart Size= "+filePart.getSize());
-		//System.out.println(filePart);
-		if (filePart.getSize() != 0) {  
-            // debug messages  
+		String email = null;
+		String password = null;
+		String nickname = null;
+		byte[] image = null;
+		try {
+			email = request.getParameter("email");
+			password = request.getParameter("password");
+			nickname = request.getParameter("nickname");
+			image = null;
+			InputStream inputStream = null;
+			Part filePart = request.getPart("image");
+			System.out.println("Print FilePart Size= "+filePart.getSize());
+			//System.out.println(filePart);
+			if (filePart.getSize() != 0) {  
+			    // debug messages  
 //            System.out.println(filePart.getName());  
 //            System.out.println(filePart.getSize());  
 //            System.out.println(filePart.getContentType());  
   
-            // obtains input stream of the upload file  
-            try {
-				inputStream = filePart.getInputStream();
-				image = IOUtils.toByteArray(inputStream);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			    // obtains input stream of the upload file  
+			    try {
+					inputStream = filePart.getInputStream();
+					image = IOUtils.toByteArray(inputStream);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 //            System.out.println(bytes);
-        }else if(filePart.getSize() == 0){
-        	System.out.println("here");
-        	String path = request.getContextPath();
-        	try {
-				inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
-				System.out.println(inputStream);
-				image = IOUtils.toByteArray(inputStream);
-			} catch (Exception e) {
-				e.printStackTrace();
+			}else if(filePart.getSize() == 0){
+				System.out.println("here");
+				String path = request.getContextPath();
+				try {
+					inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
+					System.out.println(inputStream);
+					image = IOUtils.toByteArray(inputStream);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-        }
+		} catch (IllegalStateException e) {
+			request.setAttribute("errorChangeImage", "檔案過大!");
+			request.getRequestDispatcher(
+					"/account/changeAccount.jsp").forward(request, response);
+			return;
+		}
 		// 呼叫Model
 		service = new AccountService();
 		Account bean = service.signupAsMember(email, password, nickname, image);

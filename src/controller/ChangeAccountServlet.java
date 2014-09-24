@@ -21,7 +21,7 @@ import org.apache.commons.io.IOUtils;
  * Servlet implementation class ChangeAccountServlet
  */
 @WebServlet("/controller/ChangeAccountServlet")
-@MultipartConfig(maxFileSize = 16177215)
+@MultipartConfig(maxFileSize = 8388608)  //limitation 8MB
 public class ChangeAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     public ChangeAccountServlet() {
@@ -33,38 +33,49 @@ public class ChangeAccountServlet extends HttpServlet {
     	AccountService service = new AccountService();
     	String email = ((Account) session.getAttribute("user")).getEmail();
     	Account account = null;
-    	String oldPassword = request.getParameter("oldPassword");
-    	//若有舊密碼(忘記密碼以外的情況)，先驗證是否能登入，若登入失敗則導回修改帳號資訊頁面
-    	if(oldPassword!=null){
-    		account = service.login(email, oldPassword);
-    		if(account==null){
-    			request.setAttribute("errorOldPsw", "密碼錯誤");
-    			request.getRequestDispatcher(
-    					"/account/changeAccount.jsp").forward(request, response);
-    			return;
-    		}
-    	}
-    	String newPassword = request.getParameter("newPassword1");
-    	if(newPassword!=null){
-    		if(newPassword.equals(oldPassword)){
-    			request.setAttribute("errorNewPsw", "密碼必須和舊密碼不同");
-    			request.getRequestDispatcher(
-    					"/account/changeAccount.jsp").forward(request, response);
-    			return;
-    		}
-    	}
-		String nickname = request.getParameter("nickname");
-		byte[] image=null;
-		InputStream inputStream = null;
-		Part filePart = request.getPart("image");
-		System.out.println("ServletFileSize="+filePart.getSize());
-		if(filePart.getSize() != 0){
-			 try {
-					inputStream = filePart.getInputStream();
-					image = IOUtils.toByteArray(inputStream);
-				} catch (Exception e) {
-					e.printStackTrace();
+    	String oldPassword = null;
+		String newPassword = null;
+		String nickname = null;
+		byte[] image = null;
+		try {
+			oldPassword = request.getParameter("oldPassword");
+			//若有舊密碼(忘記密碼以外的情況)，先驗證是否能登入，若登入失敗則導回修改帳號資訊頁面
+			if(oldPassword!=null){
+				account = service.login(email, oldPassword);
+				if(account==null){
+					request.setAttribute("errorOldPsw", "密碼錯誤");
+					request.getRequestDispatcher(
+							"/account/changeAccount.jsp").forward(request, response);
+					return;
 				}
+			}
+			newPassword = request.getParameter("newPassword1");
+			if(newPassword!=null){
+				if(newPassword.equals(oldPassword)){
+					request.setAttribute("errorNewPsw", "密碼必須和舊密碼不同");
+					request.getRequestDispatcher(
+							"/account/changeAccount.jsp").forward(request, response);
+					return;
+				}
+			}
+			nickname = request.getParameter("nickname");
+			image = null;
+			InputStream inputStream = null;
+			Part filePart = request.getPart("image");
+			System.out.println("ServletFileSize="+filePart.getSize());
+			if(filePart.getSize() != 0){
+				 try {
+						inputStream = filePart.getInputStream();
+						image = IOUtils.toByteArray(inputStream);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			}
+		} catch (IllegalStateException e) {
+			request.setAttribute("errorChangeImage", "檔案過大!");
+			request.getRequestDispatcher(
+					"/account/changeAccount.jsp").forward(request, response);
+			return;
 		}
 		
 		//呼叫Model
