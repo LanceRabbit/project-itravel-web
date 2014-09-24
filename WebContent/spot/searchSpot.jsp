@@ -12,6 +12,22 @@
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
 <style type="text/css">
+p {/*用於內文   多行文字溢出用...取代*/
+	overflow: hidden;
+	text-overflow: ellipsis; display : -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+}
+
+h4 {/*用於標題   單行文字溢出用...取代*/
+	white-space: nowrap;
+	width: 100%; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+}
+
 #social:hover {
 	-webkit-transform: scale(1.1);
 	-moz-transform: scale(1.1);
@@ -141,84 +157,11 @@
 		</div>
 	</div>
 	
-	<div class="row">
-
-		<div class="container">
-			<div class="col-xs-3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/300x300" alt="">
-					<div class="caption">
-						<h4>
-							<a href="#">資策會203教室</a>
-						</h4>
-						地址: 台北市大安區大安站斜對面
-					</div>
-					<div class="ratings">
-						<p class="pull-right">15 reviews</p>
-						<a href=""><i id="social" class="fa fa-heart fa-3x"></i></a> <a
-							href=""><i id="social" class="fa fa-thumbs-up fa-3x "></i></a> <a
-							href=""><i id="social" class="fa fa-plus fa-3x"></i></a>
-					</div>
-				</div>
-			</div>
-
-
-			<div class="col-xs-3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/300x300" alt="">
-					<div class="caption">
-						<h4>
-							<a href="#">資策會203教室</a>
-						</h4>
-						地址: 台北市大安區大安站斜對面
-					</div>
-					<div class="ratings">
-						<p class="pull-right">15 reviews</p>
-						<a href=""><i id="social" class="fa fa-heart fa-3x"></i></a> <a
-							href=""><i id="social" class="fa fa-thumbs-up fa-3x "></i></a> <a
-							href=""><i id="social" class="fa fa-plus fa-3x"></i></a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-xs-3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/300x300" alt="">
-					<div class="caption">
-						<h4>
-							<a href="#">資策會203教室</a>
-						</h4>
-						地址: 台北市大安區大安站斜對面
-					</div>
-					<div class="ratings">
-						<p class="pull-right">15 reviews</p>
-						<a href=""><i id="social" class="fa fa-heart fa-3x"></i></a> <a
-							href=""><i id="social" class="fa fa-thumbs-up fa-3x "></i></a> <a
-							href=""><i id="social" class="fa fa-plus fa-3x"></i></a>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-xs-3">
-				<div class="thumbnail">
-					<img src="http://placehold.it/300x300" alt="">
-					<div class="caption">
-						<h4>
-							<a href="#">資策會203教室</a>
-						</h4>
-						地址: 台北市大安區大安站斜對面
-					</div>
-					<div class="ratings">
-						<p class="pull-right">15 reviews</p>
-						<a href=""><i id="social" class="fa fa-heart fa-3x"></i></a> <a
-							href=""><i id="social" class="fa fa-thumbs-up fa-3x "></i></a> <a
-							href=""><i id="social" class="fa fa-plus fa-3x"></i></a>
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="container">
+		<div class="row" id="listDetails">
+		</div>	
 	</div>
-
+	
 <jsp:include page="/fragment/bottom.jsp" />
 <script>
 	
@@ -296,6 +239,9 @@
 		activeQuery();
 	}); 
 	
+	// load data from server
+	activeQuery();
+	
 	function initElements() {
 		// populate city ids
 		var cities = [ "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
@@ -318,15 +264,20 @@
 		});
 	}
 
+	/*
+	var curPath = window.location.pathname;
+	var rootPath = window.location.protocol+"//"+window.location.host+
+					":"+window.location.port+"/"
+	*/					
 	function activeQuery() {
 		var spotName = jQuey('#spotName').val();
-		console.log("spotName : " + spotName);
+		//console.log("spotName : " + spotName);
 		var city = jQuey("#city").val();
-		console.log("city : " + city);
+		//console.log("city : " + city);
 		var category = jQuey('#category').val();
-		console.log("category : " + category);
+		//console.log("category : " + category);
 		var subcategory = jQuey('#subcategory').val();
-		console.log("subcategory : " + subcategory);
+		//console.log("subcategory : " + subcategory);
 
 		jQuey.ajax({
 			type : "POST",
@@ -337,9 +288,28 @@
 				category : category,
 				subcategory : subcategory
 			}
-		}).done(function(msg) {
-			console.log("msg : " + msg);
-			alert("Data Saved: " + msg);
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+			jQuey.each(data, function(index, value){
+				//console.log("Hello" + index + ":" + value);
+				
+				if(value.spotThumbnail){									
+					jQuery('#listDetails').append(
+							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
+							value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#'>"
+							+ value.spotName
+							+ "</a></h4>"
+							+"<div class='fixedHeight'>"
+							+ value.spotIntro
+							+"</div>"
+							+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a id='"
+							+ value.spotID
+							+ "' href='javascript: void(0);' onclick='like(this.id)'><i id='social' class='fa fa-heart fa-2x'></i></a><a id='"
+							+ value.spotID
+							+ "' href='javascript: void(0);' onclick='collect(this.id)'><i id='social' class='fa fa-plus fa-2x'></i></a></div></div>"
+					);
+				} // end of if
+			});
 		});
 	}
 
