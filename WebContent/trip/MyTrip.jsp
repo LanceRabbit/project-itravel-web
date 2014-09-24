@@ -55,7 +55,7 @@ body p {
     padding-left:20px;
 }
 
-#showTrip .caption{
+#showtrip .caption{
 	text-align: center;
 }
 
@@ -65,10 +65,10 @@ body p {
 	
 	
 }
-#mapmodals .modal-body {
+#tripmodals .modal-body {
  margin: 1px;
 } 
-#mapmodals .modal-title {
+#tripmodals .modal-title {
 	text-align: center;
 }
 .scrollable {
@@ -122,13 +122,13 @@ body p {
 	<h3>測試取得的資料</h3>
 	AccountId= ${user.accountId}
 <div class="container">
-	<div class="row" id="showTrip">
+	<div class="row" id="showtrip">
 	</div>
 </div>
 	<jsp:include page="/fragment/bottom.jsp" />
 
 		<!-- Modal -->
-		<div class="modal modal-wide fade" id="mapmodals">
+		<div class="modal modal-wide fade" id="tripmodals">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
@@ -140,7 +140,7 @@ body p {
 						<div class="container-fluid">
 							<div class="row-fluid" style=" border-collapse:collapse;">
 								<div class="col-sm-5"  >
-									<ul class="nav nav-tabs" id="myTab" style=" margin: 0px;">
+									<ul class="nav nav-tabs" id="mytab" style=" margin: 0px;">
 									<li class="active"><a data-toggle="tab" href="#page1">Home</a></li>
 									</ul>
 
@@ -212,7 +212,7 @@ body p {
 		google.maps.event.addDomListener(window, 'load', map_init);
 
 		//start of modal google map
-		$('#mapmodals').on('shown.bs.modal', function() {
+		$('#tripmodals').on('shown.bs.modal', function() {
 			google.maps.event.trigger(var_map, "resize");
 			var_map.setCenter(var_location);
 		});
@@ -234,9 +234,9 @@ $(document).ready(function() {
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showTrip").append("<div id='"+count+"' class='col-xs-3'>"
-						+"<a href='#mapmodals' "
-						+"data-toggle='modal' data-target='#mapmodals'><div class='thumbnail'>"
+			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3'>"
+						+"<a href='#tripmodals' "
+						+"data-toggle='modal' data-target='#tripmodals'><div class='thumbnail'>"
 						+"<img src='<c:url value='/controller/TripImageServlet?id="
 						+value.tripId+"'/>''></a><div class='caption'><h4>"
 						+value.tripName+"</h4></div>"
@@ -253,7 +253,7 @@ $(document).ready(function() {
 		 }
 	 });  //--ajax
 	 
-	$("#showTrip").on("click","div", function() {
+	$("#showtrip").on("click","div", function() {
 		var tripId = $("#"+($(this).index()+1)+" span:first").text();
 		var totalDay =$("#"+($(this).index()+1)+" span:last").text();
 		var tripName = $("#"+($(this).index()+1)+" span:eq(1)").text();
@@ -268,7 +268,7 @@ $(document).ready(function() {
 				height);
 		
 		//According to trip day to dynamic create Tabs. 
-		$("#myTab , #tabContent ").empty();
+		$("#mytab , #tabContent ").empty();
 		 console.log()
 		$(".modal-header").html('<h4 class="modal-title">'
 				+$("#"+($(this).index()+1)+" span:eq(1)").text()+
@@ -276,7 +276,7 @@ $(document).ready(function() {
 		//based on Trip Day to create Trip Details
 		for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
 			
-			$('#myTab').append(
+			$('#mytab').append(
 					$('<li><a href="#day' 
 							+ dayNum 
 							+ '">' 
@@ -345,7 +345,7 @@ $(document).ready(function() {
 
 		}//for loop
 		
-		$('#myTab a:first').tab('show');
+		$('#mytab a:first').tab('show');
 		
 	}); //on click
 
@@ -353,7 +353,7 @@ $(document).ready(function() {
 	/**
 	* When modal shown, reset the its content 
 	*/	
-	$('#mapmodals').on('shown.bs.modal', function (e) {
+	$('#tripmodals').on('shown.bs.modal', function (e) {
 		$('.scrollable').scrollTop(0);
 	});	
 
@@ -361,7 +361,7 @@ $(document).ready(function() {
 	* Click Tab to show its content 
 	*/
 	
-	$("#myTab").on("click", "a", function(e) {
+	$("#mytab").on("click", "a", function(e) {
 							$('.scrollable').scrollTop(0);
 							e.preventDefault();
 							$(this).tab('show');

@@ -33,7 +33,7 @@
 
 				<c:if test="${empty user }">
 					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="#mapmodals" data-toggle="modal">
+						<li class="dropdown"><a href="#topmodals" data-toggle="modal">
 								<i class="glyphicon glyphicon-user"></i>登入
 						</a></li>
 				</c:if>
@@ -71,7 +71,7 @@
 				</ul>
 			</c:if>
 
-			<div id="mapmodals" class="modal fade">
+			<div id="topmodals" class="modal fade">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
