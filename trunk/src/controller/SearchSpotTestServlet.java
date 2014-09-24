@@ -52,6 +52,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 			for (SpotDetail o : result) {
 				JSONObject jsonSpot = new JSONObject();	
 				String imgId="team1.jpg";
+				jsonSpot.put("spotID", o.getSpotId());
 				jsonSpot.put("spotName", o.getSpotName());
 				jsonSpot.put("spotIntro", o.getSpotIntro());
 				Set<SpotImg> imgs = o.getSpotImgs();
