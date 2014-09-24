@@ -1,8 +1,10 @@
 package model.service;
 
 import java.util.List;
+import java.util.Set;
 
 import model.SpotDetail;
+import model.SpotImg;
 import model.dao.SpotDetailDAOHibernate;
 import model.util.ConstantsUtil;
 
@@ -64,6 +66,21 @@ public class SearchSpotService {
 			pageNo = 1;
 		
 		return dao.selectByHQL(query.append(" ORDER BY spot.spotId").toString(), pageNo);
+	}
+	
+	public SpotImg getSpotThumbnail(SpotDetail spot) {
+		SpotImg result = null;
+		Set<SpotImg> spotImgs = spot.getSpotImgs();
+		if((spotImgs != null) && (spotImgs.size() > 0)) {
+			for (SpotImg thumbnail : spotImgs) {
+				if(thumbnail.getImgOrder() == 1) {
+					result = thumbnail;
+					break;
+				}
+			}
+		}
+		
+		return result;
 	}
 	
 	public static void main(String[] args) {
