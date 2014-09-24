@@ -33,6 +33,10 @@ body{
 #resultModalError,#resultModalOK{
 	margin-top:100px
 }
+#idImgLimitation{
+	font-family:Microsoft JhengHei;
+	font-size:14px
+}
 
 
 </style>
@@ -130,10 +134,10 @@ body{
         <form enctype="multipart/form-data" action="<c:url value="/controller/ChangeAccountServlet"/>" method="post">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label><br/></label>
+                    <label id="idImgLimitation">檔案大小限制 8MB</label><br/>
                     <div class="input-group" >
                         <input type="file"  name="image" id="idImage"  required />
-                       	<span id="checkPsw" class="spanPosition" name="imageError"></span>
+                       	<span id="checkPsw" class="spanPosition" name="imageError" style="color:red">${errorChangeImage}</span>
                     </div>
                      
                 </div>
@@ -194,6 +198,15 @@ body{
 		}else if($('[name="pswError"]').text()==""){
 			if($('#collapseOne').hasClass('in')){
 				$('#collapseOne').removeClass('in');
+			}
+		}
+		if($('[name="imageError"]').text()!=""){
+			if(!$('#collapseThree').hasClass('in')){
+				$('#collapseThree').addClass('in');
+			}
+		}else if($('[name="imageError"]').text()==""){
+			if($('#collapseThree').hasClass('in')){
+				$('#collapseThree').removeClass('in');
 			}
 		}
 		if($('#result').text()=='true'){

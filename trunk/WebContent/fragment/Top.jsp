@@ -81,8 +81,7 @@
 						</div>
 						<div class="modal-body">
 
-							<form action="<c:url value="/controller/LoginServlet" />"
-								method="post">
+							<form action="<c:url value="/controller/LoginServlet"/>;" method="POST" >
 								<table>
 									<tr>
 										<td>Email :</td>
@@ -96,15 +95,6 @@
 											value="${param.password}"></td>
 										<td><span class="error">${errorMsgs.password}</span></td>
 									</tr>
-									<tr>
-										<td></td>
-										<td align="right"><input
-											onclick="location.href='<c:url value="/secure/signup.jsp" />';"
-											type="button" value="註冊" class="btn btn-primary"><input
-											onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';"
-											type="button" value="忘記密碼"><input type="submit"
-											value="登錄"></td>
-									</tr>
 								</table>
 						</div>
 						<div class="modal-footer">
@@ -112,8 +102,9 @@
 								onclick="location.href='<c:url value="/secure/signup.jsp" />';"
 								data-dismiss="modal">註冊</button>
 							</a>
-							<button type="button" class="btn btn-default">忘記密碼</button>
-							<input type="submit" class="btn btn-primary">
+							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';">
+								忘記密碼</button>
+							<input type="submit" class="btn btn-info">
 							</button>
 						</div>
 						</form>
