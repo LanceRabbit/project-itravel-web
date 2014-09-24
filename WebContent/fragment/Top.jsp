@@ -65,7 +65,7 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-cog"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="#"> 帳號</a></li>
+							<li><a href="<c:url value="/account/changeAccount.jsp"/>"> 帳號</a></li>
 							<li><a href="#"> 登出</a></li>
 						</ul></li>
 				</ul>
@@ -82,13 +82,13 @@
 						<div class="modal-body">
 
 							<form action="<c:url value="/controller/LoginServlet" />"
-								method="get">
+								method="post">
 								<table>
 									<tr>
-										<td>ID :</td>
-										<td><input type="text" name="username"
-											value="${param.username}"></td>
-										<td><span class="error">${errorMsgs.username}</span></td>
+										<td>Email :</td>
+										<td><input type="text" name="email"
+											value="${param.email}"></td>
+										<td><span class="error">${errorMsgs.email}</span></td>
 									</tr>
 									<tr>
 										<td>PWD :</td>
