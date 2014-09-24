@@ -7,6 +7,8 @@
 <title>Error Page</title>
 </head>
 <body>
-
+<h3>${errorTimeout}</h3>
+<h3>${errorActivate}</h3>
+<h3>${errorResetPsw}</h3>
 </body>
 </html>

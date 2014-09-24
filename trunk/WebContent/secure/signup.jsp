@@ -11,17 +11,18 @@
 
 <body>
 	<h3>註冊</h3>
+	<h3>${errorSignup}</h3>
 	<form enctype="multipart/form-data" method="POST" action="<c:url value="/controller/SignupServlet" />" id="signUp.controller">
-		<label class="title">Email:</label><input type="text" name="email" id="idEmail" required> 
+		<label class="title">Email:</label><input type="text" name="email" id="idEmail" required /> 
 		<span id="checkEmail"></span> <br> 
-		<label class="title">密碼:</label><input type="text" name="password" id="idPsw1" required>
+		<label class="title">密碼:</label><input type="text" name="password" id="idPsw1" required />
 		<span id="checkPsw1"></span><br>
 		<label>(不可空白，不包含中文，至少6個字且必須包含英文字母、數字)</label><br>
-		<label class="title">密碼確認:</label><input type="text" name="passwordck" id="idPsw2" required>
+		<label class="title">密碼確認:</label><input type="text" name="passwordck" id="idPsw2" required />
 		<span id="checkPsw2"></span><br>
-		<label class="title">暱稱:</label><input type="text" name="nickname" id="idNick" required>
+		<label class="title">暱稱:</label><input type="text" name="nickname" id="idNick" required />
 		<span id="checkNick"></span><br>
-		<label class="title">照片:</label><input Type="file" class="fieldWidth" name="image"><br> 
+		<label class="title">照片:</label><input Type="file" class="fieldWidth" name="image" /><br> 
 		<input type="reset" name="cancel" id="cancel" value="重填" /><input type="submit" value="註冊" disabled="disabled" id="idSubmit">
 		<br />
 	</form>

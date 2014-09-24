@@ -13,12 +13,12 @@
 <body>
 
 <h3>Login</h3>
-<h5>${errMsgs}</h5>
-<form action="<c:url value="/controller/LoginServlet" />" method="get">
+<h5>${errorMsgs.alreadyActivate}</h5>
+<form action="<c:url value="/controller/LoginServlet" />" method="post">
 <table>
 	<tr>
-		<td>ID : </td>
-		<td><input type="text" name="username" value="${param.username}"></td>
+		<td>Email : </td>
+		<td><input type="text" name="email" value="${param.email}"></td>
 		<td><span class="error">${errorMsgs.username}</span></td>
 	</tr>
 	<tr>
@@ -28,7 +28,7 @@
 	</tr>
 	<tr>
 		<td >　</td>
-		<td align="right"><input onclick="location.href='<c:url value="/secure/signUp.jsp" />';" type="button" value="註冊"><input onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';" type="button" value="忘記密碼"><input type="submit" value="登錄"></td>
+		<td align="right"><input onclick="location.href='<c:url value="/secure/signUp.jsp" />';" type="button" value="註冊"><input onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';" type="button" value="忘記密碼"><input type="submit" value="登入"></td>
 	</tr>
 </table>
 </form>

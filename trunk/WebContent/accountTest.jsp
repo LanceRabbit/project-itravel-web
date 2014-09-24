@@ -9,7 +9,10 @@
 </head>
 <body>
 	<h3>Welcome ${user.email}</h3>
+	<h3><a href="<c:url value="/secure/signup.jsp" />">SignUp</a></h3>
 	<h3><a href="<c:url value="/secure/login.jsp" />">Login</a></h3>
-	
+	<h3><a href="<c:url value="/account/changeAccount.jsp" />">ChangeAccount</a></h3>
+	<h3><a href="<c:url value="/account/forgotPsw.jsp" />">ForgotPassword</a></h3>
+	<h3><a href="<c:url value="/account/resetPsw.jsp" />">ResetPassword(forgetting password only)</a></h3>
 </body>
 </html>

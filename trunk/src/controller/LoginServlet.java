@@ -27,15 +27,15 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 // 接收資料
-		String username = request.getParameter("username");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 // 驗證資料
 		Map<String, String> errors = new HashMap<String, String>();
 		request.setAttribute("errorMsgs", errors);
 
-		if(username==null || username.trim().length()==0) {
-			errors.put("username", "Please enter ID");
+		if(email==null || email.trim().length()==0) {
+			errors.put("email", "Please enter Email");
 		}
 		if(password==null || password.trim().length()==0) {
 			errors.put("password", "Please enter PWD");
@@ -49,25 +49,21 @@ public class LoginServlet extends HttpServlet {
 
 //呼叫Model
 		service = new AccountService();
-		Account bean = service.login(username, password);
+		Account bean = service.login(email, password);
 		
 //根據Model執行結果呼叫View
 		
-		if(bean==null) {
+		if(bean!=null) {
+			String path = request.getContextPath();
+			HttpSession session = request.getSession();
+			session.setAttribute("user", bean);
+			response.sendRedirect(path+"/first.jsp");
+			
+		} else {
+
 			errors.put("password", "Login failed, please try again.");
 			request.getRequestDispatcher(
 					"/first.jsp").forward(request, response);
-		} else {
-			HttpSession session = request.getSession();
-			session.setAttribute("user", bean);
-			String dest = (String) session.getAttribute("dest");
-			if(dest!=null){
-				response.sendRedirect(dest);
-				session.removeAttribute("dest");
-			}else{
-				String path = request.getContextPath();
-				response.sendRedirect(path+"/first.jsp");
-			}
 			
 			
 //			response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);

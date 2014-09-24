@@ -11,11 +11,13 @@
 <h3>忘記密碼</h3>
 <form action="<c:url value="/controller/ForgotPswServlet" />" method="get">  
     <span style="color: red">${sendMailMsg}</span>
+    <span style="color: red">${errorTimeout}</span>
+    
     <table>
 	<tr>
 		<td>Email : </td>
 		<td><input type="text" name="email"></td>
-		<td><span class="error">${errorMsgs.email}</span></td>
+		<td><span class="error">${errorEmail}</span></td>
 	</tr>
 	<tr>
 		<td >　</td>

@@ -58,9 +58,9 @@ public class AccountService {
 		return null;
 	}
 
-	public boolean changeAccount(String email, String oldPassword,
+	public boolean changeAccount(String email, 
 			String newPassword, String nickname, byte[] image) {
-		Account account = this.login(email, oldPassword);
+		Account account = this.selectByEmail(email);
 		if (account != null) {
 			if (newPassword != null) {
 				byte[] temp = newPassword.getBytes();
@@ -74,7 +74,7 @@ public class AccountService {
 			}
 			if (image != null) {
 				account.setImage(image);
-			}//是否要用else將image設為null
+			}
 			Account result = dao.update(account);
 			if (result != null) {
 				return true;

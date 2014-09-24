@@ -8,16 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h3>使用者${user.nickname}註冊成功</h3>
-		<table>
-			<tr>
-				<td>Email :</td>
-				<td>${user.email}</td>
-			</tr>
-			<tr>
-				<td>Image :</td>
-				<td><img width="80" height="80" src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" /></td>
-			</tr>
-		</table>
+	<h3>使用者${nickname}註冊成功，請至${email}收信啟用帳號</h3>
 </body>
 </html>
