@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 			errors.put("email", "Please enter Email");
 		}
 		if(password==null || password.trim().length()==0) {
-			errors.put("password", "Please enter PWD");
+			errors.put("password", "Please enter Password");
 		}
 		
 		if(errors!=null && !errors.isEmpty()) {
@@ -52,23 +52,26 @@ public class LoginServlet extends HttpServlet {
 		Account bean = service.login(email, password);
 		
 //根據Model執行結果呼叫View
-		
+		//抓出request的最後一個"/"之後的資料，例如"/frist.jsp"
+		String referer = request.getHeader("referer");
+		String fromAndTo = referer.substring(referer.lastIndexOf("/"));
+		HttpSession session = request.getSession();
 		if(bean!=null) {
-			String path = request.getContextPath();
-			HttpSession session = request.getSession();
 			session.setAttribute("user", bean);
-			response.sendRedirect(path+"/first.jsp");
-			
-		} else {
-
-			errors.put("password", "Login failed, please try again.");
+			session.setAttribute("errorMsgs_login", "");
 			request.getRequestDispatcher(
-					"/first.jsp").forward(request, response);
+					fromAndTo).forward(request, response);
+			return;
+		} else {
+			errors.put("login", "Email或密碼錯誤，請重新登入。");
+			session.setAttribute("errorMsgs_login", "");
+			request.getRequestDispatcher(
+					fromAndTo).forward(request, response);
 			
 			
 //			response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
 //			response.setHeader("Location", path+"/index.jsp");
-
+			return;
 		}
 	}
 	@Override
