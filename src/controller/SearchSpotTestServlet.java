@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +39,8 @@ public class SearchSpotTestServlet extends HttpServlet {
 		//顯示所有景點
 		String sessionId = request.getSession().getId();
 		System.out.println("sessionId : " + sessionId);
+		HttpSession session = request.getSession();
+//		session.setAttribute("errorMsgs_login", "");
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 		List<SpotDetail> result = dao.select(1);
