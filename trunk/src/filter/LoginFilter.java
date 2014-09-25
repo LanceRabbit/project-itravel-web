@@ -56,8 +56,8 @@ public class LoginFilter implements Filter {
 			if (checkLogin(req)) { //已經登入
 				chain.doFilter(request, response);
 			} else { //尚未登入
-				HttpSession session = req.getSession();
-				session.setAttribute("errorMsgs_login", "請登入後使用。");
+//				HttpSession session = req.getSession();
+//				session.setAttribute("errorMsgs_login", "請登入後使用。");
 				resp.sendRedirect(contextPath + "/first.jsp");
 				return;
 			}
@@ -78,24 +78,24 @@ public class LoginFilter implements Filter {
 		}
 	}
 
-	private boolean mustLogin() {
-		boolean login = false;
-		for (String sURL : url) {
-			if (sURL.endsWith("*")) {
-				sURL = sURL.substring(0, sURL.length() - 1);
-				if (servletPath.startsWith(sURL)) {
-					login = true;
-					break;
-				}
-			} else {
-				if (servletPath.equals(sURL)) {
-					login = true;
-					break;
-				}
-			}
-		}
-		return login;
-	}
+//	private boolean mustLogin() {
+//		boolean login = false;
+//		for (String sURL : url) {
+//			if (sURL.endsWith("*")) {
+//				sURL = sURL.substring(0, sURL.length() - 1);
+//				if (servletPath.startsWith(sURL)) {
+//					login = true;
+//					break;
+//				}
+//			} else {
+//				if (servletPath.equals(sURL)) {
+//					login = true;
+//					break;
+//				}
+//			}
+//		}
+//		return login;
+//	}
 
 	@Override
 	public void destroy() {
