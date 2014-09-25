@@ -68,7 +68,7 @@ public class SearchSpotServlet extends HttpServlet {
 //				System.out.println("spot name : " + spot.getSpotName());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
-				jsonSpot.put("spotLike", spot.getSpotLike());
+				jsonSpot.put("spotLike", spot.getLikeCount());
 				
 				SpotImg thumbnail = service.getSpotThumbnail(spot);
 				String imgURL = null;

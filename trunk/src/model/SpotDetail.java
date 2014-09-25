@@ -11,7 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
+//import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,6 +25,7 @@ import org.hibernate.annotations.Parameter;
 @Entity
 @Table(name = "SPOT_DETAIL", schema = "dbo", catalog = "iiiTravel")
 public class SpotDetail implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private String spotId;
 	private String accountId;
@@ -47,8 +48,8 @@ public class SpotDetail implements java.io.Serializable {
 	private Set<SpotImg> spotImgs = new HashSet<SpotImg>(0);
 	private Set<SpotCommentRecord> spotCommentRecords = new HashSet<SpotCommentRecord>(
 			0);
-	private Set<Account> spotCollect = new HashSet<Account>(0);
-	private Set<Account> spotLike = new HashSet<Account>(0);
+//	private Set<Account> spotCollect = new HashSet<Account>(0);
+//	private Set<Account> spotLike = new HashSet<Account>(0);
 
 	public SpotDetail() {
 	}
@@ -91,8 +92,8 @@ public class SpotDetail implements java.io.Serializable {
 		this.couponses = couponses;
 		this.spotImgs = spotImgs;
 		this.spotCommentRecords = spotCommentRecords;
-		this.spotCollect = spotCollect;
-		this.spotLike = spotLike;
+//		this.spotCollect = spotCollect;
+//		this.spotLike = spotLike;
 	}
 
 	@GenericGenerator(name = "generator", strategy = "select", parameters = @Parameter(name = "key", value = "tempSpotId"))
@@ -280,23 +281,23 @@ public class SpotDetail implements java.io.Serializable {
 		this.spotCommentRecords = spotCommentRecords;
 	}
 
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotCollect")
-	public Set<Account> getSpotCollect() {
-		return this.spotCollect;
-	}
-
-	public void setSpotCollect(Set<Account> spotCollect) {
-		this.spotCollect = spotCollect;
-	}
-
-	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotLike")
-	public Set<Account> getSpotLike() {
-		return this.spotLike;
-	}
-
-	public void setSpotLike(Set<Account> spotLike) {
-		this.spotLike = spotLike;
-	}
+//	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotCollect")
+//	public Set<Account> getSpotCollect() {
+//		return this.spotCollect;
+//	}
+//
+//	public void setSpotCollect(Set<Account> spotCollect) {
+//		this.spotCollect = spotCollect;
+//	}
+//
+//	@ManyToMany(fetch = FetchType.EAGER, mappedBy = "spotLike")
+//	public Set<Account> getSpotLike() {
+//		return this.spotLike;
+//	}
+//
+//	public void setSpotLike(Set<Account> spotLike) {
+//		this.spotLike = spotLike;
+//	}
 
 	@Override
 	public String toString() {
