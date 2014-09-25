@@ -8,9 +8,17 @@
 <title>Top Fragment</title>
 
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
-
+<style>
+.error,.modal-body,.modal-title,.form-control,.btn{
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+}
+#idTop{
+	padding:20px 0px 0px 0px;
+}
+</style>
 </head>
 <body>
+	<div id="idTop" class="container">
 	<div class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -29,7 +37,7 @@
 				<li><a href="#">coupon</a></li>
 
 			</ul>
-			<c:if test="${empty errorMsgs }">
+			
 
 				<c:if test="${empty user }">
 					<ul class="nav navbar-nav navbar-right">
@@ -37,7 +45,7 @@
 								<i class="glyphicon glyphicon-user"></i>登入
 						</a></li>
 				</c:if>
-			</c:if>
+			
 			<c:if test="${! empty user }">
 				<ul class="nav navbar-nav navbar-right">
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -71,41 +79,37 @@
 				</ul>
 			</c:if>
 
-			<div id="topmodals" class="modal fade">
-				<div class="modal-dialog">
+			<div id="topmodals" class="modal fade" style="margin-top:100px">
+				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title">登入</h4>
+							<h4 class="modal-title" style="font-weight: bold;">登入</h4>
 						</div>
 						<div class="modal-body">
 
 							<form action="<c:url value="/controller/LoginServlet"/>;" method="POST" >
 								<table>
+									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs.login}${errorMsgs_login}</span></td></tr>
 									<tr>
-										<td>Email :</td>
-										<td><input type="text" name="email"
-											value="${param.email}"></td>
-										<td><span class="error">${errorMsgs.email}</span></td>
+										<td style="font-weight: bold;width:50px">Email </td>
+										<td><input type="text" name="email" class="form-control"
+											value="${param.email}" required></td>
 									</tr>
+									<tr><td>&nbsp;</td></tr>
 									<tr>
-										<td>PWD :</td>
-										<td><input type="text" name="password"
-											value="${param.password}"></td>
-										<td><span class="error">${errorMsgs.password}</span></td>
+										<td style="font-weight: bold;">密碼</td>
+										<td><input type="password" name="password" class="form-control" required></td>
 									</tr>
+									<tr><td>&nbsp;</td><td><a href="<c:url value='/account/forgotPsw.jsp' />" >忘記密碼?</a></td></tr>
 								</table>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default"
 								onclick="location.href='<c:url value="/secure/signup.jsp" />';"
 								data-dismiss="modal">註冊</button>
-							</a>
-							<button type="button" class="btn btn-default" onclick="location.href='<c:url value="/account/forgotPsw.jsp" />';">
-								忘記密碼</button>
-							<input type="submit" class="btn btn-info">
-							</button>
+							<input type="submit" class="btn btn-info" value="登入"/>
 						</div>
 						</form>
 					</div>
@@ -115,5 +119,17 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			if($('[name="loginError"]').text()!=""){
+				$('#topmodals').modal('show');
+			}
+		});
+	
+	</script>
 </body>
 </html>
