@@ -10,7 +10,7 @@
 
 <style type="text/css">
 body {
-	padding: 20px;
+	padding:20px;	
 	background-color: #529abb;
 }
 
@@ -77,7 +77,8 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
-
+	
+   
 	<div class="container" style="background-color: #529abb">
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Wrapper for slides -->
@@ -129,8 +130,8 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																	if (picactive) {
 																		jQuery(
 																				'#itemtag')
-																				.append(
-																						"<div class='item active' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"
+																				.append(			               																			
+																						"<div class='item active' ><img src='<c:url value='/" + value.spotThumbnailURL+" '/>'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
@@ -139,7 +140,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																		jQuery(
 																				'#itemtag')
 																				.append(
-																						"<div class='item ' ><img src='" + value.spotThumbnailURL+"'/><div class='carousel-caption'><h4><a href='#'>"
+																						"<div class='item ' ><img src='<c:url value='/" + value.spotThumbnailURL+" '/>'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
@@ -248,7 +249,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																	jQuery(
 																			'#rowSpot')
 																			.append(
-																					"<div class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnailURL+"' alt=''><h4><a href='#'>"
+																					"<div class='col-xs-3'><div class='thumbnail'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' alt=''><h4><a href='#'>"
 																							+ value.spotLikeName
 																							+ "</a></h4>"
 																							+ "<p>"

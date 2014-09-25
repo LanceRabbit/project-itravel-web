@@ -32,6 +32,29 @@ public class AddLikeService {
 			}
 		
 	}
-
-
+	public static boolean isEmpty(String AccountId,String SpotId){
+		spotRec.setAccountId(AccountId);
+		spotRec.setSpotId(SpotId);
+		spot = new SpotLikeRecord(spotRec);
+		if(dao.select(spot)==null){		
+			return true;
+		}else{
+			return false;
+			
+		}
+		
+	}
+	
+	public static boolean deletSpotLike(String AccountId,String SpotId){
+	
+		spotRec.setAccountId(AccountId);
+		spotRec.setSpotId(SpotId);
+		spot = new SpotLikeRecord(spotRec);
+		if(dao.delete(spot)==100){
+			return true;			
+		}else{
+			return false;				
+		}
+	
+	}
 }
