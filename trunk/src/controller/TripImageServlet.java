@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -45,31 +46,76 @@ public class TripImageServlet extends HttpServlet {
 					String pathToWeb = getServletContext().getRealPath(
 							File.separator);
 					System.out.println(pathToWeb);
-					File f = new File(pathToWeb + "images/team1.jpg");
-					
-					
-					BufferedImage bi = ImageIO.read(f);
+					File file = new File(pathToWeb + "images/team1.jpg");
+
+					response.setContentLength((int) file.length());
+
+					FileInputStream in = new FileInputStream(file);
 					out = response.getOutputStream();
-					ImageIO.write(bi, "jpg", out);
-					bi.flush();
+
+					// Copy the contents of the file to the output stream
+					byte[] buf = new byte[1024];
+					int count = 0;
+					while ((count = in.read(buf)) >= 0) {
+						out.write(buf, 0, count);
+					}
+
+					out.close();
+					in.close();
+
 				} else {
 
 					out = response.getOutputStream();
 
 					out.write(image); // 直接把byte[]用OutputStream寫出
+					out.close();
 				}
+			} else {
+				response.setContentType("image/jpg");
+
+				String pathToWeb = getServletContext().getRealPath(
+						File.separator);
+				System.out.println(pathToWeb);
+				File file = new File(pathToWeb + "images/team1.jpg");
+
+				response.setContentLength((int) file.length());
+
+				FileInputStream in = new FileInputStream(file);
+				out = response.getOutputStream();
+
+				// Copy the contents of the file to the output stream
+				byte[] buf = new byte[1024];
+				int count = 0;
+				while ((count = in.read(buf)) >= 0) {
+					out.write(buf, 0, count);
+				}
+
+				out.close();
+				in.close();
+
 			}
-			out.close();
+
 		} else {
 			response.setContentType("image/jpg");
 
 			String pathToWeb = getServletContext().getRealPath(File.separator);
 			System.out.println(pathToWeb);
-			File f = new File(pathToWeb + "images/team1.jpg");
-			BufferedImage bi = ImageIO.read(f);
+			File file = new File(pathToWeb + "images/team1.jpg");
+
+			response.setContentLength((int) file.length());
+
+			FileInputStream in = new FileInputStream(file);
 			out = response.getOutputStream();
-			ImageIO.write(bi, "jpg", out);
-			bi.flush();
+
+			// Copy the contents of the file to the output stream
+			byte[] buf = new byte[1024];
+			int count = 0;
+			while ((count = in.read(buf)) >= 0) {
+				out.write(buf, 0, count);
+			}
+
+			out.close();
+			in.close();
 		}
 		return;
 	}
