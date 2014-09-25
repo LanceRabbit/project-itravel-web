@@ -45,10 +45,6 @@ body {
 
 	</div>
 
-
-
-
-
 	<jsp:include page="/fragment/bottom.jsp" />
 
 	<script type="text/javascript">
@@ -67,8 +63,7 @@ body {
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "json",	
-					data : {AccountId :"M14090005",  
-							SpotId:id},						
+					data : {SpotId:id},						
 					success : function(data) {						
 						
 														
@@ -84,7 +79,7 @@ body {
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "json",	
-					data : {AccountId :"M14090005",  
+					data : { 
 							SpotId:id},						
 					success : function(data) {						
 						
@@ -92,31 +87,8 @@ body {
 					}				
 				});				
 				
-				
-				
-				
-				
-				
 			}
-
-			/*
-			jQuery.ajax({
-				url : "../controller/AddLikeServlet",
-				type : "GET",
-				contentType : "application/json; charset=utf-8",
-				async : false,
-				dataType : "json",
-				data : {
-					AccountId : "${user.accountId}",
-					SpotId : id
-				},
-				success : function(data) {
-					jQuery.each(data, function(index, value) {
-
-					});
-				},
-			});
-			 */
+			
 
 		}
 
