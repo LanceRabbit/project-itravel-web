@@ -54,19 +54,29 @@ public class LoginServlet extends HttpServlet {
 //根據Model執行結果呼叫View
 		//抓出request的最後一個"/"之後的資料，例如"/frist.jsp"
 		String referer = request.getHeader("referer");
+		
 		String fromAndTo = referer.substring(31);
-		System.out.println(fromAndTo);
+		String end4 = referer.substring(referer.length()-4);
 		HttpSession session = request.getSession();
+		if(end4.equals(".jsp")){
+			session.setAttribute("redirectTo", referer);
+			session.setAttribute("requestFrom", fromAndTo);
+		}
+		System.out.println("TEST==Redirect============="+(String)session.getAttribute("redirectTo"));
+		System.out.println("TEST===Forward============"+(String)session.getAttribute("requestFrom"));
 		if(bean!=null) {
 			session.setAttribute("user", bean);
-			session.setAttribute("errorMsgs_login", "");
-			response.sendRedirect(referer);
+			session.setAttribute("requestFrom", "");
+			String redirectTo = (String)session.getAttribute("redirectTo");
+			session.setAttribute("redirectTo", "");
+			response.sendRedirect(redirectTo);
 			return;
 		} else {
-			session.setAttribute("errorMsgs_login", "Email或密碼錯誤，請重新登入。");
-			response.sendRedirect(referer);
-//			getServletContext().getRequestDispatcher(
-//					"/first.jsp").forward(request, response);
+			errors.put("login", "Email或密碼錯誤，請重新登入。");
+//			session.setAttribute("errorMsgs_login", "Email或密碼錯誤，請重新登入。");
+//			response.sendRedirect(referer);
+			request.getRequestDispatcher(
+					(String)session.getAttribute("requestFrom")).forward(request, response);
 			
 			
 //			response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);

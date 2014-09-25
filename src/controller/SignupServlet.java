@@ -39,7 +39,7 @@ public class SignupServlet extends HttpServlet {
 			image = null;
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
-			System.out.println("Print FilePart Size= "+filePart.getSize());
+			//System.out.println("Print FilePart Size= "+filePart.getSize());
 			//System.out.println(filePart);
 			if (filePart.getSize() != 0) {  
 			    // debug messages  
@@ -56,7 +56,7 @@ public class SignupServlet extends HttpServlet {
 				}
 //            System.out.println(bytes);
 			}else if(filePart.getSize() == 0){
-				System.out.println("here");
+				//System.out.println("here");
 				String path = request.getContextPath();
 				try {
 					inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
