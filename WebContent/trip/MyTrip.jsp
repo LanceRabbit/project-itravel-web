@@ -7,25 +7,24 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>This is a test page.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link rel="stylesheet" href="../css/jquery.datetimepicker.css" />
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style>
-body{
-padding: 20px;}
 #map-container {
-	height: 450px
+	height: 400px;
 }
 
 .modal.modal-wide .modal-dialog {
-	width: 90%;
+	width: 95%;
 }
-
-.modal-wide .modal-body {
-	overflow-y: auto;
+div.tabimg > img{
+	width:100%;
+	height:100px;
+   
 }
 
 .scrollable {
@@ -42,17 +41,13 @@ border-collapse:collapse;
 /* irrelevant styling */
 
 
-body p {
-	max-width: 400px;
-	margin: 20px auto;
-}
+
 
 
 .title {
     width:300px;
-  
     text-align:left;
-    padding-left:20px;
+   
 }
 
 #showtrip .caption{
@@ -60,13 +55,7 @@ body p {
 }
 
 
-#tallModal .modal-body p {
-	margin-bottom: 900px;
-	
-	
-}
 #tripmodals .modal-body {
- margin: 1px;
 } 
 #tripmodals .modal-title {
 	text-align: center;
@@ -148,8 +137,8 @@ body p {
 									<div class="tab-pane active" id="page1" autofocus="">1234</div>
 									</div>
 								</div>
-								<div class="col-sm-7" style=" border: 1px solid; padding: 0px ;" >
-									<div id="map-container" style="margin: 0px; padding: 0px;content: 0px;"></div>
+								<div class="col-sm-7"  >
+									<div id="map-container" ></div>
 								</div>
 
 							</div>
@@ -223,7 +212,8 @@ body p {
 $(document).ready(function() {
 
 	$.ajax({
-		 url:"../controller/TripServlet",
+		
+		 url: "<c:url value='/controller/TripServlet' />",
 		 type:"post",
 		 async : false,
 		 data : {AccountId : "${user.accountId}"},
@@ -238,11 +228,11 @@ $(document).ready(function() {
 						+"<a href='#tripmodals' "
 						+"data-toggle='modal' data-target='#tripmodals'><div class='thumbnail'>"
 						+"<img src='<c:url value='/controller/TripImageServlet?id="
-						+value.tripId+"'/>''></a><div class='caption'><h4>"
+						+value.tripId+"'/>'></a><div class='caption'><h4>"
 						+value.tripName+"</h4></div>"
-						+"<div class='ratings'><p class='pull-right'>15 reviews</p><a class='icon' id='heart"
-						+count+"' href=''><i id='social' class='fa fa-heart fa-2x'></i>"
-						+"</a><a class='icon' id='plus' href=''><i id='social' class='fa fa-plus fa-2x'>"
+						+"<div class='ratings'>"
+						+"<a class='btn btn-primary btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a>"
+						+"<p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p>"
 						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
@@ -285,7 +275,8 @@ $(document).ready(function() {
 							+'</a></li>'));
 			
 			$.ajax({
-				 url:"../controller/TripDetailServlet",
+				
+				 url:"<c:url value='/controller/TripDetailServlet' />",
 				 type:"post",
 				 data:{"TripId":tripId,"totalDay":dayNum},
 				 dataType:"json", //xml,text
@@ -304,42 +295,42 @@ $(document).ready(function() {
 						 //console.log(value.spotAddress);
 						 //console.log(value.stayTime);
 						 //console.log(value.startDate);
+				 
+								 
+						 
+						 
+						 
 						(count==1) ?	
 							$('#tabContent').append(
-								$('<div class="tab-pane" id="day' + dayNum +
-								'">	<div class="row" style="border-bottom: 1px solid;">' 
-								+'<div class="col-sm-3"  style="padding:5px" >'
-								+'<img src="<c:url value="/controller/TripDetailImageServlet?id='
-								+value.spotId+'&index=1"/>" width="150" height="95" alt="map Venice"'
-								+'title="'+value.spotName+'"/>'
-								+'</div>'
-								+'<div class="col-sm-9" style="padding:1px">'
-								+'<div class="row">'
-								+'<div class="col-sm-1" style="padding:1px"></div>'
-								+'<div class="col-sm-11" style="padding:1px">'
-								+'<div class="title"><label>'+value.spotName+'</label></div>'
-						        +'<div class="title"><label>'+value.spotAddress+'</label></div>'
-						        +'<div class="title"><label>'+value.stayTime+'</label></div>'
-						        +'</div></div>'
-						    	+'</div></div>')
-							) 
+								$('<div class="tab-pane" id="day' + dayNum +'">'
+									+'<div class="row" style="border-bottom: 1px solid;">'
+												+'<div class="col-xs-6 ">'
+													+'<div class="tabimg"><img src="<c:url value="/controller/TripDetailImageServlet?id='
+													+value.spotId+'&index=1"/>"  alt="'+value.spotName+'"'
+													+'title="'+value.spotName+'"/></div>'
+												+'</div><div class="clearfix visible-xs-block"></div>'
+												+'<div class="col-xs-6 " >'
+													+'<div class="title"><label>'+value.spotName+'</label></div>'
+							        				+'<div class="title"><label>'+value.spotAddress+'</label></div>'
+							       			 		+'<div class="title"><label>'+value.stayTime+'</label></div>'
+						        				+'</div>'
+							       	+'</div>'
+							      +'</div>')
+							)
 							:
 							$('#day'+dayNum).append(
 								$('<div class="row" style="border-bottom: 1px solid;">' 
-										+'<div class="col-sm-3"  style="padding:5px">'
-										+'<img  style="  content: 0px;" src="<c:url value="/controller/TripDetailImageServlet?id='
-										+value.spotId+'&index=1"/>" width="150" height="95" alt="map Venice"'
+										+'<div class="col-xs-6 "  >'
+										+'<div class="tabimg"><img src="<c:url value="/controller/TripDetailImageServlet?id='
+										+value.spotId+'&index=1"/>"    alt="'+value.spotName+'"'
 										+'title="'+value.spotName+'"/>'
-										+'</div>'
-										+'<div class="col-sm-9" style="padding:1px">'
-										+'<div class="row">'
-										+'<div class="col-sm-1" style="padding:1px"></div>'
-										+'<div class="col-sm-11" style="padding:1px">'
+										+'</div></div><div class="clearfix visible-xs-block"></div>'
+										+'<div class="col-xs-6 " >'
 										+'<div class="title"><label>'+value.spotName+'</label></div>'
 								        +'<div class="title"><label>'+value.spotAddress+'</label></div>'
 								        +'<div class="title"><label>'+value.stayTime+'</label></div>'
 								        +'</div></div>'
-								    	+'</div></div>')
+								    	+'</div><')
 							) ;
 						    count++;
 							$('#day' + dayNum).tab('show');	 
@@ -371,6 +362,36 @@ $(document).ready(function() {
 							$(this).tab('show');
 						});
 });
-</script>	
+</script>
+	<script type="text/javascript">
+	function alter(id){
+		//按下修改後做的事情
+		//傳入的id是SpotId
+		alert("修改"+id);
+		jQuery.ajax({
+			url : "../controller/SpotAlterServlet",
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "json",	
+			data : {AccountId : "${user.accountId}",  
+					SpotId:id},								
+			success : function(data) {
+				jQuery.each(data,function(index,value) {
+					
+				});
+			},
+		});
+		
+		
+		
+		
+	}
+	
+	function delet(id){
+		alert("刪除"+id);
+		
+	}
+	</script>
 </body>
 </html>
