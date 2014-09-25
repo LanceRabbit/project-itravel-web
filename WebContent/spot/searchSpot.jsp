@@ -290,25 +290,25 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			}
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
+			jQuery('#listDetails').empty();	
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);
+											
+				jQuery('#listDetails').append(
+						"<div class='col-xs-3'><div class='thumbnail'><img src='" +
+						value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#'>"
+						+ value.spotName
+						+ "</a></h4>"
+						+"<div class='fixedHeight'>"
+						+ value.spotIntro
+						+"</div>"
+						+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a id='"
+						+ value.spotID
+						+ "' href='javascript: void(0);' onclick='like(this.id)'><i id='social' class='fa fa-heart fa-2x'></i></a><a id='"
+						+ value.spotID
+						+ "' href='javascript: void(0);' onclick='collect(this.id)'><i id='social' class='fa fa-plus fa-2x'></i></a></div></div>"
+				); // end of jQuery
 				
-				if(value.spotThumbnail){									
-					jQuery('#listDetails').append(
-							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
-							value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#'>"
-							+ value.spotName
-							+ "</a></h4>"
-							+"<div class='fixedHeight'>"
-							+ value.spotIntro
-							+"</div>"
-							+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a id='"
-							+ value.spotID
-							+ "' href='javascript: void(0);' onclick='like(this.id)'><i id='social' class='fa fa-heart fa-2x'></i></a><a id='"
-							+ value.spotID
-							+ "' href='javascript: void(0);' onclick='collect(this.id)'><i id='social' class='fa fa-plus fa-2x'></i></a></div></div>"
-					);
-				} // end of if
 			});
 		});
 	}
