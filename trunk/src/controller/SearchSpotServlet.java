@@ -2,8 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -18,8 +16,9 @@ import model.SpotImg;
 import model.service.SearchSpotService;
 import model.util.ImageIOUtil;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @WebServlet("/controller/SearchSpot")
 public class SearchSpotServlet extends HttpServlet {
@@ -28,7 +27,7 @@ public class SearchSpotServlet extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) {
 		//System.out.println("process called");
 		
-		PrintWriter writer = null;
+//		PrintWriter writer = null;
 		OutputStream os = null;
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -53,14 +52,14 @@ public class SearchSpotServlet extends HttpServlet {
 			List<SpotDetail> spots =  service.searchSpotByConditions(
 					spotName, city, category, subcategory, pageNo);
 			
-			if(spots != null) {
-				for (SpotDetail o : spots) {
-					System.out.println(o.toString());
-				}
-			}
-			else {
-				System.out.println("null list....");
-			}
+//			if(spots != null) {
+//				for (SpotDetail o : spots) {
+//					System.out.println(o.toString());
+//				}
+//			}
+//			else {
+//				System.out.println("null list....");
+//			}
 			
 			JSONArray jsonSpots = new JSONArray();
 			for(SpotDetail spot : spots) {
@@ -92,32 +91,27 @@ public class SearchSpotServlet extends HttpServlet {
 				//System.out.println("image url : " + imgURL);
 				jsonSpot.put("spotThumbnail", imgURL);
 				System.out.println("json : " + jsonSpot.toString());
-				jsonSpots.add(jsonSpot);
-				
-
+				jsonSpots.put(jsonSpot);
 			}
 			
-
-			
-		    StringWriter out = new StringWriter();
-		    jsonSpots.writeJSONString(out); System.out.println("jsons : " + out.toString());
-
-//			os = response.getOutputStream();
-//			os.write(out.toString().getBytes("UTF-8"));
+			os = response.getOutputStream();
+			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		    
-			writer = response.getWriter();
-			writer.write(out.toString());
+//			writer = response.getWriter();
+//			writer.write(out.toString());
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}  finally {
-			if(writer != null) {
-				writer.flush();
-				writer.close();
-			}
+//			if(writer != null) {
+//				writer.flush();
+//				writer.close();
+//			}
 			
 			if(os != null) {
 				try {
