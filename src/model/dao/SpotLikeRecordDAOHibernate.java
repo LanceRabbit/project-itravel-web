@@ -95,9 +95,10 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 				System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
+			return -100;
 		}
 	
-		return 0;
+		return 100;
 	}
 
 	public SpotLikeRecord select(SpotLikeRecord spotRec) {
