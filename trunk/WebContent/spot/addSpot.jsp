@@ -14,78 +14,9 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/dropzone.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
 
 <style>
-.itravel-block-frame{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding: 5px;
-	
-	margin:auto;
-	overflow:hidden;
-}
-
-.itravel-block-1-pic{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding:3px;
-	
-	margin:auto;
-	width:100%;
-	height:270px;
-	
-	/*
-	background-image: url(images/thumbnail_128.png);
-	background-repeat: no-repeat;
-	opacity: 0.5;
-	background-size: 100%;
-	*/
-}
-
-
-.itravel-block-1-thumbnail{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding-top:1px;
-	padding-bottom:1px;
-	margin-left:1px;
-	width:50%;
-	height:124px
-}
-
-.itravel-block-1-thumbnail-content {
-	display:block;
-	margin-left: auto;
-    margin-right: auto;
-}
-
-.itravel-block-1-pic-content{
-	display:block;
-	margin-left: auto;
-    margin-right: auto;
-}
-
-.hidden-element {
-	display:none;
-}
-
-.scrollable {
-    height: auto;
-    max-height: 150px;
-    overflow-x: hidden;
-    overflow-y:auto
-}
-
-.itravel-block-1-group{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding:3px;
-	
-	margin:auto;
-	width:100%;
-	height:250px;
-}
-
 #infoForm {
 	height: auto;
     max-height: 200px;
