@@ -60,11 +60,14 @@ body {
 				jQuery.ajax({
 					url : '<c:url value='/controller/AddLikeServlet'/>',
 					type : "GET",
-					contentType : "application/json; charset=utf-8",
-					async : false,
-					dataType : "json",	
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
 					data : {SpotId:id},						
 					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}
 						
 														
 					}				
