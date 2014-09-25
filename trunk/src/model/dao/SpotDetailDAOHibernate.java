@@ -290,9 +290,9 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //			 System.out.println(o);
 //			 }
 		
-		String query = "FROM SpotDetail spot  WHERE spot.cityId = 2 AND spot.spotName LIKE '%花博%'";
+		String query = "FROM SpotDetail spot";
 		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
-		List<SpotDetail> list =hibernateDAO.selectByHQL(query);
+		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 2);
 		if(list != null) {
 			for (Object o : list) {
 				System.out.println(o);
