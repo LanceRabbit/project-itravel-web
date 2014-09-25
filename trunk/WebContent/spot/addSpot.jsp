@@ -76,6 +76,22 @@
     overflow-y:auto
 }
 
+.itravel-block-1-group{
+	display: inline-block;
+	/*border: 1px dotted #4F4F4F;*/
+	padding:3px;
+	
+	margin:auto;
+	width:100%;
+	height:250px;
+}
+
+#infoForm {
+	height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y:auto
+}
 </style>
 </head>
 
@@ -149,10 +165,10 @@
 
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
-							<div class="well well-md">
+							<div class="well well-md itravel-block-1-group">
 								<form class="form-horizontal" method="post" id="infoForm" action='<c:url value="/controller/SpotInfo" />'>
 									<fieldset>
-										<legend class="text-center header">景點資訊</legend>
+										<legend class="text-center header"><h4>景點資訊</h4></legend>
 
 
 
@@ -285,7 +301,7 @@
 							</div>
 						</div>
 						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-map">
-							<div class="itravel-block-1-pic" id="map-container"></div>
+							<div class="itravel-block-1-group" id="map-container"></div>
 						</div>
 					</div>
 				</div>
