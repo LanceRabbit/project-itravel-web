@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,25 +29,21 @@ public class AddLikServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html");
+		
 		HttpSession session = request.getSession();
 		session.setAttribute("errorMsgs_login", "");
-		// String AccountId = request.getParameter("AccountId");
-		// System.out.println(user);
+		
+		
 		String AccountId = null;
-//		Map<String, String> errors = new HashMap<String, String>();
+		PrintWriter out = response.getWriter();
 
 		Account user = (Account) session.getAttribute("user");
 		if (user != null) {
 			AccountId = (String) user.getAccountId();
 		} else {
-			session.setAttribute("errorMsgs_login", "請登入後使用。");
-//			errors.put("login", "請登入後使用。");
-			String referer = request.getHeader("referer");
-			System.out.println("---------"+referer);
-//			String fromAndTo = referer.substring(31);
-//			System.out.println("---------"+fromAndTo);
-			//request.getRequestDispatcher(fromAndTo).forward(request, response);
-			response.sendRedirect(referer);
+			
+			out.print("false");
 			return;
 		}
 		String SpotId = request.getParameter("SpotId");
@@ -55,17 +52,17 @@ public class AddLikServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 
 		if (AddLikeService.isEmpty(AccountId, SpotId)) {
-
+			
 			AddLikeService.addSpotLike(AccountId, SpotId);
-			request.setAttribute("likeMsg", "新增成功");
+			//out.print("成功");
 
-			String path = request.getContextPath();
-			// response.sendRedirect(path+"/spot/testSearchSpot.jsp");
+			
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
 			System.out.println("Like成功");
 		} else {
-			request.setAttribute("likeMsg", "已新增過");
+			
+			//out.print("失敗");
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
 			System.out.println("Like失敗");
