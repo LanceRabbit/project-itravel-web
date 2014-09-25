@@ -91,7 +91,7 @@
 
 							<form action="<c:url value="/controller/LoginServlet"/>;" method="POST" >
 								<table>
-									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs.login}${errorMsgs_login}</span></td></tr>
+									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs_login}</span></td></tr>
 									<tr>
 										<td style="font-weight: bold;width:50px">Email </td>
 										<td><input type="text" name="email" class="form-control"
