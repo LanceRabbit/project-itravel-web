@@ -29,20 +29,25 @@ public class AddLikServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
+		session.setAttribute("errorMsgs_login", "");
 		// String AccountId = request.getParameter("AccountId");
 		// System.out.println(user);
 		String AccountId = null;
-		Map<String, String> errors = new HashMap<String, String>();
-		try {
-			Account user = (Account) session.getAttribute("user");
+//		Map<String, String> errors = new HashMap<String, String>();
+
+		Account user = (Account) session.getAttribute("user");
+		if (user != null) {
 			AccountId = (String) user.getAccountId();
-		} catch (Exception e) {
-			request.setAttribute("errorMsgs", errors);
-			errors.put("login", "請登入後使用。");
+		} else {
+			session.setAttribute("errorMsgs_login", "請登入後使用。");
+//			errors.put("login", "請登入後使用。");
 			String referer = request.getHeader("referer");
-			String fromAndTo = referer.substring(referer.lastIndexOf("/"));
-			request.getRequestDispatcher(fromAndTo).forward(request, response);
-			e.printStackTrace();
+			System.out.println("---------"+referer);
+//			String fromAndTo = referer.substring(31);
+//			System.out.println("---------"+fromAndTo);
+			//request.getRequestDispatcher(fromAndTo).forward(request, response);
+			response.sendRedirect(referer);
+			return;
 		}
 		String SpotId = request.getParameter("SpotId");
 		System.out.println(AccountId + "," + SpotId);
