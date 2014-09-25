@@ -225,23 +225,33 @@ $(document).ready(function() {
 			 $.each(data,function(index,value){
 
 			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3 temp'>"
-						+"<a href='#tripmodals' "
-						+"data-toggle='modal' data-target='#tripmodals'><div class='thumbnail'>"
-						+"<img src='<c:url value='/controller/TripImageServlet?id="
-						+value.tripId+"'/>'></a><div class='caption'><h4>"
-						+value.tripName+"</h4></div>"
+						+"<div class='thumbnail'>"
+						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"+value.tripName+"</h4></div><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'><img src='<c:url value='/controller/TripImageServlet?id="
+						+value.tripId+"'/>'></a><div ><h5>行程天數:"
+						+value.totalDay+"</h5></div>"
 						+"<div class='ratings'>"
-						+"<a class='btn btn-primary btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a>"
-						+"<p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p>"
+						+"<a class='btn btn-primary btn-sm modify' id='"+value.tripId+"' href='#'><i  class='fa fa-pencil fa-lg'>修改</i></a>"
+						+"<p class='pull-right'><a class='btn btn-danger btn-sm delete' id='"+value.tripId+"' href='#'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p>"
 						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-						"</div></div>")
+						"</div></div>");
 						
 				 count++;
 			 });	
 		 }
 	 });  //--ajax
+	 
+	 $("#showtrip").on("click",".modify", function(e) {
+		 e.stopPropagation();
+		 alert("modify check"+ ($("#"+($(this).index()+1)+" span:first").text()));
+	 });
+	 
+	 $("#showtrip").on("click",".delete", function(e) {
+		 e.stopPropagation();
+		 
+		 alert("delete check" + $("#"+($(this).index()+1)+" span:first").text());
+	 });
 	 
 	$("#showtrip").on("click",".temp", function() {
 		var tripId = $("#"+($(this).index()+1)+" span:first").text();
@@ -363,35 +373,6 @@ $(document).ready(function() {
 						});
 });
 </script>
-	<script type="text/javascript">
-	function alter(id){
-		//按下修改後做的事情
-		//傳入的id是SpotId
-		alert("修改"+id);
-		jQuery.ajax({
-			url : "../controller/SpotAlterServlet",
-			type : "GET",
-			contentType : "application/json; charset=utf-8",
-			async : false,
-			dataType : "json",	
-			data : {AccountId : "${user.accountId}",  
-					SpotId:id},								
-			success : function(data) {
-				jQuery.each(data,function(index,value) {
-					
-				});
-			},
-		});
-		
-		
-		
-		
-	}
-	
-	function delet(id){
-		alert("刪除"+id);
-		
-	}
-	</script>
+
 </body>
 </html>
