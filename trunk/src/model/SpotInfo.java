@@ -51,7 +51,9 @@ public class SpotInfo implements java.io.Serializable {
 			latitude = (spotDetail.getLatitude()).toString();
 		
 		spotIntro = spotDetail.getSpotIntro();
-		likeCount = spotDetail.getLikeCount().toString();
+		
+		if(spotDetail.getLikeCount() != null)
+			likeCount = spotDetail.getLikeCount().toString();
 		
 	}
 	
