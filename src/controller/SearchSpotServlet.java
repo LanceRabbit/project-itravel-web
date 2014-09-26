@@ -66,6 +66,7 @@ public class SearchSpotServlet extends HttpServlet {
 				JSONObject jsonSpot = new JSONObject();
 		        
 //				System.out.println("spot name : " + spot.getSpotName());
+				jsonSpot.put("spotId", spot.getSpotId());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
 				jsonSpot.put("spotLike", spot.getLikeCount());
@@ -75,7 +76,7 @@ public class SearchSpotServlet extends HttpServlet {
 				if(thumbnail != null) {
 					String imgPath = "images" + "/" + spot.getAccountId() + "/" + spot.getSpotId();
 					String deployDir = getServletContext().getRealPath("/");
-					System.out.println("thumbnail saved at : " + (deployDir+imgPath));
+					//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
 					
 					byte[] content = thumbnail.getSpotImg();
 					if(( content != null) && (content.length > 0)) {
@@ -90,7 +91,7 @@ public class SearchSpotServlet extends HttpServlet {
 				
 				//System.out.println("image url : " + imgURL);
 				jsonSpot.put("spotThumbnail", imgURL);
-				System.out.println("json : " + jsonSpot.toString());
+				//System.out.println("json : " + jsonSpot.toString());
 				jsonSpots.put(jsonSpot);
 			}
 			
