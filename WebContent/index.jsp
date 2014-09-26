@@ -9,7 +9,13 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <!-- attach CSS styles -->
+<style type="text/css">
+#test{
+font-family: 微軟正黑體;
+font-weight: bold;
+}
 
+</style>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet" />
 </head>
@@ -91,7 +97,7 @@
 						<div class="panel-heading">
 							<h2 class="panel-title">Additional information</h2>
 						</div>
-						<div class="panel-body lead">資策會 ipsum dolor sit amet,
+						<div id="test" class="panel-body lead">資策會 資策會 資策會 ipsum dolor sit amet,
 							consectetur adipiscing elit. Sed hendrerit adipiscing blandit.
 							Aliquam placerat, velit a fermentum fermentum, mi felis vehicula
 							justo, a dapibus quam augue non massa. Duis euismod, augue et
