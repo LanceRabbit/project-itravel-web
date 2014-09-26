@@ -2,6 +2,8 @@ package model.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class ImageIOUtil {
@@ -73,8 +75,22 @@ public class ImageIOUtil {
 		}
 	}
 	
+	public static String generateImageDirPath(String accountId, String spotId) {
+		String imgPath = null;
+		
+		String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+		if(accountId != null)
+			imgPath = "images" + "/" + dateDir + "/" + accountId + "/" + spotId;
+		else 
+			imgPath = "images" + "/" + dateDir + "/" + "temp"    + "/" + spotId;
+		
+		return imgPath;
+	}
 	public static void main(String[] args) {
 		//ImageIOUtil.copyImage("src.jpg");
-		ImageIOUtil.saveImage("slide1.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
+		//ImageIOUtil.saveImage("slide1.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
+		Date dt = new Date();
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		System.out.println(format.format(dt));
 	}
 }

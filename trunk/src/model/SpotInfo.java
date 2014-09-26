@@ -1,10 +1,11 @@
 package model;
 
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import model.util.ConstantsUtil;
+import model.util.ImageIOUtil;
 
 public class SpotInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
@@ -28,14 +29,14 @@ public class SpotInfo implements java.io.Serializable {
 	//private String tempSpotId;
 	//private Set<TripDetail> tripDetails = new HashSet<TripDetail>(0);
 	//private Set<Ad> ads = new HashSet<Ad>(0);
-	private List<String> coupons; //private Set<Coupons> couponses = new HashSet<Coupons>(0);
-	private List<String> spotImgs; //private Set<SpotImg> spotImgs = new HashSet<SpotImg>(0);
-	private List<String> spotComments; //private Set<SpotCommentRecord> spotCommentRecords = new HashSet<SpotCommentRecord>(0);
+	private List<String> coupons = new ArrayList<String>(0); //private Set<Coupons> couponses = new HashSet<Coupons>(0);
+	private List<String> spotImgs = new ArrayList<String>(0); //private Set<SpotImg> spotImgs = new HashSet<SpotImg>(0);
+	private List<String> spotComments = new ArrayList<String>(0); //private Set<SpotCommentRecord> spotCommentRecords = new HashSet<SpotCommentRecord>(0);
 	
 	public SpotInfo() {
 	}
 	
-	public SpotInfo(SpotDetail spotDetail, String viewer) {
+	public SpotInfo(SpotDetail spotDetail, String viewer, String webAppURL, String deployDir) {
 		creater = spotDetail.getAccount().getNickname();
 		leader = spotDetail.getLeader();
 		spotName = spotDetail.getSpotName();
@@ -44,17 +45,37 @@ public class SpotInfo implements java.io.Serializable {
 		city = ConstantsUtil.getRevCityMap().get(spotDetail.getCityId());
 		address = spotDetail.getAddress();
 		phone = spotDetail.getPhone();
+		spotIntro = spotDetail.getSpotIntro();
 		
 		if(spotDetail.getLatitude() != null)
 			longitude = (spotDetail.getLatitude()).toString();
 		if(spotDetail.getLatitude() != null)
 			latitude = (spotDetail.getLatitude()).toString();
-		
-		spotIntro = spotDetail.getSpotIntro();
-		
 		if(spotDetail.getLikeCount() != null)
 			likeCount = spotDetail.getLikeCount().toString();
-		
+
+		if(spotDetail.getSpotImgs().size() == 0) {
+			String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
+			spotImgs.add(path);
+		} else {
+			int count = 0;
+			for(SpotImg spotImg : spotDetail.getSpotImgs()) {
+				byte[] data = spotImg.getSpotImg();
+				if((data != null) && (data.length != 0)) {
+					count++;
+					String path = ImageIOUtil.generateImageDirPath(viewer, spotDetail.getSpotId());
+					ImageIOUtil.saveImage((deployDir+path), spotImg.getImgId(), spotImg.getSpotImg());
+					
+					String imgURL = webAppURL + "/" + path + "/" + spotImg.getImgId();
+					spotImgs.add(imgURL);
+				}
+			}
+			
+			if(count == 0) {
+				String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
+				spotImgs.add(path);
+			}
+		}
 	}
 	
 	// getter and setter
