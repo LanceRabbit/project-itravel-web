@@ -61,11 +61,17 @@ public class SearchSpotServlet extends HttpServlet {
 //				System.out.println("null list....");
 //			}
 			
+			String webAppURL = request.getScheme() 
+					+ "://"
+					+ request.getServerName()
+					+ ":"
+					+ request.getServerPort()
+					+ request.getContextPath();
+			
 			JSONArray jsonSpots = new JSONArray();
 			for(SpotDetail spot : spots) {
 				JSONObject jsonSpot = new JSONObject();
-		        
-//				System.out.println("spot name : " + spot.getSpotName());
+
 				jsonSpot.put("spotId", spot.getSpotId());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
@@ -74,20 +80,20 @@ public class SearchSpotServlet extends HttpServlet {
 				SpotImg thumbnail = service.getSpotThumbnail(spot);
 				String imgURL = null;
 				if(thumbnail != null) {
-					String imgPath = "images" + "/" + spot.getAccountId() + "/" + spot.getSpotId();
-					String deployDir = getServletContext().getRealPath("/");
+					String imgPath = ImageIOUtil.generateImageDirPath(spot.getAccountId(), spot.getSpotId());
+					String deployDir = getServletContext().getRealPath("/");					
 					//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
 					
 					byte[] content = thumbnail.getSpotImg();
 					if(( content != null) && (content.length > 0)) {
 						ImageIOUtil.saveImage((deployDir+imgPath), thumbnail.getImgId(), thumbnail.getSpotImg());
-						imgURL = "../" + imgPath + "/" + thumbnail.getImgId();
+						imgURL = webAppURL + "/" + imgPath + "/" + thumbnail.getImgId();
 					} else {
-						imgURL = "../images/team1.jpg";
+						imgURL = webAppURL + "/images/team1.jpg";
 					}
 				}
 				else 
-					imgURL = "../images/team1.jpg";
+					imgURL = webAppURL + "/images/team1.jpg";
 				
 				//System.out.println("image url : " + imgURL);
 				jsonSpot.put("spotThumbnail", imgURL);

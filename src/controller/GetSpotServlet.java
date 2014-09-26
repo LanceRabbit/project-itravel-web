@@ -31,6 +31,15 @@ public class GetSpotServlet extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
 			
+			String webAppURL = request.getScheme() 
+					+ "://"
+					+ request.getServerName()
+					+ ":"
+					+ request.getServerPort()
+					+ request.getContextPath();
+			
+			String deployDir = getServletContext().getRealPath("/");
+			
 			String spotId = request.getParameter("spotId");
 			System.out.println("spot id : " + spotId);
 			
@@ -40,7 +49,7 @@ public class GetSpotServlet extends HttpServlet {
 				viewer = user.getAccountId();
 			
 			SearchSpotService service = new SearchSpotService();
-			SpotInfo spotInfo = service.getSpotIfoById(spotId, viewer);
+			SpotInfo spotInfo = service.getSpotIfoById(spotId, viewer, webAppURL, deployDir);
 			
 			JSONObject jsonSpotInfo = new JSONObject(spotInfo);
 			

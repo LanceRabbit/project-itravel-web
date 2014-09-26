@@ -85,13 +85,13 @@ public class SearchSpotService {
 		return result;
 	}
 	
-	public SpotInfo getSpotIfoById(String spotId, String viewer) {
+	public SpotInfo getSpotIfoById(String spotId, String viewer, String webAppURL, String deployDir) {
 		SpotInfo result = null;
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 		SpotDetail spot = dao.select(spotId);
 		if(spot != null)
-			result = new SpotInfo(spot, viewer);
+			result = new SpotInfo(spot, viewer, webAppURL, deployDir);
 		
 		return result;
 	}
