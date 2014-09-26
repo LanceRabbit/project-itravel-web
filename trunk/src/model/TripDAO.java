@@ -9,4 +9,5 @@ public interface TripDAO {
 	public abstract Trip update(Trip trip);
 	public abstract Trip select(String id);
 	public abstract List<Trip> selectTopN(int num);
+	public abstract List<Trip> selectByDay(int day);
 }

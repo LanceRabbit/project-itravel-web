@@ -326,7 +326,7 @@
 	});
 	
 	$("#cityIdMenu .dropdown-menu li").click(function(){
-		//console.log($(this).text());
+		console.log($(this).text());
 		$("#city").val($(this).text());
 		$("#cityIdMenu .dropdown-menu").hide();
 	}) 

@@ -86,68 +86,34 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 							<div class="row">
 
 								<div class="col-md-3">
-									<div class="input-group" id="cityGroup" data-toggle="popover"
-										data-placement="top" data-content="請選擇縣市">
-										<input id="city" name="city" type="text" placeholder="縣市"
-											class="form-control" disabled>
-										<div class="input-group-btn" id="cityIdMenu">
+									<div class="input-group" id="dayGroup" data-toggle="popover"
+										data-placement="top" data-content="天數">
+										<input id="day" name="day" type="text" placeholder="天數"
+											class="form-control test" disabled>
+										<div class="input-group-btn" id="dayMenu">
 											<button type="button" class="btn btn-default dropdown-toggle"
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
 											</button>
 											<ul class="dropdown-menu dropdown-menu-right scrollable"
 												role="menu">
+											 <li role="presentation" value="0"><a role="menuitem"  tabindex="-1" href="#">天數</a></li>
+											 <li role="presentation" value="1" default><a role="menuitem" tabindex="-1" href="#">一日遊</a></li>
+										     <li role="presentation" value="2"><a role="menuitem" tabindex="-1" href="#">二日遊</a></li>
+										     <li role="presentation" value="3"><a role="menuitem"  tabindex="-1" href="#">三日遊</a></li>
+											 <li role="presentation" value="4"><a role="menuitem"  tabindex="-1" href="#">四日遊以上</a></li>
 											</ul>
 										</div>
 										<!-- /btn-group -->
 									</div>
 									<!-- /input-group -->
 								</div>
-
 								<div class="col-md-3">
-									<div class="input-group" id="categoryGroup"
-										data-toggle="popover" data-toggle="popover"
-										data-placement="top" data-content="請選擇分類">
-										<input id="category" name="category" type="text"
-											placeholder="全部分類" class="form-control" disabled>
-										<div class="input-group-btn" id="categoryIdMenu">
-											<button type="button" class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												選擇 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
-												role="menu">
-											</ul>
-										</div>
-										<!-- /btn-group -->
-									</div>
-									<!-- /input-group -->
-								</div>
-
-								<div class="col-md-3">
-									<div class="input-group" id="subcategoryGroup"
-										data-toggle="popover" data-placement="top"
-										data-content="請選擇子分類">
-										<input id="subcategory" name="subcategory" type="text"
-											placeholder="全部子分類" class="form-control" disabled>
-										<div class="input-group-btn" id="subcategoryIdMenu">
-											<button type="button" class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												選擇 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
-												role="menu">
-											</ul>
-										</div>
-										<!-- /btn-group -->
-									</div>
-									<!-- /input-group -->
-								</div>
-
-								<div class="col-md-3">
-									<input id="spotName" name="spotName" type="text"
-										placeholder="景點名稱" class="form-control" data-toggle="popover"
+									
+									<input id="tripName" name="tripName" type="text" maxlength="20"
+										placeholder="行程名稱" class="form-control" data-toggle="popover"
 										data-placement="top" data-content="請輸入名稱">
+										
 								</div>
 							</div>
 						</div>
@@ -158,14 +124,134 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	</div>
 	
 	<div class="container">
-		<div class="row" id="listDetails">
+		<div class="row" id="listTrips">
 		</div>	
 	</div>
 	
 <jsp:include page="/fragment/bottom.jsp" />
 <script>
+$(document).ready(function() {
+	//一開始載入頁面就先搜尋所有Trip
+	//先設定預設值 0 給 #day, 提供後面做判斷使用 
+	$("#day").val($("#dayMenu .dropdown-menu li:eq(0)").text());
 	
+	$.ajax({
+		type : "POST",
+		url : '<c:url value='/controller/SearchTripServlet' />',
+		data : {
+			day : 0
+		},
+		async : false
+	}).done(function(data) {
+		//console.log("detail from server....." + data);
+		$('#listTrips').empty();
+		 count = 1 ;
+		$.each(data,function(index,value){
+
+		 	$("#listTrips").append("<div id='"+count+"' class='col-xs-3 temp'>"
+					+"<div class='thumbnail'>"
+					+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+					+value.tripName+"</h4></div>"
+					+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+					+"<img src='<c:url value='/controller/TripImageServlet?id="
+					+value.tripId+"'/>'></a><div ><h5>行程天數:"
+					+value.totalDay+"</h5></div>"
+					+"<div class='ratings'>"
+					+"<a class='btn btn-primary btn-sm modify' id='"
+					+value.tripId+"' href='javascript: void(0);'>"
+					+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+					+"<p class='pull-right'>"
+					+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+					+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+					+"刪除</i></a></p>"
+					+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+					"<span id='tripName' hidden>"+value.tripName+"</span>"+
+					"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+					"</div></div>");
+					
+			 count++;
+		});	
+	});
+	
+	
+});
 (function(jQuey){
+
+	//根據 天數去做搜尋,若click同一個欄位則不執行搜尋
+	$("#dayMenu .dropdown-menu li").click(function(){
+		console.log($(this).text());
+		console.log($(this).val());
+		($("#day").val()==$(this).text())?true:
+			$.ajax({
+				type : "POST",
+				url : '<c:url value='/controller/SearchTripServlet' />',
+				data : {
+					day : $(this).val()
+				},
+				async : false
+			}).done(function(data) {
+				//console.log("detail from server....." + data);
+				$('#listTrips').empty();
+				 count = 1 ;
+				$.each(data,function(index,value){
+
+				 	$("#listTrips").append("<div id='"+count+"' class='col-xs-3 temp'>"
+							+"<div class='thumbnail'>"
+							+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+							+value.tripName+"</h4></div>"
+							+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+							+"<img src='<c:url value='/controller/TripImageServlet?id="
+							+value.tripId+"'/>'></a><div ><h5>行程天數:"
+							+value.totalDay+"</h5></div>"
+							+"<div class='ratings'>"
+							+"<a class='btn btn-primary btn-sm modify' id='"
+							+value.tripId+"' href='javascript: void(0);'>"
+							+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+							+"<p class='pull-right'>"
+							+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+							+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+							+"刪除</i></a></p>"
+							+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+							"<span id='tripName' hidden>"+value.tripName+"</span>"+
+							"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+							"</div></div>");
+					 count++;
+				});	
+			}); //end Ajax
+		$("#day").val($(this).text());
+	}); //end--- $("#dayMenu .dropdown-menu li")  
+	
+	$("#tripName").change(function(){
+		console.log($(this).val());
+		console.log($(this).text());
+	});
+	function activeQuery() {
+		var spotName = jQuey('#spotName').val();
+		//console.log("spotName : " + spotName);
+		var city = jQuey("#city").val();
+		//console.log("city : " + city);
+		var category = jQuey('#category').val();
+		//console.log("category : " + category);
+		var subcategory = jQuey('#subcategory').val();
+		//console.log("subcategory : " + subcategory);
+
+		$.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/SearchTripServlet' />',
+			data : {
+				spotName : spotName,
+				city : city,
+				category : category,
+				subcategory : subcategory
+			}
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+			$('#listDetails').empty();	
+			$.each(data, function(index, value){
+
+			});
+		});
+	}
 
 	}(jQuery));
 </script>

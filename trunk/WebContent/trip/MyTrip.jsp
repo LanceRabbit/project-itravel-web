@@ -39,21 +39,14 @@ border-collapse:collapse;
 }
 
 /* irrelevant styling */
-
-
-
-
-
 .title {
     width:300px;
     text-align:left;
-   
 }
 
 #showtrip .caption{
 	text-align: center;
 }
-
 
 #tripmodals .modal-body {
 } 
@@ -65,8 +58,6 @@ border-collapse:collapse;
     max-height: 400px;
     overflow-x: hidden;
 }
-
-
 
 #social:hover {
 	-webkit-transform: scale(1.1);
@@ -226,12 +217,20 @@ $(document).ready(function() {
 
 			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3 temp'>"
 						+"<div class='thumbnail'>"
-						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"+value.tripName+"</h4></div><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'><img src='<c:url value='/controller/TripImageServlet?id="
+						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+						+value.tripName+"</h4></div>"
+						+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+						+"<img src='<c:url value='/controller/TripImageServlet?id="
 						+value.tripId+"'/>'></a><div ><h5>行程天數:"
 						+value.totalDay+"</h5></div>"
 						+"<div class='ratings'>"
-						+"<a class='btn btn-primary btn-sm modify' id='"+value.tripId+"' href='#'><i  class='fa fa-pencil fa-lg'>修改</i></a>"
-						+"<p class='pull-right'><a class='btn btn-danger btn-sm delete' id='"+value.tripId+"' href='#'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p>"
+						+"<a class='btn btn-primary btn-sm modify' id='"
+						+value.tripId+"' href='javascript: void(0);'>"
+						+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+						+"<p class='pull-right'>"
+						+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+						+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+						+"刪除</i></a></p>"
 						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
@@ -300,16 +299,6 @@ $(document).ready(function() {
 					 (data.length==0)?$('#tabContent').append('<div class="tab-pane" id="day' 
 							 + dayNum +'"><div class="row" "></div></div>'):
 					 $.each(data,function(index,value){
-						 //console.log(value.spotName);
-						 //console.log(value.spotId);
-						 //console.log(value.spotAddress);
-						 //console.log(value.stayTime);
-						 //console.log(value.startDate);
-				 
-								 
-						 
-						 
-						 
 						(count==1) ?	
 							$('#tabContent').append(
 								$('<div class="tab-pane" id="day' + dayNum +'">'
