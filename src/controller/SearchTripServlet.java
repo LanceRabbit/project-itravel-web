@@ -29,15 +29,15 @@ import org.json.JSONObject;
 /**
  * Servlet implementation class TripServlet
  */
-@WebServlet("/controller/TripServlet")
-public class TripServlet extends HttpServlet {
+@WebServlet("/controller/SearchTripServlet")
+public class SearchTripServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private TripDetailService service = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TripServlet() {
+	public SearchTripServlet() {
 
 	}
 
@@ -48,18 +48,13 @@ public class TripServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String sessionId = request.getSession().getId();
-		String AccountId = request.getParameter("AccountId");
-		AccountDAO dao = new AccountDAOHibernate();
-		// TripDAOHibernate dao = new TripDAOHibernate();
-		Account account = null;
+		int days =  Integer.parseInt(request.getParameter("day"));
+		
+		TripDAOHibernate dao = new TripDAOHibernate();
 		OutputStream os = null;
 		try {
-			account = dao.selectById(AccountId);
-			if (account == null) { 
-				return;
-			}
 			
-			Set<Trip> trips = account.getTrips();
+			List<Trip> trips = dao.selectByDay(days);
 			if (trips == null) {
 				return;
 			}

@@ -109,21 +109,21 @@ public class TripDAOHibernate implements TripDAO {
 	
 	public static void main (String[] args){
 		TripDAOHibernate dao = new TripDAOHibernate();
-		Account test = new Account ();
-		test.setAccountId("M14090004");
-		Trip trip = new Trip ();
-		
-		// insert 
-		trip.setAccount(test);
-		trip.setTripName("3D2N");
-		java.util.Date date = new java.util.Date();
-		trip.setStartDate(date);
-		trip.setTempTripId("EMP");
-
-		
+//		Account test = new Account ();
+//		test.setAccountId("M14090004");
+//		Trip trip = new Trip ();
+//		
+//		// insert 
+//		trip.setAccount(test);
+//		trip.setTripName("3D2N");
+//		java.util.Date date = new java.util.Date();
+//		trip.setStartDate(date);
+//		trip.setTempTripId("EMP");
+//
+//		
 //		trip = dao.insert(trip);
-		System.out.println("test : insert================================");
-		System.out.println(trip);
+//		System.out.println("test : insert================================");
+//		System.out.println(trip);
 		
 //		trip.setTripId("T14090001");
 //		//Trip tripId = spot.getSpotId();
@@ -158,9 +158,15 @@ public class TripDAOHibernate implements TripDAO {
 		
 		
 		 List<Trip> list = new ArrayList<Trip>();
-		 list = dao.selectTopN(5);
+		// list = dao.selectAll();
+		 list = dao.selectByDay(4);
+		 if (list!=null) {
 		 for (Object o : list) {
 		 System.out.println(o);
+		 } 
+		 } else {
+			 
+			 System.out.println("Can not find out about these trip");
 		 }
 			
 	}
@@ -195,5 +201,56 @@ public class TripDAOHibernate implements TripDAO {
 		}
 		return trip;		
 	
+	}
+
+	@Override
+	public List<Trip> selectByDay(int day) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Trip> trip = new ArrayList<Trip>();
+		Query query = null;
+		try {
+			tx = session.beginTransaction();
+			
+			switch (day) {
+			case 0:
+				query = session
+				.createQuery("FROM Trip trip order by trip.tripId DESC");
+				break;
+			case 1:
+			case 2:
+			case 3:
+				query = session
+				.createQuery("FROM Trip trip where trip.totalDay=:Tripday order by trip.tripId DESC")
+				.setParameter("Tripday", day);
+				break;
+			case 4:
+				query = session
+				.createQuery("FROM Trip trip where (trip.totalDay >=:Tripday) order by trip.tripId DESC")
+				.setParameter("Tripday", day);
+				break;
+			default:
+				break;
+			}
+			
+			
+			for (Object obj : query.list()) {
+				trip.add((Trip) obj);
+			}
+
+			// System.out.println("Top 10 Ad : " + ads.size());
+			// for (Object o : spots) {
+			// SpotCollectRecord spot = (SpotCollectRecord) o;
+			// System.out.println(accountId + "likes spot id: "
+			// + spot.getId().getSpotId());
+			// }
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return trip;
 	}
 }
