@@ -22,7 +22,7 @@ import model.SpotDetail;
 import model.SpotLikeRecord;
 import model.SpotLikeRecordId;
 import model.dao.AccountDAOHibernate;
-import model.service.AddLikeService;
+import model.service.LikeService;
 
 /**
  * Servlet implementation class MySpotServlet
