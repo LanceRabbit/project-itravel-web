@@ -37,6 +37,7 @@ public class ChangeAccountServlet extends HttpServlet {
 		String newPassword = null;
 		String nickname = null;
 		byte[] image = null;
+		InputStream inputStream = null;
 		try {
 			oldPassword = request.getParameter("oldPassword");
 			//若有舊密碼(忘記密碼以外的情況)，先驗證是否能登入，若登入失敗則導回修改帳號資訊頁面
@@ -59,8 +60,6 @@ public class ChangeAccountServlet extends HttpServlet {
 				}
 			}
 			nickname = request.getParameter("nickname");
-			image = null;
-			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
 			System.out.println("ServletFileSize="+filePart.getSize());
 			if(filePart.getSize() != 0){
@@ -72,12 +71,15 @@ public class ChangeAccountServlet extends HttpServlet {
 					}
 			}
 		} catch (IllegalStateException e) {
-			request.setAttribute("errorChangeImage", "檔案過大!");
+			request.setAttribute("errorChangeImageCA", "檔案過大");
 			request.getRequestDispatcher(
 					"/account/changeAccount.jsp").forward(request, response);
 			return;
+		}finally{
+			if(inputStream!=null){
+				inputStream.close();
+			}
 		}
-		
 		//呼叫Model
 		boolean updated = service.changeAccount(email, newPassword, nickname, image);
 		

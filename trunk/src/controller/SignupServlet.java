@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import model.Account;
@@ -31,12 +32,13 @@ public class SignupServlet extends HttpServlet {
 		String email = null;
 		String password = null;
 		String nickname = null;
+		String owner = null;
 		byte[] image = null;
 		try {
 			email = request.getParameter("email");
 			password = request.getParameter("password");
 			nickname = request.getParameter("nickname");
-			image = null;
+			owner = request.getParameter("owner");
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
 			//System.out.println("Print FilePart Size= "+filePart.getSize());
@@ -67,27 +69,48 @@ public class SignupServlet extends HttpServlet {
 				}
 			}
 		} catch (IllegalStateException e) {
-			request.setAttribute("errorChangeImage", "檔案過大!");
-			request.getRequestDispatcher(
-					"/account/changeAccount.jsp").forward(request, response);
-			return;
+			if(owner==null){
+				request.setAttribute("errorImageMember", "圖片檔案過大!");
+				request.getRequestDispatcher(
+						"/first.jsp").forward(request, response);
+				return;
+			}else{
+				request.setAttribute("errorImageOwner", "圖片檔案過大!");
+				request.getRequestDispatcher(
+						"/first.jsp").forward(request, response);
+				return;
+			}
+			
 		}
 		// 呼叫Model
 		service = new AccountService();
-		Account bean = service.signupAsMember(email, password, nickname, image);
+		Account bean = null;
+		if(owner!=null){
+			bean = service.signupAsOwner(email, password, nickname,owner, image);
+		}else{
+			bean = service.signupAsMember(email, password, nickname, image);
+		}
+		
 		//System.out.println(bean);
 		
 		// 根據Model執行結果呼叫View
+		HttpSession session = request.getSession();
+		String path = request.getContextPath();
 		if(bean!=null) {
 			//EmailUtil.sendAccountActivateEmail(bean);//send email
-			request.setAttribute("email", bean.getEmail());
-			request.setAttribute("nickname", bean.getNickname());
-			request.getRequestDispatcher("/account/signupSuccess.jsp").forward(
-					request, response);
+			session.setAttribute("signupOK", "true");
+			response.sendRedirect(path+"/first.jsp");
+//			request.setAttribute("email", bean.getEmail());
+//			request.setAttribute("nickname", bean.getNickname());
+//			request.getRequestDispatcher("/account/signupSuccess.jsp").forward(
+//					request, response);
+			return;
 		} else {
-			request.setAttribute("errorSignup","註冊發生錯誤，請重新註冊");
-			request.getRequestDispatcher(
-					"/secure/signup.jsp").forward(request, response);
+			session.setAttribute("signupOK", "false");
+			response.sendRedirect(path+"/first.jsp");
+//			request.setAttribute("errorSignup","註冊發生錯誤，請重新註冊");
+//			request.getRequestDispatcher(
+//					"/secure/signup.jsp").forward(request, response);
 		}
 	}
 	protected void doGet(HttpServletRequest request,

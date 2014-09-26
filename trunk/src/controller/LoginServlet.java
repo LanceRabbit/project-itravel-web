@@ -65,10 +65,15 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("TEST==Redirect============="+(String)session.getAttribute("redirectTo"));
 		System.out.println("TEST===Forward============"+(String)session.getAttribute("requestFrom"));
 		if(bean!=null) {
+			if(bean.getAccountLevel()==3||bean.getAccountLevel()==5){
+				session.setAttribute("activated", "false");
+				response.sendRedirect(request.getContextPath()+"/first.jsp");
+				return;
+			}
 			session.setAttribute("user", bean);
-			session.setAttribute("requestFrom", "");
+			session.removeAttribute("requestFrom");
 			String redirectTo = (String)session.getAttribute("redirectTo");
-			session.setAttribute("redirectTo", "");
+			session.removeAttribute("redirectTo");
 			response.sendRedirect(redirectTo);
 			return;
 		} else {
