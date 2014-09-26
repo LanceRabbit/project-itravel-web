@@ -102,7 +102,52 @@ body {
 
 		function collect(id) {
 			console.log(id);
-
+		//fa-minus
+			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-2x"){
+				jQuery("#"+id).attr('title','收藏');
+				jQuery("#"+id).removeAttr("class");
+				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
+				jQuery.ajax({
+					url : '<c:url value='/controller/LikeServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
+					data : {State:"deletCollect",
+						SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}						
+														
+					}				
+				});	
+			}else{
+				
+				jQuery.ajax({
+					url : '<c:url value='/controller/LikeServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
+					data : {State:"Collect",
+						SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}else{
+							jQuery("#"+id).attr('title','取消收藏');
+							jQuery("#"+id).removeAttr("class");
+							jQuery("#"+id).addClass("fa fa-minus fa-2x");
+						}						
+														
+					}				
+				});	
+				
+				
+				
+			}
+			
 		}
 		
 	
@@ -137,22 +182,45 @@ body {
 												dataType : "text",	
 												data : {SpotId:value.spotID},						
 												success : function(data) {						
-													if(data=='NoAccount'){							
-														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+													if(data=="NoAccount"){							
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 														
 													}else if(data=="Like"){
 													//有登錄的話依據like紀錄顯示圖片
-														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotID+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
 														
 													}else if(data=="NoLike"){
 													//有登錄的話依據like紀錄顯示圖片
-														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 													
 													}																						
 												}				
 											});	
 											
-											jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+ value.spotID+ "' class='fa fa-plus fa-2x' title='取消收藏'onclick='collect(this.id)'></i></a>");
+											
+											jQuery.ajax({
+												url : '<c:url value='/controller/CheckSpotCollectServlet'/>',
+												type : "GET",
+												contentType : "application/json; charset=utf-8",
+												async : false,
+												dataType : "text",	
+												data : {SpotId:value.spotID},						
+												success : function(data) {														
+													if(data=="NoAccount"){							
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotID+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+														
+													}else if(data=="Collect"){
+													
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotID+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+														
+													}else if(data=="NoCollect"){
+													
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotID+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+													
+													}																						
+												}				
+											});	
+											
 											jQuery('#listDetails').append("</t></div>");
 											
 											jQuery('#listDetails').append("</div></div>");
