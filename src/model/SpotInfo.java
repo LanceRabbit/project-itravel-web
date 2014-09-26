@@ -44,8 +44,12 @@ public class SpotInfo implements java.io.Serializable {
 		city = ConstantsUtil.getRevCityMap().get(spotDetail.getCityId());
 		address = spotDetail.getAddress();
 		phone = spotDetail.getPhone();
-		longitude = (spotDetail.getLatitude()).toString();
-		latitude = (spotDetail.getLatitude()).toString();
+		
+		if(spotDetail.getLatitude() != null)
+			longitude = (spotDetail.getLatitude()).toString();
+		if(spotDetail.getLatitude() != null)
+			latitude = (spotDetail.getLatitude()).toString();
+		
 		spotIntro = spotDetail.getSpotIntro();
 		likeCount = spotDetail.getLikeCount().toString();
 		
