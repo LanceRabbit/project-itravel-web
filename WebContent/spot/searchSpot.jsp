@@ -281,7 +281,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		<div class="col-md-12">
 			<div class="well well-md">
 				<form class="form-horizontal" method="post" id="infoForm"
-					action='<c:url value="/controller/SpotInfo" />'>
+					action='<c:url value="/controller/AddSpot" />'>
 					<fieldset>
 						<div class="form-group">
 							<div class="row">
@@ -447,7 +447,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	
 	// to trigger modal view
 	jQuery("#listDetails").on("click", ".detail", function(){
-		jQuery('#myModal').modal('show');
+		jQuery('#myModal').modal("show");
 		//jQuery('#myModalLabel')
 	});
 	

@@ -19,8 +19,8 @@ import model.dao.SpotImgDAOHibernate;
 import model.util.ConstantsUtil;
 import model.util.ImageIOUtil;
 
-@WebServlet("/controller/SpotInfo")
-public class SpotInfoServlet extends HttpServlet {
+@WebServlet("/controller/AddSpot")
+public class AddSpotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {

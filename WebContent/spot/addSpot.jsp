@@ -97,7 +97,7 @@
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 							<div class="well well-md itravel-block-1-group">
-								<form class="form-horizontal" method="post" id="infoForm" action='<c:url value="/controller/SpotInfo" />'>
+								<form class="form-horizontal" method="post" id="infoForm" action='<c:url value="/controller/AddSpot" />'>
 									<fieldset>
 										<legend class="text-center header"><h4>景點資訊</h4></legend>
 
