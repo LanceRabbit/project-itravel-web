@@ -86,10 +86,11 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 				tx.rollback();
 				System.out.println(e.getMessage());
 			}
-			e.printStackTrace();
+			return -100;
+			
 		}
 
-		return 0;
+		return 1000;
 	}
 
 	public SpotCollectRecord select(SpotCollectRecord spotColRec) {
@@ -142,6 +143,28 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 			}
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int insert2(SpotCollectRecord spotColRec) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			session.save(spotColRec);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+			e.printStackTrace();
+			return -100;
+		}
+		return 100;
+	
 	}
 
 }

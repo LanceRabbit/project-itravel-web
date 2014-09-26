@@ -13,21 +13,16 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 import model.service.LikeService;
 
-/**
- * Servlet implementation class CheckSpotLikeServlet
- */
-@WebServlet("/controller/CheckSpotLikeServlet")
-public class CheckSpotLikeServlet extends HttpServlet {
+
+@WebServlet("/controller/CheckSpotCollectServlet")
+public class CheckSpotCollectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
    
-    public CheckSpotLikeServlet() {
-       
-    	
+    public CheckSpotCollectServlet() {
+        
     }
 
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
 		
@@ -49,10 +44,12 @@ public class CheckSpotLikeServlet extends HttpServlet {
 		String SpotId = request.getParameter("SpotId");
 		System.out.println(AccountId + ",,,,," + SpotId);
 		
-		if(LikeService.checkSpotLike(AccountId, SpotId)){
-			out.print("Like");
-		}else {
-			out.print("NoLike");
+		if(LikeService.checkSpotCollect(AccountId, SpotId)){
+			out.print("Collect");
+			
+		}else{
+			
+			out.print("NoCollect");
 		}
 		
 		
@@ -60,12 +57,11 @@ public class CheckSpotLikeServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		
 		
-		
-		
 	}
 
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	this.doGet(request, response);
+		
 	}
 
 }

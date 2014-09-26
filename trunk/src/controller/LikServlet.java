@@ -47,11 +47,12 @@ public class LikServlet extends HttpServlet {
 		}
 		String State = request.getParameter("State");
 		String SpotId = request.getParameter("SpotId");
-		System.out.println(AccountId + "," + SpotId);
+		SpotId = SpotId.substring(2);
+		System.out.println(AccountId + "...." + SpotId);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 
-		if (State.equals("like") && LikeService.isEmpty(AccountId, SpotId)) {
+		if (State.equals("like") && LikeService.isLikeEmpty(AccountId, SpotId)) {
 
 			LikeService.addSpotLike(AccountId, SpotId);
 			// out.print("成功");
@@ -59,18 +60,24 @@ public class LikServlet extends HttpServlet {
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
 			System.out.println("Like成功");
-		}else if(State.equals("delet") && !LikeService.isEmpty(AccountId, SpotId)) {
+		}else if(State.equals("delet") && !LikeService.isLikeEmpty(AccountId, SpotId)) {
 
 			LikeService.deletSpotLike(AccountId, SpotId);
 			
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
 			System.out.println("delet成功");
-		} else {
+		}else if(State.equals("deletCollect") && !LikeService.isCollectEmpty(AccountId, SpotId) ){
+			LikeService.deletSpotCollect(AccountId, SpotId);
+			
+		}else if(State.equals("Collect") && LikeService.isCollectEmpty(AccountId, SpotId)){
+			LikeService.addSpotCollect(AccountId, SpotId);
+			
+		}else {
 			
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
-			System.out.println("delet失敗");
+			System.out.println("-----------");
 		}
 		//
 
