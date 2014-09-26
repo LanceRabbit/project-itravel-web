@@ -6,11 +6,15 @@ import java.util.Arrays;
 
 import model.Account;
 import model.AccountDAO;
+import model.SpotOwner;
+import model.SpotOwnerDAO;
 import model.dao.AccountDAOHibernate;
+import model.dao.SpotOwnerDAOHibernate;
 
 public class AccountService {
 
 	private AccountDAO dao = new AccountDAOHibernate();
+	private SpotOwnerDAO daoOwner = new SpotOwnerDAOHibernate();
 	private MessageDigest mDigest;
 
 	public AccountService() {
@@ -40,6 +44,46 @@ public class AccountService {
 		account.setAccountLevel(3);
 		Account result = dao.insert(account);
 		return result;
+		
+	}
+	public Account signupAsOwner(String email, String password, String nickname,String owner, byte[] image){
+		Account account = new Account();
+		
+		account.setEmail(email);
+		byte[] temp = password.getBytes();
+		this.mDigest(temp);
+		temp = mDigest.digest(temp);
+		account.setPassword(temp);
+		account.setNickname(nickname);
+		if(image!=null){
+			account.setImage(image);
+		}else{
+			account.setImage(null);//將圖設為預設圖示
+		}
+		account.setAccountLevel(5);
+		Account result = dao.insert(account);
+		if(result!=null){
+			boolean insertOwnerOK = this.insertOwner(result.getAccountId(), owner);
+			if(insertOwnerOK){
+				return result;
+			}else{
+				return null;
+			}
+		}else{
+			return null;
+		}
+		
+	}
+	private boolean insertOwner(String accountId, String owner){
+		SpotOwner spotOwner = new SpotOwner();
+		spotOwner.setAccountId(accountId);
+		spotOwner.setOwnerName(owner);
+		spotOwner = daoOwner.insert(spotOwner);
+		if(spotOwner!=null){
+			return true;
+		}else{
+			return false;
+		}
 		
 	}
 	public Account login(String email, String password) {
