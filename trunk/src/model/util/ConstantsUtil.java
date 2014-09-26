@@ -18,10 +18,26 @@ public class ConstantsUtil {
 		return ConstantsUtil.subcategoryMap;
 	}
 	
+	public static Map<Integer, String> getRevCityMap() {
+		return ConstantsUtil.revcityMap;
+	}
+	
+	public static Map<Integer, String> getRevCategoryMap() {
+		return ConstantsUtil.revcategoryMap;
+	}
+	
+	public static Map<String, String> getRevSubcategoryMap() {
+		return ConstantsUtil.revsubcategoryMap;
+	}
+	
 	
 	private static final Map<String, Integer> cityMap = createCityMap();
 	private static final Map<String, Integer> categoryMap = createCategoryMap();
 	private static final Map<String, String> subcategoryMap = createSubcategoryMap();
+	
+	private static final Map<Integer, String> revcityMap = createRevCityMap();
+	private static final Map<Integer, String> revcategoryMap = createRevCategoryMap();
+	private static final Map<String, String> revsubcategoryMap = createRevSubcategoryMap();
 	
     private static Map<String, Integer> createCityMap() {
         Map<String, Integer> result = new HashMap<String, Integer>();
@@ -88,10 +104,79 @@ public class ConstantsUtil {
         return Collections.unmodifiableMap(result);
     }
     
+    private static Map<Integer, String> createRevCityMap() {
+        Map<Integer, String> result = new HashMap<Integer, String>();
+        
+        result.put(new Integer(1), "基隆");
+        result.put(new Integer(2), "台北");
+        result.put(new Integer(3), "桃園");
+        result.put(new Integer(4), "新竹");
+        result.put(new Integer(5), "苗栗");
+        result.put(new Integer(6), "彰化");
+        result.put(new Integer(7), "台中");
+        result.put(new Integer(8), "南投");
+        result.put(new Integer(9), "雲林");
+        result.put(new Integer(10), "嘉義");
+        result.put(new Integer(11), "台南");
+        result.put(new Integer(12), "高雄");
+        result.put(new Integer(13), "屏東");
+        result.put(new Integer(14), "綠島");
+        result.put(new Integer(15), "蘭嶼");
+        result.put(new Integer(16), "澎湖");
+        result.put(new Integer(17), "金門");
+        result.put(new Integer(18), "馬祖");
+        result.put(new Integer(19), "宜蘭");
+        result.put(new Integer(20), "花蓮");
+        result.put(new Integer(21), "台東");
+        return Collections.unmodifiableMap(result);
+    }
+    
+    private static Map<Integer, String> createRevCategoryMap() {
+    	Map<Integer, String> result = new HashMap<Integer, String>();
+        
+        result.put(new Integer(1), "美食");
+        result.put(new Integer(2), "購物");
+        result.put(new Integer(3), "住宿");
+        result.put(new Integer(4), "景點");
+        result.put(new Integer(5), "活動");
+        
+        return Collections.unmodifiableMap(result);
+    }
+    
+    private static Map<String, String> createRevSubcategoryMap() {
+        Map<String, String> result = new HashMap<String, String>();
+        
+        result.put("RES", "餐廳");
+        result.put("VEN", "小吃");
+        result.put("CAF", "美食街");
+        result.put("SWT", "甜品");
+        result.put("OTH", "其他");
+        result.put("DEP", "百貨公司");
+        result.put("MAL", "大賣場");
+        result.put("SHO", "個性商店");
+        result.put("STR", "路邊攤");
+        result.put("HOT", "飯店");
+        result.put("HOS", "旅舍");
+        result.put("HOM", "民宿");
+        result.put("CAM", "營地");
+        result.put("NAT", "風景區");
+        result.put("PAR", "國家公園");
+        result.put("HIS", "古蹟");
+        result.put("LAN", "遊樂園");
+        result.put("ART", "藝文展覽");
+        result.put("FAM", "親子活動");
+        result.put("GAM", "競賽活動");
+        return Collections.unmodifiableMap(result);
+    }
+    
 	static {
 		createCityMap();
 		createCategoryMap();
 		createSubcategoryMap();
+		
+		createRevCityMap();
+		createRevCategoryMap();
+		createRevSubcategoryMap();
 	}
 
 }

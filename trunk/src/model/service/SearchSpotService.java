@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Set;
 
 import model.SpotDetail;
+import model.SpotDetailDAO;
 import model.SpotImg;
+import model.SpotInfo;
 import model.dao.SpotDetailDAOHibernate;
 import model.util.ConstantsUtil;
 
@@ -83,6 +85,16 @@ public class SearchSpotService {
 		return result;
 	}
 	
+	public SpotInfo getSpotIfoById(String spotId, String viewer) {
+		SpotInfo result = null;
+		
+		SpotDetailDAO dao = new SpotDetailDAOHibernate();
+		SpotDetail spot = dao.select(spotId);
+		if(spot != null)
+			result = new SpotInfo(spot, viewer);
+		
+		return result;
+	}
 	public static void main(String[] args) {
 		SearchSpotService service = new SearchSpotService();
 		List<SpotDetail> list = service.searchSpotByConditions(null, null, null, null, 1);

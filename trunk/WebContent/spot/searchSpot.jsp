@@ -448,6 +448,20 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	// to trigger modal view
 	jQuery("#listDetails").on("click", ".detail", function(){
 		jQuery('#myModal').modal("show");
+		
+		var selectedSpotId = jQuery(this).attr("id");
+		console.log("spot id : " + selectedSpotId);
+		jQuery.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/GetSpot' />',
+			data : {
+				spotId : selectedSpotId
+			},
+			dataType : "json"
+		}).done(function(data){
+			var spotInfo = data;
+			console.log("got data : " + spotInfo.spotName);
+		});
 		//jQuery('#myModalLabel')
 	});
 	
