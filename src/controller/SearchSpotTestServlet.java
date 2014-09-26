@@ -40,7 +40,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 		String sessionId = request.getSession().getId();
 		System.out.println("sessionId : " + sessionId);
 		HttpSession session = request.getSession();
-//		session.setAttribute("errorMsgs_login", "");
+
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 		List<SpotDetail> result = dao.select(1);

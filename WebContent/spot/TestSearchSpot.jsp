@@ -51,41 +51,46 @@ body {
 		function like(id) {
 			//傳入的id是SpotId				
 			console.log(document.getElementById(id));
-			//按讚
+			//收回讚
 			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-2x"){
 				//換heart-o圖
+				jQuery("#"+id).attr('title','按讚');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-heart-o fa-2x");
-				
+				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
 				jQuery.ajax({
-					url : '<c:url value='/controller/AddLikeServlet'/>',
+					url : '<c:url value='/controller/LikeServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
-					data : {SpotId:id},						
+					data : {State:"delet",
+						SpotId:id},						
 					success : function(data) {						
 						if(data=='false'){							
 							$('[name="loginError"]').text("請登入後使用。");
 							$('#topmodals').modal('show');
-						}
-						
+						}						
 														
 					}				
 				});				
-			}else{ //取消按讚
-				//換heart圖
-				$("#"+id).removeAttr("class");
-				$("#"+id).addClass("fa fa-heart fa-2x");
+			}else{ //按讚
+				//換heart圖				
 				jQuery.ajax({
-					url : '<c:url value='/controller/DeletLikeServlet'/>',
+					url : '<c:url value='/controller/LikeServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",
-					async : false,
-					dataType : "json",	
-					data : { 
+					dataType : "text",	
+					data : {State:"like",
 							SpotId:id},						
 					success : function(data) {						
-						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+							
+						}else{							
+							jQuery("#"+id).attr('title','收回讚');
+							jQuery("#"+id).removeAttr("class");
+							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+						}
 															
 					}				
 				});				
@@ -99,47 +104,72 @@ body {
 			console.log(id);
 
 		}
+		
+	
+		
 	</script>
 
 	<script type="text/javascript">
-		jQuery(document)
-				.ready(
-						function() {
+		jQuery(document).ready(	function() {
+			//先判斷有沒有登錄，取得Like的紀錄讓顯示圖不同
+			
+			
+			jQuery.ajax({url : '<c:url value='/controller/SearchSpotTestServlet'/>',
+						type : "GET",
+						contentType : "application/json; charset=utf-8",
+						async : false,
+						dataType : "json",
+						success : function(data) {
+							
+								jQuery.each(data,function(index,value) {
+											if (value.spotThumbnailURL) {
+											jQuery('#listDetails').append("<div class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnailURL+"' alt=''><div class='caption'><h4><a href='#'>"
+																		+ value.spotName
+																	    + "</a></h4>"
+																	    + value.spotIntro
+																		+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><t class='"+value.spotID+"'>");
 
-							jQuery
-									.ajax({
-										url : "../controller/SearchSpotTestServlet",
-										type : "GET",
-										contentType : "application/json; charset=utf-8",
-										async : false,
-										dataType : "json",
-										success : function(data) {
-											jQuery
-													.each(
-															data,
-															function(index,
-																	value) {
-																if (value.spotThumbnailURL) {
-																	jQuery(
-																			'#listDetails')
-																			.append(
-																					"<div class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnailURL+"' alt=''><div class='caption'><h4><a href='#'>"
-																							+ value.spotName
-																							+ "</a></h4>"
-																							+ value.spotIntro
-																							+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><a id='social' href='javascript: void(0);' ><i id='"
-																							+ value.spotID
-																							+ "' class='fa fa-heart fa-2x' onclick='like(this.id)'></i></a><a id='social' href='javascript: void(0);' ><i id='"
-																							+ value.spotID
-																							+ "' class='fa fa-plus fa-2x' onclick='collect(this.id)'></i></a></div></div>"
+											jQuery.ajax({
+												url : '<c:url value='/controller/CheckSpotLikeServlet'/>',
+												type : "GET",
+												contentType : "application/json; charset=utf-8",
+												async : false,
+												dataType : "text",	
+												data : {SpotId:value.spotID},						
+												success : function(data) {						
+													if(data=='NoAccount'){							
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+														
+													}else if(data=="Like"){
+													//有登錄的話依據like紀錄顯示圖片
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+														
+													}else if(data=="NoLike"){
+													//有登錄的話依據like紀錄顯示圖片
+														jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+value.spotID+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+													
+													}																						
+												}				
+											});	
+											
+											jQuery('.'+value.spotID).append("<a id='social' href='javascript: void(0);' ><i id='"+ value.spotID+ "' class='fa fa-plus fa-2x' title='取消收藏'onclick='collect(this.id)'></i></a>");
+											jQuery('#listDetails').append("</t></div>");
+											
+											jQuery('#listDetails').append("</div></div>");
+											
+											
+											
+									}
+								});
 
-																			);
-
-																}
-															});
-
-										},
-									});
+						},
+					});
+			
+						
+						
+			
+			
+							
 
 						});
 	</script>
