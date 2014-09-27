@@ -159,14 +159,15 @@ public class TripDAOHibernate implements TripDAO {
 		
 		 List<Trip> list = new ArrayList<Trip>();
 		// list = dao.selectAll();
-		 list = dao.selectByDay(4);
+		 list = dao.selectByInput("東");
 		 if (list!=null) {
-		 for (Object o : list) {
-		 System.out.println(o);
-		 } 
+			 System.out.println("========"+list.size());
+			 for (Object o : list) {
+				 System.out.println(o);
+			 } 
 		 } else {
 			 
-			 System.out.println("Can not find out about these trip");
+			 System.out.println("Can not find out for this search");
 		 }
 			
 	}
@@ -183,10 +184,11 @@ public class TripDAOHibernate implements TripDAO {
 			Query query = session
 					.createQuery("FROM Trip trip order by trip.likeCount DESC");
 			query.setMaxResults(num);
-			for (Object o : query.list()) {
-				trip.add((Trip) o);
+			if(query!=null){
+				for (Object o : query.list()) {
+					trip.add((Trip) o);
+				}
 			}
-
 			// System.out.println("Top 10 Ad : " + ads.size());
 			// for (Object o : spots) {
 			// SpotCollectRecord spot = (SpotCollectRecord) o;
@@ -234,17 +236,43 @@ public class TripDAOHibernate implements TripDAO {
 				break;
 			}
 			
-			
-			for (Object obj : query.list()) {
-				trip.add((Trip) obj);
+			if(query!=null){
+				trip = new ArrayList<Trip>();
+				for (Object obj : query.list()) {
+					trip.add((Trip) obj);
+				}
 			}
 
-			// System.out.println("Top 10 Ad : " + ads.size());
-			// for (Object o : spots) {
-			// SpotCollectRecord spot = (SpotCollectRecord) o;
-			// System.out.println(accountId + "likes spot id: "
-			// + spot.getId().getSpotId());
-			// }
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return trip;
+	}
+
+	@Override
+	public List<Trip> selectByInput(String input) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Trip> trip = null;
+		Query query = null;
+		try {
+			tx = session.beginTransaction();
+
+			query = session
+			.createQuery("FROM Trip trip where trip.tripName Like :input order by trip.tripId DESC")
+			.setParameter("input", "%"+input+"%");
+			if(query!=null){
+				trip = new ArrayList<Trip>();
+				for (Object obj : query.list()) {
+					trip.add((Trip) obj);
+				}
+			}
+			
+			
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)

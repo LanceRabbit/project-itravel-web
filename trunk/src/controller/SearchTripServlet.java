@@ -19,6 +19,7 @@ import model.Trip;
 import model.TripDetail;
 import model.dao.AccountDAOHibernate;
 import model.dao.TripDAOHibernate;
+import model.service.SearchTripService;
 import model.service.TripDetailService;
 import model.util.ImageIOUtil;
 
@@ -47,15 +48,23 @@ public class SearchTripServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String sessionId = request.getSession().getId();
-		int days =  Integer.parseInt(request.getParameter("day"));
-		
-		TripDAOHibernate dao = new TripDAOHibernate();
 		OutputStream os = null;
+		List<Trip> trips = null;
+		String input =null;
+		int days = Integer.parseInt(request.getParameter("day"));
+		if(request.getParameter("input")!=null) {
+		 input = request.getParameter("input").trim();
+		}
+		SearchTripService service = new SearchTripService();
+
 		try {
-			
-			List<Trip> trips = dao.selectByDay(days);
-			if (trips == null) {
+			if (input != null && input.length() != 0) {
+				trips = service.searchTrip(input, -1);
+
+			} else {
+				trips = service.searchTrip(null, days);
+			}
+			if (trips == null || trips.isEmpty()) {
 				return;
 			}
 			os = response.getOutputStream();
@@ -65,15 +74,16 @@ public class SearchTripServlet extends HttpServlet {
 			JSONArray jsonTrip = new JSONArray();
 
 			for (Trip trip : trips) {
-					JSONObject jsonDetail = new JSONObject();
-					jsonDetail.put("tripId", trip.getTripId());
-					jsonDetail.put("tripName", trip.getTripName());
-					jsonDetail.put("totalDay", trip.getTotalDay());
-					jsonDetail.put("startDate", trip.getStartDate());
-					jsonTrip.put(jsonDetail);
+				JSONObject jsonDetail = new JSONObject();
+				jsonDetail.put("tripId", trip.getTripId());
+				jsonDetail.put("tripName", trip.getTripName());
+				jsonDetail.put("totalDay", trip.getTotalDay());
+				jsonDetail.put("startDate", trip.getStartDate());
+				jsonTrip.put(jsonDetail);
 			}
+			System.out.println("11111111111");
 			os.write(jsonTrip.toString().getBytes("UTF-8"));
-		
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

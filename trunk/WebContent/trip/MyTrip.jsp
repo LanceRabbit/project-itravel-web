@@ -26,7 +26,10 @@ div.tabimg > img{
 	height:100px;
    
 }
-
+.temp{
+width:390px; 
+height:483px;
+}
 .scrollable {
     height: auto;
     max-height: 150px;
@@ -144,7 +147,7 @@ border-collapse:collapse;
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-	</div>
+
 	<script>
 		var var_map;
 		var var_location = new google.maps.LatLng(45.430817, 12.331516);
@@ -215,7 +218,7 @@ $(document).ready(function() {
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-3 temp'>"
+			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-4 temp'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
