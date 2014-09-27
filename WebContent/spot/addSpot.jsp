@@ -88,6 +88,8 @@
 								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_5" class='imagePreview_zone'>
 									</div>
+									<div id="imagePreview_zone_6" class='imagePreview_zone hidden'>
+									</div>
 								</div>
 							</div>
 							<!-- <div class="row"> -->
@@ -279,7 +281,7 @@
 	myDropzone.on("addedfile", function(file) {
 		  
 		  $("#fileinputBtn").hide();
-		  console.log("addedfile...");
+		  //console.log("addedfile...");
 		  //console.log(file);
 		  
 		});
@@ -314,8 +316,8 @@
 	  	
 	  	// move and then show
 	  	zone_index++; //console.log("zone index : " + zone_index);
-	  	//$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + zone_index);
 	  	$("#fileinputBtn").show().detach().appendTo("#imagePreview_zone_" + zone_index);
+	  
 	});
 
 	myDropzone.on("queuecomplete", function(progress) {
@@ -400,14 +402,22 @@
 		
 		// create all the ids to be processed
 		var zoneIds = [];
-		for(var i = curIndex; i <= 5; i++)
+		for(var i = curIndex; i <= 6; i++)
 			zoneIds.push("#imagePreview_zone_" + i);
 	
 		var reachEmptyZone = false;
+			
 		$(zoneIds).each(function(index){
 			if((index != 0) && !reachEmptyZone) {
 				var curZoneId = zoneIds[index];
 				var prevZoneId = zoneIds[index-1]; 
+				
+				var curZoneIndex = curZoneId.substr(curZoneId.lastIndexOf('_')+1);
+				console.log("curZoneIndex : " + curZoneIndex);
+				if(curZoneIndex == 6) {
+					$("#fileinputBtn").show();
+					zone_index = 5;
+				}
 				
 				//if(!$(curZoneId).is(':empty')) {
 				if($(curZoneId).html().trim().length > 0) {
@@ -415,6 +425,8 @@
 					//console.log("children : " + $(curZoneId).html());
 					//console.log("children with length : " + $(curZoneId).html().length);
 					$(curZoneId).children().detach().appendTo($(prevZoneId));
+					
+					
 				}
 				else {
 						//console.log("index : " + index);
@@ -426,6 +438,7 @@
 				}	
 			} 
 		});
+
 	});
 	
 	// config buttons
