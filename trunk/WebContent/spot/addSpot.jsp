@@ -277,7 +277,9 @@
 	
 	// config drop zone
 	myDropzone.on("addedfile", function(file) {
-		  //console.log("addedfile...");
+		  
+		  $("#fileinputBtn").hide();
+		  console.log("addedfile...");
 		  //console.log(file);
 		  
 		});
@@ -287,12 +289,12 @@
 		var height, width, className;
 		
 		if(zone_index != 1) {
-			height = '95px';
-			width = '150px';
+			//height = '95px';
+			//width = '150px';
 			className = 'itravel-block-1-thumbnail-content';
 		} else {
-			height = '190px';
-			width = '300px';
+			//height = '190px';
+			//width = '300px';
 			className = 'itravel-block-1-pic-content';
 			
 			$("#itravel-block-thumbnails").show();
@@ -301,9 +303,10 @@
 		var oImg=document.createElement("img");
 	  	oImg.setAttribute('src', dataUrl);
 	  	oImg.setAttribute('alt', file.name);
-	  	oImg.setAttribute('height', height);
-	  	oImg.setAttribute('width', width);
+	  	//oImg.setAttribute('height', height);
+	  	//oImg.setAttribute('width', width);
 	  	oImg.setAttribute("class", className);
+	  	oImg.setAttribute("style", "max-width:100%; max-height:100%;margin:auto;display:block;");
 	  	
 	  	document.getElementById("imagePreview_zone_" + zone_index).appendChild(oImg);
 	  	var imgPZ = "#imagePreview_zone_" + zone_index;
@@ -311,12 +314,27 @@
 	  	
 	  	// move and then show
 	  	zone_index++; //console.log("zone index : " + zone_index);
-	  	$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + zone_index);
+	  	//$("#fileinputBtn").detach().appendTo("#imagePreview_zone_" + zone_index);
+	  	$("#fileinputBtn").show().detach().appendTo("#imagePreview_zone_" + zone_index);
 	});
 
 	myDropzone.on("queuecomplete", function(progress) {
 		  console.log("finished uploading");
 	});
+	
+	/*
+	myDropzone.on("done", function(file){
+		console.log("donw.....");
+	});
+	
+	myDropzone.on("maxFilesize", function(file){
+		console.log("maxFilesize.....");
+	});
+	
+	myDropzone.on("maxfilesexceeded", function(file){
+		console.log("maxfilesexceeded.....");
+	});
+	*/
 		
 	// config category
 	$('#cityIdMenu').on('show.bs.dropdown', function () {
@@ -504,12 +522,12 @@
 		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
 		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
 		  url: "controller/Fileuploader",
-		  //thumbnailWidth: 300,
-		  //thumbnailHeight: 200,
+		  thumbnailWidth: 5000,
+		  thumbnailHeight: 5000,
+		  //maxFilesize: 2, //MB
 		  parallelUploads: 5,
+		  
 		  previewTemplate: previewTemplate,
-		  
-		  
 		  autoQueue: true, // Make sure the files aren't queued until manually added
 		  previewsContainer: "#previews_zone_1", // Define the container to display the previews
 		  clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
