@@ -3,66 +3,52 @@ package model.service;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import model.SpotDetail;
 import model.SpotImg;
+import model.Trip;
 import model.dao.SpotDetailDAOHibernate;
+import model.dao.TripDAOHibernate;
 import model.util.ConstantsUtil;
 
 public class SearchTripService {
+	private TripDAOHibernate dao = new TripDAOHibernate();
+	
 	public List<SpotDetail> searchSpotByGeoInfo() {
 		return null;
 	}
 	
-	public List<SpotDetail> searchTripByConditions(String tripName, int day) {
-		Boolean multiConditions = false;
-		List<SpotDetail> result = null;
-		
-		
-		StringBuffer query = new StringBuffer("FROM SpotDetail spot");
-//		if(cityId != null) {
-//			if(multiConditions)
-//				query.append(" AND spot.cityId = " + cityId);
-//			else {
-//				query.append("  WHERE spot.cityId = " + cityId);
-//				multiConditions = true;
-//			}
-//		}
-		
-		
-		if((tripName != null) && (tripName.length() > 0)) {
-			if(multiConditions)
-				query.append(" AND spot.spotName LIKE '%" + tripName + "%'");
-			else {
-				query.append(" WHERE spot.spotName LIKE '%" + tripName + "%'");
-				multiConditions = true;
-			}
-		}
-		
-		System.out.println("query string : " + query.toString());
-		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
-		
-		if(day <= 0)
-			day = 1;
-		
-		return dao.selectByHQL(query.append(" ORDER BY spot.spotId").toString(), day);
-	}
+	public List<Trip> searchTrip(String input, int days) {
+		List<Trip> result = null;
 	
-	public SpotImg getSpotThumbnail(SpotDetail spot) {
-		SpotImg result = null;
-		Set<SpotImg> spotImgs = spot.getSpotImgs();
-		if((spotImgs != null) && (spotImgs.size() > 0)) {
-			for (SpotImg thumbnail : spotImgs) {
-				if(thumbnail.getImgOrder() == 1) {
-					result = thumbnail;
-					break;
-				}
-			}
+		if (days != -1) {
+			result = dao.selectByDay(days);
+		} else {
+			result = dao.selectByInput(input);
 		}
-		
 		return result;
+		 
 	}
+
+
 	
 	public static void main(String[] args) {
+		TripDAOHibernate dao = new TripDAOHibernate();
+		List<Trip> result = null;
+		
+		result = dao.selectByInput("東");
+		 if (result!=null) {
+		 for (Object o : result) {
+		 System.out.println(o);
+		 } 
+		 } else {
+			 
+			 System.out.println("Can not find out for this search");
+		 }
+
+
 		
 
 	}

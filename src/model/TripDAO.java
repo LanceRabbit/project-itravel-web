@@ -10,4 +10,5 @@ public interface TripDAO {
 	public abstract Trip select(String id);
 	public abstract List<Trip> selectTopN(int num);
 	public abstract List<Trip> selectByDay(int day);
+	public abstract List<Trip> selectByInput(String search);
 }
