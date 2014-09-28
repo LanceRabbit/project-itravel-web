@@ -33,22 +33,24 @@ public class ForgotPswServlet extends HttpServlet {
 		Account account = service.selectByEmail(email);
 		if (account==null) {
 			request.setAttribute("errorEmail","Email 錯誤");
-			request.getRequestDispatcher("/account/forgotPsw.jsp").forward(
+			request.getRequestDispatcher("/first.jsp").forward(
 					request, response);
 			return;
 		}
 
 		// 呼叫Model
 		
-		EmailUtil.sendResetPasswordEmail(account);
+		//EmailUtil.sendResetPasswordEmail(account);
 
 		// 根據Model執行結果呼叫View
-		request.setAttribute("sendMailMsg", "您的申請已提交成功，請查看您的"+account.getEmail()+"信箱。");
-		request.getRequestDispatcher("/account/forgotPsw.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		session.setAttribute("sendMailMsgForgotPsw", "您的申請已提交成功，請至信箱查看。");
+		response.sendRedirect(request.getContextPath()+"/first.jsp");
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		doGet(request,response);
 	}
 
 }

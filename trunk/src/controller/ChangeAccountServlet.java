@@ -29,7 +29,6 @@ public class ChangeAccountServlet extends HttpServlet {
     }
     protected void doChange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
-    	
     	AccountService service = new AccountService();
     	String email = ((Account) session.getAttribute("user")).getEmail();
     	Account account = null;

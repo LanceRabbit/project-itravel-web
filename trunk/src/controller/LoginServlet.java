@@ -65,10 +65,15 @@ public class LoginServlet extends HttpServlet {
 		System.out.println("TEST==Redirect============="+(String)session.getAttribute("redirectTo"));
 		System.out.println("TEST===Forward============"+(String)session.getAttribute("requestFrom"));
 		if(bean!=null) {
-			if(bean.getAccountLevel()==3||bean.getAccountLevel()==5){
-				session.setAttribute("activated", "false");
-				response.sendRedirect(request.getContextPath()+"/first.jsp");
-				return;
+			try {
+				if(bean.getAccountLevel()==3||bean.getAccountLevel()==5){
+					session.setAttribute("activated", "false");
+					response.sendRedirect(request.getContextPath()+"/first.jsp");
+					return;
+				}
+			} catch (Exception e) {
+				//部分就的資料庫未更新，缺少accountLevel，所以先強制加給bean，等資料庫更新後就可以殺掉try/catch(因為一定會有accountLevel)
+				bean.setAccountLevel(1);
 			}
 			session.setAttribute("user", bean);
 			session.removeAttribute("requestFrom");
