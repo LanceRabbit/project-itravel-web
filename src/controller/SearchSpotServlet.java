@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 
@@ -10,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.Account;
 import model.SpotDetail;
 import model.SpotImg;
+import model.service.LikeService;
 import model.service.SearchSpotService;
 import model.util.ImageIOUtil;
 
@@ -33,6 +37,7 @@ public class SearchSpotServlet extends HttpServlet {
 			request.setCharacterEncoding("UTF-8");
 			response.setCharacterEncoding("UTF-8");
 			response.setContentType("application/json");
+		
 			
 			String spotName = request.getParameter("spotName").trim();
 			String city = request.getParameter("city").trim();
@@ -71,7 +76,8 @@ public class SearchSpotServlet extends HttpServlet {
 			JSONArray jsonSpots = new JSONArray();
 			for(SpotDetail spot : spots) {
 				JSONObject jsonSpot = new JSONObject();
-
+				
+				
 				jsonSpot.put("spotId", spot.getSpotId());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
