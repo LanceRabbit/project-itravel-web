@@ -58,26 +58,27 @@ font-size:20px;
 								<div class="form-group" >
 									<div class="form-group" id="createtrip">
 									<label>行程名稱：</label>
-										<input type="text" class="form-control" placeholder="行程名稱">
+										<input type="text" class="form-control" placeholder="行程名稱" required>
 									</div>
 									<div class="form-group" id="createtrip">
 									<label>起始日期：</label>
-										<input id="date_timepicker_start" type="text" class="form-control">
+										<input id="date_timepicker_start" type="text" class="form-control" required>
 									</div>
 									<div class="form-group" id="createtrip">
 									<label>結束日期：</label>
-										<input id="date_timepicker_end" type="text" class="form-control">
+										<input id="date_timepicker_end" type="text" class="form-control" required>
 									</div>
 									
 								</div>
 							</div>
 						</div>
-					</form>
-				</div>
-				<div class="modal-footer">
+									<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					<button type="button" class="btn btn-primary">繼續</button>
 				</div>
+				</form>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -125,8 +126,7 @@ font-size:20px;
 		console.log( 'Days since ' 
 		           + date1 + ': ' 
 		           + Date.daysBetween(date1, date2));	
-		
-		 $("input").val("");
+		$("form .form-control").val("");
 		})
 	
 		Date.daysBetween = function( date1, date2 ) {
