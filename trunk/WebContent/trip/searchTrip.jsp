@@ -35,7 +35,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 }
 .temp{
 width:390px; 
-height:483px;
+height:450px;
 }
 #social {
 	-webkit-transform: scale(0.8);

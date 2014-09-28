@@ -7,11 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>This is a test page.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
-<link rel="stylesheet" href="../css/jquery.datetimepicker.css" />
-<link
-	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
-	rel="stylesheet">
+
 	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style>
 #map-container {
