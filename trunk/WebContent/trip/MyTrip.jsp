@@ -22,10 +22,7 @@ div.tabimg > img{
 	height:100px;
    
 }
-.temp{
-width:390px; 
-height:483px;
-}
+
 .scrollable {
     height: auto;
     max-height: 150px;
@@ -211,10 +208,15 @@ $(document).ready(function() {
 		 success:function(data){
 			 console.log("get data from server....");
 			 console.log(data);
-			 count = 1 ;
-			 $.each(data,function(index,value){
-
-			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-4 temp'>"
+			 
+			 
+			 count = 0 ;
+			 row = 0;
+			$.each(data,function(index,value){
+				
+				console.log(count%3);
+				(count%3==0)?
+				$("#showtrip").append("<div id='row"+row+"' class='row'><div id='"+(count+1)+"' class='col-xs-4 temp'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
@@ -233,9 +235,32 @@ $(document).ready(function() {
 						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-						"</div></div>");
+						"</div></div></div><div class='clearfix visible-xs-block'></div>")
+				:
+			 	$("#row"+row).append("<div id='"+(count+1)+"' class='col-xs-4 temp'>"
+						+"<div class='thumbnail'>"
+						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+						+value.tripName+"</h4></div>"
+						+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+						+"<img src='<c:url value='/controller/TripImageServlet?id="
+						+value.tripId+"'/>'></a><div ><h5>行程天數:"
+						+value.totalDay+"</h5></div>"
+						+"<div class='ratings'>"
+						+"<a class='btn btn-primary btn-sm modify' id='"
+						+value.tripId+"' href='javascript: void(0);'>"
+						+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+						+"<p class='pull-right'>"
+						+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+						+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+						+"刪除</i></a></p>"
+						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+						"<span id='tripName' hidden>"+value.tripName+"</span>"+
+						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+						"</div></div><div class='clearfix visible-xs-block'>");
 						
 				 count++;
+				 (count%3==0)?row++:row;
+			 
 			 });	
 		 }
 	 });  //--ajax

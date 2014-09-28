@@ -33,10 +33,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);
 }
-.temp{
-width:390px; 
-height:450px;
-}
+
 #social {
 	-webkit-transform: scale(0.8);
 	/* Browser Variations: */
@@ -140,7 +137,7 @@ border-collapse:collapse;
 											<ul class="dropdown-menu dropdown-menu-right scrollable"
 												role="menu">
 											 <li role="presentation" value="0"><a role="menuitem"  tabindex="-1" href="#">天數</a></li>
-											 <li role="presentation" value="1" default><a role="menuitem" tabindex="-1" href="#">一日遊</a></li>
+											 <li role="presentation" value="1"><a role="menuitem" tabindex="-1" href="#">一日遊</a></li>
 										     <li role="presentation" value="2"><a role="menuitem" tabindex="-1" href="#">二日遊</a></li>
 										     <li role="presentation" value="3"><a role="menuitem"  tabindex="-1" href="#">三日遊</a></li>
 											 <li role="presentation" value="4"><a role="menuitem"  tabindex="-1" href="#">四日遊以上</a></li>
@@ -229,10 +226,13 @@ $(document).ready(function() {
 	}).done(function(data) {
 		//console.log("detail from server....." + data);
 		$('#listTrips').empty();
-		 count = 1 ;
+		 count = 0 ;
+		 row = 0;
 		$.each(data,function(index,value){
-
-		 	$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
+			
+			console.log(count%3);
+			(count%3==0)?
+			$("#listTrips").append("<div id='row"+row+"' class='row'><div id='"+(count+1)+"' class='col-xs-4 temp'>"
 					+"<div class='thumbnail'>"
 					+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 					+value.tripName+"</h4></div>"
@@ -251,9 +251,31 @@ $(document).ready(function() {
 					+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 					"<span id='tripName' hidden>"+value.tripName+"</span>"+
 					"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-					"</div></div>");
+					"</div></div></div><div class='clearfix visible-xs-block'></div>")
+			:
+		 	$("#row"+row).append("<div id='"+(count+1)+"' class='col-xs-4 temp'>"
+					+"<div class='thumbnail'>"
+					+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+					+value.tripName+"</h4></div>"
+					+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+					+"<img src='<c:url value='/controller/TripImageServlet?id="
+					+value.tripId+"'/>'></a><div ><h5>行程天數:"
+					+value.totalDay+"</h5></div>"
+					+"<div class='ratings'>"
+					+"<a class='btn btn-primary btn-sm modify' id='"
+					+value.tripId+"' href='javascript: void(0);'>"
+					+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+					+"<p class='pull-right'>"
+					+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+					+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+					+"刪除</i></a></p>"
+					+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+					"<span id='tripName' hidden>"+value.tripName+"</span>"+
+					"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+					"</div></div><div class='clearfix visible-xs-block'>");
 					
 			 count++;
+			 (count%3==0)?row++:row;
 		});	
 	});
 	
@@ -280,11 +302,12 @@ $(document).ready(function() {
 				//console.log("detail from server....." + data);
 				$('#listTrips').empty();
 				$("#tripName").val("");
-				 count = 1 ;
-				 
+				 count = 0 ;
+				 row = 0;
 				$.each(data,function(index,value){
-					list(value,count);
-					count++;
+					list(value,count,row);
+					 count++;
+					 (count%3==0)?row++:row;
 				});	
 			}); //end Ajax
 		$("#day").val($(this).text());
@@ -305,17 +328,21 @@ $(document).ready(function() {
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
 			$('#listTrips').empty();
-			 count = 1 ;
+			 count = 0 ;
+			 row = 0;
 			$.each(data,function(index,value){
-				list(value,count);
-				count++;
+				list(value,count,row);
+				 count++;
+				 (count%3==0)?row++:row;
 			});	
 		}); //end Ajax
 		
 	});
 	
-	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
+	function list(value, count,row) {
+		console.log(count%3);
+		(count%3==0)?
+		$("#listTrips").append("<div id='row"+row+"' class='row'><div id='"+(count+1)+"' class='col-xs-4 temp'>"
 				+"<div class='thumbnail'>"
 				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 				+value.tripName+"</h4></div>"
@@ -334,7 +361,30 @@ $(document).ready(function() {
 				+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 				"<span id='tripName' hidden>"+value.tripName+"</span>"+
 				"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-				"</div></div>");
+				"</div></div></div><div class='clearfix visible-xs-block'></div>")
+		:
+	 	$("#row"+row).append("<div id='"+(count+1)+"' class='col-xs-4 temp'>"
+				+"<div class='thumbnail'>"
+				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
+				+value.tripName+"</h4></div>"
+				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+				+"<img src='<c:url value='/controller/TripImageServlet?id="
+				+value.tripId+"'/>'></a><div ><h5>行程天數:"
+				+value.totalDay+"</h5></div>"
+				+"<div class='ratings'>"
+				+"<a class='btn btn-primary btn-sm modify' id='"
+				+value.tripId+"' href='javascript: void(0);'>"
+				+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
+				+"<p class='pull-right'>"
+				+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
+				+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
+				+"刪除</i></a></p>"
+				+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+				"<span id='tripName' hidden>"+value.tripName+"</span>"+
+				"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+				"</div></div><div class='clearfix visible-xs-block'>");
+				
+
 	}
 	
 	 $("#listTrips").on("click",".modify", function(e) {
