@@ -8,6 +8,7 @@
 <title>Top Fragment</title>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
+
 <style>
 .error,.modal-body,.modal-title,.form-control,.btn{
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
@@ -34,6 +35,16 @@
 	margin-top:-8px;
 	color:red;
 }
+.spanPositionForgotPsw{
+	margin-left:5px;
+	color:red;
+}
+#resultForgotPsw{
+	font-family:Microsoft JhengHei;
+	font-size:16px;
+	color:red;
+	margin-left:15px;
+}
 .modal-jumpout{
 	width:350px;
 }
@@ -41,6 +52,10 @@
 	margin-top:100px;
 	font-size:16px;
 }
+.modal-forgotPsw{
+	width:350px;
+}
+
 </style>
 </head>
 <body>
@@ -137,6 +152,30 @@
 				</ul>
 				</c:if>
 				</c:if>
+				<c:if test="${! empty user }">
+				<c:if test="${user.accountLevel==9}">
+					<ul class="nav navbar-nav navbar-right">
+					<li><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"><c:if test="${! empty user.image }">
+								<img width="25" height="25"
+									src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
+							</c:if> <c:if test="${ empty user.image }">
+								<i class="glyphicon glyphicon-user"></i>
+							</c:if> ${user.nickname}<b class="caret"></b></a>
+					</li>
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown"> <i class="fa fa-bars">管理</i></a>
+						<ul class="dropdown-menu">
+							<li><a href="<c:url value="/admin/blackList.jsp"/>"><i class="fa fa-users" style="margin-right:5px"></i>黑名單</a></li>
+							<li><a href="#"><i class="glyphicon glyphicon-list-alt" style="margin-right:5px"></i>統計報表</a></li>
+						</ul></li>
+
+					<li><a href="<c:url value='/controller/LogoutServlet' />" >
+					<i class=" glyphicon glyphicon-cog">登出</i></a>
+					</li>
+				</ul>
+				</c:if>
+				</c:if>
 			<div id="topmodals" class="modal fade" style="margin-top:100px">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
@@ -152,21 +191,21 @@
 									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs.login}</span></td></tr>
 									<tr>
 										<td style="font-weight: bold;width:50px">Email </td>
-										<td><input type="text" name="email" class="form-control"
-											value="${param.email}" required></td>
+										<td><input type="text" name="email" class="form-control needClaer"
+											value="${param.email}"  required></td>
 									</tr>
 									<tr><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control" required></td>
+										<td><input type="password" name="password" class="form-control needClaer" required></td>
 									</tr>
-									<tr><td>&nbsp;</td><td><a href="<c:url value='/account/forgotPsw.jsp' />" >忘記密碼?</a></td></tr>
+									<tr><td>&nbsp;</td><td><a STYLE="cursor:pointer;" id="idForgotPsw">忘記密碼?</a></td></tr>
 								</table>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" id="idClickSignup"
 								data-dismiss="modal">註冊</button>
-							<input type="submit" class="btn btn-info" value="登入"/>
+							<input type="submit" class="btn btn-info" value="登入"></input>
 						</div>
 						</form>
 					</div>
@@ -192,33 +231,33 @@
 									
 									<tr>
 										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="form-control signuptd"
+										<td><input type="text" name="email" class="form-control signuptd needClaer"
 											value="${param.email}" id="idEmail"  required ></td>
 										<td><span id="checkEmail" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control signuptd" id="idPsw1" required></td>
+										<td><input type="password" name="password" class="form-control signuptd needClaer"  maxlength="12" id="idPsw1" required></td>
 										<td><span id="checkPsw1" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
-									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，至少6個字且必須包含英文字母、數字)</td></tr>
+									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="form-control signuptd" id="idPsw2" required></td>
+										<td><input type="password" name="passwordck" class="form-control signuptd needClaer"  maxlength="12" id="idPsw2" required></td>
 										<td><span id="checkPsw2" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="form-control signuptd" id="idNick" required></td>
+										<td><input type="text" name="nickname" class="form-control signuptd needClaer" id="idNick" required></td>
 										<td><span id="checkNick" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">顯示圖片</td>
 										<td><input type="file" name="image"  id="idImage" style="width:175px"></td>
-										<td><span id="checkImage" class="spanPosition" name="spanCheck"></span></td>
+										<td><span id="checkImage" class="spanPosition needClaer" name="spanCheck"></span></td>
 									</tr>
 									<tr><td>&nbsp;</td><td id="idImgLimitation">檔案大小限制 8MB</td></tr>
 									
@@ -251,39 +290,39 @@
 									<tr><td>&nbsp;</td><td><span id="checkImageOwner"  name="imageError" style="color:red">${errorImageOwner}</span></td></tr>
 									<tr>
 										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="form-control signuptd"
+										<td><input type="text" name="email" class="form-control signuptd needClaer"
 											value="${param.email}" id="idEmailO"  required ></td>
 										<td><span id="checkEmailO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control signuptd" id="idPswO1" required></td>
+										<td><input type="password" name="password" class="form-control signuptd needClaer" id="idPswO1" maxlength="12" required></td>
 										<td><span id="checkPswO1" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
-									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，至少6個字且必須包含英文字母、數字)</td></tr>
+									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="form-control signuptd" id="idPswO2" required></td>
+										<td><input type="password" name="passwordck" class="form-control signuptd needClaer" maxlength="12" id="idPswO2" required></td>
 										<td><span id="checkPswO2" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="form-control signuptd" id="idNickO" required></td>
+										<td><input type="text" name="nickname" class="form-control signuptd needClaer" id="idNickO" required></td>
 										<td><span id="checkNickO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">負責人</td>
-										<td><input type="text" name="owner" class="form-control signuptd" id="idOwnerO" required></td>
+										<td><input type="text" name="owner" class="form-control signuptd needClaer" id="idOwnerO" required></td>
 										<td><span id="checkOwnerO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">顯示圖片</td>
 										<td><input type="file" name="image"  id="idImageO" style="width:175px"></td>
-										<td><span id="checkImageO" class="spanPosition" name="spanCheckO"></span></td>
+										<td><span id="checkImageO" class="spanPosition needClaer" name="spanCheckO"></span></td>
 									</tr>
 									<tr><td>&nbsp;</td><td id="idImgLimitation">檔案大小限制 8MB</td></tr>
 									
@@ -330,6 +369,38 @@
     </div>
   </div>
 </div>	
+
+
+
+<div id="modalForgotPsw" class="modal fade " style="margin-top:100px">
+  <div class="modal-dialog modal-forgotPsw">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel" style="height:30px;padding-top:5px;font-weight: bold;">忘記密碼</h4>
+      </div>
+      <!-- dialog body -->
+     <form action="<c:url value="/controller/ForgotPswServlet" />" method="post"> 
+     <table>
+     	<tr><td>&nbsp;</td></tr>
+     	<tr><td colspan="3" ><span id="resultForgotPsw" >${sendMailMsgForgotPsw}</span></td></tr>
+		<tr>
+			<td style="font-weight: bold;width:40px; padding:15px;">Email </td>
+			<td><input type="text" name="email" class="form-control needClaer" required></td>
+			<td><span class="error spanPositionForgotPsw" name="spanForgotPsw" >${errorEmail}</span></td>
+		</tr>
+		<tr><td>&nbsp;</td></tr>
+	</table>  
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" id="backtoLoginfromForgotPsw">返回</button>
+      <input type="submit" class="btn btn-info" id="btOKForgotPsw" value="提交"></div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
 
 <label id="activated" hidden>${activated}</label>
 <div id="unactivated" class="modal fade" style="margin-top:100px">
@@ -390,6 +461,14 @@
 			if($('[name="loginError"]').text()!=""){
 				$('#topmodals').modal('show');
 			}
+			if($('[name="spanForgotPsw"]').text()!=""){
+				$('#modalForgotPsw').modal('show');
+			}
+			if($('#resultForgotPsw').text()!=""){
+				$("#modalForgotPsw").modal('show');
+				removeSendMailMsgForgotPswAttr();
+				console.log('ResultForgotPsw= '+$('#resultForgotPsw').text());
+			}
 			if($('#resultSignup').text()=='true'){
 				$("#signupOK").modal('show');
 				removeSignupOKAttr();
@@ -409,6 +488,12 @@
 				$("#signupmodalsOwner").modal('show');
 			}
 		});
+		$("#idForgotPsw").click(function(){
+			$('#topmodals').modal('hide');
+			$('#modalForgotPsw').modal('show');
+		});
+		
+		
 		$("#btOK1").click(function(){
 			$("#signupOK").modal('hide');
 		});
@@ -426,7 +511,10 @@
 			$('#signupTypeSelect').modal('hide');
 			$('#topmodals').modal('show');
 		});
-		
+		$("#backtoLoginfromForgotPsw").click(function(){
+			$('#modalForgotPsw').modal('hide');
+			$('#topmodals').modal('show');
+		});
 		$("#chekCharactar").click(function(){
 			var choose = $('[name="signupRadio"]:checked').val();
 			if(choose=='asMember'){
@@ -437,19 +525,31 @@
 				$('#signupmodalsOwner').modal('show');
 			}
 		});
-		
+		  $(function () { $('.modal').on('hidden.bs.modal', function () {
+			    $('[name="spanCheck"]').each(function(){
+					$(this).text("");
+				});
+			    $('[name="spanCheckO"]').each(function(){
+					$(this).text("");
+				});
+			    $('[name="spanForgotPsw"]').each(function(){
+					$(this).text("");
+				});
+				$('.modal .needClaer').each(function(){
+					$(this).val("");
+				});  
+				
+		 		});
+		 		/* $('#modalForgotPsw').on('hidden.bs.modal', function () {
+		 			$('.modal .needClaer').each(function(){
+						$(this).val("");
+					});  
+				
+		 		}); */
+		  
+		   }); 
 	
 		
-		
-		/* $('#signupmodalsMember').on('hidden.bs.modal',function(){
-			console.log("123546");
-			$('[name="spanCheck"]').each(function(){
-				$(this).text("");
-			});
-			$('[name="formSignupMem"] input').each(function(){
-				$(this).val("");
-			});
-		}); */
 		$("#backtoSelectCha1").click(function(){
 			$('#signupmodalsMember').modal('hide');
 			$('#signupTypeSelect').modal('show');
@@ -645,6 +745,9 @@
 			}
 		}
 		document.getElementById("idSubmitO").removeAttribute("disabled");
+	}
+	function removeSendMailMsgForgotPswAttr(){
+		<c:remove var="sendMailMsgForgotPsw" scope="session" />;
 	}
 	function removeSignupOKAttr(){
 		<c:remove var="signupOK" scope="session" />;

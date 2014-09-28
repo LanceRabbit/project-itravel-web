@@ -191,8 +191,6 @@ body{
 <jsp:include page="/fragment/bottom.jsp"/>
 <script>
 	$(document).ready(function(){
-		$('[name="resultOK"]').hide();
-		$('[name="resultError"]').hide();
 		if($('[name="pswErrorCA"]').text()!=""){
 			if(!$('#collapseOne').hasClass('in')){
 				$('#collapseOne').addClass('in');
@@ -234,9 +232,9 @@ body{
 		isCompletedCA();
 	});
 	$("#idPswCA1").focus(function() {
-		$("#checkPswCA").html("");
-		$('[name="resultOK"]').hide();
-		$('[name="resultError"]').hide();
+		$("#checkPswCA1").html("");
+		/* $('[name="resultOK"]').hide();
+		$('[name="resultError"]').hide(); */
 	}).keyup(function() {
 		var password1 = $("#idPswCA1").val();
 		if(password1!=""){
@@ -258,9 +256,9 @@ body{
 		isCompletedCA();
 	});
 	$("#idPswCA2").focus(function() {
-		$("#checkPswCA").html("");
-		$('[name="resultOK"]').hide();
-		$('[name="resultError"]').hide();
+		$("#checkPswCA2").html("");
+		/* $('[name="resultOK"]').hide();
+		$('[name="resultError"]').hide(); */
 	}).keyup(function() {
 		var password1 = $("#idPswCA1").val();
 		var password2 = $("#idPswCA2").val();
