@@ -44,7 +44,24 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	-moz-transition-duration: 0.5s;
 	-o-transition-duration: 0.5s;
 }
+/* 
+    Only Needed in Multi-Coloured Variation 
+                                               */
+.social-fb:hover {
+	color: #3B5998;
+}
 
+.social-tw:hover {
+	color: #4099FF;
+}
+
+.social-gp:hover {
+	color: #d34836;
+}
+
+.social-em:hover {
+	color: #f39c12;
+}
 
 .scrollable {
     height: auto;
@@ -453,10 +470,15 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 					}				
 				});	
 				
-			}			
-		}		
+				
+				
+			}
+			
+		}
 		
-</script>
+	
+		
+	</script>
 <script>
 	
 (function(jQuey){
@@ -702,6 +724,9 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				});					
 				jQuery('#listDetails').append("</t></div>");				
 				jQuery('#listDetails').append("</div></div>");
+				
+				
+				
 				
 			});
 		});
