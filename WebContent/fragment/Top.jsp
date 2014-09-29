@@ -11,7 +11,7 @@
 <link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 
 <style>
-.error,.modal-body,.modal-title,.form-control,.btn{
+.error,.modal-body,.modal-title,.btn{
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 }
 #idTop{
@@ -20,7 +20,7 @@
 .modal-signup{
 	width: 400px;
 }
-.signuptd,.form-control{
+.signuptd{
 	width: 175px;
 }
 #idImgLimitation{
@@ -55,6 +55,10 @@
 }
 .modal-forgotPsw{
 	width:350px;
+}
+.top-top-form-control{
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	width: 175px;
 }
 
 </style>
@@ -136,7 +140,7 @@
 						<table>
 							<tr>
 								<td style="font-weight: bold; width: 100px">行程名稱：</td>
-								<td><input type="text" name="tripName" class="form-control"
+								<td><input type="text" name="tripName" class="top-form-control"
 									required></td>
 							</tr>
 							<tr>
@@ -145,7 +149,7 @@
 							<tr>
 								<td style="font-weight: bold;">起始日期：</td>
 								<td><input id="date_timepicker_start" type="text" name="date_start"
-									class="form-control" required></td>
+									class="top-form-control" required></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -153,7 +157,7 @@
 							<tr>
 								<td style="font-weight: bold;">結束日期：</td>
 								<td><input id="date_timepicker_end" type="text" name="date_end"
-									class="form-control" required></td>
+									class="top-form-control" required></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
@@ -243,13 +247,13 @@
 									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs.login}</span></td></tr>
 									<tr>
 										<td style="font-weight: bold;width:50px">Email </td>
-										<td><input type="text" name="email" class="form-control needClaer"
+										<td><input type="text" name="email" class="top-form-control needClaer"
 											value="${param.email}"  required></td>
 									</tr>
 									<tr><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control needClaer" required></td>
+										<td><input type="password" name="password" class="top-form-control needClaer" required></td>
 									</tr>
 									<tr><td>&nbsp;</td><td><a STYLE="cursor:pointer;" id="idForgotPsw">忘記密碼?</a></td></tr>
 								</table>
@@ -283,26 +287,26 @@
 									
 									<tr>
 										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="form-control signuptd needClaer"
+										<td><input type="text" name="email" class="top-form-control signuptd needClaer"
 											value="${param.email}" id="idEmail"  required ></td>
 										<td><span id="checkEmail" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control signuptd needClaer"  maxlength="12" id="idPsw1" required></td>
+										<td><input type="password" name="password" class="top-form-control signuptd needClaer"  maxlength="12" id="idPsw1" required></td>
 										<td><span id="checkPsw1" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="form-control signuptd needClaer"  maxlength="12" id="idPsw2" required></td>
+										<td><input type="password" name="passwordck" class="top-form-control signuptd needClaer"  maxlength="12" id="idPsw2" required></td>
 										<td><span id="checkPsw2" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="form-control signuptd needClaer" id="idNick" required></td>
+										<td><input type="text" name="nickname" class="top-form-control signuptd needClaer" id="idNick" required></td>
 										<td><span id="checkNick" class="spanPosition" name="spanCheck"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
@@ -342,32 +346,32 @@
 									<tr><td>&nbsp;</td><td><span id="checkImageOwner"  name="imageError" style="color:red">${errorImageOwner}</span></td></tr>
 									<tr>
 										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="form-control signuptd needClaer"
+										<td><input type="text" name="email" class="top-form-control signuptd needClaer"
 											value="${param.email}" id="idEmailO"  required ></td>
 										<td><span id="checkEmailO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="form-control signuptd needClaer" id="idPswO1" maxlength="12" required></td>
+										<td><input type="password" name="password" class="top-form-control signuptd needClaer" id="idPswO1" maxlength="12" required></td>
 										<td><span id="checkPswO1" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
 									<tr>
 										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="form-control signuptd needClaer" maxlength="12" id="idPswO2" required></td>
+										<td><input type="password" name="passwordck" class="top-form-control signuptd needClaer" maxlength="12" id="idPswO2" required></td>
 										<td><span id="checkPswO2" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="form-control signuptd needClaer" id="idNickO" required></td>
+										<td><input type="text" name="nickname" class="top-form-control signuptd needClaer" id="idNickO" required></td>
 										<td><span id="checkNickO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
 									<tr>
 										<td style="font-weight: bold;">負責人</td>
-										<td><input type="text" name="owner" class="form-control signuptd needClaer" id="idOwnerO" required></td>
+										<td><input type="text" name="owner" class="top-form-control signuptd needClaer" id="idOwnerO" required></td>
 										<td><span id="checkOwnerO" class="spanPosition" name="spanCheckO"></span></td>
 									</tr>
 									<tr class="emptyTr"><td>&nbsp;</td></tr>
@@ -435,10 +439,10 @@
      <form action="<c:url value="/controller/ForgotPswServlet" />" method="post"> 
      <table>
      	<tr><td>&nbsp;</td></tr>
-     	<tr><td colspan="3" ><span id="resultForgotPsw" >${sendMailMsgForgotPsw}</span></td></tr>
+     	<tr><td colspan="3" ><span id="resultForgotPsw" >${sendMailMsgForgotPsw}${errorTimeout}</span></td></tr>
 		<tr>
 			<td style="font-weight: bold;width:40px; padding:15px;">Email </td>
-			<td><input type="text" name="email" class="form-control needClaer" required></td>
+			<td><input type="text" name="email" class="top-form-control needClaer" required></td>
 			<td><span class="error spanPositionForgotPsw" name="spanForgotPsw" >${errorEmail}</span></td>
 		</tr>
 		<tr><td>&nbsp;</td></tr>
@@ -552,7 +556,7 @@
 			           + date1 + ': ' 
 			           + Date.daysBetween(date1, date2));	
 			
-			$("form .form-control").val("");
+			$("form .top-form-control").val("");
 		  
 		  
 	 		});
@@ -868,6 +872,7 @@
 	}
 	function removeSendMailMsgForgotPswAttr(){
 		<c:remove var="sendMailMsgForgotPsw" scope="session" />;
+		<c:remove var="errorTimeout" scope="session" />;
 	}
 	function removeSignupOKAttr(){
 		<c:remove var="signupOK" scope="session" />;
