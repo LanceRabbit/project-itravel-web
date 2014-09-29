@@ -61,13 +61,14 @@ public class SearchSpotService {
 			}
 		}
 		
-		System.out.println("query string : " + query.toString());
+		String queryStr = query.append(" ORDER BY spot.creationTime DESC").toString();
+		System.out.println("query string : " + queryStr);
 		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
 		
 		if(pageNo <= 0)
 			pageNo = 1;
 		
-		return dao.selectByHQL(query.append(" ORDER BY spot.spotId").toString(), pageNo);
+		return dao.selectByHQL(queryStr, pageNo);
 	}
 	
 	public SpotImg getSpotThumbnail(SpotDetail spot) {

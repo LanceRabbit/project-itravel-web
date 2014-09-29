@@ -44,7 +44,7 @@ public class SearchSpotServlet extends HttpServlet {
 			String category = request.getParameter("category").trim();
 			String subcategory = request.getParameter("subcategory").trim();
 			
-			int pageNo = 2;
+			int pageNo = 1;
 			if(request.getParameter("pageNo") != null)
 				pageNo = Integer.parseInt(request.getParameter("pageNo").trim());
 //			System.out.println("spotName : " + spotName);

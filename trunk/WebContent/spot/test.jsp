@@ -15,7 +15,7 @@
 <body>
 <%
 	SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
-	SpotDetail spot = spotDetailDAO.select("RES14090008");
+	SpotDetail spot = spotDetailDAO.selectBySpotId("RES14090008");
 	
 	Set<SpotImg> images = spot.getSpotImgs();
 	
