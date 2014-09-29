@@ -213,6 +213,112 @@ border-collapse:collapse;
 
 	</script>	
 <jsp:include page="/fragment/bottom.jsp" />
+<script type="text/javascript">
+		function like(id) {
+			//傳入的id是SpotId				
+			console.log(document.getElementById(id));
+			//收回讚
+			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-2x"){
+				//換heart-o圖
+				jQuery("#"+id).attr('title','按讚');
+				jQuery("#"+id).removeAttr("class");
+				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
+				jQuery.ajax({
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
+					data : {State:"delet",
+						SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}						
+														
+					}				
+				});				
+			}else{ //按讚
+				//換heart圖				
+				jQuery.ajax({
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",
+					dataType : "text",	
+					data : {State:"like",
+							SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+							
+						}else{							
+							jQuery("#"+id).attr('title','收回讚');
+							jQuery("#"+id).removeAttr("class");
+							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+						}
+															
+					}				
+				});				
+				
+			}
+			
+
+		}
+
+		function collect(id) {
+			console.log(id);
+		//fa-minus
+			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-2x"){
+				jQuery("#"+id).attr('title','收藏');
+				jQuery("#"+id).removeAttr("class");
+				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
+				jQuery.ajax({
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
+					data : {State:"deletCollect",
+						SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}						
+														
+					}				
+				});	
+			}else{
+				
+				jQuery.ajax({
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",				
+					dataType : "text",	
+					data : {State:"Collect",
+						SpotId:id},						
+					success : function(data) {						
+						if(data=='false'){							
+							$('[name="loginError"]').text("請登入後使用。");
+							$('#topmodals').modal('show');
+						}else{
+							jQuery("#"+id).attr('title','取消收藏');
+							jQuery("#"+id).removeAttr("class");
+							jQuery("#"+id).addClass("fa fa-minus fa-2x");
+						}						
+														
+					}				
+				});	
+				
+				
+				
+			}
+			
+		}
+		
+	
+		
+	</script>
 <script>
 $(document).ready(function() {
 	//一開始載入頁面就先搜尋所有Trip
@@ -240,20 +346,66 @@ $(document).ready(function() {
 					+"<img src='<c:url value='/controller/TripImageServlet?id="
 					+value.tripId+"'/>'></a><div ><h5>行程天數:"
 					+value.totalDay+"</h5></div>"
-					+"<div class='ratings'>"
-					+"<a class='btn btn-primary btn-sm modify' id='"
-					+value.tripId+"' href='javascript: void(0);'>"
-					+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
-					+"<p class='pull-right'>"
-					+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
-					+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
-					+"刪除</i></a></p>"
+					+"<div class='ratings'><p class='pull-right'>15 reviews</p><t class='"+value.tripId+"'>");
+		 	
+		 	jQuery.ajax({
+				url : '<c:url value='/controller/CheckTripLikeServlet'/>',
+				type : "GET",
+				contentType : "application/json; charset=utf-8",
+				async : false,
+				dataType : "text",	
+				data : {TripId:value.tripId},						
+				success : function(data) {						
+					if(data=="NoAccount"){							
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+						
+					}else if(data=="Like"){
+					//有登錄的話依據like紀錄顯示圖片
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+						
+					}else if(data=="NoLike"){
+					//有登錄的話依據like紀錄顯示圖片
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					
+					}																						
+				}				
+			});	
+		 	jQuery.ajax({
+				url : '<c:url value='/controller/CheckTripCollectServlet'/>',
+				type : "GET",
+				contentType : "application/json; charset=utf-8",
+				async : false,
+				dataType : "text",	
+				data : {TripId:value.tripId},						
+				success : function(data) {														
+					if(data=="NoAccount"){							
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+						
+					}else if(data=="Collect"){
+					
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+						
+					}else if(data=="NoCollect"){
+					
+						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					
+					}																						
+				}				
+			});	
+			
+			jQuery('#listDetails').append("</t></div><span id='tripId' hidden>"+value.tripId+"</span>"
+											+"<span id='tripName' hidden>"+value.tripName+"</span>"
+											+"<span id='totalDay' hidden>"+value.totalDay+"</span></div></div>");
+			
+				 	
+		 	/*
 					+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 					"<span id='tripName' hidden>"+value.tripName+"</span>"+
 					"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
 					"</div></div>");
-					
+					*/
 			 count++;
+		
 		});	
 	});
 	
