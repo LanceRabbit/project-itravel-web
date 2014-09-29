@@ -8,6 +8,7 @@
 <title>Top Fragment</title>
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
+<link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 
 <style>
 .error,.modal-body,.modal-title,.form-control,.btn{
@@ -109,7 +110,8 @@
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<ul class="dropdown-menu">
 							<li><a href="<c:url value="/spot/addSpot.jsp"/>"> 景點</a></li>
-							<li><a href="#"> 行程</a></li>
+							<li><a href="#" data-toggle="modal"
+										data-target="#addTripModal"> 行程</a></li>
 						</ul></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -120,6 +122,55 @@
 						</ul></li>
 				</ul>
 				</c:if>
+				
+				<div class="modal fade" id="addTripModal" tabindex="-1" role="dialog"
+		aria-labelledby="addTripModal" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3 class="modal-title" id="myModalLabel">新增行程</h3>
+				</div>
+				<div class="modal-body">
+					<form action="<c:url value="/trip/addTripDetail.jsp"/>;"
+						method="POST">
+						<table>
+							<tr>
+								<td style="font-weight: bold; width: 100px">行程名稱：</td>
+								<td><input type="text" name="email" class="form-control"
+									required></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold;">起始日期：</td>
+								<td><input id="date_timepicker_start" type="text"
+									class="form-control" required></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold;">結束日期：</td>
+								<td><input id="date_timepicker_end" type="text"
+									class="form-control" required></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td></td>
+							</tr>
+						</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" 
+						data-dismiss="modal">取消</button>
+					<input type="submit" class="btn btn-info" value="繼續" />
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 				
 			</c:if>
 				<c:if test="${! empty user }">
@@ -455,7 +506,68 @@
 </div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 	<script>
+	
+	 $('#date_timepicker_start').datetimepicker({
+		  format:'Y/m/d',
+		  startDate:0,
+         minDate:0,
+		  closeOnDateSelect:true,
+		  onShow:function( ct ){
+		   this.setOptions({
+		    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+		   })
+		  },
+		  timepicker:false
+	 });
+	 
+	 
+	 $('#date_timepicker_end').datetimepicker({
+		  format:'Y/m/d',
+		  startDate:0,
+        
+		  closeOnDateSelect:true,
+		  onShow:function( ct ){
+			  console.log($('#date_timepicker_start').val());
+			  console.log($('#date_timepicker_start').val().length);
+			  this.setOptions({
+				    minDate:(jQuery('#date_timepicker_start').val().length!=0)?jQuery('#date_timepicker_start').val():0
+			  })
+		  },
+		  timepicker:false
+	 });
+		
+	
+$('#addTripModal').on('hidden.bs.modal', function (e) {
+	console.log($('#date_timepicker_start').val());
+	console.log($('#date_timepicker_end').val());
+	var date1 = new Date($('#date_timepicker_start').val());
+	var date2 = new Date($('#date_timepicker_end').val());
+
+
+	console.log( 'Days since ' 
+	           + date1 + ': ' 
+	           + Date.daysBetween(date1, date2));	
+	
+	$("form .form-control").val("");
+	})
+
+	Date.daysBetween = function( date1, date2 ) {
+	  //Get 1 day in milliseconds
+	  var one_day=1000*60*60*24;
+
+	  // Convert both dates to milliseconds
+	  var date1_ms = date1.getTime();
+	  var date2_ms = date2.getTime();
+
+	  // Calculate the difference in milliseconds
+	  var difference_ms = date2_ms - date1_ms;
+	    
+	  // Convert back to days and return
+	  return Math.round(difference_ms/one_day)+1; 
+	}
+	
 	
 		$(document).ready(function(){
 			if($('[name="loginError"]').text()!=""){
