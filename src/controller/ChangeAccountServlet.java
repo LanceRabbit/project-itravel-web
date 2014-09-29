@@ -30,7 +30,12 @@ public class ChangeAccountServlet extends HttpServlet {
     protected void doChange(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	HttpSession session = request.getSession();
     	AccountService service = new AccountService();
-    	String email = ((Account) session.getAttribute("user")).getEmail();
+    	String email = null;
+    	if(session.getAttribute("user")!=null){
+    		email = ((Account) session.getAttribute("user")).getEmail();
+    	}else{
+    		email = (String) session.getAttribute("email");
+    	}
     	Account account = null;
     	String oldPassword = null;
 		String newPassword = null;
@@ -85,12 +90,13 @@ public class ChangeAccountServlet extends HttpServlet {
 		// 根據Model執行結果呼叫View
 		if(updated){
 			session.setAttribute("user", service.selectByEmail(email));
+			session.removeAttribute("email");
 			request.setAttribute("result", updated);
 			request.getRequestDispatcher(
 					"/account/changeAccount.jsp").forward(request, response);
 			
 		}else if(oldPassword==null && newPassword!=null){
-			request.setAttribute("errorChangePsw", "密碼重設發生錯誤，請重新操作，或與客服聯絡");
+			request.setAttribute("result", updated);
 			request.getRequestDispatcher(
 					"/account/resetPsw.jsp").forward(request, response);
 		}else{

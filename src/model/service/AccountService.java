@@ -142,6 +142,30 @@ public class AccountService {
 		}
 		
 	}
+	public void setAccountLevelAsForgot(String accountId){
+		int oAccLevel =(int) dao.selectById(accountId).getAccountLevel();
+		//1--Member; 2--Owner;  6--ForgotPswMember; 7--ForgotPswOwner
+		if(oAccLevel==1){
+			dao.updateAccountLevel(accountId,6);
+		}else if(oAccLevel==2){
+			dao.updateAccountLevel(accountId,7);
+		}
+	}
+	public Account resetAccountLevel(String accountId){
+		boolean result =false;
+		int oAccLevel =(int) dao.selectById(accountId).getAccountLevel();
+		//1--Member; 2--Owner;  3--UnactivateMember; 5--UnactivateOwner
+		if(oAccLevel==6){
+			result = dao.updateAccountLevel(accountId,1);
+		}else if(oAccLevel==7){
+			result = dao.updateAccountLevel(accountId,2);
+		}
+		if(result){
+			return dao.selectById(accountId);
+		}else{
+			return null;
+		}
+	}
 	public Account selectByEmail(String email) {
 		Account bean = dao.selectByEmail(email);
 		if (bean != null) {
@@ -163,6 +187,7 @@ public class AccountService {
 		}
 		return true;
 	}
+	
 	public static void main(String[] args) {
 		AccountDAO dao = new AccountDAOHibernate();
 		AccountService service = new AccountService();

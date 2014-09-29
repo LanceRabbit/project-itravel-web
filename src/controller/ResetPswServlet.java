@@ -25,6 +25,7 @@ public class ResetPswServlet extends HttpServlet {
     	AccountService service = new AccountService();
     	String email = request.getParameter("email");
     	Account user = service.selectByEmail(email);
+    	user = service.resetAccountLevel(user.getAccountId());
     	boolean available = false;
     	String path = request.getContextPath();
     	if(user!=null){
@@ -32,11 +33,14 @@ public class ResetPswServlet extends HttpServlet {
     		if(available){
     			HttpSession session = request.getSession();
     			session.setAttribute("email", email);
-        		response.sendRedirect(path+"/account/resetPsw.jsp");
+    			request.getRequestDispatcher("/account/resetPsw.jsp").forward(request, response);
+    			//response.sendRedirect(path+"/account/resetPsw.jsp");
+    			return;
         	}else if(!available){
         		request.setAttribute("errorTimeout","連結已過期，請重新申請忘記密碼");
-        		request.getRequestDispatcher("/account/forgotPsw.jsp").forward(request, response);
+        		request.getRequestDispatcher("/first.jsp").forward(request, response);
         		//response.sendRedirect(path+"/account/error.jsp");
+        		return;
         	}
     	}else{
     		request.setAttribute("errorResetPsw", "密碼重設發生錯誤，請聯絡客服人員");

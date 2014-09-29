@@ -94,7 +94,7 @@ body{
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">修改結果</h4>
+        <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">修改結果</h4>
       </div>
       <!-- dialog body -->
       <div class="modal-body" style="color:green"><i class="glyphicon glyphicon-ok" ></i>
@@ -110,7 +110,7 @@ body{
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel"><i class="fa "></i>修改結果</h4>
+        <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"><i class="fa "></i>修改結果</h4>
       </div>
       <!-- dialog body -->
       <div class="modal-body" style="color:red"><i class="fa fa-exclamation-circle fa-lg"></i>
@@ -121,13 +121,23 @@ body{
     </div>
   </div>
 </div>
-<script>
+
 <jsp:include page="/fragment/bottom.jsp"/>
+
 <script>
 	$(document).ready(function(){
+		if($('#result').text()=='true'){
+			$("#resultModalOK").modal('show');
+		}else if($('#result').text()=='false'){
+			$("#resultModalError").modal('show');
+		}
 	});
+	
 	$("#btUpdateOK1").click(function(){
 		$("#resultModalOK").modal('hide');
+	});
+	$("#btUpdateOK2").click(function(){
+		$("#resultModalError").modal('hide');
 	});
 	$("#idPswCA").focus(function() {
 		$("#checkPswCA").html("");
@@ -140,7 +150,7 @@ body{
 		if(password1!=""){
 			if(chkPsw(password1)){
 				$("#checkPswCA1").html("");
-				var password2 = $("#idPsw2").val();
+				var password2 = $("#idPswCA2").val();
 				if(password2!=""){
 					if(password1==password2){
 						$("#checkPswCA2").html("");
@@ -187,7 +197,6 @@ body{
 			return re.test(password);
 		   
 	}
-	
 
 </script>
 	

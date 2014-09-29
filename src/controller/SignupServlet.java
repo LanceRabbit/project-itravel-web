@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.servlet.ServletException;
@@ -16,6 +15,7 @@ import javax.servlet.http.Part;
 
 import model.Account;
 import model.service.AccountService;
+import model.util.EmailUtil;
 
 import org.apache.commons.io.IOUtils;
 
@@ -29,6 +29,8 @@ public class SignupServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// 接收資料
+		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String email = null;
 		String password = null;
 		String nickname = null;
@@ -38,6 +40,7 @@ public class SignupServlet extends HttpServlet {
 			email = request.getParameter("email");
 			password = request.getParameter("password");
 			nickname = request.getParameter("nickname");
+			System.out.println("Servlet Nickname="+nickname);
 			owner = request.getParameter("owner");
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
@@ -97,7 +100,7 @@ public class SignupServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String path = request.getContextPath();
 		if(bean!=null) {
-			//EmailUtil.sendAccountActivateEmail(bean);//send email
+			EmailUtil.sendAccountActivateEmail(bean);//send email
 			session.setAttribute("signupOK", "true");
 			response.sendRedirect(path+"/first.jsp");
 //			request.setAttribute("email", bean.getEmail());

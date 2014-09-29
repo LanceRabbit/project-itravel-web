@@ -26,26 +26,26 @@ public class AccountDAOHibernate implements AccountDAO {
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
-		String pass = "user4";
+		String pass = "user13";
 		byte[] temp = pass.getBytes();
 		temp = mDigest.digest(temp);
 		// Insert Test
 //		 acc.setAccountId("M14090003");
-//		 acc.setEmail("user4@gmail.com");
+//		 acc.setEmail("user13@gmail.com");
 //		 acc.setPassword(temp);
-//		 acc.setNickname("user4");
+//		 acc.setNickname("十三號");
 //		 acc.setLastLogonDt(new Date());
 //		 acc = dao.insert(acc);
 //		 System.out.println("Insert Account Data: "+acc);
 
 		// Update Test
-		acc.setAccountId("M14090004");
-		acc.setEmail("user4@gmail.com");
-		acc.setPassword(temp);
-		acc.setNickname("user4");
-		acc.setLastLogonDt(new Date());
-		acc = dao.update(acc);
-		System.out.println("Update Test:" + acc);
+//		acc.setAccountId("M14090004");
+//		acc.setEmail("user4@gmail.com");
+//		acc.setPassword(temp);
+//		acc.setNickname("user4");
+//		acc.setLastLogonDt(new Date());
+//		acc = dao.update(acc);
+//		System.out.println("Update Test:" + acc);
 
 		// SelectById Test
 		acc = dao.selectById("M14090001");

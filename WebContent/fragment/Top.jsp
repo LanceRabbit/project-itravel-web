@@ -56,9 +56,11 @@
 .modal-forgotPsw{
 	width:350px;
 }
-.top-top-form-control{
+.top-form-control{
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	width: 175px;
+	border:1px solid #848484;
+	border-radius:3px;
 }
 
 </style>
