@@ -267,7 +267,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				
 		</div> <!-- <div class="modal-dialog modal-lg"> -->
 	</div> <!-- Modal -->	
-		
+	<div class="container">
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well well-md">
@@ -349,7 +349,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		</div>
 	</div>
 	
-	<div class="container">
+	
 		<div class="row" id="listDetails">
 		</div>	
 	</div>
