@@ -39,7 +39,7 @@ body {
 		//傳入的id是SpotId
 		alert("修改"+id);
 		jQuery.ajax({
-			url : "../controller/SpotAlterServlet",
+			url : '<c:url value='controller/SpotAlterServlet' />',
 			type : "GET",
 			contentType : "application/json; charset=utf-8",
 			async : false,
@@ -70,7 +70,7 @@ body {
 			
 							var count = 0;
 							jQuery.ajax({
-								url : "../controller/MySpotServlet",
+								url : '<c:url value='/controller/MySpotServlet' />',
 								type : "GET",
 								contentType : "application/json; charset=utf-8",
 								async : false,

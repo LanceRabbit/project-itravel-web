@@ -167,4 +167,69 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 	
 	}
 
+	@Override
+	public boolean selectByAccount(String accountId) {
+		
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			List<?> spots = session
+					.createQuery(
+							"FROM SpotCollectRecord spots where spots.id.accountId = ?")
+					.setString(0, accountId).list();
+
+			System.out.println("Collect spots : " + spots.size());
+//			for (Object o : spots) {
+//				SpotCollectRecord spot = (SpotCollectRecord) o;
+//				System.out.println(accountId + "likes spot id: "
+//						+ spot.getId().getSpotId());
+//			}
+			
+			if(spots.size()==0){
+			tx.commit();
+			    return false;
+			}else{
+				return true;	
+			}
+			
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+			return false;
+		}
+		
+		
+		
+	}
+
+	@Override
+	public List<SpotCollectRecord> selectListByAccountId(String accountId) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<SpotCollectRecord> result =null;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("FROM SpotCollectRecord spots where spots.id.accountId = ?").setString(0, accountId).list();
+
+			System.out.println("SpotCollectRecord List by selectByAccountId ="+result);
+
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+			e.printStackTrace();
+		}
+
+		return result;
+		
+	}
+
 }
