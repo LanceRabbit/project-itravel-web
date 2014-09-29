@@ -6,4 +6,5 @@ public interface TripCollectRecordDAO {
 	public abstract int delete(TripCollectRecord spotRec);	
 	public abstract TripCollectRecord select(TripCollectRecord spotRec);
 	public abstract void select(String accountId);
+	public abstract int insert2(TripCollectRecord spotRec);
 }

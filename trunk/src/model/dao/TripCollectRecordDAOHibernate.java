@@ -85,10 +85,11 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 				tx.rollback();
 				System.out.println(e.getMessage());
 			}
-			e.printStackTrace();
+			return -100;
+			
 		}
 
-		return 0;
+		return 100;
 	}
 
 	public TripCollectRecord select(TripCollectRecord tripColRec) {
@@ -141,6 +142,29 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 				}
 				e.printStackTrace();
 			}
+		}
+
+
+		@Override
+		public int insert2(TripCollectRecord tripColRec) {
+			sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = this.sessionFactory.getCurrentSession();
+			Transaction tx = null;
+
+			try {
+				tx = session.beginTransaction();
+				session.save(tripColRec);
+				tx.commit();
+			} catch (HibernateException e) {
+				if (tx != null) {
+					tx.rollback();
+					System.out.println(e.getMessage());
+				}
+				return -100;	
+			}
+
+				
+			return 100;
 		}
 
 

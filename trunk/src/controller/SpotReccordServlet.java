@@ -18,11 +18,11 @@ import model.service.LikeService;
 /**
  * Servlet implementation class AddLikServlet
  */
-@WebServlet("/controller/LikeServlet")
-public class LikServlet extends HttpServlet {
+@WebServlet("/controller/SpotReccordServlet")
+public class SpotReccordServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public LikServlet() {
+	public SpotReccordServlet() {
 
 	}
 

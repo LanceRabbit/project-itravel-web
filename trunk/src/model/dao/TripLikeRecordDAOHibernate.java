@@ -92,10 +92,10 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 				tx.rollback();
 				System.out.println(e.getMessage());
 			}
-			e.printStackTrace();
+			return -100;
 		}
 
-		return 0;
+		return 100;
 
 	}
 
@@ -149,6 +149,28 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 			}
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public int insert2(TripLikeRecord TripRec) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+
+		try {
+			tx = session.beginTransaction();
+			session.save(TripRec);
+			tx.commit();
+		} catch (HibernateException e) {
+			if (tx != null) {
+				tx.rollback();
+				System.out.println(e.getMessage());
+			}
+			return -100;
+		}
+
+		
+		return 100;
 	}
 
 }
