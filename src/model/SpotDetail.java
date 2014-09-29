@@ -280,6 +280,7 @@ public class SpotDetail implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spotDetail")
+	@OrderBy(clause = "IMG_ORDER ASC")
 	public Set<SpotImg> getSpotImgs() {
 		return this.spotImgs;
 	}
