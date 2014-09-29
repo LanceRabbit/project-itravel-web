@@ -46,24 +46,6 @@ height:450px;
 	-moz-transition-duration: 0.5s;
 	-o-transition-duration: 0.5s;
 }
-/* 
-    Only Needed in Multi-Coloured Variation 
-                                               */
-.social-fb:hover {
-	color: #3B5998;
-}
-
-.social-tw:hover {
-	color: #4099FF;
-}
-
-.social-gp:hover {
-	color: #d34836;
-}
-
-.social-em:hover {
-	color: #f39c12;
-}
 
 
 #map-container {
@@ -229,7 +211,7 @@ border-collapse:collapse;
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
 					data : {State:"delet",
-						SpotId:id},						
+						TripId:id},						
 					success : function(data) {						
 						if(data=='false'){							
 							$('[name="loginError"]').text("請登入後使用。");
@@ -246,7 +228,7 @@ border-collapse:collapse;
 					contentType : "application/json; charset=utf-8",
 					dataType : "text",	
 					data : {State:"like",
-							SpotId:id},						
+						TripId:id},						
 					success : function(data) {						
 						if(data=='false'){							
 							$('[name="loginError"]').text("請登入後使用。");
@@ -279,7 +261,7 @@ border-collapse:collapse;
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
 					data : {State:"deletCollect",
-						SpotId:id},						
+						TripId:id},						
 					success : function(data) {						
 						if(data=='false'){							
 							$('[name="loginError"]').text("請登入後使用。");
@@ -296,7 +278,7 @@ border-collapse:collapse;
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
 					data : {State:"Collect",
-						SpotId:id},						
+						TripId:id},						
 					success : function(data) {						
 						if(data=='false'){							
 							$('[name="loginError"]').text("請登入後使用。");
