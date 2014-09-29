@@ -79,6 +79,14 @@ public class SearchTripServlet extends HttpServlet {
 				jsonDetail.put("tripName", trip.getTripName());
 				jsonDetail.put("totalDay", trip.getTotalDay());
 				jsonDetail.put("startDate", trip.getStartDate());
+				Integer likeCount = null;
+				if(trip.getLikeCount()==null){
+					likeCount=0;
+				}else{
+					likeCount=trip.getLikeCount();
+				}
+				
+				jsonDetail.put("tripLike",likeCount);
 				jsonTrip.put(jsonDetail);
 			}
 			System.out.println("11111111111");

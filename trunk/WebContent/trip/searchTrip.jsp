@@ -328,7 +328,7 @@ $(document).ready(function() {
 					+"<img src='<c:url value='/controller/TripImageServlet?id="
 					+value.tripId+"'/>'></a><div ><h5>行程天數:"
 					+value.totalDay+"</h5></div>"
-					+"<div class='ratings'><p class='pull-right'>15 reviews</p><t class='"+value.tripId+"'>");
+					+"<div class='ratings'><p class='pull-right'>"+value.tripLike+"個人按讚</p><t class='"+value.tripId+"'>");
 		 	
 		 	jQuery.ajax({
 				url : '<c:url value='/controller/CheckTripLikeServlet'/>',
