@@ -197,14 +197,20 @@ border-collapse:collapse;
 <jsp:include page="/fragment/bottom.jsp" />
 <script type="text/javascript">
 		function like(id) {
-			//傳入的id是SpotId				
-			console.log(document.getElementById(id));
+			
 			//收回讚
 			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-2x"){
 				//換heart-o圖
 				jQuery("#"+id).attr('title','按讚');
 				jQuery("#"+id).removeAttr("class");
 				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
+				
+				var tripidNo = id.substring(2);	
+				var No = "p"+tripidNo;
+				var N =jQuery("#"+No).text();
+				var count = parseInt(N)-parseInt("1");
+				jQuery("#"+No).text(count);			
+				
 				jQuery.ajax({
 					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
@@ -238,6 +244,11 @@ border-collapse:collapse;
 							jQuery("#"+id).attr('title','收回讚');
 							jQuery("#"+id).removeAttr("class");
 							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+							var tripidNo = id.substring(2);	
+							var No = "p"+tripidNo;
+							var N =jQuery("#"+No).text();
+							var count = parseInt(N)+parseInt("1");
+							jQuery("#"+No).text(count);
 						}
 															
 					}				
@@ -254,7 +265,8 @@ border-collapse:collapse;
 			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-2x"){
 				jQuery("#"+id).attr('title','收藏');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
+				jQuery("#"+id).addClass("fa fa-plus fa-2x");
+				
 				jQuery.ajax({
 					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
@@ -328,7 +340,7 @@ $(document).ready(function() {
 					+"<img src='<c:url value='/controller/TripImageServlet?id="
 					+value.tripId+"'/>'></a><div ><h5>行程天數:"
 					+value.totalDay+"</h5></div>"
-					+"<div class='ratings'><p class='pull-right'>"+value.tripLike+"個人按讚</p><t class='"+value.tripId+"'>");
+					+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
 		 	
 		 	jQuery.ajax({
 				url : '<c:url value='/controller/CheckTripLikeServlet'/>',
@@ -375,17 +387,12 @@ $(document).ready(function() {
 				}				
 			});	
 			
-			jQuery('#listDetails').append("</t></div><span id='tripId' hidden>"+value.tripId+"</span>"
+			jQuery('.'+value.tripId).append("</t></div><span id='tripId' hidden>"+value.tripId+"</span>"
 											+"<span id='tripName' hidden>"+value.tripName+"</span>"
 											+"<span id='totalDay' hidden>"+value.totalDay+"</span></div></div>");
 			
 				 	
-		 	/*
-					+"<span id='tripId' hidden>"+value.tripId+"</span>"+
-					"<span id='tripName' hidden>"+value.tripName+"</span>"+
-					"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-					"</div></div>");
-					*/
+		 	
 			 count++;
 		
 		});	
