@@ -7,5 +7,7 @@ public interface SpotCollectRecordDAO {
 	public abstract  int insert2(SpotCollectRecord spotColRec);
 	public abstract int delete(SpotCollectRecord spotColRec);
 	public abstract SpotCollectRecord select(SpotCollectRecord spotColRec);
+	public abstract boolean selectByAccount(String accountId);
+	public abstract List<SpotCollectRecord> selectListByAccountId(String accountId);
 	
 }
