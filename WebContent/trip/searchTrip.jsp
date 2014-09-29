@@ -332,76 +332,17 @@ $(document).ready(function() {
 		 count = 1 ;
 		$.each(data,function(index,value){
 
-		 	$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
-					+"<div class='thumbnail'>"
-					+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
-					+value.tripName+"</h4></div>"
-					+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
-					+"<img src='<c:url value='/controller/TripImageServlet?id="
-					+value.tripId+"'/>'></a><div ><h5>行程天數:"
-					+value.totalDay+"</h5></div>"
-					+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
-		 	
-		 	jQuery.ajax({
-				url : '<c:url value='/controller/CheckTripLikeServlet'/>',
-				type : "GET",
-				contentType : "application/json; charset=utf-8",
-				async : false,
-				dataType : "text",	
-				data : {TripId:value.tripId},						
-				success : function(data) {						
-					if(data=="NoAccount"){							
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
-						
-					}else if(data=="Like"){
-					//有登錄的話依據like紀錄顯示圖片
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
-						
-					}else if(data=="NoLike"){
-					//有登錄的話依據like紀錄顯示圖片
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
-					
-					}																						
-				}				
-			});	
-		 	jQuery.ajax({
-				url : '<c:url value='/controller/CheckTripCollectServlet'/>',
-				type : "GET",
-				contentType : "application/json; charset=utf-8",
-				async : false,
-				dataType : "text",	
-				data : {TripId:value.tripId},						
-				success : function(data) {														
-					if(data=="NoAccount"){							
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
-						
-					}else if(data=="Collect"){
-					
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
-						
-					}else if(data=="NoCollect"){
-					
-						jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
-					
-					}																						
-				}				
-			});	
-			
-			jQuery('.'+value.tripId).append("</t></div><span id='tripId' hidden>"+value.tripId+"</span>"
-											+"<span id='tripName' hidden>"+value.tripName+"</span>"
-											+"<span id='totalDay' hidden>"+value.totalDay+"</span></div></div>");
-			
-				 	
-		 	
-			 count++;
+		 
+			list(value,count);
+			count++;
 		
 		});	
 	});
 	
 	
-});
 
-(function(jQuey){
+
+
 
 	//根據 天數去做搜尋,若click同一個欄位則不執行搜尋
 	$("#dayMenu .dropdown-menu li").click(function(){
@@ -456,26 +397,66 @@ $(document).ready(function() {
 	});
 	
 	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
+		$("#listTrips").append("<div id='"+count+"' class='col-xs-4'>"
 				+"<div class='thumbnail'>"
 				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 				+value.tripName+"</h4></div>"
-				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+				+"<a href='#tripmodals' class=' temp' data-toggle='modal' data-target='#tripmodals'>"
 				+"<img src='<c:url value='/controller/TripImageServlet?id="
 				+value.tripId+"'/>'></a><div ><h5>行程天數:"
 				+value.totalDay+"</h5></div>"
-				+"<div class='ratings'>"
-				+"<a class='btn btn-primary btn-sm modify' id='"
-				+value.tripId+"' href='javascript: void(0);'>"
-				+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
-				+"<p class='pull-right'>"
-				+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
-				+" href='javascript: void(0);'><i class='fa fa-trash-o fa-lg '>"
-				+"刪除</i></a></p>"
-				+"<span id='tripId' hidden>"+value.tripId+"</span>"+
-				"<span id='tripName' hidden>"+value.tripName+"</span>"+
-				"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-				"</div></div>");
+				+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
+	 	
+	 	jQuery.ajax({
+			url : '<c:url value='/controller/CheckTripLikeServlet'/>',
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "text",	
+			data : {TripId:value.tripId},						
+			success : function(data) {						
+				if(data=="NoAccount"){							
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					
+				}else if(data=="Like"){
+				//有登錄的話依據like紀錄顯示圖片
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+					
+				}else if(data=="NoLike"){
+				//有登錄的話依據like紀錄顯示圖片
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+				
+				}																						
+			}				
+		});	
+	 	jQuery.ajax({
+			url : '<c:url value='/controller/CheckTripCollectServlet'/>',
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "text",	
+			data : {TripId:value.tripId},						
+			success : function(data) {														
+				if(data=="NoAccount"){							
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					
+				}else if(data=="Collect"){
+				
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+					
+				}else if(data=="NoCollect"){
+				
+					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+				
+				}																						
+			}				
+		});	
+		
+		jQuery('.'+value.tripId).append("</t></div><span id='tripId' hidden>"+value.tripId+"</span>"
+										+"<span id='tripName' hidden>"+value.tripName+"</span>"
+										+"<span id='totalDay' hidden>"+value.totalDay+"</span></div></div>");
+		
+			 	
 	}
 	
 	 $("#listTrips").on("click",".modify", function(e) {
@@ -658,7 +639,7 @@ $(document).ready(function() {
 	
 	
 	
-}(jQuery));
+});
 </script>
     	
 </body>
