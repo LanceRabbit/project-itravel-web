@@ -4,20 +4,37 @@ package model.service;
 import model.SpotCollectRecord;
 import model.SpotCollectRecordDAO;
 import model.SpotCollectRecordId;
-import model.SpotCommentRecordDAO;
 import model.SpotLikeRecord;
 import model.SpotLikeRecordDAO;
 import model.SpotLikeRecordId;
+import model.TripCollectRecord;
+import model.TripCollectRecordDAO;
+import model.TripCollectRecordId;
+import model.TripLikeRecord;
+import model.TripLikeRecordDAO;
+import model.TripLikeRecordId;
 import model.dao.SpotCollectRecordDAOHibernate;
 import model.dao.SpotLikeRecordDAOHibernate;
+import model.dao.TripCollectRecordDAOHibernate;
+import model.dao.TripLikeRecordDAOHibernate;
 
 public class LikeService {
 	static SpotLikeRecordDAO dao = new SpotLikeRecordDAOHibernate();
 	static SpotLikeRecordId spotRec = new SpotLikeRecordId();
 	static SpotLikeRecord spot =null;
+	
 	static SpotCollectRecordDAO daoC = new SpotCollectRecordDAOHibernate();
 	static SpotCollectRecordId spotRecCol = new SpotCollectRecordId();
 	static SpotCollectRecord spotCol =null;
+	
+	static TripLikeRecordDAO daoT = new TripLikeRecordDAOHibernate();
+	static TripLikeRecordId tripRec = new TripLikeRecordId();
+	static TripLikeRecord trip = new TripLikeRecord();
+	
+	static TripCollectRecordDAO daoTc = new TripCollectRecordDAOHibernate();
+	static TripCollectRecordId tripRecCol = new TripCollectRecordId();
+	static TripCollectRecord tripCol = new TripCollectRecord();
+	
 	
 	public static void main(String[] args) {		
 		
@@ -28,7 +45,7 @@ public class LikeService {
 		
 		
 	}
-	//Like部分
+	//SpotLike部分
 	public static boolean addSpotLike(String AccountId,String SpotId){
 				
 		spotRec.setAccountId(AccountId);
@@ -79,7 +96,7 @@ public class LikeService {
 			return false;				
 		}
 	}
-	//collect部分
+	//Spotcollect部分
 	public static boolean addSpotCollect(String AccountId,String SpotId){
 		
 		spotRecCol.setAccountId(AccountId);
@@ -131,4 +148,107 @@ public class LikeService {
 	}
 	
 	
+	//TripLike部分
+		public static boolean addTripLike(String AccountId,String TripId){
+					
+			tripRec.setAccountId(AccountId);
+			tripRec.setTripId(TripId);
+			trip = new TripLikeRecord(tripRec);
+			if(daoT.insert2(trip)==100){
+					return true;
+				}else{
+					return false;
+				}
+			
+		}
+		public static boolean isTripLikeEmpty(String AccountId,String TripId){
+			tripRec.setAccountId(AccountId);
+			tripRec.setTripId(TripId);
+			trip = new TripLikeRecord(tripRec);
+			if(daoT.select(trip)==null){		
+				return true;
+			}else{
+				return false;
+				
+			}
+			
+		}
+		
+		public static boolean deletTripLike(String AccountId,String TripId){
+		
+			tripRec.setAccountId(AccountId);
+			tripRec.setTripId(TripId);
+			trip = new TripLikeRecord(tripRec);
+			if(daoT.delete(trip)==100){
+				return true;			
+			}else{
+				return false;				
+			}
+		
+		}
+		
+		
+		public static boolean checkTripLike(String AccountId,String TripId){
+		
+			tripRec.setAccountId(AccountId);
+			tripRec.setTripId(TripId);
+			trip = new TripLikeRecord(tripRec);
+			if(daoT.select(trip)!=null){
+				return true;			
+			}else{
+				return false;				
+			}
+		}
+	
+		//Tripcollect部分
+		public static boolean addTripCollect(String AccountId,String TripId){
+			
+			tripRecCol.setAccountId(AccountId);
+			tripRecCol.setTripId(TripId);
+			tripCol = new TripCollectRecord(tripRecCol);
+			if(daoTc.insert2(tripCol)==100){
+					return true;
+				}else{
+					return false;
+				}
+			
+		}
+		
+		public static boolean isTripCollectEmpty(String AccountId,String TripId){
+			tripRecCol.setAccountId(AccountId);
+			tripRecCol.setTripId(TripId);
+			tripCol = new TripCollectRecord(tripRecCol);			
+			if(daoTc.select(tripCol)==null){		
+				return true;
+			}else{
+				return false;
+				
+			}
+			
+		}
+		public static boolean deletTripCollect(String AccountId,String TripId){
+			
+			tripRecCol.setAccountId(AccountId);
+			tripRecCol.setTripId(TripId);
+			tripCol = new TripCollectRecord(tripRecCol);	
+			if(daoTc.delete(tripCol)==100){
+				return true;			
+			}else{
+				return false;				
+			}
+		
+		}
+		
+		public static boolean checkTripCollect(String AccountId,String TripId){
+			
+			tripRecCol.setAccountId(AccountId);
+			tripRecCol.setTripId(TripId);
+			tripCol = new TripCollectRecord(tripRecCol);	
+			if(daoTc.select(tripCol)!=null){
+				return true;			
+			}else{
+				return false;				
+			}
+		}
+		
 }
