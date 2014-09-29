@@ -214,11 +214,11 @@ border-collapse:collapse;
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4'>"
+			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4 temp'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
-						+"<a href='#tripmodals' class='temp' data-toggle='modal' data-target='#tripmodals'>"
+						+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
 						+"<img src='<c:url value='/controller/TripImageServlet?id="
 						+value.tripId+"'/>'></a><div ><h5>行程天數:"
 						+value.totalDay+"</h5></div>"
@@ -241,7 +241,15 @@ border-collapse:collapse;
 	 });  //--ajax
 
 	
-
+	 $("#showtrip").on("click",".modify", function(e) {
+		 console.log("Modify");
+		 e.stopPropagation();
+	 });
+	 
+	 $("#showtrip").on("click",".delete", function(e) {
+		 console.log("Delete");
+		 e.stopPropagation();
+	 });
 	 
 	$("#showtrip").on("click",".temp", function() {
 		
