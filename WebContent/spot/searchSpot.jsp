@@ -652,7 +652,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						+"<div class='fixedHeight'>"
 						+ value.spotIntro
 						+"</div>"
-						+ "</div><div class='ratings'><p class='pull-right'>15 reviews</p><t class='"+value.spotId+"'>"
+						+ "</div><div class='ratings'><p class='pull-right'>"+value.spotLike+"個人按讚</p><t class='"+value.spotId+"'>"
 				); // end of jQuery
 				jQuery.ajax({
 					url : '<c:url value='/controller/CheckSpotLikeServlet'/>',

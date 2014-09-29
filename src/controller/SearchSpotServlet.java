@@ -81,7 +81,13 @@ public class SearchSpotServlet extends HttpServlet {
 				jsonSpot.put("spotId", spot.getSpotId());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
-				jsonSpot.put("spotLike", spot.getLikeCount());
+				Integer likeCount = null;
+				if(spot.getLikeCount()==null){
+					likeCount=0;
+				}else{
+					likeCount=spot.getLikeCount();
+				}
+				jsonSpot.put("spotLike", likeCount);
 				
 				SpotImg thumbnail = service.getSpotThumbnail(spot);
 				String imgURL = null;
