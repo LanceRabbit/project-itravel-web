@@ -367,7 +367,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				jQuery("#"+id).removeAttr("class");
 				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
 				jQuery.ajax({
-					url : '<c:url value='/controller/LikeServlet'/>',
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
@@ -384,7 +384,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			}else{ //按讚
 				//換heart圖				
 				jQuery.ajax({
-					url : '<c:url value='/controller/LikeServlet'/>',
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",
 					dataType : "text",	
@@ -417,7 +417,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				jQuery("#"+id).removeAttr("class");
 				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
 				jQuery.ajax({
-					url : '<c:url value='/controller/LikeServlet'/>',
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
@@ -434,7 +434,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			}else{
 				
 				jQuery.ajax({
-					url : '<c:url value='/controller/LikeServlet'/>',
+					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
