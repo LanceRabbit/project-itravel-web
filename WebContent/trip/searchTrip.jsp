@@ -224,7 +224,7 @@ border-collapse:collapse;
 				jQuery("#"+id).removeAttr("class");
 				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
 				jQuery.ajax({
-					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
@@ -241,7 +241,7 @@ border-collapse:collapse;
 			}else{ //按讚
 				//換heart圖				
 				jQuery.ajax({
-					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",
 					dataType : "text",	
@@ -274,7 +274,7 @@ border-collapse:collapse;
 				jQuery("#"+id).removeAttr("class");
 				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
 				jQuery.ajax({
-					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
@@ -291,7 +291,7 @@ border-collapse:collapse;
 			}else{
 				
 				jQuery.ajax({
-					url : '<c:url value='/controller/SpotReccordServlet'/>',
+					url : '<c:url value='/controller/TripRecordServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",				
 					dataType : "text",	
