@@ -177,7 +177,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
-	@OrderBy(clause = "SPOT_ID DESC")
+	@OrderBy(clause = "CREATION_TIME DESC")
 	public Set<SpotDetail> getSpotDetails() {
 		return this.spotDetails;
 	}
