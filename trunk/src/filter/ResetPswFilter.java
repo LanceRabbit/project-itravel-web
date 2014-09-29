@@ -19,11 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.Account;
+import model.service.AccountService;
 
-@WebFilter(filterName="AdministratorFilter", 
-		   urlPatterns={"/admin/*",
+@WebFilter(filterName="ResetPswFilter", 
+		   urlPatterns={"/account/resetPsw.jsp",
 		   })
-public class AdministratorFilter implements Filter {
+public class ResetPswFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
 	String servletPath;
 	String contextPath;
@@ -36,7 +37,6 @@ public class AdministratorFilter implements Filter {
 			url.add(fConfig.getInitParameter(path));
 		}
 	}
-	private Account loginToken =null;
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		boolean isRequestedSessionIdValid = false;
@@ -50,9 +50,21 @@ public class AdministratorFilter implements Filter {
 			isRequestedSessionIdValid = req.isRequestedSessionIdValid();
 			Map<String, String> errors = new HashMap<String, String>();
 			request.setAttribute("errorMsgs", errors);
-			if (checkLogin(req) && loginToken.getAccountLevel()==9) { //已經登入
-				chain.doFilter(request, response);
-			} else { //尚未登入
+			HttpSession session = req.getSession();
+			String email = (String) session.getAttribute("email");
+			AccountService service = new AccountService();
+			
+			
+			if (email!=null) { 
+				Account account = service.selectByEmail(email);
+				if(account.getAccountLevel()==3 || account.getAccountLevel()==5){
+					session.setAttribute("activated", "false");
+					resp.sendRedirect(req.getContextPath()+"/first.jsp");
+					return;
+				}else{
+					chain.doFilter(request, response);
+				}
+			} else { 
 //				HttpSession session = req.getSession();
 //				session.setAttribute("errorMsgs_login", "請登入後使用。");
 				resp.sendRedirect(contextPath + "/first.jsp");
@@ -64,16 +76,16 @@ public class AdministratorFilter implements Filter {
 		}
 	}
 
-	private boolean checkLogin(HttpServletRequest req) {
-		HttpSession session = req.getSession();
-		loginToken = (Account) session.getAttribute("user");
-		System.out.println("LoginFilter Test  =  "+loginToken);
-		if (loginToken == null) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+//	private boolean checkLogin(HttpServletRequest req) {
+//		HttpSession session = req.getSession();
+//		loginToken = (Account) session.getAttribute("user");
+//		System.out.println("LoginFilter Test  =  "+loginToken);
+//		if (loginToken == null) {
+//			return false;
+//		} else {
+//			return true;
+//		}
+//	}
 
 //	private boolean mustLogin() {
 //		boolean login = false;

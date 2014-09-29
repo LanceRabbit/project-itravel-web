@@ -51,6 +51,7 @@ public class GenerateLinkUtil {
 	public static String generateCheckcodeForgotPassword(Account user) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
 		Date date = new Date();
+//		date.setYear(2015); //測試用
 		//System.out.println(dateFormat.format(date));
 		return md5(user.getAccountId() + ":" + dateFormat.format(date));
 	}

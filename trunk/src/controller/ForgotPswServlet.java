@@ -27,7 +27,7 @@ public class ForgotPswServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// 接收資料
 		String email = request.getParameter("email");
-
+		HttpSession session = request.getSession();
 		// 驗證資料
 		service = new AccountService();
 		Account account = service.selectByEmail(email);
@@ -36,14 +36,17 @@ public class ForgotPswServlet extends HttpServlet {
 			request.getRequestDispatcher("/first.jsp").forward(
 					request, response);
 			return;
+		}else if(account.getAccountLevel()==3||account.getAccountLevel()==5){
+			session.setAttribute("activated", "false");
+			response.sendRedirect(request.getContextPath()+"/first.jsp");
+			return;
 		}
-
+		service.setAccountLevelAsForgot(account.getAccountId());
 		// 呼叫Model
 		
-		//EmailUtil.sendResetPasswordEmail(account);
+		EmailUtil.sendResetPasswordEmail(account);
 
 		// 根據Model執行結果呼叫View
-		HttpSession session = request.getSession();
 		session.setAttribute("sendMailMsgForgotPsw", "您的申請已提交成功，請至信箱查看。");
 		response.sendRedirect(request.getContextPath()+"/first.jsp");
 	}
