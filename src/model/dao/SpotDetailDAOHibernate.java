@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 
 public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	private SessionFactory sessionFactory = null;
+	private static final int SPOTS_PER_PAGE = 4; 
 	
 	public SpotDetail insert(SpotDetail spot) {
 		sessionFactory = HibernateUtil.getSessionFactory();
@@ -136,8 +137,8 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		try {
 			tx = session.beginTransaction();
 			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.creationTime DESC");
-			query.setFirstResult((pageNo-1)*4+1);
-			query.setMaxResults(4);
+			query.setFirstResult((pageNo-1)*SPOTS_PER_PAGE+0);
+			query.setMaxResults(SPOTS_PER_PAGE);
 			for(Object o : query.list()) {
 				spots.add((SpotDetail)o);
 			}
@@ -219,14 +220,14 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 			tx = session.beginTransaction();
 			Query query = session.createQuery(queryStr);
 			if(pageNo > 0) {
-				//System.out.println("page no : " + pageNo);
-				query.setFirstResult(1);
-				query.setFirstResult((pageNo-1)*4+1);
-				query.setMaxResults(4);
+				System.out.println("page no : " + pageNo);
+				query.setFirstResult((pageNo-1)*SPOTS_PER_PAGE+0);
+				query.setMaxResults(SPOTS_PER_PAGE);
 			}
 			
-			for (Object o : query.list())
+			for (Object o : query.list()) {
 				spots.add((SpotDetail) o);
+			}
 					
 			tx.commit();
 		} catch (Exception e) {
@@ -240,20 +241,20 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
-		SpotDetail spot = new SpotDetail();
+//		SpotDetail spot = new SpotDetail();
 		
 		// insert
-		spot.setAccountId("M14090002");
-		spot.setSpotName("Pizza");
-		spot.setCityId(1);
-		spot.setCategoryId(1);
-		spot.setSubcategoryId("DEP");
-		spot.setTempSpotId("EMP");
-		//spot.setCreationTime(new java.util.Date());
-		
-		spot = dao.insert(spot);
-		System.out.println("test : insert================================");
-		System.out.println(spot.toString());
+//		spot.setAccountId("M14090002");
+//		spot.setSpotName("Pizza");
+//		spot.setCityId(1);
+//		spot.setCategoryId(1);
+//		spot.setSubcategoryId("DEP");
+//		spot.setTempSpotId("EMP");
+//		//spot.setCreationTime(new java.util.Date());
+//		
+//		spot = dao.insert(spot);
+//		System.out.println("test : insert================================");
+//		System.out.println(spot.toString());
 		
 		// update 
 //		spot.setAddress("Taipei City");
@@ -287,17 +288,17 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //		for(SpotDetail spot : spots) {
 //			System.out.println(spot.toString());
 //		}
-				
-//		String query = "FROM SpotDetail spot WHERE spot.spotName LIKE '%蘭%' ORDER BY spot.creationTime DESC";
-//		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
-//		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 1);
-//		if(list != null) {
-//			for (SpotDetail o : list) {
-//				System.out.println(o.toString());
-//			}
-//		}
-//		else {
-//			System.out.println("null list....");
-//		}
+		
+		String query = "FROM SpotDetail spot WHERE spot.spotName LIKE '%蘭%' ORDER BY spot.creationTime DESC";
+		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
+		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 1);
+		if(list != null) {
+			for (SpotDetail o : list) {
+				System.out.println(o.toString());
+			}
+		}
+		else {
+			System.out.println("null list....");
+		}
 	}
 }
