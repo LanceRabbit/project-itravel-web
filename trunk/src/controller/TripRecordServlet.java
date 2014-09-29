@@ -47,7 +47,7 @@ public class TripRecordServlet extends HttpServlet {
 		}
 		String State = request.getParameter("State");
 		String TripId = request.getParameter("TripId");
-		//TripId = TripId.substring(2);
+		TripId = TripId.substring(2);
 		System.out.println(AccountId + "...." + TripId);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
