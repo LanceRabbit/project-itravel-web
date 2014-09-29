@@ -17,13 +17,6 @@ import org.hibernate.Transaction;
 public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	private SessionFactory sessionFactory = null;
 	
-	private static void printSpotInfo (SpotDetail theSpot) {
-		System.out.println("spot : " + theSpot.getSpotName());
-		System.out.println("spot id : " + theSpot.getSpotId());
-		if(theSpot.getAddress() != null)
-			System.out.println("spot address : " + theSpot.getAddress());
-	}
-	
 	public SpotDetail insert(SpotDetail spot) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -31,9 +24,9 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		
 		try {
 			tx = session.beginTransaction();
-			
-			//spot.setAccount(account);
-			//spot.setAccountId("M14090002");
+
+			if(spot.getCreationTime() == null)
+				spot.setCreationTime(new java.util.Date());
 			
 			// test : add a new spot_detail
 			// modified by Lance.
@@ -92,7 +85,30 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return restSpot;
 	}
 
-	public SpotDetail select(String id) {
+	public List<SpotDetail> selectAll() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+	
+		List<SpotDetail> spots = new ArrayList<SpotDetail>();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.creationTime DESC");
+			for(Object o : query.list()) {
+				spots.add((SpotDetail)o);
+			}
+					
+			tx.commit();
+		} catch (Exception e) {
+			if(tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		
+		return spots;
+	}
+	
+	public SpotDetail selectBySpotId(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		
@@ -101,28 +117,6 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		try {
 			tx = session.beginTransaction();
 			spot = (SpotDetail)session.get(SpotDetail.class, id);
-			
-			// test : account
-			Account creater = spot.getAccount();
-			System.out.println("test account================================");
-			System.out.println("Account with id : " + creater.getAccountId() + " created spot("+ id + ")");
-			
-//			// test : list spot_like_record
-//			Set<SpotDetail> likedSpots = account.getSpotDetails_1();
-//			Iterator<SpotDetail> it = likedSpots.iterator();
-//			int i = 0;
-//			while(it.hasNext()) {
-//				i++;
-//				System.out.println((i) + " :");
-//				printSpotInfo(it.next());
-//			}
-//			
-//			// test : add a record into table spot_like_record
-//			Set<SpotDetail> newLikedSpots = new HashSet<SpotDetail>();
-//			newLikedSpots.add((SpotDetail)session.get(SpotDetail.class, "SWT14090002"));
-//			account.setSpotDetails_1(newLikedSpots);
-//			session.saveOrUpdate(account);
-
 			tx.commit();
 		} catch (Exception e) {
 			if(tx != null)
@@ -133,7 +127,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		return spot;
 	}
 
-	public List<SpotDetail> select(int pageNo) {
+	public List<SpotDetail> selectByPageNo(int pageNo) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 	
@@ -141,7 +135,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.spotId");
+			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.creationTime DESC");
 			query.setFirstResult((pageNo-1)*4+1);
 			query.setMaxResults(4);
 			for(Object o : query.list()) {
@@ -168,7 +162,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 			tx = session.beginTransaction();
 
 			Query query = session
-					.createQuery("FROM SpotDetail spot order by spot.likeCount DESC");
+					.createQuery("FROM SpotDetail spot order by spot.creationTime DESC");
 			query.setMaxResults(num);
 			for (Object o : query.list()) {
 				spots.add((SpotDetail) o);
@@ -225,6 +219,8 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 			tx = session.beginTransaction();
 			Query query = session.createQuery(queryStr);
 			if(pageNo > 0) {
+				//System.out.println("page no : " + pageNo);
+				query.setFirstResult(1);
 				query.setFirstResult((pageNo-1)*4+1);
 				query.setMaxResults(4);
 			}
@@ -244,36 +240,26 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	
 	public static void main(String[] args) {
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
-//		SpotDetail spot = new SpotDetail();
+		SpotDetail spot = new SpotDetail();
 		
-		// insert 
-//		spot.setTempSpotId("EMP");
-//		spot.setSpotName("Pizza");
-//		spot.setCityId(1);
-//		spot.setCategoryId(1);
-//		spot.setSubcategoryId("RES");
-//		
-//		spot = dao.insert(spot);
-//		System.out.println("test : insert================================");
-//		SpotDetailDAOHibernate.printSpotInfo(spot);
+		// insert
+		spot.setAccountId("M14090002");
+		spot.setSpotName("Pizza");
+		spot.setCityId(1);
+		spot.setCategoryId(1);
+		spot.setSubcategoryId("DEP");
+		spot.setTempSpotId("EMP");
+		//spot.setCreationTime(new java.util.Date());
 		
-		// select first 9 spots
-//		List<SpotDetail> spots = dao.select(1);
-//		for(SpotDetail spot : spots) {
-//			SpotDetailDAOHibernate.printSpotInfo(spot);
-//		}
-		// select 
-//		String spotId = spot.getSpotId();
-//		spot = dao.select(spotId);
-//		System.out.println("test : select================================");
-//		SpotDetailDAOHibernate.printSpotInfo(spot);
-		
+		spot = dao.insert(spot);
+		System.out.println("test : insert================================");
+		System.out.println(spot.toString());
 		
 		// update 
 //		spot.setAddress("Taipei City");
 //		spot = dao.update(spot);
 //		System.out.println("test : update================================");
-//		SpotDetailDAOHibernate.printSpotInfo(dao.select(spot.getSpotId()));
+//		System.out.println(spot.toString());
 //		
 		// delete
 //		if( spot != null && dao.delete(spot) == 0) {
@@ -288,18 +274,30 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //		List<SpotDetail> list =dao.selectTopN(5);
 //		for (Object o : list) {
 //			 System.out.println(o);
-//			 }
+//		}
 		
-		String query = "FROM SpotDetail spot  WHERE spot.cityId = 2 AND spot.spotName LIKE '%花博%'";
-		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
-		List<SpotDetail> list =hibernateDAO.selectByHQL(query);
-		if(list != null) {
-			for (Object o : list) {
-				System.out.println(o);
-			}
-		}
-		else {
-			System.out.println("null list....");
-		}
+		// select 
+//		List<SpotDetail> spots = dao.selectAll();
+//		for(SpotDetail spot : spots) {
+//			System.out.println(spot.toString());
+//		}
+		
+		// select first 9 spots
+//		List<SpotDetail> spots = dao.selectByPageNo(1);
+//		for(SpotDetail spot : spots) {
+//			System.out.println(spot.toString());
+//		}
+				
+//		String query = "FROM SpotDetail spot WHERE spot.spotName LIKE '%蘭%' ORDER BY spot.creationTime DESC";
+//		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
+//		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 1);
+//		if(list != null) {
+//			for (SpotDetail o : list) {
+//				System.out.println(o.toString());
+//			}
+//		}
+//		else {
+//			System.out.println("null list....");
+//		}
 	}
 }

@@ -171,7 +171,7 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 		}
 		
 		SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
-		SpotDetail spot = spotDetailDAO.select(spotId);
+		SpotDetail spot = spotDetailDAO.selectBySpotId(spotId);
 		
 		Set<SpotImg> images = spot.getSpotImgs();
 		Iterator<SpotImg> it = images.iterator();

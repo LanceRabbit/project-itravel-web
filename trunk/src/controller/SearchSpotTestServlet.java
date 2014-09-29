@@ -43,7 +43,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
-		List<SpotDetail> result = dao.select(1);
+		List<SpotDetail> result = dao.selectByPageNo(1);
 		
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");

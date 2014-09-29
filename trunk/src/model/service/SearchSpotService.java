@@ -89,7 +89,7 @@ public class SearchSpotService {
 		SpotInfo result = null;
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
-		SpotDetail spot = dao.select(spotId);
+		SpotDetail spot = dao.selectBySpotId(spotId);
 		if(spot != null)
 			result = new SpotInfo(spot, viewer, webAppURL, deployDir);
 		

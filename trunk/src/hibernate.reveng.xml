@@ -30,9 +30,6 @@
 	<table-filter match-name="SER_NO_LENGTH" match-catalog="iiiTravel"
 		match-schema="dbo">
 	</table-filter>
-	<table-filter match-name="SPOT_DETAIL" match-catalog="iiiTravel"
-		match-schema="dbo">
-	</table-filter>
 	<table-filter match-name="SPOT_IMG" match-catalog="iiiTravel"
 		match-schema="dbo">
 	</table-filter>
@@ -43,6 +40,9 @@
 		match-schema="dbo">
 	</table-filter>
 	<table-filter match-name="TRIP_DETAIL" match-catalog="iiiTravel"
+		match-schema="dbo">
+	</table-filter>
+	<table-filter match-name="SPOT_DETAIL" match-catalog="iiiTravel"
 		match-schema="dbo">
 	</table-filter>
 
