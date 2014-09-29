@@ -136,7 +136,7 @@
 						<table>
 							<tr>
 								<td style="font-weight: bold; width: 100px">行程名稱：</td>
-								<td><input type="text" name="email" class="form-control"
+								<td><input type="text" name="tripName" class="form-control"
 									required></td>
 							</tr>
 							<tr>
@@ -144,7 +144,7 @@
 							</tr>
 							<tr>
 								<td style="font-weight: bold;">起始日期：</td>
-								<td><input id="date_timepicker_start" type="text"
+								<td><input id="date_timepicker_start" type="text" name="date_start"
 									class="form-control" required></td>
 							</tr>
 							<tr>
@@ -152,7 +152,7 @@
 							</tr>
 							<tr>
 								<td style="font-weight: bold;">結束日期：</td>
-								<td><input id="date_timepicker_end" type="text"
+								<td><input id="date_timepicker_end" type="text" name="date_end"
 									class="form-control" required></td>
 							</tr>
 							<tr>
@@ -165,6 +165,7 @@
 					<button type="button" class="btn btn-default" 
 						data-dismiss="modal">取消</button>
 					<input type="submit" class="btn btn-info" value="繼續" />
+					
 				</div>
 				</form>
 			</div>
@@ -538,20 +539,27 @@
 		  timepicker:false
 	 });
 		
-	
-$('#addTripModal').on('hidden.bs.modal', function (e) {
-	console.log($('#date_timepicker_start').val());
-	console.log($('#date_timepicker_end').val());
-	var date1 = new Date($('#date_timepicker_start').val());
-	var date2 = new Date($('#date_timepicker_end').val());
+
+	  $(function () { $('#addTripModal').on('hidden.bs.modal', function () {
+		
+			console.log($('#date_timepicker_start').val());
+			console.log($('#date_timepicker_end').val());
+			var date1 = new Date($('#date_timepicker_start').val());
+			var date2 = new Date($('#date_timepicker_end').val());
 
 
-	console.log( 'Days since ' 
-	           + date1 + ': ' 
-	           + Date.daysBetween(date1, date2));	
-	
-	$("form .form-control").val("");
-	})
+			console.log( 'Days since ' 
+			           + date1 + ': ' 
+			           + Date.daysBetween(date1, date2));	
+			
+			$("form .form-control").val("");
+		  
+		  
+	 		});
+	 
+	   }); 
+	 
+
 
 	Date.daysBetween = function( date1, date2 ) {
 	  //Get 1 day in milliseconds

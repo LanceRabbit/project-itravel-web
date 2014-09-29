@@ -199,7 +199,7 @@ border-collapse:collapse;
 	</script>
 
 <script type="text/javascript">
-$(document).ready(function() {
+(function(jQuey){
 
 	$.ajax({
 		
@@ -214,17 +214,17 @@ $(document).ready(function() {
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div id='"+count+"' class='col-xs-4 temp'>"
+			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
-						+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+						+"<a href='#tripmodals' class='temp' data-toggle='modal' data-target='#tripmodals'>"
 						+"<img src='<c:url value='/controller/TripImageServlet?id="
 						+value.tripId+"'/>'></a><div ><h5>行程天數:"
 						+value.totalDay+"</h5></div>"
-						+"<div class='ratings'>"
+						+"<div class='ratings' >"
 						+"<a class='btn btn-primary btn-sm modify' id='"
-						+value.tripId+"' href='javascript: void(0);'>"
+						+value.tripId+"'  href='javascript: void(0);'>"
 						+"<i  class='fa fa-pencil fa-lg'>修改</i></a>"
 						+"<p class='pull-right'>"
 						+"<a class='btn btn-danger btn-sm delete' id='"+value.tripId+"'"
@@ -239,19 +239,15 @@ $(document).ready(function() {
 			 });	
 		 }
 	 });  //--ajax
-	 
-	 $("#showtrip").on("click",".modify", function(e) {
-		 e.stopPropagation();
-		 alert("modify check"+ ($("#"+($(this).index()+1)+" span:first").text()));
-	 });
-	 
-	 $("#showtrip").on("click",".delete", function(e) {
-		 e.stopPropagation();
-		 
-		 alert("delete check" + $("#"+($(this).index()+1)+" span:first").text());
-	 });
+
+	
+
 	 
 	$("#showtrip").on("click",".temp", function() {
+		
+
+		
+		console.log("111"+$(this).index());
 		var tripId = $("#"+($(this).index()+1)+" span:first").text();
 		var totalDay =$("#"+($(this).index()+1)+" span:last").text();
 		var tripName = $("#"+($(this).index()+1)+" span:eq(1)").text();
@@ -359,7 +355,7 @@ $(document).ready(function() {
 							e.preventDefault();
 							$(this).tab('show');
 						});
-});
+}(jQuery));
 </script>
 
 </body>
