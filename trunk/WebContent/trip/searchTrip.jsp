@@ -397,11 +397,11 @@ $(document).ready(function() {
 	});
 	
 	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-4'>"
+		$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
 				+"<div class='thumbnail'>"
 				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 				+value.tripName+"</h4></div>"
-				+"<a href='#tripmodals' class=' temp' data-toggle='modal' data-target='#tripmodals'>"
+				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
 				+"<img src='<c:url value='/controller/TripImageServlet?id="
 				+value.tripId+"'/>'></a><div ><h5>行程天數:"
 				+value.totalDay+"</h5></div>"
@@ -416,15 +416,15 @@ $(document).ready(function() {
 			data : {TripId:value.tripId},						
 			success : function(data) {						
 				if(data=="NoAccount"){							
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 					
 				}else if(data=="Like"){
 				//有登錄的話依據like紀錄顯示圖片
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
 					
 				}else if(data=="NoLike"){
 				//有登錄的話依據like紀錄顯示圖片
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 				
 				}																						
 			}				
@@ -438,15 +438,15 @@ $(document).ready(function() {
 			data : {TripId:value.tripId},						
 			success : function(data) {														
 				if(data=="NoAccount"){							
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
 					
 				}else if(data=="Collect"){
 				
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
 					
 				}else if(data=="NoCollect"){
 				
-					jQuery('.'+value.tripId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
 				
 				}																						
 			}				
@@ -459,15 +459,12 @@ $(document).ready(function() {
 			 	
 	}
 	
-	 $("#listTrips").on("click",".modify", function(e) {
+	 $("#listTrips").on("click",".like", function(e) {
 		 e.stopPropagation();
-		 alert("modify check"+ ($("#"+($(this).index()+1)+" span:first").text()));
 	 });
 	 
-	 $("#listTrips").on("click",".delete", function(e) {
+	 $("#listTrips").on("click",".collect", function(e) {
 		 e.stopPropagation();
-		 
-		 alert("delete check" + $("#"+($(this).index()+1)+" span:first").text());
 	 });
 	 
 	var var_map;
