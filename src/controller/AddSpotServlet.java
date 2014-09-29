@@ -58,7 +58,7 @@ public class AddSpotServlet extends HttpServlet {
     	SpotDetail spot = new SpotDetail("M14090001", null, spotOwner, spotName, 
     			cityId, address, phone,
     			longitude, latitude, intro, 0,
-    			categoryId, subcategoryId, "NEW", null, null, null, null,
+    			categoryId, subcategoryId, "NEW", null, null, null, null, null,
     			null,null, null);
     	
     	SpotDetailDAO spotDeailDAO = new SpotDetailDAOHibernate();

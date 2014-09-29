@@ -2,6 +2,7 @@ package model;
 
 // Generated 2014/9/4 �U�� 03:29:37 by Hibernate Tools 4.0.0
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +16,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.Parameter;
 
 /**
@@ -42,6 +46,7 @@ public class SpotDetail implements java.io.Serializable {
 	private int categoryId;
 	private String subcategoryId;
 	private String tempSpotId;
+	private Date creationTime;
 	private Set<TripDetail> tripDetails = new HashSet<TripDetail>(0);
 	private Set<Ad> ads = new HashSet<Ad>(0);
 	private Set<Coupons> couponses = new HashSet<Coupons>(0);
@@ -69,7 +74,7 @@ public class SpotDetail implements java.io.Serializable {
 			String spotName, int cityId, String address, String phone,
 			Double longitude, Double latitude, String spotIntro,
 			Integer likeCount, int categoryId, String subcategoryId,
-			String tempSpotId, Set<TripDetail> tripDetails, Set<Ad> ads,
+			String tempSpotId, Date creationTime, Set<TripDetail> tripDetails, Set<Ad> ads,
 			Set<Coupons> couponses, Set<SpotImg> spotImgs,
 			Set<SpotCommentRecord> spotCommentRecords, Set<Account> spotCollect,
 			Set<Account> spotLike) {
@@ -87,6 +92,7 @@ public class SpotDetail implements java.io.Serializable {
 		this.categoryId = categoryId;
 		this.subcategoryId = subcategoryId;
 		this.tempSpotId = tempSpotId;
+		this.creationTime = creationTime;
 		this.tripDetails = tripDetails;
 		this.ads = ads;
 		this.couponses = couponses;
@@ -234,6 +240,17 @@ public class SpotDetail implements java.io.Serializable {
 	public void setTempSpotId(String tempSpotId) {
 		this.tempSpotId = tempSpotId;
 	}
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "CREATION_TIME", length = 27)
+//	@OrderBy(clause = "CREATION_TIME DESC")
+	public Date getCreationTime() {
+		return creationTime;
+	}
+
+	public void setCreationTime(Date creationTime) {
+		this.creationTime = creationTime;
+	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "spotDetail")
 	public Set<TripDetail> getTripDetails() {
@@ -301,8 +318,10 @@ public class SpotDetail implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return spotName+","+cityId+","+categoryId+","+subcategoryId+","+
-				spotIntro+","+likeCount;
+				
+		return this.getSpotName()+","+this.getSpotId()+","+this.getCreationTime()+","+this.getCityId()+","+
+				this.getCategoryId()+","+this.getSubcategoryId()+","+
+				this.getSpotIntro()+","+this.getLikeCount();
 	}
 
 }
