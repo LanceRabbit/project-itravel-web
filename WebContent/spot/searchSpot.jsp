@@ -365,7 +365,14 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				//換heart-o圖
 				jQuery("#"+id).attr('title','按讚');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
+				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");		
+				
+				var spotidNo = id.substring(2);	
+				var No = "p"+spotidNo;
+				var N =jQuery("#"+No).text();
+				var count = parseInt(N)-parseInt("1");
+				jQuery("#"+No).text(count);			
+				
 				jQuery.ajax({
 					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
@@ -399,6 +406,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 							jQuery("#"+id).attr('title','收回讚');
 							jQuery("#"+id).removeAttr("class");
 							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+							var spotidNo = id.substring(2);	
+							var No = "p"+spotidNo;
+							var N =jQuery("#"+No).text();
+							var count = parseInt(N)+parseInt("1");
+							jQuery("#"+No).text(count);			
 						}
 															
 					}				
@@ -652,7 +664,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						+"<div class='fixedHeight'>"
 						+ value.spotIntro
 						+"</div>"
-						+ "</div><div class='ratings'><p class='pull-right'>"+value.spotLike+"個人按讚</p><t class='"+value.spotId+"'>"
+						+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 				); // end of jQuery
 				jQuery.ajax({
 					url : '<c:url value='/controller/CheckSpotLikeServlet'/>',
