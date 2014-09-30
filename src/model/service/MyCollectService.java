@@ -11,6 +11,7 @@ import model.Account;
 import model.AccountDAO;
 import model.SpotCollectRecord;
 import model.SpotCollectRecordDAO;
+import model.SpotCollectRecordId;
 import model.SpotDetail;
 import model.dao.AccountDAOHibernate;
 import model.dao.SpotCollectRecordDAOHibernate;
@@ -35,10 +36,14 @@ public class MyCollectService {
 	
 	//刪除收藏
 	public boolean deletSpotCollect(String AccountId,String SpotId){
+		SpotCollectRecordId spotColRec = new SpotCollectRecordId();
+		SpotCollectRecord spot = new SpotCollectRecord();
+		spotColRec.setAccountId(AccountId);
+		spotColRec.setSpotId(SpotId);
+		spot.setId(spotColRec);
+		dao.delete(spot);		
 		
-		
-		return true;
-		
+		return true;		
 	}
 	
 	//尋找有無收藏紀錄
