@@ -51,8 +51,11 @@ public class AddSpotServlet extends HttpServlet {
     	imgs.add(img4);
     	imgs.add(img5);
     	
-		Double longitude = 0.0;
-		Double latitude = 0.0;
+    	String lng = request.getParameter("lng").trim(); System.out.println("lng : " + lng);
+    	String lat = request.getParameter("lat").trim(); System.out.println("lat : " + lat);
+    	
+		Double longitude = Double.parseDouble(lng);
+		Double latitude = Double.parseDouble(lat);
 		
 		String accountId = "M14090001";
     	SpotDetail spot = new SpotDetail("M14090001", null, spotOwner, spotName, 
