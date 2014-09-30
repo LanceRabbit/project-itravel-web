@@ -46,6 +46,9 @@ public class FindTopSpotServlet extends HttpServlet {
 		JSONArray jsonSpotsLike = new JSONArray();
 		OutputStream os = response.getOutputStream();
 		// request.setAttribute("TopSpot", resultSpot);
+		
+		
+		
 		try {
 			for (SpotDetail o : resultSpot) {
 				JSONObject jsonSpot = new JSONObject();

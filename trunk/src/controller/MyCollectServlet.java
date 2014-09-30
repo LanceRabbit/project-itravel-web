@@ -85,20 +85,15 @@ public class MyCollectServlet extends HttpServlet {
 			// 有紀錄
 			Set<SpotDetail> result=service.searchDetail(AccountId);
 		    Iterator<SpotDetail> it = result.iterator();	
-			/***
-		    Iterator<JSONObject> iterator = jsonObject.values().iterator();
 
-		    while (iterator.hasNext()) {
-		     jsonChildObject = iterator.next();
-
-		     //DO what ever you whont with jsonChildObject 
-
-		      String id = (String) jsonChildObject.get("id");
-		    }
-		    *****/
+		    String webAppURL = request.getScheme() 
+					+ "://"
+					+ request.getServerName()
+					+ ":"
+					+ request.getServerPort()
+					+ request.getContextPath();
 		    
-		    
-				if(it.hasNext()){
+				while(it.hasNext()){
 					SpotDetail sp = it.next();
 					System.out.println(sp);
 						JSONObject jsonSpot;
@@ -108,7 +103,30 @@ public class MyCollectServlet extends HttpServlet {
 							jsonSpot.put("spotName", sp.getSpotName());
 							jsonSpot.put("spotIntro", sp.getSpotIntro());
 							jsonSpot.put("spotId", sp.getSpotId());
-							// spot pic
+							jsonSpot.put("spotLike", sp.getLikeCount());
+							
+							String imgURL = null;
+						
+							String imgPath = ImageIOUtil.generateImageDirPath(sp.getAccountId(),sp.getSpotId());
+							String deployDir = getServletContext().getRealPath("/");					
+							//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
+								
+							Set<SpotImg> imgs = sp.getSpotImgs();
+							Iterator<SpotImg> itimg = imgs.iterator();
+							imgURL = webAppURL + "/images/team1.jpg";
+							while (itimg.hasNext()) {
+								SpotImg image = itimg.next();
+								System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
+
+								if (image.getSpotImg() != null) {
+									ImageIOUtil.saveImage((deployDir+imgPath),image.getImgId(),image.getSpotImg());
+									imgURL = webAppURL + "/" + imgPath + "/" + image.getImgId();
+									break;
+								}
+							}									
+							System.out.println("image url : " + imgURL);
+							jsonSpot.put("spotThumbnail", imgURL);
+							
 							jsonSpots.put(jsonSpot);
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block

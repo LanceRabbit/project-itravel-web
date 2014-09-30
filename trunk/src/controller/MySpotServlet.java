@@ -19,10 +19,12 @@ import org.json.JSONObject;
 import model.Account;
 import model.AccountDAO;
 import model.SpotDetail;
+import model.SpotImg;
 import model.SpotLikeRecord;
 import model.SpotLikeRecordId;
 import model.dao.AccountDAOHibernate;
 import model.service.LikeService;
+import model.util.ImageIOUtil;
 
 /**
  * Servlet implementation class MySpotServlet
@@ -52,7 +54,12 @@ public class MySpotServlet extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 		JSONArray jsonSpots = new JSONArray();
 		OutputStream os = response.getOutputStream();
-		
+		 String webAppURL = request.getScheme() 
+					+ "://"
+					+ request.getServerName()
+					+ ":"
+					+ request.getServerPort()
+					+ request.getContextPath();
 		try {
 			for(SpotDetail o:spotDetails){
 				JSONObject jsonSpot = new JSONObject();
@@ -60,17 +67,28 @@ public class MySpotServlet extends HttpServlet {
 				jsonSpot.put("spotIntro", o.getSpotIntro());
 				jsonSpot.put("spotID", o.getSpotId());
 				
-				//spot pic
-				/*
-				jsonSpot.put("LEADER", o.getLeader());
-				jsonSpot.put("CITY_ID", o.getCityId());
-				jsonSpot.put("ADDRESS", o.getAddress());
-				jsonSpot.put("PHONE", o.getPhone());
-				jsonSpot.put("LONGITUDE", o.getLongitude());
-				jsonSpot.put("LATITUDE", o.getLatitude());
-				jsonSpot.put("CATEGORY_ID", o.getCategoryId());
-				jsonSpot.put("SUBCATEGORY_ID", o.getSubcategoryId());
-			 	*/
+				
+				String imgURL = null;
+				
+				String imgPath = ImageIOUtil.generateImageDirPath(o.getAccountId(),o.getSpotId());
+				String deployDir = getServletContext().getRealPath("/");					
+				//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
+					
+				Set<SpotImg> imgs = o.getSpotImgs();
+				Iterator<SpotImg> itimg = imgs.iterator();
+				imgURL = webAppURL + "/images/team1.jpg";
+				while (itimg.hasNext()) {
+					SpotImg image = itimg.next();
+					System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
+					
+					if (image.getSpotImg() != null) {
+						ImageIOUtil.saveImage((deployDir+imgPath),image.getImgId(),image.getSpotImg());
+						imgURL = webAppURL + "/" + imgPath + "/" + image.getImgId();
+						break;
+					}
+				}									
+				System.out.println("image url : " + imgURL);
+				jsonSpot.put("spotThumbnail", imgURL);
 				
 				
 				jsonSpots.put(jsonSpot);

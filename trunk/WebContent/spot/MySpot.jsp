@@ -13,6 +13,34 @@
 body {
 	padding: 20px;
 }
+p { /*用於內文   多行文字溢出用...取代*/
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+}
+
+h4 { /*用於標題   單行文字溢出用...取代*/
+	white-space: nowrap;
+	width: 100%; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+}
+
+.col-xs-3{
+width:220px;
+height:330px;
+
+}
+img { 
+wudth:200px;
+height:200px;
+} 
+
+
 
 </style>
 
@@ -80,11 +108,11 @@ body {
 									jQuery.each(data,function(index,value) {
 										jQuery('#listDetails')
 																.append(
-																		"<div id='div"+count+"'class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a href='#'>"
+																		"<div id='div"+count+"'class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''><div class='caption'><h4><a href='#'>"
 																				+ value.spotName
-																				+ "</a></h4>"
+																				+ "</a></h4><p>"
 																				+ value.spotIntro
-																				+ "</div><div class='ratings'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p></div></div></div>");
+																				+ "</p></div><div class='ratings'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p></div></div></div>");
 									count++;				
 									});
 								},
