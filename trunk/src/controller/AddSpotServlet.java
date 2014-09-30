@@ -70,7 +70,7 @@ public class AddSpotServlet extends HttpServlet {
     	if(accountId == null)
     		accountId = "M14090001";
     		
-    	SpotDetail spot = new SpotDetail("M14090001", null, spotOwner, spotName, 
+    	SpotDetail spot = new SpotDetail(accountId, null, spotOwner, spotName, 
     			cityId, address, phone,
     			longitude, latitude, intro, 0,
     			categoryId, subcategoryId, "NEW", null, null, null, null, null,
