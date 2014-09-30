@@ -538,11 +538,290 @@
   </div>
 </div>
 	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
-	<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
+<script>
 	
-	 $('#date_timepicker_start').datetimepicker({
+	// account related
+	jQuery("#idForgotPsw").click(function() {
+		jQuery('#topmodals').modal('hide');
+		jQuery('#modalForgotPsw').modal('show');
+	});
+
+	jQuery("#btOK1").click(function() {
+		jQuery("#signupOK").modal('hide');
+	});
+	jQuery("#btOK2").click(function() {
+		jQuery("#signupError").modal('hide');
+	});
+	jQuery("#btOK3").click(function() {
+		jQuery("#unactivated").modal('hide');
+	});
+	jQuery("#btOK4").click(function() {
+		jQuery("#atBlackListAnnouncement").modal('hide');
+	});
+	jQuery("#idClickSignup").click(function() {
+		jQuery('#topmodals').modal('hide');
+		jQuery('#signupTypeSelect').modal('show');
+	});
+	jQuery("#backtoLogin").click(function() {
+		jQuery('#signupTypeSelect').modal('hide');
+		jQuery('#topmodals').modal('show');
+	});
+	jQuery("#backtoLoginfromForgotPsw").click(function() {
+		jQuery('#modalForgotPsw').modal('hide');
+		jQuery('#topmodals').modal('show');
+	});
+	jQuery("#chekCharactar").click(function() {
+		var choose = jQuery('[name="signupRadio"]:checked').val();
+		if (choose == 'asMember') {
+			jQuery('#signupTypeSelect').modal('hide');
+			jQuery('#signupmodalsMember').modal('show');
+		} else if (choose == 'asOwner') {
+			jQuery('#signupTypeSelect').modal('hide');
+			jQuery('#signupmodalsOwner').modal('show');
+		}
+	});
+
+	jQuery("#backtoSelectCha1").click(function() {
+		jQuery('#signupmodalsMember').modal('hide');
+		jQuery('#signupTypeSelect').modal('show');
+	});
+	jQuery("#backtoSelectCha2").click(function() {
+		jQuery('[name="spanCheckO"]').each(function() {
+			jQuery(this).text("");
+		});
+		jQuery('[name="formSignupOwn"] input').each(function() {
+			jQuery(this).val("");
+		});
+		jQuery('#signupmodalsOwner').modal('hide');
+		jQuery('#signupTypeSelect').modal('show');
+	});
+	jQuery("#idEmail").focusout(function() {
+		var email = jQuery("#idEmail").val();
+		if (isValidEmailAddress(email)) {
+			jQuery.post('<c:url value="/controller/CheckEmailServlet" />', {
+				"email" : email
+			}, function(data) {
+				if (data == 'true') {
+					jQuery("#checkEmail").html("");
+				} else {
+					jQuery("#checkEmail").html("Email已註冊過");
+				}
+			}).done(function() {
+				isCompleted();
+			});
+		} else {
+			jQuery("#checkEmail").html("Email格式錯誤");
+			isCompleted();
+		}
+	});
+	jQuery("#idPsw1").keyup(function() {
+		var password1 = jQuery("#idPsw1").val();
+		if (chkPsw(password1)) {
+			jQuery("#checkPsw1").html("");
+			var password2 = jQuery("#idPsw2").val();
+			if (password2 != "") {
+				if (password1 == password2) {
+					jQuery("#checkPsw2").html("");
+				} else {
+					jQuery("#checkPsw2").html("請輸入相同密碼");
+				}
+			}
+		} else {
+			jQuery("#checkPsw1").html("格式錯誤");
+		}
+		isCompleted();
+	});
+	jQuery("#idPsw2").keyup(function() {
+		var password1 = jQuery("#idPsw1").val();
+		var password2 = jQuery("#idPsw2").val();
+		if (password1 == password2) {
+			jQuery("#checkPsw2").html("");
+		} else {
+			jQuery("#checkPsw2").html("請輸入相同密碼");
+		}
+		isCompleted();
+	});
+	jQuery("#idNick").focusout(function() {
+		var nickName = jQuery("#idNick").val();
+		if (nickName != "") {
+			jQuery("#checkNick").html("");
+		} else {
+			jQuery("#checkNick").html("請輸入用戶名");
+		}
+		isCompleted();
+	});
+	jQuery("#idEmailO").focusout(function() {
+		var email = jQuery("#idEmailO").val();
+		if (isValidEmailAddress(email)) {
+			jQuery.post('<c:url value="/controller/CheckEmailServlet" />', {
+				"email" : email
+			}, function(data) {
+				if (data == 'true') {
+					jQuery("#checkEmailO").html("");
+				} else {
+					jQuery("#checkEmailO").html("Email已註冊過");
+				}
+			}).done(function() {
+				isCompletedO();
+			});
+		} else {
+			jQuery("#checkEmailO").html("Email格式錯誤");
+			isCompletedO();
+		}
+	});
+	jQuery("#idPswO1").keyup(function() {
+		var password1 = jQuery("#idPswO1").val();
+		if (chkPsw(password1)) {
+			jQuery("#checkPswO1").html("");
+			var password2 = jQuery("#idPswO2").val();
+			if (password2 != "") {
+				if (password1 == password2) {
+					jQuery("#checkPswO2").html("");
+				} else {
+					jQuery("#checkPswO2").html("請輸入相同密碼");
+				}
+			}
+		} else {
+			jQuery("#checkPswO1").html("格式錯誤");
+		}
+		isCompletedO();
+	});
+	jQuery("#idPswO2").keyup(function() {
+		var password1 = jQuery("#idPswO1").val();
+		var password2 = jQuery("#idPswO2").val();
+		if (password1 == password2) {
+			jQuery("#checkPswO2").html("");
+		} else {
+			jQuery("#checkPswO2").html("請輸入相同密碼");
+		}
+		isCompletedO();
+	});
+	jQuery("#idNickO").focusout(function() {
+		var nickName = jQuery("#idNickO").val();
+		if (nickName != "") {
+			jQuery("#checkNickO").html("");
+		} else {
+			jQuery("#checkNickO").html("請輸入用戶名");
+		}
+		isCompletedO();
+	});
+	jQuery("#idOwnerO").focusout(function() {
+		var owner = jQuery("#idOwner").val();
+		if (owner != "") {
+			jQuery("#checkOwnerO").html("");
+		} else {
+			jQuery("#checkOwnerO").html("請輸入負責人");
+		}
+		isCompletedO();
+	});
+	jQuery('#idImage').bind('change', function() {
+		if (this.files[0].size > 8388608) {
+			jQuery("#checkImage").html("檔案過大");
+		} else {
+			jQuery("#checkImage").html("");
+		}
+		isImageOK();
+	});
+	jQuery('#idImageO').bind('change', function() {
+		if (this.files[0].size > 8388608) {
+			jQuery("#checkImageO").html("檔案過大");
+		} else {
+			jQuery("#checkImageO").html("");
+		}
+		isImageOK();
+	});
+
+	function isImageOK() {
+		var imgSpanM = document.getElementById("checkImage");
+		var imgSpanO = document.getElementById("checkImageO");
+		if (imgSpanM.innerHTML != "") {
+			if (!document.getElementById("idSubmit").getAttribute("disabled")) {
+				document.getElementById("idSubmit").setAttribute("disabled",
+						"disabled");
+			}
+			return;
+		} else {
+			document.getElementById("idSubmit").removeAttribute("disabled");
+		}
+		if (imgSpanO.innerHTML != "") {
+			if (!document.getElementById("idSubmitO").getAttribute("disabled")) {
+				document.getElementById("idSubmitO").setAttribute("disabled",
+						"disabled");
+			}
+			return;
+		} else {
+			document.getElementById("idSubmitO").removeAttribute("disabled");
+		}
+	}
+	function isCompleted() {
+		//var tx = document.getElementsByTagName("input");
+		var sp = document.getElementsByName("spanCheck");
+		/* 	for(var i =0;i<4;i++){
+				if(tx[i].value==""){
+					console.log(tx[i].value);
+					if(!document.getElementById("idSubmit").getAttribute("disabled")){
+						document.getElementById("idSubmit").setAttribute("disabled","disabled");}
+					return;
+				}
+			} */
+		for (var i = 0; i < 4; i++) {
+			if (sp[i].innerHTML != "") {
+				console.log(sp[i].innerHTML);
+				if (!document.getElementById("idSubmit").getAttribute(
+						"disabled")) {
+					document.getElementById("idSubmit").setAttribute(
+							"disabled", "disabled");
+				}
+				return;
+			}
+		}
+		document.getElementById("idSubmit").removeAttribute("disabled");
+	}
+	function isCompletedO() {
+		var sp = document.getElementsByName("spanCheckO");
+		for (var i = 0; i < 5; i++) {
+			if (sp[i].innerHTML != "") {
+				console.log(sp[i].innerHTML);
+				if (!document.getElementById("idSubmitO").getAttribute(
+						"disabled")) {
+					document.getElementById("idSubmitO").setAttribute(
+							"disabled", "disabled");
+				}
+				return;
+			}
+		}
+		document.getElementById("idSubmitO").removeAttribute("disabled");
+	}
+	function removeSendMailMsgForgotPswAttr() {
+		<c:remove var="sendMailMsgForgotPsw" scope="session" />;
+		<c:remove var="errorTimeout" scope="session" />;
+	}
+	function removeAccountLockedAttr() {
+		<c:remove var="accountLocked" scope="session" />;
+	}
+
+	function removeSignupOKAttr() {
+		<c:remove var="signupOK" scope="session" />;
+	}
+	function removeActivatedAttr() {
+		<c:remove var="activated" scope="session" />;
+	}
+	function isValidEmailAddress(emailAddress) {
+		var pattern = new RegExp(
+				/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+		return pattern.test(emailAddress);
+	}
+	function chkPsw(password) {
+
+		var re = /^(?=.*[0-9])(?=.*[A-Za-z])\S{6,}$/;
+		return re.test(password);
+
+	}
+
+	// trip related
+		 jQuery('#date_timepicker_start').datetimepicker({
 		  format:'Y/m/d',
 		  startDate:0,
          minDate:0,
@@ -555,369 +834,108 @@
 		  timepicker:false
 	 });
 	 
-	 
-	 $('#date_timepicker_end').datetimepicker({
+	 jQuery('#date_timepicker_end').datetimepicker({
 		  format:'Y/m/d',
 		  startDate:0,
         
 		  closeOnDateSelect:true,
 		  onShow:function( ct ){
-			  console.log($('#date_timepicker_start').val());
-			  console.log($('#date_timepicker_start').val().length);
+			  console.log(jQuery('#date_timepicker_start').val());
+			  console.log(jQuery('#date_timepicker_start').val().length);
 			  this.setOptions({
 				    minDate:(jQuery('#date_timepicker_start').val().length!=0)?jQuery('#date_timepicker_start').val():0
 			  })
 		  },
 		  timepicker:false
 	 });
-	 $("#date_timepicker_end").change(function(){
-			var date1 = new Date($('#date_timepicker_start').val());
-			var date2 = new Date($('#date_timepicker_end').val());
+	 
+	 jQuery("#date_timepicker_end").change(function(){
+			var date1 = new Date(jQuery('#date_timepicker_start').val());
+			var date2 = new Date(jQuery('#date_timepicker_end').val());
 
-			$("#totalDay").val(Date.daysBetween(date1, date2));
+			jQuery("#totalDay").val(Date.daysBetween(date1, date2));
 			console.log(Date.daysBetween(date1, date2));
-	});
+	 });
 
-	  $(function () { $('#addTripModal').on('hidden.bs.modal', function () {
-			$("form .top-form-control").val("");
-	 	});
-	  }); 
-	  
-	Date.daysBetween = function( date1, date2 ) {
-	  //Get 1 day in milliseconds
-	  var one_day=1000*60*60*24;
+	 Date.daysBetween = function(date1, date2) {
+		//Get 1 day in milliseconds
+		var one_day = 1000 * 60 * 60 * 24;
 
-	  // Convert both dates to milliseconds
-	  var date1_ms = date1.getTime();
-	  var date2_ms = date2.getTime();
+		// Convert both dates to milliseconds
+		var date1_ms = date1.getTime();
+		var date2_ms = date2.getTime();
 
-	  // Calculate the difference in milliseconds
-	  var difference_ms = date2_ms - date1_ms;
-	    
-	  // Convert back to days and return
-	  return Math.round(difference_ms/one_day)+1; 
-	}
+		// Calculate the difference in milliseconds
+		var difference_ms = date2_ms - date1_ms;
+
+		// Convert back to days and return
+		return Math.round(difference_ms / one_day) + 1;
+	 }
 	
-	
-		$(document).ready(function(){
-			if($('[name="loginError"]').text()!=""){
-				$('#topmodals').modal('show');
-			}
-			if($('[name="spanForgotPsw"]').text()!=""){
-				$('#modalForgotPsw').modal('show');
-			}
-			if($('#resultForgotPsw').text()!=""){
-				$("#modalForgotPsw").modal('show');
-				removeSendMailMsgForgotPswAttr();
-				console.log('ResultForgotPsw= '+$('#resultForgotPsw').text());
-			}
-			if($('#resultSignup').text()=='true'){
-				$("#signupOK").modal('show');
-				removeSignupOKAttr();
-			}else if($('#resultSignup').text()=='false'){
-				$("#signupError").modal('show');
-				removeSignupOKAttr();
-			}
-			if($('#activated').text()=='false'){
-				$("#unactivated").modal('show');
-				removeActivatedAttr();
-			}
-			if($('#resultBlacklistLogin').text()!=""){
-				$("#atBlackListAnnouncement").modal('show');
-				removeAccountLockedAttr();
-			}
-			if($('#checkImageMember').text()!=""){
-				$("#signupmodalsMember").modal('show');
-			}
-			if($('#checkImageOwner').text()!=""){
-				$("#signupmodalsOwner").modal('show');
-			}
-		});
-		$("#idForgotPsw").click(function(){
-			$('#topmodals').modal('hide');
-			$('#modalForgotPsw').modal('show');
-		});
-		
-		
-		$("#btOK1").click(function(){
-			$("#signupOK").modal('hide');
-		});
-		$("#btOK2").click(function(){
-			$("#signupError").modal('hide');
-		});
-		$("#btOK3").click(function(){
-			$("#unactivated").modal('hide');
-		});
-		$("#btOK4").click(function(){
-			$("#atBlackListAnnouncement").modal('hide');
-		});
-		$("#idClickSignup").click(function(){
-			$('#topmodals').modal('hide');
-			$('#signupTypeSelect').modal('show');
-		});
-		$("#backtoLogin").click(function(){
-			$('#signupTypeSelect').modal('hide');
-			$('#topmodals').modal('show');
-		});
-		$("#backtoLoginfromForgotPsw").click(function(){
-			$('#modalForgotPsw').modal('hide');
-			$('#topmodals').modal('show');
-		});
-		$("#chekCharactar").click(function(){
-			var choose = $('[name="signupRadio"]:checked').val();
-			if(choose=='asMember'){
-				$('#signupTypeSelect').modal('hide');
-				$('#signupmodalsMember').modal('show');
-			}else if(choose=='asOwner'){
-				$('#signupTypeSelect').modal('hide');
-				$('#signupmodalsOwner').modal('show');
-			}
-		});
-		  $(function () { $('.modal').on('hidden.bs.modal', function () {
-			    $('[name="spanCheck"]').each(function(){
-					$(this).text("");
+	// execute when DOM is ready
+	jQuery(document).ready(
+			function() {
+				if (jQuery('[name="loginError"]').text() != "") {
+					jQuery('#topmodals').modal('show');
+				}
+				if (jQuery('[name="spanForgotPsw"]').text() != "") {
+					jQuery('#modalForgotPsw').modal('show');
+				}
+				if (jQuery('#resultForgotPsw').text() != "") {
+					jQuery("#modalForgotPsw").modal('show');
+					removeSendMailMsgForgotPswAttr();
+					console.log('ResultForgotPsw= '
+							+ jQuery('#resultForgotPsw').text());
+				}
+				if (jQuery('#resultSignup').text() == 'true') {
+					jQuery("#signupOK").modal('show');
+					removeSignupOKAttr();
+				} else if (jQuery('#resultSignup').text() == 'false') {
+					jQuery("#signupError").modal('show');
+					removeSignupOKAttr();
+				}
+				if (jQuery('#activated').text() == 'false') {
+					jQuery("#unactivated").modal('show');
+					removeActivatedAttr();
+				}
+				if (jQuery('#resultBlacklistLogin').text() != "") {
+					jQuery("#atBlackListAnnouncement").modal('show');
+					removeAccountLockedAttr();
+				}
+				if (jQuery('#checkImageMember').text() != "") {
+					jQuery("#signupmodalsMember").modal('show');
+				}
+				if (jQuery('#checkImageOwner').text() != "") {
+					jQuery("#signupmodalsOwner").modal('show');
+				}
+
+				// modal for trip
+				jQuery('.modal').on('hidden.bs.modal', function() {
+					jQuery('[name="spanCheck"]').each(function() {
+						jQuery(this).text("");
+					});
+					jQuery('[name="spanCheckO"]').each(function() {
+						jQuery(this).text("");
+					});
+					jQuery('[name="spanForgotPsw"]').each(function() {
+						jQuery(this).text("");
+					});
+					jQuery('.modal .needClaer').each(function() {
+						jQuery(this).val("");
+					});
+
 				});
-			    $('[name="spanCheckO"]').each(function(){
-					$(this).text("");
+
+				jQuery('#modalForgotPsw').on('hidden.bs.modal', function() {
+					jQuery('.modal .needClaer').each(function() {
+						jQuery(this).val("");
+					});
 				});
-			    $('[name="spanForgotPsw"]').each(function(){
-					$(this).text("");
+
+				jQuery('#addTripModal').on('hidden.bs.modal', function() {
+					jQuery("form .top-form-control").val("");
 				});
-				$('.modal .needClaer').each(function(){
-					$(this).val("");
-				});  
-				
-		 		});
-		 		/* $('#modalForgotPsw').on('hidden.bs.modal', function () {
-		 			$('.modal .needClaer').each(function(){
-						$(this).val("");
-					});  
-				
-		 		}); */
-		  
-		   }); 
-	
-		
-		$("#backtoSelectCha1").click(function(){
-			$('#signupmodalsMember').modal('hide');
-			$('#signupTypeSelect').modal('show');
-		});
-		$("#backtoSelectCha2").click(function(){
-			$('[name="spanCheckO"]').each(function(){
-				$(this).text("");
-			});
-			$('[name="formSignupOwn"] input').each(function(){
-				$(this).val("");
-			});
-			$('#signupmodalsOwner').modal('hide');
-			$('#signupTypeSelect').modal('show');
-		});
-		$("#idEmail").focusout(function() {
-			  var email = $("#idEmail").val();
-			  if(isValidEmailAddress(email)) {
-				  $.post('<c:url value="/controller/CheckEmailServlet" />',{"email":email},function(data){
-					  if(data=='true'){
-			    			$("#checkEmail").html("");
-			    		}else{
-			    			$("#checkEmail").html("Email已註冊過");
-			    		}
-		    		 }).done(function(){
-		    			 isCompleted();
-		    		 }); 	  
-				} else {
-					$("#checkEmail").html("Email格式錯誤");
-					isCompleted();
-				}
-		  });
-		$("#idPsw1").keyup(function() {
-			var password1 = $("#idPsw1").val();
-			if(chkPsw(password1)){
-				$("#checkPsw1").html("");
-				var password2 = $("#idPsw2").val();
-				if(password2!=""){
-					if(password1==password2){
-						$("#checkPsw2").html("");
-					}else{
-						$("#checkPsw2").html("請輸入相同密碼");
-					}
-				}
-			}else{
-				$("#checkPsw1").html("格式錯誤");
-			}
-			isCompleted();
-		});
-		$("#idPsw2").keyup(function() {
-			var password1 = $("#idPsw1").val();
-			var password2 = $("#idPsw2").val();
-			if(password1==password2){
-				$("#checkPsw2").html("");
-			}else{
-				$("#checkPsw2").html("請輸入相同密碼");
-			}
-			isCompleted();
-		});
-		$("#idNick").focusout(function() {
-			var nickName = $("#idNick").val();
-			if(nickName!=""){
-				$("#checkNick").html("");
-			}else{
-				$("#checkNick").html("請輸入用戶名");
-			}
-			isCompleted();
-		});
-		$("#idEmailO").focusout(function() {
-			  var email = $("#idEmailO").val();
-			  if(isValidEmailAddress(email)) {
-				  $.post('<c:url value="/controller/CheckEmailServlet" />',{"email":email},function(data){
-					  if(data=='true'){
-			    			$("#checkEmailO").html("");
-			    		}else{
-			    			$("#checkEmailO").html("Email已註冊過");
-			    		}
-		    		 }).done(function(){
-		    			 isCompletedO();
-		    		 }); 	  
-				} else {
-					$("#checkEmailO").html("Email格式錯誤");
-					isCompletedO();
-				}
-		  });
-		$("#idPswO1").keyup(function() {
-			var password1 = $("#idPswO1").val();
-			if(chkPsw(password1)){
-				$("#checkPswO1").html("");
-				var password2 = $("#idPswO2").val();
-				if(password2!=""){
-					if(password1==password2){
-						$("#checkPswO2").html("");
-					}else{
-						$("#checkPswO2").html("請輸入相同密碼");
-					}
-				}
-			}else{
-				$("#checkPswO1").html("格式錯誤");
-			}
-			isCompletedO();
-		});
-		$("#idPswO2").keyup(function() {
-			var password1 = $("#idPswO1").val();
-			var password2 = $("#idPswO2").val();
-			if(password1==password2){
-				$("#checkPswO2").html("");
-			}else{
-				$("#checkPswO2").html("請輸入相同密碼");
-			}
-			isCompletedO();
-		});
-		$("#idNickO").focusout(function() {
-			var nickName = $("#idNickO").val();
-			if(nickName!=""){
-				$("#checkNickO").html("");
-			}else{
-				$("#checkNickO").html("請輸入用戶名");
-			}
-			isCompletedO();
-		});
-		$("#idOwnerO").focusout(function() {
-			var owner = $("#idOwner").val();
-			if(owner!=""){
-				$("#checkOwnerO").html("");
-			}else{
-				$("#checkOwnerO").html("請輸入負責人");
-			}
-			isCompletedO();
-		});
-		$('#idImage').bind('change', function() {
-			 if(this.files[0].size>8388608){
-				 $("#checkImage").html("檔案過大");
-			 }else{
-				 $("#checkImage").html("");
-			 }
-			isImageOK();
-		});
-		$('#idImageO').bind('change', function() {
-			 if(this.files[0].size>8388608){
-				 $("#checkImageO").html("檔案過大");
-			 }else{
-				 $("#checkImageO").html("");
-			 }
-			isImageOK();
-		});
-	function isImageOK(){
-		var imgSpanM = document.getElementById("checkImage");
-		var imgSpanO = document.getElementById("checkImageO");
-		if(imgSpanM.innerHTML!=""){
-			if(!document.getElementById("idSubmit").getAttribute("disabled")){
-				document.getElementById("idSubmit").setAttribute("disabled", "disabled");}
-			return;
-		}else{
-			document.getElementById("idSubmit").removeAttribute("disabled");
-		}
-		if(imgSpanO.innerHTML!=""){
-			if(!document.getElementById("idSubmitO").getAttribute("disabled")){
-				document.getElementById("idSubmitO").setAttribute("disabled", "disabled");}
-			return;
-		}else{
-			document.getElementById("idSubmitO").removeAttribute("disabled");
-		}
-	}
-	function isCompleted(){
-		//var tx = document.getElementsByTagName("input");
-		var sp = document.getElementsByName("spanCheck");
-	/* 	for(var i =0;i<4;i++){
-			if(tx[i].value==""){
-				console.log(tx[i].value);
-				if(!document.getElementById("idSubmit").getAttribute("disabled")){
-					document.getElementById("idSubmit").setAttribute("disabled","disabled");}
-				return;
-			}
-		} */
-		for(var i =0;i<4;i++){
-			if(sp[i].innerHTML!=""){
-				console.log(sp[i].innerHTML);
-				if(!document.getElementById("idSubmit").getAttribute("disabled")){
-					document.getElementById("idSubmit").setAttribute("disabled", "disabled");}
-				return;
-			}
-		}
-		document.getElementById("idSubmit").removeAttribute("disabled");
-	}
-	function isCompletedO(){
-		var sp = document.getElementsByName("spanCheckO");
-		for(var i =0;i<5;i++){
-			if(sp[i].innerHTML!=""){
-				console.log(sp[i].innerHTML);
-				if(!document.getElementById("idSubmitO").getAttribute("disabled")){
-					document.getElementById("idSubmitO").setAttribute("disabled", "disabled");}
-				return;
-			}
-		}
-		document.getElementById("idSubmitO").removeAttribute("disabled");
-	}
-	function removeSendMailMsgForgotPswAttr(){
-		<c:remove var="sendMailMsgForgotPsw" scope="session" />;
-		<c:remove var="errorTimeout" scope="session" />;
-	}
-	function removeAccountLockedAttr(){
-		<c:remove var="accountLocked" scope="session" />;
-	}
-	
-	function removeSignupOKAttr(){
-		<c:remove var="signupOK" scope="session" />;
-	}
-	function removeActivatedAttr(){
-		<c:remove var="activated" scope="session" />;
-	}
-	function isValidEmailAddress(emailAddress) {
-		var pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
-		return pattern.test(emailAddress);
-		}
-	function chkPsw(password) {
-	    
-	    var re = /^(?=.*[0-9])(?=.*[A-Za-z])\S{6,}$/;
-		return re.test(password);
-	   
-	}
-	</script>
+	}); // end of jQuery(document).ready(function(){	
+</script>
 </body>
 </html>
