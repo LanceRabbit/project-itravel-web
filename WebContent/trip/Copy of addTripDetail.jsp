@@ -58,10 +58,6 @@
 .nav-tabs > li:hover > span {
     display: inline-block;
 }
-
-.trip-name {
-	text-align: center;
-}
 </style>
 
 
@@ -70,30 +66,24 @@
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp"/>
 	<!-- Page Content -->
-	<div class="container thumbnail">
-	<div class="trip-name">
-		<h4>${param.tripName}</h4>
-		<span id='tripId' hidden>${param.tripName}</span>
-		<span id='tripName' hidden>${param.dateStart}</span>
-		<span id='totalDay' hidden>${param.totalDay}</span>
-	</div>
+	<div class="container">
 	<div class="row"> 
 			<div class='col-xs-6'>
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
-		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
+		        <li class="active"><a href="#contact_01" data-toggle="tab">Day1</a>
 		        </li>
-		        <li><a href="#contact_2" data-toggle="tab">Day2</a>  <span> x </span> 
+		        <li><a href="#contact_02" data-toggle="tab">Day2</a>  <span> x </span> 
 		        </li>
 		        <li><a href="#add-tab" id ="add-tab" class="add-contact">+</a>
 		        </li>
 		    </ul>
-		    <div id="pageContent" class="tab-content">
-		        <div class="tab-pane active" id="contact_1">Contact Form: Day1</div>
-		        <div class="tab-pane" id="contact_2">Contact Form: Day2</div>
+		    <div class="tab-content">
+		        <div class="tab-pane active" id="contact_01">Contact Form: Day1</div>
+		        <div class="tab-pane" id="contact_02">Contact Form: Day2</div>
 		    </div>
 	</div>
 	<div class="clearfix visible-xs-block"></div>
-	<div id="test" class='col-xs-6'>
+	<div class='col-xs-6'>
 	<form action="<c:url value="/pages/product.controller" />" method="post">
 	<input type="hidden" name="">
 	<table>
@@ -132,6 +122,7 @@
 	<jsp:include page="/fragment/bottom.jsp" />
 <script>
 (function($) {
+var dd = 0 ;
 	$(document).ready(function() {
 		$(".nav-tabs").on("click", "a", function (e) {
 	        e.preventDefault();
@@ -141,88 +132,100 @@
 	    })
 	    .on("click", "span", function () {
 		    var tabId = $(this).parents('li').children('a').attr('href');
-		    console.log(tabId);
 		    $(this).parents('li').remove('li');
 		    $(tabId).remove();
 		    reNumberPages();
-		    reContentPages();
 	        if($(".nav-tabs").children().length<8){
 		    	
 		    	$('.add-contact').show();
 		    }
 	        $(".nav-tabs li").children('a').first().click();
-	
+	        $('#pageTab a:first').tab('show');
 	    });
-
+		$('#pageTab').on('click', ' li a .close', function() {
+		    var tabId = $(this).parents('li').children('a').attr('href');
+		    $(this).parents('li').remove('li');
+		    $(tabId).remove();
+		    reNumberPages();
+		    $('#pageTab a:first').tab('show');
+		});
 		/**
 		* Reset numbering on tab buttons
 		*/
 		function reNumberPages() {
 		    pageNum = 1;
-		    listNum = 1;
 		    var tabCount = $('#pageTab > li').length;
+		    console.log(tabCount);
 		    $('#pageTab > li').each(function() {
-		    	var listId = "#contact_"+listNum;
-		    	listNum++;
 		        var pageId = $(this).children('a').attr('href');
-	
-		        if (pageId == "#contact_1") {
+		        console.log(pageId);
+		        if (pageId == "#contact_01") {
 		            return true;
 		        } else if (pageId =="#add-tab"){
+		        	   console.log("123456");
 		        	return true;
 		        }
 		        pageNum++;
-		        $(this).children('a').html('Day' + pageNum);
-		        if(listId!=pageId){
-		        	$(this).children('a').attr('href',listId);
-		        	
-		        }
-		        
+		        $(this).children('a').html('Day ' + pageNum );
 		    });
 		   if($(".nav-tabs").children().length>7){
+		    	
 		    	$('.add-contact').hide();
 		    }
 		}	
-		/**
-		* Reset numbering on tab buttons
-		*/
-		function reContentPages() {
-		    pageNum = 1;
-		    listNum = 1;
-		    var tabCount = $('#pageContent > div').length;
-		    console.log(tabCount);
-		    $('#pageContent > div').each(function() {
-		    	var listId = "contact_"+listNum;
-		    	listNum++;
-		        var pageId = $(this).attr('id');
-		        console.log(pageId);
-		        if (pageId == "contact_1") {
-		            return true;
-		        }
-		        if(listId!=pageId){
-		        	$(this).attr('id',listId);
-		        }
-		        
-		    });
 		
-		}	
-			
-			
-		$('.add-contact').click(function (e) {
-			
-		    e.preventDefault();
-		   
-		    var id = $(".nav-tabs").children().length; //think about it ;)
-			var tabId = 'contact_' + id;
-		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
-		    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
-		    $('.nav-tabs li:nth-child(' + id + ') a').click();
-			   if($(".nav-tabs").children().length>7){
-			    	$('.add-contact').hide();
-			    }
-			});
-		});
+		
+		
+	$('.add-contact').click(function (e) {
+		
+	    e.preventDefault();
+	   
+	    var id = $(".nav-tabs").children().length; //think about it ;)
+		var tabId = 'contact_' + id;
+	    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
+	    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
+	    $('.nav-tabs li:nth-child(' + id + ') a').click();
+		   if($(".nav-tabs").children().length>7){
+		    	
+		    	$('.add-contact').hide();
+		    }
+	});
+	});
+	
+	/**
+	* Add a Tab
+	*/
+	$('#btnAddPage').click(function() {
+	    pageNum++;
+	    $('#pageTab').append(
+	        $('</pre><ul><li><a href="#page' + pageNum + '">' +
+	    'Page ' + pageNum +
+	    '<button class="close" title="Remove this page" type="button">×</button>' +
+	    '</a></li></ul><pre>'));
+	 
+	    $('#pageTabContent').append(('</pre><div class="tab-pane" id="page' + pageNum 
+	    		+'">Content page' + pageNum + '</div><pre>'));
+	 
+	    $('#page' + pageNum).tab('show');
+	});
+	 
+	/**
+	* Remove a Tab
+	*/
+
+	 
+	/**
+	 * Click Tab to show its contents
+	 */
+	$("#pageTab").on("click", "a", function(e) {
+	    e.preventDefault();
+	    $(this).tab('show');
+	});
+
+	
 })(jQuery);
 </script>
+
+
 </body>
 </html>

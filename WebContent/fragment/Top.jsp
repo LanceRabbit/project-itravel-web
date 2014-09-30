@@ -137,7 +137,7 @@
 					<h3 class="modal-title" id="myModalLabel">新增行程</h3>
 				</div>
 				<div class="modal-body">
-					<form action="<c:url value="/trip/addTripDetail.jsp"/>;"
+					<form action="<c:url value="/controller/TransferAddTripServlet"/>;"
 						method="POST">
 						<table>
 							<tr>
@@ -150,7 +150,7 @@
 							</tr>
 							<tr>
 								<td style="font-weight: bold;">起始日期：</td>
-								<td><input id="date_timepicker_start" type="text" name="date_start"
+								<td><input id="date_timepicker_start" type="text" name="dateStart"
 									class="top-form-control" required></td>
 							</tr>
 							<tr>
@@ -158,12 +158,12 @@
 							</tr>
 							<tr>
 								<td style="font-weight: bold;">結束日期：</td>
-								<td><input id="date_timepicker_end" type="text" name="date_end"
+								<td><input id="date_timepicker_end" type="text" name="date=-end"
 									class="top-form-control" required></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td></td>
+								<td><input id="totalDay" name="totalDay" type="text" hidden></td>
 							</tr>
 						</table>
 				</div>
@@ -544,29 +544,19 @@
 		  },
 		  timepicker:false
 	 });
-		
-
-	  $(function () { $('#addTripModal').on('hidden.bs.modal', function () {
-		
-			console.log($('#date_timepicker_start').val());
-			console.log($('#date_timepicker_end').val());
+	 $("#date_timepicker_end").change(function(){
 			var date1 = new Date($('#date_timepicker_start').val());
 			var date2 = new Date($('#date_timepicker_end').val());
 
+			$("#totalDay").val(Date.daysBetween(date1, date2));
+			console.log(Date.daysBetween(date1, date2));
+	});
 
-			console.log( 'Days since ' 
-			           + date1 + ': ' 
-			           + Date.daysBetween(date1, date2));	
-			
+	  $(function () { $('#addTripModal').on('hidden.bs.modal', function () {
 			$("form .top-form-control").val("");
-		  
-		  
-	 		});
-	 
-	   }); 
-	 
-
-
+	 	});
+	  }); 
+	  
 	Date.daysBetween = function( date1, date2 ) {
 	  //Get 1 day in milliseconds
 	  var one_day=1000*60*60*24;

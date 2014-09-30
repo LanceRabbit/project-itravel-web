@@ -56,7 +56,7 @@
 					<h3 class="modal-title" id="myModalLabel">新增行程</h3>
 				</div>
 				<div class="modal-body">
-					<form action="<c:url value="/controller/LoginServlet"/>;"
+					<form action="#"
 						method="POST">
 						<table>
 							<tr>
@@ -82,12 +82,12 @@
 							</tr>
 							<tr>
 								<td>&nbsp;</td>
-								<td></td>
+								<td><input id="total_day" type="text" ></td>
 							</tr>
 						</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" id="idClickSignup"
+					<button id="test" type="button" class="btn btn-default" id="idClickSignup"
 						data-dismiss="modal">取消</button>
 					<input type="submit" class="btn btn-info" value="繼續" />
 				</div>
@@ -98,7 +98,13 @@
 
 <script>
 (function($) {
-		
+		$("#date_timepicker_end").change(function(){
+			var date1 = new Date($('#date_timepicker_start').val());
+			var date2 = new Date($('#date_timepicker_end').val());
+
+			$("#total_day").val(Date.daysBetween(date1, date2));
+			
+		})
 		 $('#date_timepicker_start').datetimepicker({
 			  format:'Y/m/d',
 			  startDate:0,
@@ -135,12 +141,12 @@
 		var date1 = new Date($('#date_timepicker_start').val());
 		var date2 = new Date($('#date_timepicker_end').val());
 
-
 		console.log( 'Days since ' 
 		           + date1 + ': ' 
 		           + Date.daysBetween(date1, date2));	
 		
-		$("form .form-control").val("");
+
+
 		})
 	
 		Date.daysBetween = function( date1, date2 ) {
