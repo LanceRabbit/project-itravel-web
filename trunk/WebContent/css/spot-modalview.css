@@ -1,6 +1,6 @@
 .itravel-block-frame{
 	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
+	border: 1px dotted #4F4F4F;
 	padding: 5px;
 	
 	margin:auto;
@@ -9,7 +9,7 @@
 
 .itravel-block-1-pic{
 	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
+	border: 1px dotted #4F4F4F;
 	padding:3px;
 	
 	margin:auto;
@@ -27,11 +27,11 @@
 
 .itravel-block-1-thumbnail{
 	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
+	border: 1px dotted #4F4F4F;
 	padding-top:1px;
 	padding-bottom:1px;
 	margin-left:1px;
-	width:50%;
+	width:48%;
 	height:124px
 }
 
@@ -51,14 +51,14 @@
 	display:none;
 }
 
-.scrollable {
+.spot-scrollable {
     height: auto;
     max-height: 200px;
     overflow-x: hidden;
     overflow-y:auto
 }
 
-.scrollable_small {
+.spot-scrollable-small {
     height: auto;
     max-height: 75px;
     overflow-x: hidden;
