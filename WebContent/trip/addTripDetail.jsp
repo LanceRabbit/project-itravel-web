@@ -1,46 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 	
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
-<script>!window.jQuery && document.write("<script src='${pageContext.request.contextPath}/js/jquery-1.11.1.min.js'><\/script>")</script>
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-<link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
-<link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
-<style>
-#myModalLabel {
-	text-align: center;
-	font-family: 微軟正黑體;
-	font-weight: bold;
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Search Spots</title>
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<style type="text/css">
+p {/*用於內文   多行文字溢出用...取代*/
+	overflow: hidden;
+	text-overflow: ellipsis; display : -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
 }
 
-#createtrip {
-	margin: 5px;
-	padding: 5px;
+h4 {/*用於標題   單行文字溢出用...取代*/
+	white-space: nowrap;
+	width: 100%; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
 
-.form-control {
-	font-size: 20px;
+}
+div{
+border-collapse:collapse;
+}
+/*confirm window size*/
+.bootbox > .modal-dialog {
+width: 300px;
 }
 
-.modal-body {
-	font-size: 20px;
-	font-family: 微軟正黑體;
-}
-
- .container {
-    margin-top: 10px;
-}
 .nav-tabs > li {
     position:relative;
 }
@@ -63,12 +59,11 @@
 	text-align: center;
 }
 </style>
-
-
 </head>
+
 <body>
 	<!-- Page Content -->
-	<jsp:include page="/fragment/Top.jsp"/>
+	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
 	<div class="container thumbnail">
 	<div class="trip-name">
@@ -78,7 +73,7 @@
 		<span id='totalDay' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
-			<div class='col-xs-6'>
+			<div class='col-xs-5'>
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
 		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
 		        </li>
@@ -93,46 +88,129 @@
 		    </div>
 	</div>
 	<div class="clearfix visible-xs-block"></div>
-	<div id="test" class='col-xs-6'>
-	<form action="<c:url value="/pages/product.controller" />" method="post">
-	<input type="hidden" name="">
-	<table>
-		<tr>
-			<td>ID : </td>
-			<td><input type="text" name="tripName" value="${param.tripName}"></td>
-		</tr>
-		<tr>
-			<td>Name : </td>
-			<td><input type="text" name="date_timepicker_start" value="${param.date_start}"></td>
-			<td></td>
-		</tr>
-	
-		<tr>
-			<td>Price : </td>
-			<td><input type="text" name="date_timepicker_end" value="${param.date_end}"></td>
-		</tr>
-		<tr>
-			<td>
-				<input type="submit" name="prodaction" value="Insert">
-				<input type="submit" name="prodaction" value="Update">
-			</td>
-			<td>
-				<input type="submit" name="prodaction" value="Delete">
-				<input type="submit" name="prodaction" value="Select">
-				<input type="button" value="Clear" onclick="clearForm()">
-			</td>
-		</tr>
-	</table>
+	<div class='col-xs-7'>
+		<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div>
+				<form class="form-horizontal" method="post" id="infoForm"
+					action='<c:url value="/controller/AddSpot" />'>
+					<fieldset>
+						<div class="form-group">
+							<div class="row">
+							<div class="col-xs-2">
+									<input id="spotName" name="spotName" type="text"
+										placeholder="景點名稱" class="form-control" data-toggle="popover"
+										data-placement="top" data-content="請輸入名稱">
+								</div>
+								<div class="col-xs-2">
+									<div class="input-group" id="cityGroup" data-toggle="popover"
+										data-placement="top" data-content="請選擇縣市">
+										<input id="city" name="city" type="text" placeholder="縣市"
+											class="form-control" disabled>
+										<div class="input-group-btn" id="cityIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
+									</div>
+									<!-- /input-group -->
+								</div>
 
-	</form>
-	</div>
+								<div class="col-xs-3">
+									<div class="input-group" id="categoryGroup"
+										data-toggle="popover" data-toggle="popover"
+										data-placement="top" data-content="請選擇分類">
+										<input id="category" name="category" type="text"
+											placeholder="全部分類" class="form-control" disabled>
+										<div class="input-group-btn" id="categoryIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
+									</div>
+									<!-- /input-group -->
+								</div>
+
+				
+
+					
+							</div>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+		</div>
 	</div>
 	
+	
+		<div class="row" id="listDetails">
+		</div>	
+	</div>
+	</div>
+	</div>
+	<div class="modal-footer">
+		<button id="test"  type="button" class="btn btn-default" 
+				">取消</button>
+		<input type="submit" class="btn btn-info" value="繼續" />
+	</div>
 </div>
-	<jsp:include page="/fragment/bottom.jsp" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+<script>!window.jQuery && document.write("<script src='${pageContext.request.contextPath}/js/jquery-1.11.1.min.js'><\/script>")</script>
+
+<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script>
-(function($) {
-	$(document).ready(function() {
+
+	jQuery(document).ready(function() {
+	
+		
+		$("#test").click(function(){
+			bootbox.dialog({
+				  message: "確定取消新增行程表? ",
+				  buttons: {
+				    cancel: {
+				      label: "取消",
+				      className: "btn btn-default",
+				      callback: function() {
+				    	  console.log("do nothing");  
+				      }
+				    },
+				    confirm: {
+				      label: "確定",
+				      className: "btn btn-info",
+				      callback: function() {
+				    	  window.location.href = '<c:url value="/first.jsp"/>';  
+				      }
+				    }
+				  }
+				});
+			
+			
+		/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
+				 if (result == true) {                                             
+					 window.location.href = '<c:url value="/first.jsp"/>';                          
+					  } else {
+						  console.log("do nothing");                        
+				}
+			});  */
+			//
+		
+		})
+		
 		$(".nav-tabs").on("click", "a", function (e) {
 	        e.preventDefault();
 	        if (!$(this).hasClass('add-contact')) {
@@ -146,7 +224,7 @@
 		    $(tabId).remove();
 		    reNumberPages();
 		    reContentPages();
-	        if($(".nav-tabs").children().length<8){
+	        if($(".nav-tabs").children().length<6){
 		    	
 		    	$('.add-contact').show();
 		    }
@@ -161,6 +239,7 @@
 		    pageNum = 1;
 		    listNum = 1;
 		    var tabCount = $('#pageTab > li').length;
+		    $()
 		    $('#pageTab > li').each(function() {
 		    	var listId = "#contact_"+listNum;
 		    	listNum++;
@@ -179,7 +258,7 @@
 		        }
 		        
 		    });
-		   if($(".nav-tabs").children().length>7){
+		   if($(".nav-tabs").children().length>5){
 		    	$('.add-contact').hide();
 		    }
 		}	
@@ -217,12 +296,17 @@
 		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
 		    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
 		    $('.nav-tabs li:nth-child(' + id + ') a').click();
-			   if($(".nav-tabs").children().length>7){
+			   if($(".nav-tabs").children().length>5){
 			    	$('.add-contact').hide();
 			    }
 			});
-		});
-})(jQuery);
+	    });
+
+		
+			
+			
+		
+
 </script>
 </body>
 </html>

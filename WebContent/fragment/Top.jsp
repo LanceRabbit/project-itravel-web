@@ -148,14 +148,17 @@
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h3 class="modal-title" id="myModalLabel">新增行程</h3>
+					<h4 class="modal-title" id="myModalLabel">新增行程</h4>
 				</div>
 				<div class="top-modal-body">
-					<form action="<c:url value="/controller/TransferAddTripServlet"/>;"
+					<form action="<c:url value="/trip/addTripDetail.jsp"/>;"
 						method="POST">
 						<table>
 							<tr>
-								<td style="font-weight: bold; width: 100px">行程名稱：</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold; width: 75px">行程名稱：</td>
 								<td><input type="text" name="tripName" class="top-form-control"
 									required></td>
 							</tr>

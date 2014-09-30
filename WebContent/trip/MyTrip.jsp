@@ -1,15 +1,53 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>This is a test page.</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Spots</title>
+<link rel="stylesheet" href="<c:url value="/css/bootstrap.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
+<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+<style type="text/css">
+p {/*用於內文   多行文字溢出用...取代*/
+	overflow: hidden;
+	text-overflow: ellipsis; display : -webkit-box;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	display: -webkit-box;
+}
 
-	<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<style>
+h4 {/*用於標題   單行文字溢出用...取代*/
+	white-space: nowrap;
+	width: 100%; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+}
+
+#social:hover {
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+}
+.temp{
+width:390px; 
+height:450px;
+}
+#social {
+	-webkit-transform: scale(0.8);
+	/* Browser Variations: */
+	-moz-transform: scale(0.8);
+	-o-transform: scale(0.8);
+	-webkit-transition-duration: 0.5s;
+	-moz-transition-duration: 0.5s;
+	-o-transition-duration: 0.5s;
+}
+
+
 #map-container {
 	height: 400px;
 }
@@ -22,10 +60,7 @@ div.tabimg > img{
 	height:100px;
    
 }
-.temp{
-width:390px; 
-height:483px;
-}
+
 .scrollable {
     height: auto;
     max-height: 150px;
@@ -57,46 +92,12 @@ border-collapse:collapse;
     max-height: 400px;
     overflow-x: hidden;
 }
-
-#social:hover {
-	-webkit-transform: scale(1.1);
-	-moz-transform: scale(1.1);
-	-o-transform: scale(1.1);
-}
-
-#social {
-	-webkit-transform: scale(0.8);
-	/* Browser Variations: */
-	-moz-transform: scale(0.8);
-	-o-transform: scale(0.8);
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-o-transition-duration: 0.5s;
-}
-/* 
-    Only Needed in Multi-Coloured Variation 
-                                               */
-.social-fb:hover {
-	color: #3B5998;
-}
-
-.social-tw:hover {
-	color: #4099FF;
-}
-
-.social-gp:hover {
-	color: #d34836;
-}
-
-.social-em:hover {
-	color: #f39c12;
-}
-
 </style>
 </head>
+
 <body>
 	<!-- Page Content -->
-	<jsp:include page="/fragment/Top.jsp"/>
+	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
 	<h3>測試取得的資料</h3>
 	AccountId= ${user.accountId}
