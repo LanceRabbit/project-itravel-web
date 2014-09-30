@@ -473,7 +473,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	
 (function(jQuey){
 	var var_map;
-	var var_location = new google.maps.LatLng(45.430817, 12.331516);
+	var var_location = new google.maps.LatLng(23.973299, 120.978398);
+	var var_marker;
 	
 	var categories = [{"type":"全部分類", "subtype":["全部子分類"]},
 	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
@@ -589,6 +590,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			} else
 				jQuery("#spotOwnerP").text(spotInfo.leader);
 	
+			// set google map marker
+			//console.log("lat : " + spotInfo.latitude);
+			//console.log("lng : " + spotInfo.longitude);
+			addSpotMarker(spotInfo.latitude, spotInfo.longitude);
+			
 			jQuery('#myModal').modal("show");
 		});
 		//jQuery('#myModalLabel')
@@ -720,6 +726,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	}
 	
 	function map_init() {
+		//console.log("map_init()");
 		var var_mapoptions = {
 			center : var_location,
 			zoom : 14,
@@ -731,33 +738,32 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		};
 		var_map = new google.maps.Map(document
 				.getElementById("map-container"), var_mapoptions);
-
-		var contentString = '<div id="mapInfo">'
-				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
-				+ 'Dorsoduro, 701-704<br>'
-				+ '30123<br>Venezia<br>'
-				+ 'P: (+39) 041 240 5411</p>'
-				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
-				+ '</div>';
-
-		var var_infowindow = new google.maps.InfoWindow({
-			content : contentString
+		
+		/*
+		var spot_infowindow = new google.maps.InfoWindow();
+		
+		var_marker = new google.maps.Marker({
+			position : var_location,
+			map : var_map,
+			maxWidth : $("#map-container").width(),
+			maxHeight : $("#map-container").height(), 
 		});
-
-		var var_marker = new google.maps.Marker(
-				{
-					position : var_location,
-					map : var_map,
-					title : "Click for information about the Guggenheim museum in Venice",
-					maxWidth : 300,
-					maxHeight : 200
-				});
-
-			google.maps.event.addListener(var_marker, 'click', function() {
-			var_infowindow.open(var_map, var_marker);
-		});
+		*/
 	} 
 
+	function addSpotMarker(lat, lng) {
+		//console.log("addSpotMarker()");
+		var_location =  new google.maps.LatLng(lat, lng); 
+		
+		
+		var_marker = new google.maps.Marker({
+			position : var_location,
+			map : var_map,
+			maxWidth : $("#map-container").width(),
+			maxHeight : $("#map-container").height(), 
+		});
+		
+	}
 }(jQuery, google));
 </script>
     	
