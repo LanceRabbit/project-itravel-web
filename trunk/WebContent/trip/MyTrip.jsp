@@ -214,12 +214,12 @@ border-collapse:collapse;
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4 temp'>"
+			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
 						+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
-						+"<img src='<c:url value='/controller/TripImageServlet?id="
+						+"<img  class='temp' src='<c:url value='/controller/TripImageServlet?id="
 						+value.tripId+"'/>'></a><div ><h5>行程天數:"
 						+value.totalDay+"</h5></div>"
 						+"<div class='ratings' >"
@@ -251,15 +251,14 @@ border-collapse:collapse;
 		 e.stopPropagation();
 	 });
 	 
-	$("#showtrip").on("click",".temp", function() {
-		
-
-		
-		console.log("111"+$(this).index());
-		var tripId = $("#"+($(this).index()+1)+" span:first").text();
-		var totalDay =$("#"+($(this).index()+1)+" span:last").text();
-		var tripName = $("#"+($(this).index()+1)+" span:eq(1)").text();
+	 $("#showtrip").on("click",".temp", function() {
+		var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
+		var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
+		var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
 		console.log(tripId);
+		console.log(totalDay);
+		console.log(tripName);
+		console.log($(this).parent().parent().parent().index());
 		//console.log(totalDay);
 		//console.log(tripName);
 		
@@ -273,7 +272,7 @@ border-collapse:collapse;
 		$("#mytab , #tabContent ").empty();
 		 console.log()
 		$(".modal-header").html('<h4 class="modal-title">'
-				+$("#"+($(this).index()+1)+" span:eq(1)").text()+
+				+tripName+
 				'</h4>');
 		//based on Trip Day to create Trip Details
 		for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
