@@ -254,17 +254,123 @@
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 <script>
-(function($){	
 	var myDropzone;
 	var zone_index = 1;
 	var var_map;
 	var var_location = new google.maps.LatLng(45.430817, 12.331516);
-
+	
 	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
 	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
 	                  {"type":"住宿", "subtype":["飯店", "旅舍", "民宿", "營地", "其他"]},
 	                  {"type":"景點", "subtype":["風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
 	                  {"type":"活動", "subtype":["藝文展覽", "親子活動", "競賽活動", "其他"]}];
+	
+	// config buttons
+	function popoverHandler(elem) {
+		
+		$(elem).popover('enable');	
+		$(elem).popover('show');
+		//$('body').scrollTo('');
+		$(elem).on('click', function(){
+			$(elem).popover('disable');
+			$(elem).off('click');
+		});
+	}
+	
+	function resetPage() {
+		// reset the image zones
+		zone_index = 1;
+		$('.imagePreview_zone img').remove();
+		$("#fileinputBtn").detach().appendTo("#imagePreview_zone_1");
+		$('.deleteImg').remove();
+		
+		// reset the form
+		$('input').val('');
+		$('#intro').val('');
+		$('#subcategoryGroup').hide();
+	}
+	
+	// drop zone
+	function initDropzone() {
+		// Get the template HTML and remove it from the doument
+		var previewNode = document.querySelector("#template_1");
+		previewNode.id = "";
+		var previewTemplate = previewNode.parentNode.innerHTML;
+		previewNode.parentNode.removeChild(previewNode);
+
+		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
+		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
+		  url: "controller/Fileuploader",
+		  thumbnailWidth: 5000,
+		  thumbnailHeight: 5000,
+		  //maxFilesize: 2, //MB
+		  parallelUploads: 5,
+		  
+		  previewTemplate: previewTemplate,
+		  autoQueue: true, // Make sure the files aren't queued until manually added
+		  previewsContainer: "#previews_zone_1", // Define the container to display the previews
+		  clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
+		});
+	}
+	
+	function initElements() {
+		// populate city ids
+		var cities = ["基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投", "雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "宜蘭", "花蓮", "台東", "dummy", "綠島", "蘭嶼", "澎湖", "金門", "馬祖"];
+		$.each(cities, function(index, value){
+			//console.log(value);
+			if(value == 'dummy')
+				$("#cityIdMenu ul:first").append("<li class='divider'></li>");
+			else
+				$("#cityIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		});
+		
+		// populate category
+		$.each(categories, function(index, value){
+			var type = value.type;
+			$("#categoryIdMenu ul:first").append("<li><a href='#'>"+type+"</a></li>");
+		});
+	}
+	
+	function map_init() {
+		var var_mapoptions = {
+			center : var_location,
+			zoom : 14,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			mapTypeControl : false,
+			panControl : false,
+			rotateControl : false,
+			streetViewControl : false,
+		};
+		var_map = new google.maps.Map(document
+				.getElementById("map-container"), var_mapoptions);
+
+		var contentString = '<div id="mapInfo">'
+				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
+				+ 'Dorsoduro, 701-704<br>'
+				+ '30123<br>Venezia<br>'
+				+ 'P: (+39) 041 240 5411</p>'
+				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
+				+ '</div>';
+
+		var var_infowindow = new google.maps.InfoWindow({
+			content : contentString
+		});
+
+		var var_marker = new google.maps.Marker(
+				{
+					position : var_location,
+					map : var_map,
+					title : "Click for information about the Guggenheim museum in Venice",
+					maxWidth : 300,
+					maxHeight : 200
+				});
+
+			google.maps.event.addListener(var_marker, 'click', function() {
+			var_infowindow.open(var_map, var_marker);
+		});
+	} 
+	
+$(document).ready(function(){
 	
 	initDropzone();
 	initElements();
@@ -441,18 +547,6 @@
 
 	});
 	
-	// config buttons
-	function popoverHandler(elem) {
-		
-		$(elem).popover('enable');	
-		$(elem).popover('show');
-		//$('body').scrollTo('');
-		$(elem).on('click', function(){
-			$(elem).popover('disable');
-			$(elem).off('click');
-		});
-	}
-	
 	$("#saveBtn").click(function(){
 		//console.log("saveBtn pressed.....");
 		
@@ -511,99 +605,7 @@
 		}
 	});
 	
-	function resetPage() {
-		// reset the image zones
-		zone_index = 1;
-		$('.imagePreview_zone img').remove();
-		$("#fileinputBtn").detach().appendTo("#imagePreview_zone_1");
-		$('.deleteImg').remove();
-		
-		// reset the form
-		$('input').val('');
-		$('#intro').val('');
-		$('#subcategoryGroup').hide();
-	}
-	
-	// drop zone
-	function initDropzone() {
-		// Get the template HTML and remove it from the doument
-		var previewNode = document.querySelector("#template_1");
-		previewNode.id = "";
-		var previewTemplate = previewNode.parentNode.innerHTML;
-		previewNode.parentNode.removeChild(previewNode);
-
-		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
-		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
-		  url: "controller/Fileuploader",
-		  thumbnailWidth: 5000,
-		  thumbnailHeight: 5000,
-		  //maxFilesize: 2, //MB
-		  parallelUploads: 5,
-		  
-		  previewTemplate: previewTemplate,
-		  autoQueue: true, // Make sure the files aren't queued until manually added
-		  previewsContainer: "#previews_zone_1", // Define the container to display the previews
-		  clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
-		});
-	}
-	
-	function initElements() {
-		// populate city ids
-		var cities = ["基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投", "雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "宜蘭", "花蓮", "台東", "dummy", "綠島", "蘭嶼", "澎湖", "金門", "馬祖"];
-		$.each(cities, function(index, value){
-			//console.log(value);
-			if(value == 'dummy')
-				$("#cityIdMenu ul:first").append("<li class='divider'></li>");
-			else
-				$("#cityIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
-		});
-		
-		// populate category
-		$.each(categories, function(index, value){
-			var type = value.type;
-			$("#categoryIdMenu ul:first").append("<li><a href='#'>"+type+"</a></li>");
-		});
-	}
-	
-	function map_init() {
-		var var_mapoptions = {
-			center : var_location,
-			zoom : 14,
-			mapTypeId : google.maps.MapTypeId.ROADMAP,
-			mapTypeControl : false,
-			panControl : false,
-			rotateControl : false,
-			streetViewControl : false,
-		};
-		var_map = new google.maps.Map(document
-				.getElementById("map-container"), var_mapoptions);
-
-		var contentString = '<div id="mapInfo">'
-				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
-				+ 'Dorsoduro, 701-704<br>'
-				+ '30123<br>Venezia<br>'
-				+ 'P: (+39) 041 240 5411</p>'
-				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
-				+ '</div>';
-
-		var var_infowindow = new google.maps.InfoWindow({
-			content : contentString
-		});
-
-		var var_marker = new google.maps.Marker(
-				{
-					position : var_location,
-					map : var_map,
-					title : "Click for information about the Guggenheim museum in Venice",
-					maxWidth : 300,
-					maxHeight : 200
-				});
-
-			google.maps.event.addListener(var_marker, 'click', function() {
-			var_infowindow.open(var_map, var_marker);
-		});
-	} 
-}(jQuery, google));
+});	
 
 (function($){
 	console.log("Hello, jQuery!!");
