@@ -114,21 +114,6 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
-													<input id="spotName" name="spotName" type="text"
-														placeholder="景點名稱" class="form-control" 
-														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
-												</div>
-
-												<div class="col-md-5 col-md-offset-0">
-													<input id="spotOwner" name="spotOwner" type="text"
-														placeholder="分店負責人" class="form-control">
-												</div>
-											</div>
-										</div>
-
-										<div class="form-group">
-											<div class="row">
-												<div class="col-md-5 col-md-offset-1">
 
 													<div class="input-group" id="cityGroup" data-toggle="popover" data-placement="top" data-content="請選擇縣市">
 														<input id="city" name="city" type="text" placeholder="縣市"
@@ -150,7 +135,7 @@
 											<!-- <div class="row"> -->
 										</div>
 										<!-- <div class="form-group"> -->
-
+										
 										<!-- 大小分類 -->
 										<div class="form-group">
 											<div class="row">
@@ -191,12 +176,26 @@
 												</div>
 											</div>
 										</div>
+										
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-5 col-md-offset-1">
+													<input id="spotName" name="spotName" type="text"
+														placeholder="景點名稱" class="form-control" 
+														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
+												</div>
 
-
+												<div class="col-md-5 col-md-offset-0">
+													<input id="spotOwner" name="spotOwner" type="text"
+														placeholder="分店負責人" class="form-control">
+												</div>
+											</div>
+										</div>
+										
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-10 col-md-offset-1">
-													<input id="address" name="address" type="text"
+													<input id="spotAddress" name="address" type="text"
 														placeholder="地址" class="form-control">
 												</div>
 											</div>
@@ -251,13 +250,14 @@
 
 <jsp:include page="/fragment/bottom.jsp" />
 <script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=zh-TW"></script>
 
 <script>
 	var myDropzone;
 	var zone_index = 1;
-	var var_map;
-	var var_location = new google.maps.LatLng(45.430817, 12.331516);
+	var spot_location = new google.maps.LatLng(23.973299, 120.978398);
+	var spot_map;
+	var spot_marker;
 	
 	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
 	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
@@ -288,6 +288,7 @@
 		$('input').val('');
 		$('#intro').val('');
 		$('#subcategoryGroup').hide();
+		$("#itravel-block-map").hide();
 	}
 	
 	// drop zone
@@ -332,8 +333,8 @@
 	}
 	
 	function map_init() {
-		var var_mapoptions = {
-			center : var_location,
+		var spot_mapoptions = {
+			center : spot_location,
 			zoom : 14,
 			mapTypeId : google.maps.MapTypeId.ROADMAP,
 			mapTypeControl : false,
@@ -341,35 +342,113 @@
 			rotateControl : false,
 			streetViewControl : false,
 		};
-		var_map = new google.maps.Map(document
-				.getElementById("map-container"), var_mapoptions);
+		spot_map = new google.maps.Map(document
+				.getElementById("map-container"), spot_mapoptions);
+		
+		var spot_infowindow = new google.maps.InfoWindow();
 
-		var contentString = '<div id="mapInfo">'
-				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
-				+ 'Dorsoduro, 701-704<br>'
-				+ '30123<br>Venezia<br>'
-				+ 'P: (+39) 041 240 5411</p>'
-				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
-				+ '</div>';
-
-		var var_infowindow = new google.maps.InfoWindow({
-			content : contentString
+		spot_marker = new google.maps.Marker({
+					
+					position : spot_location,
+					map : spot_map,
+					title : "台灣",
+					maxWidth : $("#map-container").width(),
+					maxHeight : $("#map-container").height(), 
+					draggable:true,
+				    animation: google.maps.Animation.DROP
 		});
 
-		var var_marker = new google.maps.Marker(
-				{
-					position : var_location,
-					map : var_map,
-					title : "Click for information about the Guggenheim museum in Venice",
-					maxWidth : 300,
-					maxHeight : 200
-				});
-
-			google.maps.event.addListener(var_marker, 'click', function() {
-			var_infowindow.open(var_map, var_marker);
+		//增加標記點的click事件
+		google.maps.event.addListener(spot_marker, 'click', function() {
+			console.log("spot marker clicked");
+			//spot_infowindow.open(spot_map, spot_marker);
+			
+			LatLng = spot_marker.getPosition();
+			spot_location = LatLng;
+			geocoder.geocode({'latLng': LatLng}, function(results, status) {
+		   		if (status == google.maps.GeocoderStatus.OK) {
+			        if (results[1]) {
+			        	address = results[1].formatted_address;
+			        	spot_marker.setTitle(address);	//重新設定標記點的title
+			        	$('#spotAddress').val(address);
+			        	$('#spotAddress').focus();
+			        }
+			    }else 
+			      	console.log("Geocoder failed due to: " + status);
+		   });
+		});
+		
+		//增加標記點的mouseup事件
+		google.maps.event.addListener(spot_marker, 'mouseup', function() {
+			console.log("spot marker mouseup");
+			
+			LatLng = spot_marker.getPosition();
+			geocoder.geocode({'latLng': LatLng}, function(results, status) {
+		   		if (status == google.maps.GeocoderStatus.OK) {
+			        if (results[1]) {
+			        	address = results[1].formatted_address;
+			        	spot_marker.setTitle(address);	//重新設定標記點的title
+			        	//$('#spotAddress').val(address);
+			        	//$('#spotAddress').focus();
+			        }
+			    }else 
+			      	console.log("Geocoder failed due to: " + status);
+		   });
 		});
 	} 
 	
+	function spotGetAddressMarkerByName(address){	 
+		//重新定位地圖位置與標記點位置
+		 //address = $("#spotName").val();
+		 geocoder = new google.maps.Geocoder();
+		 geocoder.geocode({'address':address},function (results,status) {
+				if(status==google.maps.GeocoderStatus.OK) 
+				{
+				   //console.log(results[0].geometry.location);
+				   LatLng = results[0].geometry.location;
+				   spot_location = LatLng;
+				   
+				   spot_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
+				   spot_marker.setPosition(LatLng);	//將標記點定位到查詢結果
+				   
+				   // Reverse geocoding to get the address
+				   var rev_address = "";
+				   geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	rev_address = results[1].formatted_address;
+					        	spot_marker.setTitle(rev_address);	//重新設定標記點的title
+					        	$('#spotAddress').val(rev_address);
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				   
+				   $('#spotAddress').focus();
+				} // end of if(status==google.maps.GeocoderStatus.OK) 
+			 }// end of function
+		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
+	  }
+	
+	function spotGetAddressMarkerByAddr(address){	 
+		 //重新定位地圖位置與標記點位置
+		 //address = $("#spotName").val();
+		 geocoder = new google.maps.Geocoder();
+		 geocoder.geocode({'address':address},function (results,status) {
+				if(status==google.maps.GeocoderStatus.OK) 
+				{
+				   //console.log(results[0].geometry.location);
+				   LatLng = results[0].geometry.location;
+				   spot_location = LatLng;
+				   
+				   spot_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
+				   spot_marker.setPosition(LatLng);	//將標記點定位到查詢結果
+				   
+				   spot_marker.setTitle(address);	//重新設定標記點的title
+				} // end of if(status==google.maps.GeocoderStatus.OK) 
+			 }// end of function
+		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
+	  }	
 $(document).ready(function(){
 	
 	initDropzone();
@@ -379,8 +458,8 @@ $(document).ready(function(){
 	
 	// modal google map
 	$('#myModal').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_map, "resize");
-		var_map.setCenter(var_location);
+		google.maps.event.trigger(spot_map, "resize");
+		spot_map.setCenter(spot_location);
 	});
 	
 	// config drop zone
@@ -452,7 +531,7 @@ $(document).ready(function(){
 	});
 	
 	$("#cityIdMenu .dropdown-menu li").click(function(){
-		console.log($(this).text());
+		//console.log($(this).text());
 		$("#city").val($(this).text());
 		$("#cityIdMenu .dropdown-menu").hide();
 	}) 
@@ -585,6 +664,19 @@ $(document).ready(function(){
 			content = "<input type='hidden' name='dupSubcategory' value=' "+$("#subcategory").val()+"'>";
 			$("#hiddens").append(content);
 			
+			// add hidden fields for longitude and latitude
+			var lng = spot_location.lng();
+			var lat = spot_location.lat();
+			
+			//console.log("lng : " + lng);
+			//console.log("lat : " + lat);
+			
+			content = "<input type='hidden' name='lng' value=' "+lng+"'>";
+			$("#hiddens").append(content);
+			content = "<input type='hidden' name='lat' value=' "+lat+"'>";
+			$("#hiddens").append(content);
+			
+			// ready to submit
 			$("#infoForm").submit();
 			resetPage();
 		}
@@ -597,12 +689,28 @@ $(document).ready(function(){
 	
 	
 	$("#spotName").change(function(){
-		//console.log("changing....");
+		//console.log("spot name : changing....");
+		
 		if(!$("#itravel-block-map").is(':visible')) {
 			$("#itravel-block-map").show();
-			google.maps.event.trigger(var_map, "resize");
-			var_map.setCenter(var_location);
 		}
+		
+		google.maps.event.trigger(spot_map, "resize");
+		spot_map.setCenter(spot_location);
+		
+		var addr = "台灣";
+		var city = $("#city").val();
+		if(city.length > 0)
+			addr = addr + city + $(this).val();
+		else 
+			addr = addr + $(this).val();
+		
+		spotGetAddressMarkerByName(addr);
+	});
+	
+	$("#spotAddress").change(function(){
+		console.log("spot address : changing....");
+		spotGetAddressMarkerByAddr($(this).val());
 	});
 	
 });	
