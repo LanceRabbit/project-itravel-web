@@ -19,7 +19,7 @@
 <style>
 #infoForm {
 	height: auto;
-    max-height: 200px;
+    max-height: 225px;
     overflow-x: hidden;
     overflow-y:auto
 }
@@ -149,7 +149,7 @@
 																data-toggle="dropdown">
 																選擇 <span class="caret"></span>
 															</button>
-															<ul class="dropdown-menu dropdown-menu-right scrollable" role="menu">
+															<ul class="dropdown-menu dropdown-menu-right scrollable_small" role="menu">
 															</ul>
 														</div>
 														<!-- /btn-group -->
@@ -167,7 +167,7 @@
 																data-toggle="dropdown">
 																選擇 <span class="caret"></span>
 															</button>
-															<ul class="dropdown-menu dropdown-menu-right scrollable" role="menu">
+															<ul class="dropdown-menu dropdown-menu-right scrollable_small" role="menu">
 															</ul>
 														</div>
 														<!-- /btn-group -->
@@ -185,10 +185,12 @@
 														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
 												</div>
 
-												<div class="col-md-5 col-md-offset-0">
-													<input id="spotOwner" name="spotOwner" type="text"
-														placeholder="分店負責人" class="form-control">
-												</div>
+												<c:if test="${user.accountLevel} ==2">
+													<div class="col-md-5 col-md-offset-0">
+														<input id="spotOwner" name="spotOwner" type="text"
+															placeholder="分店負責人" class="form-control">
+													</div>
+												</c:if>
 											</div>
 										</div>
 										

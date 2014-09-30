@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Account;
 import model.SpotDetail;
 import model.SpotDetailDAO;
 import model.SpotImg;
@@ -28,7 +29,6 @@ public class AddSpotServlet extends HttpServlet {
     	request.setCharacterEncoding("UTF-8");
     	System.out.println("printParams......");
     	String spotName = request.getParameter("spotName").trim(); System.out.println("spotName : " + spotName);
-    	String spotOwner = request.getParameter("spotOwner").trim(); System.out.println("spotOwner : " + spotOwner);
     	String city = request.getParameter("dupCity").trim(); System.out.println("city : " + city);
     	System.out.println("cityMap : " + ConstantsUtil.getCityMap().get(city));
     	Integer cityId = ConstantsUtil.getCityMap().get(city); System.out.println("cityId : " + cityId);
@@ -57,7 +57,19 @@ public class AddSpotServlet extends HttpServlet {
 		Double longitude = Double.parseDouble(lng);
 		Double latitude = Double.parseDouble(lat);
 		
-		String accountId = "M14090001";
+		String accountId = null;
+		String spotOwner = null;
+    	Account user = (Account)request.getSession().getAttribute("user");
+    	if(user!= null) {
+    		accountId = user.getAccountId();
+    		if(user.getAccountLevel() == 2) 
+    			spotOwner = request.getParameter("spotOwner").trim(); System.out.println("spotOwner : " + spotOwner);
+    	}
+
+    	// temporarily
+    	if(accountId == null)
+    		accountId = "M14090001";
+    		
     	SpotDetail spot = new SpotDetail("M14090001", null, spotOwner, spotName, 
     			cityId, address, phone,
     			longitude, latitude, intro, 0,

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.Account;
 import model.util.ImageIOUtil;
 
 import org.apache.commons.fileupload.FileItem;
@@ -26,8 +27,14 @@ public class FileuploaderServlet extends HttpServlet {
 	private void process(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("process called");		
 		
-		// set account id as M14090001
-		String accountId = "M14090001"; 
+		String accountId = null;
+    	Account user = (Account)request.getSession().getAttribute("user");
+    	if(user!= null)
+    		accountId = user.getAccountId();
+    		
+    	// temporarily
+    	if(accountId == null)
+    		accountId = "M14090001";    	
 		
 		if (!ServletFileUpload.isMultipartContent(request)) {
 			throw new IllegalArgumentException(
