@@ -11,7 +11,7 @@
 <link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 
 <style>
-.error,.modal-body,.modal-title,.btn{
+.error,.btn{
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 }
 #idTop{
@@ -62,6 +62,11 @@
 	border:1px solid #848484;
 	border-radius:3px;
 }
+.top-modal-body,.adela-modal-title{
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	margin-left:10px;
+}
+
 
 </style>
 </head>
@@ -136,7 +141,7 @@
 				<div class="modal-header">
 					<h3 class="modal-title" id="myModalLabel">新增行程</h3>
 				</div>
-				<div class="modal-body">
+				<div class="top-modal-body">
 					<form action="<c:url value="/controller/TransferAddTripServlet"/>;"
 						method="POST">
 						<table>
@@ -240,9 +245,9 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" style="font-weight: bold;">登入</h4>
+							<h4 class="adela-modal-title" style="font-weight: bold;">登入</h4>
 						</div>
-						<div class="modal-body">
+						<div class="top-modal-body">
 
 							<form action="<c:url value="/controller/LoginServlet"/>;" method="POST" >
 								<table>
@@ -279,9 +284,9 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" style="font-weight: bold;">會員註冊</h4>
+							<h4 class="adela-modal-title" style="font-weight: bold;">會員註冊</h4>
 						</div>
-						<div class="modal-body">
+						<div class="top-modal-body">
 
 							<form action="<c:url value="/controller/SignupServlet"/>;" method="POST" enctype="multipart/form-data" name="formSignupMem">
 								<table >
@@ -339,9 +344,9 @@
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
-							<h4 class="modal-title" style="font-weight: bold;">店家註冊</h4>
+							<h4 class="adela-modal-title" style="font-weight: bold;">店家註冊</h4>
 						</div>
-						<div class="modal-body">
+						<div class="top-modal-body">
 
 							<form action="<c:url value="/controller/SignupServlet"/>;" method="POST" enctype="multipart/form-data" name="formSignupOwn">
 								<table >
@@ -407,10 +412,10 @@
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" style="font-weight: bold;">選擇註冊身分</h4>
+        <h4 class="adela-modal-title" style="font-weight: bold;">選擇註冊身分</h4>
       </div>
       <!-- dialog body -->
-      <div class="modal-body" style="margin-left:20px"></i>
+      <div class="top-modal-body" style="margin-left:45px"></i>
         	<label class="radio">
   			<input type="radio" name="signupRadio" id="signupAsMember" value="asMember" checked>
   			註冊為會員
@@ -418,7 +423,7 @@
 			<label class="radio">
  			<input type="radio" name="signupRadio" id="signupAsOwner" value="asOwner">
 			註冊為店家
-			</label>	
+			</label>
       </div>
       <!-- dialog buttons -->
       <div class="modal-footer">
@@ -435,7 +440,7 @@
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="height:30px;padding-top:5px;font-weight: bold;">忘記密碼</h4>
+        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px;font-weight: bold;">忘記密碼</h4>
       </div>
       <!-- dialog body -->
      <form action="<c:url value="/controller/ForgotPswServlet" />" method="post"> 
@@ -466,17 +471,38 @@
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
+        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
       </div>
       <!-- dialog body -->
-      <div class="modal-body" style="color:red;font-size:14px"></i>
+      <div class="top-modal-body" style="color:red;font-size:14px"></i>
         	帳號尚未啟用，請至註冊信箱收信啟用。
       </div>
       <!-- dialog buttons -->
       <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK3">確定</button></div>
     </div>
   </div>
-</div>	
+</div>
+<label id="resultBlacklistLogin" hidden>${accountLocked}</label>
+<div id="atBlackListAnnouncement" class="modal fade" style="margin-top:100px">
+  <div class="modal-dialog modal-jumpout">
+    <div class="modal-content">
+    	<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
+      </div>
+      <!-- dialog body -->
+      <div class="top-modal-body" style="color:red;font-size:14px"></i>
+        <table>
+        	<tr><td>&nbsp;</td></tr>
+        	<tr><td>${accountLocked}</td></tr>
+        	<tr><td>&nbsp;</td></tr>
+      	</table>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK4">確定</button></div>
+    </div>
+  </div>
+</div>		
 	
 <label id="resultSignup" hidden>${signupOK}</label>
 <div id="signupOK" class="modal fade">
@@ -484,10 +510,10 @@
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;">註冊結果</h4>
+        <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;">註冊結果</h4>
       </div>
       <!-- dialog body -->
-      <div class="modal-body" style="color:green"><i class="glyphicon glyphicon-ok" ></i>
+      <div class="top-modal-body" style="color:green"><i class="glyphicon glyphicon-ok" ></i>
         	註冊成功，請至註冊信箱收信啟用帳號!
       </div>
       <!-- dialog buttons -->
@@ -500,10 +526,10 @@
     <div class="modal-content">
     	<div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel" style="font-weight: bold;"><i class="fa "></i>註冊結果</h4>
+        <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;"><i class="fa "></i>註冊結果</h4>
       </div>
       <!-- dialog body -->
-      <div class="modal-body" style="color:red"><i class="fa fa-exclamation-circle fa-lg"></i>
+      <div class="top-modal-body" style="color:red"><i class="fa fa-exclamation-circle fa-lg"></i>
         	發生錯誤，請重新操作。
       </div>
       <!-- dialog buttons -->
@@ -596,7 +622,10 @@
 				$("#unactivated").modal('show');
 				removeActivatedAttr();
 			}
-			
+			if($('#resultBlacklistLogin').text()!=""){
+				$("#atBlackListAnnouncement").modal('show');
+				removeAccountLockedAttr();
+			}
 			if($('#checkImageMember').text()!=""){
 				$("#signupmodalsMember").modal('show');
 			}
@@ -618,6 +647,9 @@
 		});
 		$("#btOK3").click(function(){
 			$("#unactivated").modal('hide');
+		});
+		$("#btOK4").click(function(){
+			$("#atBlackListAnnouncement").modal('hide');
 		});
 		$("#idClickSignup").click(function(){
 			$('#topmodals').modal('hide');
@@ -866,6 +898,10 @@
 		<c:remove var="sendMailMsgForgotPsw" scope="session" />;
 		<c:remove var="errorTimeout" scope="session" />;
 	}
+	function removeAccountLockedAttr(){
+		<c:remove var="accountLocked" scope="session" />;
+	}
+	
 	function removeSignupOKAttr(){
 		<c:remove var="signupOK" scope="session" />;
 	}
