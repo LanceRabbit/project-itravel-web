@@ -24,7 +24,8 @@ import model.Account;
 		   urlPatterns={"/account/changeAccount.jsp",
 						"/spot/addSpot.jsp",
 						"/spot/MySpot.jsp",
-						"/trip/MyTrip.jsp"
+						"/trip/MyTrip.jsp",
+						"/trip/addTripDetail.jsp"
 		   })
 public class LoginFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();
