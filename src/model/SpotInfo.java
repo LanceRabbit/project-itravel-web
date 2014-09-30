@@ -48,7 +48,7 @@ public class SpotInfo implements java.io.Serializable {
 		spotIntro = spotDetail.getSpotIntro();
 		
 		if(spotDetail.getLatitude() != null)
-			longitude = (spotDetail.getLatitude()).toString();
+			longitude = (spotDetail.getLongitude()).toString();
 		if(spotDetail.getLatitude() != null)
 			latitude = (spotDetail.getLatitude()).toString();
 		if(spotDetail.getLikeCount() != null)
