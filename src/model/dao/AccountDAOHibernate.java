@@ -135,6 +135,29 @@ public class AccountDAOHibernate implements AccountDAO {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean updateBlackDeadline(String accountId, Date deadline) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		int result = 0;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("update Account ac set ac.lastLogonDt = "+deadline+
+		    				" where ac.accountId = '"+accountId+"'").executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		if(result==1){
+			return true;
+		}else{
+			return false;
+		}
+	}
 	@Override
 	public Account selectById(String id) {
 		sessionFactory = HibernateUtil.getSessionFactory();

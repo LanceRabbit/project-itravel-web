@@ -23,6 +23,7 @@ public class ResetPswServlet extends HttpServlet {
     protected void doReset(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
     	AccountService service = new AccountService();
+    	HttpSession session = request.getSession();
     	String email = request.getParameter("email");
     	Account user = service.selectByEmail(email);
     	user = service.resetAccountLevel(user.getAccountId());
@@ -31,14 +32,27 @@ public class ResetPswServlet extends HttpServlet {
     	if(user!=null){
     		available = GenerateLinkUtil.verifyCheckcodeForgotPassword(user, request);
     		if(available){
-    			HttpSession session = request.getSession();
-    			session.setAttribute("email", email);
-    			request.getRequestDispatcher("/account/resetPsw.jsp").forward(request, response);
-    			//response.sendRedirect(path+"/account/resetPsw.jsp");
-    			return;
+    			if(user.getAccountLevel()==1 || user.getAccountLevel()==2){
+    				session.setAttribute("errorTimeout", "連結已失效，請重新申請。");
+    				response.sendRedirect(path+"/first.jsp");
+    				return;
+    			}else if(user.getAccountLevel()==3||user.getAccountLevel()==5){
+    				session.setAttribute("activated", "false");
+    				response.sendRedirect(path+"/first.jsp");
+    				return;
+    			}else if(user.getAccountLevel()==4){
+    				
+    			}else{
+    				session.setAttribute("email", email);
+        			request.getRequestDispatcher("/account/resetPsw.jsp").forward(request, response);
+        			//response.sendRedirect(path+"/account/resetPsw.jsp");
+        			return;
+    			}
+    			
+    			
         	}else if(!available){
-        		request.setAttribute("errorTimeout","連結已過期，請重新申請忘記密碼");
-        		request.getRequestDispatcher("/first.jsp").forward(request, response);
+        		session.setAttribute("errorTimeout","連結已過期，請重新申請忘記密碼");
+        		response.sendRedirect(path+"/first.jsp");
         		//response.sendRedirect(path+"/account/error.jsp");
         		return;
         	}

@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Date;
 import java.util.List;
 
 public interface AccountDAO {
@@ -9,4 +10,5 @@ public interface AccountDAO {
 	public abstract Account selectById(String id);
 	public abstract Account selectByEmail(String email);
 	public abstract List<Account> selectAll();
+	public abstract boolean updateBlackDeadline(String accountId, Date deadline);
 }

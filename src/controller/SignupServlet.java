@@ -100,7 +100,7 @@ public class SignupServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		String path = request.getContextPath();
 		if(bean!=null) {
-			EmailUtil.sendAccountActivateEmail(bean);//send email
+			//EmailUtil.sendAccountActivateEmail(bean);//send email
 			session.setAttribute("signupOK", "true");
 			response.sendRedirect(path+"/first.jsp");
 //			request.setAttribute("email", bean.getEmail());
