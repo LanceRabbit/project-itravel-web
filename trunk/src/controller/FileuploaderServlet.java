@@ -21,7 +21,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-@WebServlet(name = "filehandler", urlPatterns = { "/spot/controller/Fileuploader" })
+@WebServlet(name = "filehandler", urlPatterns = { "/controller/Fileuploader" })
 public class FileuploaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private void process(HttpServletRequest request, HttpServletResponse response) {
