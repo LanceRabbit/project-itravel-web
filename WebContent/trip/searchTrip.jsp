@@ -397,12 +397,12 @@ $(document).ready(function() {
 	});
 	
 	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-4 temp'>"
+		$("#listTrips").append("<div id='"+count+"' class='col-xs-4'>"
 				+"<div class='thumbnail'>"
 				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 				+value.tripName+"</h4></div>"
 				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
-				+"<img src='<c:url value='/controller/TripImageServlet?id="
+				+"<img class='temp' src='<c:url value='/controller/TripImageServlet?id="
 				+value.tripId+"'/>'></a><div ><h5>行程天數:"
 				+value.totalDay+"</h5></div>"
 				+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
@@ -467,69 +467,14 @@ $(document).ready(function() {
 		 e.stopPropagation();
 	 });
 	 
-	var var_map;
-	var var_location = new google.maps.LatLng(45.430817, 12.331516);
-	
-	google.maps.event.addDomListener(window, 'load', map_init);
-
-	//start of modal google map
-	$('#tripmodals').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_map, "resize");
-		var_map.setCenter(var_location);
-	});
-	function map_init() {
-
-		
-	
-		
-		var var_mapoptions = {
-			center : var_location,
-			zoom : 14,
-			mapTypeId : google.maps.MapTypeId.ROADMAP,
-			mapTypeControl : false,
-			panControl : false,
-			rotateControl : false,
-			streetViewControl : false,
-		};
-		var_map = new google.maps.Map(document
-				.getElementById("map-container"), var_mapoptions);
-
-		var contentString = '<div id="mapInfo">'
-				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
-				+ 'Dorsoduro, 701-704<br>'
-				+ '30123<br>Venezia<br>'
-				+ 'P: (+39) 041 240 5411</p>'
-				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
-				+ '</div>';
-
-		var var_infowindow = new google.maps.InfoWindow({
-			content : contentString
-		});
-
-		var var_marker = new google.maps.Marker(
-				{
-					position : var_location,
-					map : var_map,
-					title : "Click for information about the Guggenheim museum in Venice",
-					maxWidth : 200,
-					maxHeight : 200
-				});
-
-		google.maps.event.addListener(var_marker, 'click', function() {
-			var_infowindow.open(var_map, var_marker);
-		});
-	}
 	$("#listTrips").on("click",".temp", function() {
-		
-
-		
-		var tripId = $("#"+($(this).index()+1)+" span:first").text();
-		var totalDay =$("#"+($(this).index()+1)+" span:last").text();
-		var tripName = $("#"+($(this).index()+1)+" span:eq(1)").text();
+		var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
+		var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
+		var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
 		console.log(tripId);
-		//console.log(totalDay);
-		//console.log(tripName);
-		
+		console.log(totalDay);
+		console.log(tripName);
+		console.log($(this).parent().parent().parent().index());
 		// when .modal-wide opened, set content-body height based on browser height; 
 		// 200 is appx height of modal padding, modal title and button bar
 		var height = $(window).height() - 200;
@@ -538,9 +483,9 @@ $(document).ready(function() {
 		
 		//According to trip day to dynamic create Tabs. 
 		$("#mytab , #tabContent ").empty();
-		 console.log()
+
 		$(".modal-header").html('<h4 class="modal-title">'
-				+$("#"+($(this).index()+1)+" span:eq(1)").text()+
+				+tripName+
 				'</h4>');
 		//based on Trip Day to create Trip Details
 		for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
@@ -561,9 +506,9 @@ $(document).ready(function() {
 				 dataType:"json", //xml,text
 				 async: false,
 				 success:function(data){
-					 console.log("get data from server....");
-					 console.log(data);
-					 console.log(data.length);
+					 //console.log("get data from server....");
+					 //console.log(data);
+					 //console.log(data.length);
 					 count = 1 ;
 
 					 (data.length==0)?$('#tabContent').append('<div class="tab-pane" id="day' 
@@ -634,7 +579,58 @@ $(document).ready(function() {
 
 
 	
+	var var_map;
+	var var_location = new google.maps.LatLng(45.430817, 12.331516);
 	
+	google.maps.event.addDomListener(window, 'load', map_init);
+
+	//start of modal google map
+	$('#tripmodals').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_map, "resize");
+		var_map.setCenter(var_location);
+	});
+	function map_init() {
+
+		
+	
+		
+		var var_mapoptions = {
+			center : var_location,
+			zoom : 14,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			mapTypeControl : false,
+			panControl : false,
+			rotateControl : false,
+			streetViewControl : false,
+		};
+		var_map = new google.maps.Map(document
+				.getElementById("map-container"), var_mapoptions);
+
+		var contentString = '<div id="mapInfo">'
+				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
+				+ 'Dorsoduro, 701-704<br>'
+				+ '30123<br>Venezia<br>'
+				+ 'P: (+39) 041 240 5411</p>'
+				+ '<a href="http://www.guggenheim.org/venice" target="_blank">Plan your visit</a>'
+				+ '</div>';
+
+		var var_infowindow = new google.maps.InfoWindow({
+			content : contentString
+		});
+
+		var var_marker = new google.maps.Marker(
+				{
+					position : var_location,
+					map : var_map,
+					title : "Click for information about the Guggenheim museum in Venice",
+					maxWidth : 200,
+					maxHeight : 200
+				});
+
+		google.maps.event.addListener(var_marker, 'click', function() {
+			var_infowindow.open(var_map, var_marker);
+		});
+	}
 	
 });
 </script>
