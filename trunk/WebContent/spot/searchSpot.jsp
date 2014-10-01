@@ -238,7 +238,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 
 									<div class="row">
 										<div class="col-md-12 itravel-block-frame">
-											<div class="itravel-block-1-group" id="map-container"></div>
+											<div class="itravel-block-1-group" id="searchSpot-map-container"></div>
 										</div>
 									</div>
 								</div>
@@ -737,7 +737,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			streetViewControl : false,
 		};
 		var_map = new google.maps.Map(document
-				.getElementById("map-container"), var_mapoptions);
+				.getElementById("searchSpot-map-container"), var_mapoptions);
 		
 		/*
 		var spot_infowindow = new google.maps.InfoWindow();
@@ -745,8 +745,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		var_marker = new google.maps.Marker({
 			position : var_location,
 			map : var_map,
-			maxWidth : $("#map-container").width(),
-			maxHeight : $("#map-container").height(), 
+			maxWidth : $("#searchSpot-map-container").width(),
+			maxHeight : $("#searchSpot-map-container").height(), 
 		});
 		*/
 	} 
@@ -759,8 +759,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		var_marker = new google.maps.Marker({
 			position : var_location,
 			map : var_map,
-			maxWidth : $("#map-container").width(),
-			maxHeight : $("#map-container").height(), 
+			maxWidth : $("#searchSpot-map-container").width(),
+			maxHeight : $("#searchSpot-map-container").height(), 
 		});
 		
 	}
