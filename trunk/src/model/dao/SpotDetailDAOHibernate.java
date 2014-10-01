@@ -16,7 +16,7 @@ import org.hibernate.Transaction;
 
 public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	private SessionFactory sessionFactory = null;
-	private static final int SPOTS_PER_PAGE = 10; 
+	private static final int SPOTS_PER_PAGE = 4; 
 	
 	public SpotDetail insert(SpotDetail spot) {
 		sessionFactory = HibernateUtil.getSessionFactory();
