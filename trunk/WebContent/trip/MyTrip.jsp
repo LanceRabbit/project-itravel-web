@@ -26,6 +26,26 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
+/*移動到上方放大*/
+.thumbnail {
+    margin: 10px 10px 10px 10px;
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    }
+
+.thumbnail:hover {
+	cursor: pointer;
+	-webkit-transform: scale(1.1, 1.1);
+    -ms-transform: scale(1.1, 1.1);
+    transform: scale(1.1, 1.1);
+    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    box-shadow: 10px 10px 5px #888888;
+    z-index: 1;
+    }
 
 #social:hover {
 	-webkit-transform: scale(1.1);

@@ -35,11 +35,26 @@ width:220px;
 height:330px;
 
 }
-img { 
-wudth:200px;
-height:200px;
-} 
 
+.thumbnail {
+    margin: 10px 10px 10px 10px;
+    -webkit-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    transform: scale(1, 1);
+    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    }
+
+.thumbnail:hover {
+	cursor: pointer;
+	-webkit-transform: scale(1.2, 1.2);
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    box-shadow: 10px 10px 5px #888888;
+    z-index: 1;
+    }
 
 
 </style>

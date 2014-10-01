@@ -30,7 +30,7 @@ public class DeletCollectServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		/*
-		State : 1,  // 1表示傳入的是spot資料
+		State : 1,  // 1表示傳入的是spot資料    2.傳入行程
 		AccountId : "${user.accountId}",
 		SpotId:id },					
 		*/
@@ -41,19 +41,21 @@ public class DeletCollectServlet extends HttpServlet {
 		// 取得AccountId 撈出spot
 		String AccountId = request.getParameter("AccountId");
 		String State = request.getParameter("State");
-		String SpotId = request.getParameter("SpotId");
-		System.out.println(AccountId+";"+State+";"+SpotId);
+		
+		System.out.println(AccountId+";"+State);
 		
 		PrintWriter out = response.getWriter();
 		//OutputStream os = response.getOutputStream();
 		MyCollectService service = new MyCollectService();
 		
 		if(State.equals("1")){ //刪除景點
+			String SpotId = request.getParameter("SpotId");
 			service.deletSpotCollect(AccountId, SpotId);
 			out.print(true);
-		}else{ //刪除行程
-			
-			
+		}else{ //刪除行程		
+			String TripId = request.getParameter("TripId");
+			service.deletTripCollect(AccountId, TripId);
+			out.print(true);
 		}
 		out.close();
 		response.setContentType("application/json;charset=UTF-8");
