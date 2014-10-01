@@ -1,5 +1,6 @@
 package model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -96,13 +97,79 @@ public class SearchSpotService {
 		
 		return result;
 	}
+	
+	private double deg2rad(double deg) {
+		return (deg * Math.PI / 180.0);
+	}
+	
+	private double rad2deg(double rad) {
+		return (rad * 180 / Math.PI);
+	}
+
+	private double distanceInKM(SpotDetail spot1, SpotDetail spot2) {
+		double dist = -1.0; // distance can't be calculated
+		
+		double lon1 = (spot1.getLongitude() == null)? 0.0 : spot1.getLongitude().doubleValue();
+		double lon2 = (spot2.getLongitude() == null)? 0.0 : spot2.getLongitude().doubleValue();
+		
+		double lat1 = (spot1.getLatitude() == null)? 0.0 : spot1.getLatitude().doubleValue();
+		double lat2 = (spot2.getLatitude() == null)? 0.0 : spot2.getLatitude().doubleValue();
+		
+		if(((lon1 == 0.0) && (lat1 == 0.0)) || ((lon2 == 0.0) && (lat2 == 0.0))) 
+			return dist;
+		
+		double theta = lon1 - lon2;
+		dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+		dist = Math.acos(dist);
+		dist = rad2deg(dist);
+		dist = dist * 60 * 1.1515;
+		dist = dist * 1.609344;
+
+		return dist;
+	}
+	
+	public List<SpotDetail> getNeighborhood(SpotDetail spot) {
+		List<SpotDetail> neighbors = new ArrayList<SpotDetail>(0);
+		
+		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
+		List<SpotDetail> allSpots = dao.selectAll();
+		
+		for(SpotDetail neighbor : allSpots) {
+			if(neighbor.getSpotId().equals(spot.getSpotId())) {
+//				System.out.println("==================================================");
+//				System.out.println("spot id : " + spot.getSpotId());
+//				System.out.println("neighbor id : " + neighbor.getSpotId());
+				continue;
+			}
+			
+			double dist = distanceInKM(spot, neighbor); 
+			if( (dist > 0.0) && ( dist < 5.0)) {
+//				System.out.println("==================================================");
+//				System.out.println("spot id : " + spot.getSpotId());
+//				System.out.println("neighbor id : " + neighbor.getSpotId());
+//				System.out.println("dist : " + dist);
+				neighbors.add(neighbor);
+			}
+		}
+		
+		return neighbors;
+	}
+	
 	public static void main(String[] args) {
 		SearchSpotService service = new SearchSpotService();
+		
 		List<SpotDetail> list = service.searchSpotByConditions(null, null, null, null, 1);
 		
 		if(list != null) {
 			for (Object o : list) {
-				System.out.println(o);
+				SpotDetail spot = (SpotDetail)o;
+				
+				System.out.println("============================================== " + o.toString() + " : neighbors ==============================================");
+				List<SpotDetail> neighbors = service.getNeighborhood(spot);
+				
+				for(SpotDetail neighbor : neighbors) {
+					System.out.println(neighbor.toString());
+				}
 			}
 		}
 		else {
