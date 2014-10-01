@@ -92,6 +92,8 @@ public class AddSpotServlet extends HttpServlet {
         	spotImgDAO.insert(spotImg);
     	}
     	
+    	response.setCharacterEncoding("UTF-8");
+    	response.sendRedirect(request.getContextPath()+"/spot/MySpot.jsp");
 //    	HttpSession session = request.getSession();
 //    	
 ////    	String spotId = request.getParameter("id");

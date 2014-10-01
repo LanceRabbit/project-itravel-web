@@ -214,7 +214,7 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/spot/addSpot.jsp"/>"> 景點</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#addSpotModal"> 景點</a></li>
 							<li><a href="#">宣傳</a></li>
 						</ul></li>
 
