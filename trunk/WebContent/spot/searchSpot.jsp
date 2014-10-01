@@ -278,11 +278,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 							<div class="row">
 
 								<div class="col-md-3">
-									<div class="input-group" id="cityGroup" data-toggle="popover"
+									<div class="input-group" id="queryCityGroup" data-toggle="popover"
 										data-placement="top" data-content="請選擇縣市">
-										<input id="city" name="city" type="text" placeholder="縣市"
+										<input id="queryCity" name="city" type="text" placeholder="縣市"
 											class="form-control" disabled>
-										<div class="input-group-btn" id="cityIdMenu">
+										<div class="input-group-btn" id="queryCityIdMenu">
 											<button type="button" class="btn btn-default dropdown-toggle"
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
@@ -297,12 +297,12 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 								</div>
 
 								<div class="col-md-3">
-									<div class="input-group" id="categoryGroup"
+									<div class="input-group" id="queryCategoryGroup"
 										data-toggle="popover" data-toggle="popover"
 										data-placement="top" data-content="請選擇分類">
-										<input id="category" name="category" type="text"
+										<input id="queryCategory" name="category" type="text"
 											placeholder="全部分類" class="form-control" disabled>
-										<div class="input-group-btn" id="categoryIdMenu">
+										<div class="input-group-btn" id="queryCategoryIdMenu">
 											<button type="button" class="btn btn-default dropdown-toggle"
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
@@ -317,12 +317,12 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 								</div>
 
 								<div class="col-md-3">
-									<div class="input-group" id="subcategoryGroup"
+									<div class="input-group" id="subqueryCategoryGroup"
 										data-toggle="popover" data-placement="top"
 										data-content="請選擇子分類">
-										<input id="subcategory" name="subcategory" type="text"
+										<input id="subqueryCategory" name="subcategory" type="text"
 											placeholder="全部子分類" class="form-control" disabled>
-										<div class="input-group-btn" id="subcategoryIdMenu">
+										<div class="input-group-btn" id="subqueryCategoryIdMenu">
 											<button type="button" class="btn btn-default dropdown-toggle"
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
@@ -337,7 +337,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 								</div>
 
 								<div class="col-md-3">
-									<input id="spotName" name="spotName" type="text"
+									<input id="querySpotName" name="spotName" type="text"
 										placeholder="景點名稱" class="form-control" data-toggle="popover"
 										data-placement="top" data-content="請輸入名稱">
 								</div>
@@ -493,59 +493,59 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	});
 	
 	// config category
-	jQuey('#cityIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#cityIdMenu .dropdown-menu").show();
+	jQuey('#queryCityIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCityIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#cityIdMenu .dropdown-menu").hide();
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#cityIdMenu .dropdown-menu li").click(function(){
+	jQuey("#queryCityIdMenu .dropdown-menu li").click(function(){
 		//console.log(jQuey(this).text());
-		jQuey("#city").val(jQuey(this).text());
-		jQuey("#cityIdMenu .dropdown-menu").hide();
+		jQuey("#queryCity").val(jQuey(this).text());
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
 		
 		activeQuery();
 	}); 
 	
-	jQuey('#categoryIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#categoryIdMenu .dropdown-menu").show();
+	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCategoryIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#categoryIdMenu .dropdown-menu").hide();
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#categoryIdMenu .dropdown-menu li").click(function(){
+	jQuey("#queryCategoryIdMenu .dropdown-menu li").click(function(){
 		//console.log(jQuey(this).index());
-		jQuey("#category").val(jQuey(this).text());
-		jQuey("#categoryIdMenu .dropdown-menu").hide();
+		jQuey("#queryCategory").val(jQuey(this).text());
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
 		
 		// populate subcategory
 		var subcategories = categories[jQuey(this).index()].subtype;
 		//console.log(subcategories);
-		jQuey("#subcategory").attr("placeholder", "全部子分類");
-		jQuey("#subcategory").val("");
-		jQuey("#subcategoryIdMenu ul:first").empty();
+		jQuey("#subqueryCategory").attr("placeholder", "全部子分類");
+		jQuey("#subqueryCategory").val("");
+		jQuey("#subqueryCategoryIdMenu ul:first").empty();
 		jQuey.each(subcategories, function(index, value){
-			jQuey("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+			jQuey("#subqueryCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
 		});
 		
-		if (!jQuey('#subcategoryGroup').is(':visible'))
-			jQuey("#subcategoryGroup").show();
+		if (!jQuey('#subqueryCategoryGroup').is(':visible'))
+			jQuey("#subqueryCategoryGroup").show();
 		
 		activeQuery();
 	});
 	
 	// config subcategory
-	jQuey("#subcategoryGroup").hide();
-	jQuey('#subcategoryIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#subcategoryIdMenu .dropdown-menu").show();
+	jQuey("#subqueryCategoryGroup").hide();
+	jQuey('#subqueryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#subqueryCategoryIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#subcategoryIdMenu .dropdown-menu").hide();
+		jQuey("#subqueryCategoryIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
+	jQuey("#subqueryCategoryIdMenu .dropdown-menu").on("click", "li",function(){
 		//console.log(jQuey(this).text());
-		jQuey("#subcategory").val(jQuey(this).text());
-		jQuey("#subcategoryIdMenu .scrollable").hide();
+		jQuey("#subqueryCategory").val(jQuey(this).text());
+		jQuey("#subqueryCategoryIdMenu .scrollable").hide();
 		
 		activeQuery();
 	});
@@ -602,7 +602,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	
 	
 	// input field : spot name
-	jQuey('#spotName').on("change", function() {
+	jQuey('#querySpotName').on("change", function() {
 		
 		activeQuery();
 	}); 
@@ -618,16 +618,16 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		jQuey.each(cities, function(index, value) {
 			//console.log(value);
 			if (value == 'dummy')
-				jQuey("#cityIdMenu ul:first").append("<li class='divider'></li>");
+				jQuey("#queryCityIdMenu ul:first").append("<li class='divider'></li>");
 			else
-				jQuey("#cityIdMenu ul:first").append(
+				jQuey("#queryCityIdMenu ul:first").append(
 						"<li><a href='#'>" + value + "</a></li>");
 		});
 
 		// populate category
 		jQuey.each(categories, function(index, value) {
 			var type = value.type;
-			jQuey("#categoryIdMenu ul:first").append(
+			jQuey("#queryCategoryIdMenu ul:first").append(
 					"<li><a href='#'>" + type + "</a></li>");
 		});
 	}
@@ -638,14 +638,14 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 					":"+window.location.port+"/"
 	*/					
 	function activeQuery() {
-		var spotName = jQuey('#spotName').val();
-		//console.log("spotName : " + spotName);
-		var city = jQuey("#city").val();
+		var spotName = jQuey('#querySpotName').val();
+		//console.log("querySpotName : " + spotName);
+		var city = jQuey("#queryCity").val();
 		//console.log("city : " + city);
-		var category = jQuey('#category').val();
-		//console.log("category : " + category);
-		var subcategory = jQuey('#subcategory').val();
-		//console.log("subcategory : " + subcategory);
+		var category = jQuey('#queryCategory').val();
+		//console.log("queryCategory : " + category);
+		var subcategory = jQuey('#subqueryCategory').val();
+		//console.log("subqueryCategory : " + subCategory);
 
 		jQuey.ajax({
 			type : "POST",
