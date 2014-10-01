@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -111,7 +110,7 @@ border-collapse:collapse;
 		<div class="modal modal-wide fade" id="tripmodals">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div id="tripTitle" class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
 						<h4 class="modal-title">1234</h4>
@@ -272,7 +271,7 @@ border-collapse:collapse;
 		//According to trip day to dynamic create Tabs. 
 		$("#mytab , #tabContent ").empty();
 		 console.log()
-		$(".modal-header").html('<h4 class="modal-title">'
+		$("#tripTitle").html('<h4 class="modal-title">'
 				+tripName+
 				'</h4>');
 		//based on Trip Day to create Trip Details

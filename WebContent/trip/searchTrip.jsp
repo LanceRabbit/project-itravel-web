@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -155,10 +154,10 @@ border-collapse:collapse;
 		<div class="modal modal-wide fade" id="tripmodals">
 			<div class="modal-dialog">
 				<div class="modal-content">
-					<div class="modal-header">
+					<div id="tripTitle" class="modal-header">
 						<button type="button" class="close" data-dismiss="modal"
 							aria-hidden="true">&times;</button>
-						<h4 class="modal-title">1234</h4>
+						<h4  class="modal-title">1234</h4>
 					</div>
 					<div class="modal-body" >
 						<div class="container-fluid">
@@ -194,7 +193,10 @@ border-collapse:collapse;
 	
 
 	</script>	
-<jsp:include page="/fragment/bottom.jsp" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
+<script>!window.jQuery && document.write("<script src='${pageContext.request.contextPath}/js/jquery-1.11.1.min.js'><\/script>")</script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 		function like(id) {
 			
@@ -484,7 +486,7 @@ $(document).ready(function() {
 		//According to trip day to dynamic create Tabs. 
 		$("#mytab , #tabContent ").empty();
 
-		$(".modal-header").html('<h4 class="modal-title">'
+		$("#tripTitle").html('<h4 class="modal-title">'
 				+tripName+
 				'</h4>');
 		//based on Trip Day to create Trip Details
