@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="../css/jquery.dynatable.css"/>
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -36,7 +36,9 @@ border-collapse:collapse;
 .bootbox > .modal-dialog {
 width: 300px;
 }
-
+  ul {
+  list-style-type: none;
+  }
 .nav-tabs > li {
     position:relative;
 }
@@ -56,7 +58,7 @@ width: 300px;
 }
 
 .trip-name {
-	text-align: center;
+	padding-left: 0px;
 }
 </style>
 </head>
@@ -67,13 +69,17 @@ width: 300px;
 	<!-- Page Content -->
 	<div class="container thumbnail">
 	<div class="trip-name">
+		<div style="width:350px; text-align: center;">
 		<h4>${param.tripName}</h4>
+		</div>
 		<span id='tripId' hidden>${param.tripName}</span>
-		<span id='startDay' hidden>${param.dateStart}</span>
+		<span id='startDay' hidden>${param.datextart}</span>
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
 		<div class='col-xs-5'>
+		<form class="form-horizontal" method="post" id="tripForm"
+					action='<c:url value="/controller/AddTripServlet" />'>
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
 		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
 		        </li>
@@ -84,99 +90,115 @@ width: 300px;
 		    <div id="pageContent" class="tab-content">
 		        <div class="tab-pane active" id="contact_1">Contact Form: Day1</div>
 		    </div>
+		 </form>
 		</div>
 		<div class="clearfix visible-xs-block"></div>
 		<div class='col-xs-7'>
 			<ul id="spotTab" class="nav nav-tabs" role="tablist">
-		        <li class="active"><a href="#spot_1" data-toggle="tab">搜尋景點</a>
+		        <li class="active">
+		        <a href="#spot_1" data-toggle="tab">搜尋景點</a>
 		        </li>
-		        <li><a href="#spot_2" data-toggle="tab">收藏景點</a> 
+		        <li><a id="myselfcollect" href="#spot_2" data-toggle="tab">收藏景點</a> 
 		        </li>
 		    </ul>
 		    <div id="spotContent" class="tab-content">
 		        <div class="tab-pane active" id="spot_1">
-		        <div class="container">
-				<div class="row">
-				<div class="col-md-12">
-					<div>
-						<form class="form-horizontal" method="post" id="infoForm"
-							action='<c:url value="/controller/AddSpot" />'>
-							<fieldset>
-								<div class="form-group">
-									<div class="row">
-									<div class="col-xs-0">
+ <div class="container">
+	<div class="row">
+		<div class="col-md-12">
+				<form class="form-horizontal" method="post" id="infoForm"
+					action='<c:url value="/controller/AddSpot" />'>
+					<fieldset>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="input-group" id="queryCityGroup" data-toggle="popover"
+										data-placement="top" data-content="請選擇縣市">
+										<input id="queryCity" name="city" type="text" placeholder="縣市"
+											class="form-control" disabled>
+										<div class="input-group-btn" id="queryCityIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
 									</div>
-									<div class="col-xs-2">
-											<input id="spotName" name="spotName" type="text"
-												placeholder="景點名稱" class="form-control" data-toggle="popover"
-												data-placement="top" data-content="請輸入名稱" maxlength="10">
-										</div>
-										<div class="col-xs-2">
-											<div class="input-group" id="cityGroup" data-toggle="popover"
-												data-placement="top" data-content="請選擇縣市">
-												<input id="city" name="city" type="text" placeholder="縣市"
-													class="form-control" disabled>
-												<div class="input-group-btn" id="cityIdMenu">
-													<button type="button" class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														選擇 <span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu dropdown-menu-right scrollable"
-														role="menu">
-													</ul>
-												</div>
-												<!-- /btn-group -->
-											</div>
-											<!-- /input-group -->
-										</div>
-		
-										<div class="col-xs-2">
-											<div class="input-group" id="categoryGroup"
-												data-toggle="popover" data-toggle="popover"
-												data-placement="top" data-content="請選擇分類">
-												<input id="category" name="category" type="text"
-													placeholder="分類" class="form-control" disabled>
-												<div class="input-group-btn" id="categoryIdMenu">
-													<button type="button" class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														選擇 <span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu dropdown-menu-right scrollable"
-														role="menu">
-													</ul>
-												</div>
-												<!-- /btn-group -->
-											</div>
-											<!-- /input-group -->
-										</div>
-		
-						
-		
-							
-									</div>
+									<!-- /input-group -->
 								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div>
-			</div>
-	
-	
-		<div class="row" id="listDetails">
-		</div>	
-	</div>
-		        
-		        
-		        </div>
-		        <div class="tab-pane" id="spot_2">Contact Form: Day2</div>
-		    </div>
+
+								<div class="col-xs-2">
+									<div class="input-group" id="queryCategoryGroup"
+										data-toggle="popover" data-toggle="popover"
+										data-placement="top" data-content="請選擇分類">
+										<input id="queryCategory" name="category" type="text"
+											placeholder="全部" class="form-control" disabled>
+										<div class="input-group-btn" id="queryCategoryIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
+									</div>
+									<!-- /input-group -->
+								</div>
+
+							
+
+								<div class="col-xs-2">
+									<input id="querySpotName" name="spotName" type="text"
+										placeholder="景點名稱" class="form-control" data-toggle="popover"
+										data-placement="top" data-content="請輸入名稱">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+		</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<button id="test"  type="button" class="btn btn-default" 
-				>取消</button>
-		<input type="submit" class="btn btn-info" value="建立" />
+	
+	
+			<div class="row" id="listDetails">
+			<ul class="thumbnails">
+                <li class="span5 clearfix">
+                  <div class="thumbnail clearfix">
+                    <img src="http://placehold.it/320x200" alt="ALT NAME" class="pull-left span2 clearfix" style="margin-right:10px">
+                    <div class="caption">
+                      <a href="http://bootsnipp.com/" class="btn btn-primary icon  pull-right">Select</a>
+                      <h4>      
+                      <a href="#">Luis Felipe Kaufmann</a>
+                      </h4>
+                      <small><b>RG: </b>99384877</small>  
+                    </div>
+                  </div>
+                </li>
+            </ul>
+			</div>	
+		</div>
+
+		<div class="tab-pane" id="spot_2">
+			<div class="row" >
+			<ul id="mycollect">
+			</ul>
+			</div>
+          </div>
 	</div>
+		</div>
+
+	</div>
+		<div class="modal-footer">
+		<button id="doNothing"  type="button" class="btn btn-default" 
+				>取消</button>
+		<input id="createTrip" type="submit" class="btn btn-info" value="建立" />
+	</div>	
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -185,10 +207,193 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
+    <script src="../js/jquery.dynatable.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(	function() {
+	$("#myselfcollect").click(function(){
+		$("#mycollect").empty();
+		var count = 0;
+		jQuery.ajax({
+			url : '<c:url value='/controller/MyCollectServlet' />',
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "json",	
+			data : {AccountId : "${user.accountId}"	},								
+			success : function(data) {									
+				if(data){
+					jQuery.each(data,function(index,value) {				
+					
+		
+						
+						
+						jQuery('#mycollect').append("<li><div id='div"+count+"'class='col-xs-12'><div class='row'>"
+								+"<div class='col-xs-6'>"
+								+"<div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''></div>"
+								+"</div><div class='col-xs-6'><div class='caption'><h4><p>"
+							+ value.spotName
+							+ "</p></h4>"
+							+ value.spotIntro
+							+ "</div></div>"
+							+ "</div></div></li>"
+							);
+						
+						count++;
+						
+					});
+				}else{											
+						jQuery('#mycollect').append("<div class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a>無收藏景點</a></h4>無收藏景點資訊</div><div class='ratings'><p class='pull-right'></p></div></div></div>");	
+						
+				
+				}
+			}
+		});
+		
+	});
+	
+
+});
+</script>
+
+
+<script>
+	
+(function(jQuey){
+	
+	var categories = [{"type":"全部", "subtype":["全部子分類"]},
+	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
+	                  {"type":"購物", "subtype":["全部子分類", "百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
+	                  {"type":"住宿", "subtype":["全部子分類", "飯店", "旅舍", "民宿", "營地", "其他"]},
+	                  {"type":"景點", "subtype":["全部子分類", "風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
+	                  {"type":"活動", "subtype":["全部子分類", "藝文展覽", "親子活動", "競賽活動", "其他"]}];
+	
+	initElements();
+	
+	// modal google map
+	$('#myModal').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_map, "resize");
+		var_map.setCenter(var_location);
+	});
+	
+	// config category
+	jQuey('#queryCityIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCityIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+	});
+	
+	jQuey("#queryCityIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuey(this).text());
+		jQuey("#queryCity").val(jQuey(this).text());
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+		
+		activeQuery();
+	}); 
+	
+	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCategoryIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+	});
+	
+	jQuey("#queryCategoryIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuey(this).index());
+		jQuey("#queryCategory").val(jQuey(this).text());
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+		
+		// populate subcategory
+		var subcategories = categories[jQuey(this).index()].subtype;
+		//console.log(subcategories);
+		jQuey("#subqueryCategory").attr("placeholder", "全部子分類");
+		jQuey("#subqueryCategory").val("");
+		jQuey("#subqueryCategoryIdMenu ul:first").empty();
+		jQuey.each(subcategories, function(index, value){
+			jQuey("#subqueryCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		});
+		
+
+		
+		activeQuery();
+	});
+
+	// input field : spot name
+	jQuey('#querySpotName').on("change", function() {
+		
+		activeQuery();
+	}); 
+	
+	// load data from server
+	activeQuery();
+	
+	function initElements() {
+		// populate city ids
+		var cities = [ "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
+				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
+				"澎湖", "金門", "馬祖" ];
+		jQuey.each(cities, function(index, value) {
+			//console.log(value);
+			if (value == 'dummy')
+				jQuey("#queryCityIdMenu ul:first").append("<li class='divider'></li>");
+			else
+				jQuey("#queryCityIdMenu ul:first").append(
+						"<li><a href='#'>" + value + "</a></li>");
+		});
+
+		// populate category
+		jQuey.each(categories, function(index, value) {
+			var type = value.type;
+			jQuey("#queryCategoryIdMenu ul:first").append(
+					"<li><a href='#'>" + type + "</a></li>");
+		});
+	}
+
+	/*
+	var curPath = window.location.pathname;
+	var rootPath = window.location.protocol+"//"+window.location.host+
+					":"+window.location.port+"/"
+	*/					
+	function activeQuery() {
+		var spotName = jQuey('#querySpotName').val();
+		//console.log("querySpotName : " + spotName);
+		var city = jQuey("#queryCity").val();
+		//console.log("city : " + city);
+		var category = jQuey('#queryCategory').val();
+		//console.log("queryCategory : " + category);
+
+		jQuey.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/SearchSpot' />',
+			data : {
+				spotName : spotName,
+				city : city,
+				category : category,
+				subcategory : null
+			}
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+			jQuery('#listDetails').empty();	
+			jQuey.each(data, function(index, value){
+				//console.log("Hello" + index + ":" + value);
+				jQuery('#listDetails').append(
+						"<div class='col-xs-7'>"
+						+"<div class='thumbnail'><img src='" +
+						value.spotThumbnail + "' alt=''>"
+						+"<div class='caption'><h4><p class='detail' id='"+value.spotId+"'>"
+						+ value.spotName
+						+ "</p></h4>"
+						+"<div class='fixedHeight'>"
+						+ value.spotIntro
+						+"</div>"
+						+ "</div></div></div>"
+				); // end of jQuery
+			});
+		});
+	}
+}(jQuery, google));
+</script>
 <script>
 var tempDay = $("#days").text() ;
 	jQuery(document).ready(function() {
-		
 		console.log($("#days").text());
 		console.log($("#tripId").text());
 		//according to days to create the tabs on the left side of screen.
@@ -222,8 +427,26 @@ var tempDay = $("#days").text() ;
 			tempDay = $("#pageTab").children().length - 1;
 			console.log("tempDay=="+tempDay);
 		});
+		$("#createTrip").click(function(){
+			$("#tripForm").submit();
+			/* jQuey.ajax({
+				type : "POST",
+				url : '<c:url value='/controller/AddTripServlet' />',
+				data : {
+					spotName : spotName,
+					city : city,
+					category : category,
+					subcategory : null
+				}
+			}).done(function(data) {
+				//console.log("detail from server....." + data);
+			
+			}); */
+			
+		});
 		
-		$("#test").click(function(){
+	
+		$("#doNothing").click(function(){
 			bootbox.dialog({
 				  message: "確定取消新增行程表? ",
 				  buttons: {
@@ -335,7 +558,13 @@ var tempDay = $("#days").text() ;
 		    });
 		
 		}	
-			
+	$("#mycollect").dynatable({
+		dataset: {
+		    perPageDefault: 5
+		   
+		  },
+		
+	});	
 });
 </script>
 </body>
