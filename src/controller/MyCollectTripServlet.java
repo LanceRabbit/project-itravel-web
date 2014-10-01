@@ -113,7 +113,7 @@ public class MyCollectTripServlet extends HttpServlet {
 						SpotDetail spot = trip.getSpotDetail();
 						System.out.println("spotId" + spot.getSpotId());
 
-						String imgURL = null;
+						String imgURL = webAppURL + "/images/team1.jpg";
 						String imgPath = ImageIOUtil.generateImageDirPath(
 								spot.getAccountId(), spot.getSpotId());
 						String deployDir = getServletContext().getRealPath("/");
@@ -122,7 +122,7 @@ public class MyCollectTripServlet extends HttpServlet {
 
 						Set<SpotImg> imgs = spot.getSpotImgs();
 						Iterator<SpotImg> itimg = imgs.iterator();
-						imgURL = webAppURL + "/images/team1.jpg";
+						
 
 						while (itimg.hasNext()) {
 							SpotImg image = itimg.next();
