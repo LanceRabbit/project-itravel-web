@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -69,114 +69,159 @@ width: 300px;
 	<div class="trip-name">
 		<h4>${param.tripName}</h4>
 		<span id='tripId' hidden>${param.tripName}</span>
-		<span id='tripName' hidden>${param.dateStart}</span>
-		<span id='totalDay' hidden>${param.totalDay}</span>
+		<span id='startDay' hidden>${param.dateStart}</span>
+		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
-			<div class='col-xs-5'>
+		<div class='col-xs-5'>
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
 		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
 		        </li>
-		        <li><a href="#contact_2" data-toggle="tab">Day2</a>  <span> x </span> 
-		        </li>
+
 		        <li><a href="#add-tab" id ="add-tab" class="add-contact">+</a>
 		        </li>
 		    </ul>
 		    <div id="pageContent" class="tab-content">
 		        <div class="tab-pane active" id="contact_1">Contact Form: Day1</div>
-		        <div class="tab-pane" id="contact_2">Contact Form: Day2</div>
 		    </div>
-	</div>
-	<div class="clearfix visible-xs-block"></div>
-	<div class='col-xs-7'>
-		<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div>
-				<form class="form-horizontal" method="post" id="infoForm"
-					action='<c:url value="/controller/AddSpot" />'>
-					<fieldset>
-						<div class="form-group">
-							<div class="row">
-							<div class="col-xs-2">
-									<input id="spotName" name="spotName" type="text"
-										placeholder="景點名稱" class="form-control" data-toggle="popover"
-										data-placement="top" data-content="請輸入名稱">
-								</div>
-								<div class="col-xs-2">
-									<div class="input-group" id="cityGroup" data-toggle="popover"
-										data-placement="top" data-content="請選擇縣市">
-										<input id="city" name="city" type="text" placeholder="縣市"
-											class="form-control" disabled>
-										<div class="input-group-btn" id="cityIdMenu">
-											<button type="button" class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												選擇 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
-												role="menu">
-											</ul>
-										</div>
-										<!-- /btn-group -->
-									</div>
-									<!-- /input-group -->
-								</div>
-
-								<div class="col-xs-3">
-									<div class="input-group" id="categoryGroup"
-										data-toggle="popover" data-toggle="popover"
-										data-placement="top" data-content="請選擇分類">
-										<input id="category" name="category" type="text"
-											placeholder="全部分類" class="form-control" disabled>
-										<div class="input-group-btn" id="categoryIdMenu">
-											<button type="button" class="btn btn-default dropdown-toggle"
-												data-toggle="dropdown">
-												選擇 <span class="caret"></span>
-											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
-												role="menu">
-											</ul>
-										</div>
-										<!-- /btn-group -->
-									</div>
-									<!-- /input-group -->
-								</div>
-
-				
-
-					
-							</div>
-						</div>
-					</fieldset>
-				</form>
-			</div>
 		</div>
-	</div>
+		<div class="clearfix visible-xs-block"></div>
+		<div class='col-xs-7'>
+			<ul id="spotTab" class="nav nav-tabs" role="tablist">
+		        <li class="active"><a href="#spot_1" data-toggle="tab">搜尋景點</a>
+		        </li>
+		        <li><a href="#spot_2" data-toggle="tab">收藏景點</a> 
+		        </li>
+		    </ul>
+		    <div id="spotContent" class="tab-content">
+		        <div class="tab-pane active" id="spot_1">
+		        <div class="container">
+				<div class="row">
+				<div class="col-md-12">
+					<div>
+						<form class="form-horizontal" method="post" id="infoForm"
+							action='<c:url value="/controller/AddSpot" />'>
+							<fieldset>
+								<div class="form-group">
+									<div class="row">
+									<div class="col-xs-0">
+									</div>
+									<div class="col-xs-2">
+											<input id="spotName" name="spotName" type="text"
+												placeholder="景點名稱" class="form-control" data-toggle="popover"
+												data-placement="top" data-content="請輸入名稱" maxlength="10">
+										</div>
+										<div class="col-xs-2">
+											<div class="input-group" id="cityGroup" data-toggle="popover"
+												data-placement="top" data-content="請選擇縣市">
+												<input id="city" name="city" type="text" placeholder="縣市"
+													class="form-control" disabled>
+												<div class="input-group-btn" id="cityIdMenu">
+													<button type="button" class="btn btn-default dropdown-toggle"
+														data-toggle="dropdown">
+														選擇 <span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu dropdown-menu-right scrollable"
+														role="menu">
+													</ul>
+												</div>
+												<!-- /btn-group -->
+											</div>
+											<!-- /input-group -->
+										</div>
+		
+										<div class="col-xs-2">
+											<div class="input-group" id="categoryGroup"
+												data-toggle="popover" data-toggle="popover"
+												data-placement="top" data-content="請選擇分類">
+												<input id="category" name="category" type="text"
+													placeholder="分類" class="form-control" disabled>
+												<div class="input-group-btn" id="categoryIdMenu">
+													<button type="button" class="btn btn-default dropdown-toggle"
+														data-toggle="dropdown">
+														選擇 <span class="caret"></span>
+													</button>
+													<ul class="dropdown-menu dropdown-menu-right scrollable"
+														role="menu">
+													</ul>
+												</div>
+												<!-- /btn-group -->
+											</div>
+											<!-- /input-group -->
+										</div>
+		
+						
+		
+							
+									</div>
+								</div>
+							</fieldset>
+						</form>
+					</div>
+				</div>
+			</div>
 	
 	
 		<div class="row" id="listDetails">
 		</div>	
 	</div>
-	</div>
+		        
+		        
+		        </div>
+		        <div class="tab-pane" id="spot_2">Contact Form: Day2</div>
+		    </div>
+		</div>
 	</div>
 	<div class="modal-footer">
 		<button id="test"  type="button" class="btn btn-default" 
-				">取消</button>
-		<input type="submit" class="btn btn-info" value="繼續" />
+				>取消</button>
+		<input type="submit" class="btn btn-info" value="建立" />
 	</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
 <script>!window.jQuery && document.write("<script src='${pageContext.request.contextPath}/js/jquery-1.11.1.min.js'><\/script>")</script>
-
-<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 <script>
-
+var tempDay = $("#days").text() ;
 	jQuery(document).ready(function() {
-	
+		
+		console.log($("#days").text());
+		console.log($("#tripId").text());
+		//according to days to create the tabs on the left side of screen.
+		for(var index = 2; index <= $("#days").text(); index++ ) {
+			
+			console.log(index);
+			var tabId = 'contact_' + index;
+		    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
+		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + index + '</div>');
+		    $('#pageTab li:nth-child(' + index + ') a').click();
+			if ($("#pageTab").children().length>5) {
+			    	$('#pageTab .add-contact').hide();
+			 }
+			
+			
+		}
+		
+		$('#pageTab .add-contact').click(function (e) {
+			
+		    e.preventDefault();
+		   
+		    var id = $("#pageTab").children().length; //think about it ;)
+			var tabId = 'contact_' + id;
+		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
+		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
+		    $('#pageTab li:nth-child(' + id + ') a').click();
+			if ($("#pageTab").children().length>5) {
+			    	$('#pageTab .add-contact').hide();
+			 }
+			console.log("add-contact==="+$("#pageTab").children().length);
+			tempDay = $("#pageTab").children().length - 1;
+			console.log("tempDay=="+tempDay);
+		});
 		
 		$("#test").click(function(){
 			bootbox.dialog({
@@ -211,7 +256,7 @@ width: 300px;
 		
 		})
 		
-		$(".nav-tabs").on("click", "a", function (e) {
+		$("#pageTab").on("click", "a", function (e) {
 	        e.preventDefault();
 	        if (!$(this).hasClass('add-contact')) {
 	            $(this).tab('show');
@@ -224,11 +269,15 @@ width: 300px;
 		    $(tabId).remove();
 		    reNumberPages();
 		    reContentPages();
-	        if($(".nav-tabs").children().length<6){
+		    console.log("pageTab-Len==="+$("#pageTab").children().length);
+	        if($("#pageTab").children().length<6){
 		    	
-		    	$('.add-contact').show();
+		    	$('#pageTab .add-contact').show();
 		    }
-	        $(".nav-tabs li").children('a').first().click();
+	        $("#pageTab li").children('a').first().click();
+		    var id = $("#pageTab").children().length; //think about it ;)
+			tempDay = $("#pageTab").children().length - 1;
+			console.log("tempDay=="+tempDay);
 	
 	    });
 
@@ -239,7 +288,8 @@ width: 300px;
 		    pageNum = 1;
 		    listNum = 1;
 		    var tabCount = $('#pageTab > li').length;
-		    $()
+		    console.log("reNumberPages==="+tabCount);
+		    
 		    $('#pageTab > li').each(function() {
 		    	var listId = "#contact_"+listNum;
 		    	listNum++;
@@ -258,12 +308,12 @@ width: 300px;
 		        }
 		        
 		    });
-		   if($(".nav-tabs").children().length>5){
-		    	$('.add-contact').hide();
+		   if($("#pageTab").children().length>5){
+		    	$('#pageTab .add-contact').hide();
 		    }
 		}	
 		/**
-		* Reset numbering on tab buttons
+		* Reset numbering on contents
 		*/
 		function reContentPages() {
 		    pageNum = 1;
@@ -286,27 +336,7 @@ width: 300px;
 		
 		}	
 			
-			
-		$('.add-contact').click(function (e) {
-			
-		    e.preventDefault();
-		   
-		    var id = $(".nav-tabs").children().length; //think about it ;)
-			var tabId = 'contact_' + id;
-		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
-		    $('.tab-content').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
-		    $('.nav-tabs li:nth-child(' + id + ') a').click();
-			   if($(".nav-tabs").children().length>5){
-			    	$('.add-contact').hide();
-			    }
-			});
-	    });
-
-		
-			
-			
-		
-
+});
 </script>
 </body>
 </html>

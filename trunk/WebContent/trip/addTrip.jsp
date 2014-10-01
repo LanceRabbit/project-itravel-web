@@ -108,11 +108,12 @@
 		 $('#date_timepicker_start').datetimepicker({
 			  format:'Y/m/d',
 			  startDate:0,
-	          minDate:0,
 			  closeOnDateSelect:true,
 			  onShow:function( ct ){
 			   this.setOptions({
+				minDate:jQuery('#date_timepicker_end').val()?new Date(Date.reduceDay(new Date($('#date_timepicker_end').val()))):0,
 			    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
+			    		
 			   })
 			  },
 			  timepicker:false
@@ -122,13 +123,16 @@
 		 $('#date_timepicker_end').datetimepicker({
 			  format:'Y/m/d',
 			  startDate:0,
-	         
+			  
+			 
 			  closeOnDateSelect:true,
 			  onShow:function( ct ){
 				  console.log($('#date_timepicker_start').val());
+				  console.log(Date.addFiveDay(new Date($('#date_timepicker_start').val())));
 				  console.log($('#date_timepicker_start').val().length);
 				  this.setOptions({
-					    minDate:(jQuery('#date_timepicker_start').val().length!=0)?jQuery('#date_timepicker_start').val():0
+					    minDate:(jQuery('#date_timepicker_start').val().length!=0)?jQuery('#date_timepicker_start').val():0,
+					    maxDate:(jQuery('#date_timepicker_start').val().length!=0)?new Date(Date.addFiveDay(new Date($('#date_timepicker_start').val()))):false,
 				  })
 			  },
 			  timepicker:false
@@ -147,7 +151,17 @@
 		
 
 
-		})
+		});
+		Date.addFiveDay = function(day) {
+			  var one_day=1000*60*60*24;
+			  var day_ms = day.getTime();
+			  return day_ms + (one_day*4); 
+		};
+		Date.reduceDay = function(day) {
+			  var one_day=1000*60*60*24;
+			  var day_ms = day.getTime();
+			  return day_ms - (one_day*4); 
+		};
 	
 		Date.daysBetween = function( date1, date2 ) {
 		  //Get 1 day in milliseconds

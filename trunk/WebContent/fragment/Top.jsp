@@ -1055,8 +1055,11 @@
 		  closeOnDateSelect:true,
 		  onShow:function( ct ){
 		   this.setOptions({
-		    maxDate:jQuery('#date_timepicker_end').val()?jQuery('#date_timepicker_end').val():false
-		   })
+			minDate:jQuery('#date_timepicker_end').val()
+				?new Date(Date.reduceDay(new Date($('#date_timepicker_end').val()))):0,
+			maxDate:jQuery('#date_timepicker_end').val()
+				?jQuery('#date_timepicker_end').val():false
+		   });
 		  },
 		  timepicker:false
 	 });
@@ -1064,14 +1067,15 @@
 	 jQuery('#date_timepicker_end').datetimepicker({
 		  format:'Y/m/d',
 		  startDate:0,
-        
 		  closeOnDateSelect:true,
 		  onShow:function( ct ){
-			  console.log(jQuery('#date_timepicker_start').val());
-			  console.log(jQuery('#date_timepicker_start').val().length);
-			  this.setOptions({
-				    minDate:(jQuery('#date_timepicker_start').val().length!=0)?jQuery('#date_timepicker_start').val():0
-			  })
+		   this.setOptions({
+			minDate:(jQuery('#date_timepicker_start').val().length!=0)
+				?jQuery('#date_timepicker_start').val():0,
+			maxDate:(jQuery('#date_timepicker_start').val().length!=0)
+				?new Date(Date.addFiveDay(new Date($('#date_timepicker_start').val())))
+				:false,
+		   });
 		  },
 		  timepicker:false
 	 });
@@ -1081,9 +1085,19 @@
 			var date2 = new Date(jQuery('#date_timepicker_end').val());
 
 			jQuery("#totalDay").val(Date.daysBetween(date1, date2));
-			console.log(Date.daysBetween(date1, date2));
 	 });
 
+		Date.addFiveDay = function(day) {
+			  var one_day=1000*60*60*24;
+			  var day_ms = day.getTime();
+			  return day_ms + (one_day*4); 
+		};
+		Date.reduceDay = function(day) {
+			  var one_day=1000*60*60*24;
+			  var day_ms = day.getTime();
+			  return day_ms - (one_day*4); 
+		};
+	 
 	 Date.daysBetween = function(date1, date2) {
 		//Get 1 day in milliseconds
 		var one_day = 1000 * 60 * 60 * 24;
@@ -1097,7 +1111,7 @@
 
 		// Convert back to days and return
 		return Math.round(difference_ms / one_day) + 1;
-	 }
+	 };
 	
 	// spot related 
 	var myDropzone;
