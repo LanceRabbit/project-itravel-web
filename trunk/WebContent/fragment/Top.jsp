@@ -1148,7 +1148,7 @@
 
 		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
 		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
-		  url: "controller/Fileuploader",
+		  url: "<c:url value='/controller/Fileuploader' />",
 		  thumbnailWidth: 5000,
 		  thumbnailHeight: 5000,
 		  //maxFilesize: 2, //MB
