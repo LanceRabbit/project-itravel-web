@@ -355,7 +355,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	</div>
 	
 <jsp:include page="/fragment/bottom.jsp" />
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<!--  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
 <script type="text/javascript">
 		function like(id) {
 			//傳入的id是SpotId				

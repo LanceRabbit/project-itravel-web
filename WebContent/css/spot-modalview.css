@@ -1,6 +1,6 @@
 .itravel-block-frame{
 	display: inline-block;
-	border: 1px dotted #4F4F4F;
+	/*border: 1px dotted #4F4F4F;*/
 	padding: 5px;
 	
 	margin:auto;
@@ -9,7 +9,7 @@
 
 .itravel-block-1-pic{
 	display: inline-block;
-	border: 1px dotted #4F4F4F;
+	/*border: 1px dotted #4F4F4F;*/
 	padding:3px;
 	
 	margin:auto;
@@ -27,7 +27,7 @@
 
 .itravel-block-1-thumbnail{
 	display: inline-block;
-	border: 1px dotted #4F4F4F;
+	/*border: 1px dotted #4F4F4F;*/
 	padding-top:1px;
 	padding-bottom:1px;
 	margin-left:1px;
