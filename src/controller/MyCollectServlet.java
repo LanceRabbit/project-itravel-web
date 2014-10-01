@@ -103,7 +103,13 @@ public class MyCollectServlet extends HttpServlet {
 							jsonSpot.put("spotName", sp.getSpotName());
 							jsonSpot.put("spotIntro", sp.getSpotIntro());
 							jsonSpot.put("spotId", sp.getSpotId());
-							jsonSpot.put("spotLike", sp.getLikeCount());
+							Integer likeCount = null;
+							if(sp.getLikeCount()==null){
+								likeCount=0;
+							}else{
+								likeCount=sp.getLikeCount();
+							}
+							jsonSpot.put("spotLike", likeCount);	
 							
 							String imgURL = null;
 						
@@ -137,13 +143,6 @@ public class MyCollectServlet extends HttpServlet {
 					}
 				System.out.println(jsonSpots.toString().getBytes("UTF-8"));
 					os.write(jsonSpots.toString().getBytes("UTF-8"));
-
-			
-			 
-			
-			
-			
-			
 
 			
 			

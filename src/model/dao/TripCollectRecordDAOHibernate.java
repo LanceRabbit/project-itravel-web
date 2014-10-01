@@ -168,4 +168,31 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 		}
 
 
+		@Override
+		public List<TripCollectRecord> selectListByAccountId(String accountId) {
+			
+			sessionFactory = HibernateUtil.getSessionFactory();
+			Session session = this.sessionFactory.getCurrentSession();
+			Transaction tx = null;
+			List<TripCollectRecord> result =null;
+			try {
+				tx = session.beginTransaction();
+				result = session.createQuery("FROM TripCollectRecord trips where trips.id.accountId = ?").setString(0, accountId).list();
+
+				System.out.println("TripCollectRecord List by selectByAccountId ="+result);
+
+				tx.commit();
+			} catch (HibernateException e) {
+				if (tx != null) {
+					tx.rollback();
+					System.out.println(e.getMessage());
+				}
+				e.printStackTrace();
+			}
+			
+			
+			return result;
+		}
+
+
 }
