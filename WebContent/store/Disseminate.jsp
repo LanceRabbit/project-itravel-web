@@ -162,7 +162,7 @@
 				<div class="modal-footer">
 					<button id="resetADBtn" type="button" class="btn btn-default"
 						data-dismiss="modal">放棄</button>
-					<button id="save123ADBtn" type="submit" class="btn btn-primary">完成</button>
+					<button id="saveCouponBtn" type="submit" class="btn btn-primary">完成</button>
 				</div>
 			</div>
 		</div>
@@ -199,11 +199,18 @@
 					dataType : "json",	
 					data : {AccountId : "${user.accountId}"	},								
 					success : function(data) {
-						jQuery.each(data,function(index,value) {
-							jQuery("#spotIdList").empty();
-							jQuery("#spotIdList").append("<option id="+value.spotId+">"+value.spotName+"</option>");
-							jQuery("#ADdate").val(value.ValidDate);
-						
+						jQuery.each(data,function(index,value) {							
+							if(value.spotId!="false"){
+								jQuery("#spotIdList").empty();
+								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
+								jQuery("#spotIdList").append("<option id="+value.spotId+">"+value.spotName+"</option>");
+								jQuery("#ADdate").val(value.ValidDate);
+							}else{
+								jQuery("#spotIdList").empty();
+								jQuery("#ADdate").val(value.ValidDate);								
+								jQuery("#saveADBtn").hide();
+							}
+							
 						});
 					}
 					

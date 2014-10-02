@@ -45,7 +45,7 @@ public class findAdspotServlet extends HttpServlet {
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
 		
        
-		if (result != null) {
+		if (!result.isEmpty()) {
 
 			try {
 				for (SpotDetail o : result) {
@@ -63,9 +63,9 @@ public class findAdspotServlet extends HttpServlet {
 
 			try {
 				JSONObject jsonSpot = new JSONObject();
-				jsonSpot.put("spotId", "0");
+				jsonSpot.put("spotId", "false");
 				jsonSpot.put("spotName", "無景點");
-				jsonSpot.put("ValidDate",date );
+				jsonSpot.put("ValidDate",sdFormat.format(date) );
 				jsonSpots.put(jsonSpot);
 			} catch (JSONException e) {
 
