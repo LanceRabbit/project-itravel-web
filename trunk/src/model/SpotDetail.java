@@ -291,6 +291,7 @@ public class SpotDetail implements java.io.Serializable {
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="SPOT_ID")
+	@OrderBy(clause = "CMT_DT DESC")
 	public Set<SpotCommentRecord> getSpotCommentRecords() {
 		return this.spotCommentRecords;
 	}

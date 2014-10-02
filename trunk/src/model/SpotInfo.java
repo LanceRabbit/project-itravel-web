@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import model.util.ConstantsUtil;
@@ -31,7 +30,7 @@ public class SpotInfo implements java.io.Serializable {
 	//private Set<Ad> ads = new HashSet<Ad>(0);
 	private List<String> coupons = new ArrayList<String>(0); //private Set<Coupons> couponses = new HashSet<Coupons>(0);
 	private List<String> spotImgs = new ArrayList<String>(0); //private Set<SpotImg> spotImgs = new HashSet<SpotImg>(0);
-	private List<String> spotComments = new ArrayList<String>(0); //private Set<SpotCommentRecord> spotCommentRecords = new HashSet<SpotCommentRecord>(0);
+	private List<CommentInfo> spotComments = new ArrayList<CommentInfo>(0); //private Set<SpotCommentRecord> spotCommentRecords = new HashSet<SpotCommentRecord>(0);
 	
 	public SpotInfo() {
 	}
@@ -54,6 +53,7 @@ public class SpotInfo implements java.io.Serializable {
 		if(spotDetail.getLikeCount() != null)
 			likeCount = spotDetail.getLikeCount().toString();
 
+		// images
 		if(spotDetail.getSpotImgs().size() == 0) {
 			String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
 			spotImgs.add(path);
@@ -74,6 +74,14 @@ public class SpotInfo implements java.io.Serializable {
 			if(count == 0) {
 				String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
 				spotImgs.add(path);
+			}
+		}
+		
+		// comments
+		if(spotDetail.getSpotCommentRecords().size() > 0) {
+			for(SpotCommentRecord record : spotDetail.getSpotCommentRecords()) {
+				CommentInfo comment = new CommentInfo(record);
+				spotComments.add(comment);
 			}
 		}
 	}
@@ -191,11 +199,11 @@ public class SpotInfo implements java.io.Serializable {
 		this.spotImgs = spotImgs;
 	}
 
-	public List<String> getSpotComments() {
+	public List<CommentInfo> getSpotComments() {
 		return spotComments;
 	}
 
-	public void setSpotComments(List<String> spotComments) {
+	public void setSpotComments(List<CommentInfo> spotComments) {
 		this.spotComments = spotComments;
 	}
 }
