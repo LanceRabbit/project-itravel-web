@@ -67,7 +67,7 @@ height:450px;
 }
 
 
-#map-container {
+#my-trip-map-container {
 	height: 400px;
 }
 
@@ -148,7 +148,7 @@ border-collapse:collapse;
 									</div>
 								</div>
 								<div class="col-sm-7"  >
-									<div id="map-container" ></div>
+									<div id="my-trip-map-container" ></div>
 								</div>
 
 							</div>
@@ -180,7 +180,7 @@ border-collapse:collapse;
 				streetViewControl : false,
 			};
 			var_map = new google.maps.Map(document
-					.getElementById("map-container"), var_mapoptions);
+					.getElementById("my-trip-map-container"), var_mapoptions);
 
 			var contentString = '<div id="mapInfo">'
 					+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
@@ -234,7 +234,7 @@ border-collapse:collapse;
 			 count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-4'>"
+			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-3'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
