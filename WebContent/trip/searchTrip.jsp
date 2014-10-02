@@ -47,7 +47,7 @@ height:450px;
 }
 
 
-#map-container {
+#search-trip-map-container {
 	height: 400px;
 }
 
@@ -172,7 +172,7 @@ border-collapse:collapse;
 									</div>
 								</div>
 								<div class="col-sm-7"  >
-									<div id="map-container" ></div>
+									<div id="search-trip-map-container" ></div>
 								</div>
 
 							</div>
@@ -399,7 +399,7 @@ $(document).ready(function() {
 	});
 	
 	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-4'>"
+		$("#listTrips").append("<div id='"+count+"' class='col-xs-3'>"
 				+"<div class='thumbnail'>"
 				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 				+value.tripName+"</h4></div>"
@@ -606,7 +606,7 @@ $(document).ready(function() {
 			streetViewControl : false,
 		};
 		var_map = new google.maps.Map(document
-				.getElementById("map-container"), var_mapoptions);
+				.getElementById("search-trip-map-container"), var_mapoptions);
 
 		var contentString = '<div id="mapInfo">'
 				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'

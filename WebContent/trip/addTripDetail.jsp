@@ -38,6 +38,7 @@ width: 300px;
 }
   ul {
   list-style-type: none;
+  
   }
 .nav-tabs > li {
     position:relative;
@@ -73,7 +74,7 @@ width: 300px;
 		<h4>${param.tripName}</h4>
 		</div>
 		<span id='tripId' hidden>${param.tripName}</span>
-		<span id='startDay' hidden>${param.datextart}</span>
+		<span id='startDay' hidden>${param.dateStart}</span>
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
@@ -88,7 +89,7 @@ width: 300px;
 		        </li>
 		    </ul>
 		    <div id="pageContent" class="tab-content">
-		        <div class="tab-pane active" id="contact_1">Contact Form: Day1</div>
+		        <div class="tab-pane active" id="contact_1"></div>
 		    </div>
 		 </form>
 		</div>
@@ -185,10 +186,10 @@ width: 300px;
 		</div>
 
 		<div class="tab-pane" id="spot_2">
-			<div class="row" >
-			<ul id="mycollect">
+	
+			<ul id="mycollect"  class="row-fluid">
 			</ul>
-			</div>
+			
           </div>
 	</div>
 		</div>
@@ -208,9 +209,296 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
     <script src="../js/jquery.dynatable.js"></script>
+<script>
+var tempDay = $("#days").text() ;
+var currentDiv = "#contact_1";
+
+jQuery(document).ready(function() {
+	console.log($("#days").text());
+	console.log($("#tripId").text());
+	//according to days to create the tabs on the left side of screen.
+	for(var index = 2; index <= $("#days").text(); index++ ) {
+		
+		console.log(index);
+		var tabId = 'contact_' + index;
+	    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageTab li:nth-child(' + index + ') a').click();
+		if ($("#pageTab").children().length>5) {
+		    	$('#pageTab .add-contact').hide();
+		 }
+		
+		
+	}
+	//record current tab is where focus.
+	$('#pageTab').on('click','li',function(e){
+		 e.stopPropagation();
+		console.log($(this).index());
+		
+		currentDiv = "#contact_"+($(this).index()+1);
+		console.log(currentDiv);
+	});
+	//dynamic add tabs when user click this one 
+	$('#pageTab .add-contact').click(function (e) {
+		 e.stopPropagation();
+	    e.preventDefault();
+	   
+	    var id = $("#pageTab").children().length; //think about it ;)
+		var tabId = 'contact_' + id;
+	    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageTab li:nth-child(' + id + ') a').click();
+		if ($("#pageTab").children().length>5) {
+		    	$('#pageTab .add-contact').hide();
+		 }
+		console.log("add-contact==="+$("#pageTab").children().length);
+		tempDay = $("#pageTab").children().length - 1;
+		console.log("tempDay=="+tempDay);
+	});
+		
+	//
+	$("#createTrip").click(function(){
+		$("#tripForm").submit();
+		/* jQuey.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/AddTripServlet' />',
+			data : {
+				spotName : spotName,
+				city : city,
+				category : category,
+				subcategory : null
+			}
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+		
+		}); */
+		
+	});
+		
+	//confirm doalog when user want to cancel current add trip step.
+	$("#doNothing").click(function(){
+		bootbox.dialog({
+			  message: "確定取消新增行程表? ",
+			  buttons: {
+			    cancel: {
+			      label: "取消",
+			      className: "btn btn-default",
+			      callback: function() {
+			    	  console.log("do nothing");  
+			      }
+			    },
+			    confirm: {
+			      label: "確定",
+			      className: "btn btn-info",
+			      callback: function() {
+			    	  window.location.href = '<c:url value="/first.jsp"/>';  
+			      }
+			    }
+			  }
+			});
+	/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
+			 if (result == true) {                                             
+				 window.location.href = '<c:url value="/first.jsp"/>';                          
+				  } else {
+					  console.log("do nothing");                        
+			}
+		});  */
+	
+	});
+		
+		$("#pageTab").on("click", "a", function (e) {
+			 
+	        e.preventDefault();
+	        if (!$(this).hasClass('add-contact')) {
+	            $(this).tab('show');
+	        }
+	    })
+	    .on("click", "span", function (e) {
+	    	 e.stopPropagation();
+		    var tabId = $(this).parents('li').children('a').attr('href');
+		    $(this).parents('li').remove('li');
+		    $(tabId).remove();
+		    reNumberPages();
+		    reContentPages();
+	        if($("#pageTab").children().length<6){
+		    	
+		    	$('#pageTab .add-contact').show();
+		    }
+	        $("#pageTab li").children('a').first().click();
+		    var id = $("#pageTab").children().length; //think about it ;)
+			tempDay = $("#pageTab").children().length - 1;
+			console.log("tempDay=="+tempDay);
+			currentDiv = "#contact_1";
+			console.log(currentDiv);
+	    });
+
+		/**
+		* Reset numbering on tab buttons
+		*/
+		function reNumberPages() {
+		    pageNum = 1;
+		    listNum = 1;
+		    
+		    $('#pageTab > li').each(function() {
+		    	var listId = "#contact_"+listNum;
+		    	listNum++;
+		        var pageId = $(this).children('a').attr('href');
+	
+		        if (pageId == "#contact_1") {
+		            return true;
+		        } else if (pageId =="#add-tab"){
+		        	return true;
+		        }
+		        pageNum++;
+		        $(this).children('a').html('Day' + pageNum);
+		        if(listId!=pageId){
+		        	$(this).children('a').attr('href',listId);
+		        }
+		    });
+		   if($("#pageTab").children().length>5){
+		    	$('#pageTab .add-contact').hide();
+		    }
+		}	
+		/**
+		* Reset numbering on contents
+		*/
+		function reContentPages() {
+		    pageNum = 1;
+		    listNum = 1;
+		    $('#pageContent > div').each(function() {
+		    	var listId = "contact_"+listNum;
+		    	listNum++;
+		        var pageId = $(this).attr('id');
+		        console.log(pageId);
+		        if (pageId == "contact_1") {
+		            return true;
+		        }
+		        if(listId!=pageId){
+		        	$(this).attr('id',listId);
+		        }
+		        
+		    });
+		
+		}	
+});
+</script>    
+<script>
+//Function that renders the list items from our records
+function ulWriter(rowIndex, record, columns, cellWriter) {
+	var index = 1;
+	console.log("writer==="+index);
+  var cssClass = "span4", li;
+  if (rowIndex % 3 === 0) { cssClass += ' first'; }
+  li = '<li>'
+	  	  +'<div id="'+record.spotId+'"class="col-xs-12">'
+	  		+'<div class="row">'
+	  			+'<div class="col-xs-6">'
+	  				+'<div class="thumbnail">'
+	  	 			+ record.thumbnail 
+	  	 			+'</div>'
+	  	 		+'</div>'
+	  			+'<div class="col-xs-6">'
+	  		 		+'<div class="caption">' 
+	  	 				+ record.caption 
+	  	 			+'</div>'
+	  	 		+'</div>'
+	  	 	+'</div>'
+	  	 +'</div></li>';
+  return li;
+}
+/* 
+	<li>
+		<div id='div"+count+"'class='col-xs-12'>
+			<div class='row'>
+				<div class='col-xs-6'>
+					<div class='thumbnail'>
+						<img src='"+value.spotThumbnail+"' alt=''>
+					</div>"
+				</div>
+				<div class='col-xs-6'>
+					<div class='caption'>
+						<h4>
+						<p>value.spotName</p>
+						</h4>
+						value.spotIntro
+					</div>
+				</div>
+			</div>
+		</div>
+	</li>
+
+
+
+
+<li class="span4 first">
+	<div class="thumbnail">
+imgae	<div class="thumbnail-image">
+    		<img src="https://s3.amazonaws.com/dynatable-docs-assets/images/dinosaurs/Stegosaurus_BW.jpg">
+ 		 </div>
+caption		<div class="caption">
+label    	<h3>Stegosaurus armatus</h3>
+	    	<p>State: Colorado</p>
+	  	  	<p>Year: 1982</p>
+	 	    <p>
+		 	   <a target="_blank" 
+		 	   href="http://en.wikipedia.org/wiki/Stegosaurus" 
+		 	   class="btn btn-primary">View</a> <a href="#" class="btn">
+		 	   Action</a>
+	 	    </p>
+ 	    </div>
+ 	 </div>
+</li> 
+*/
+/* function ulReader(index, li, record) {
+	  var $li = $(li),
+	      $caption = $li.find('.caption');
+	  record.thumbnail = $li.find('.thumbnail-image').html();
+	  record.caption = $caption.html();
+	  record.label = $caption.find('h3').text();
+	  record.description = $caption.find('p').text();
+	  record.color = $li.data('color');
+	} */
+// Function that creates our records from the DOM when the page is loaded
+function ulReader(index, li, record) {
+		var index = 1;
+		console.log("Reader==="+index);
+  var $li = $(li),
+   $caption = $li.find('.caption');
+  record.spotId =$li.find('div').attr("id");
+  //console.log(record.spotId);
+  record.thumbnail = $li.find('.thumbnail').html();
+  record.caption = $caption.html();
+  console.log(record.caption);
+  record.label = $caption.find('h4').text();
+  record.description = $caption.find('p').text();
+
+}
+/* <li><div id='div"+count+"'class='col-xs-12'>
+<div class='row'>
+	<div class='col-xs-6'>
+		<div class='thumbnail'>
+			<img src='"+value.spotThumbnail+"' alt=''>
+		</div>"
+	</div>
+	<div class='col-xs-6'>
+		<div class='caption'>
+			<h4>
+			value.spotName
+			</h4>
+			<p>value.spotIntro</p>
+		</div>
+	</div>
+</div>
+</div> */
+
+
+
+
+
+</script>
 <script type="text/javascript">
 jQuery(document).ready(	function() {
-	$("#myselfcollect").click(function(){
+	$("#myselfcollect").one("click",function(){
 		$("#mycollect").empty();
 		var count = 0;
 		jQuery.ajax({
@@ -223,18 +511,14 @@ jQuery(document).ready(	function() {
 			success : function(data) {									
 				if(data){
 					jQuery.each(data,function(index,value) {				
-					
-		
-						
-						
-						jQuery('#mycollect').append("<li><div id='div"+count+"'class='col-xs-12'><div class='row'>"
+						jQuery('#mycollect').append("<li><div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
 								+"<div class='col-xs-6'>"
-								+"<div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''></div>"
-								+"</div><div class='col-xs-6'><div class='caption'><h4><p>"
+								+"<div class='thumbnail'><img style='width:200px;height:200px' src='"+value.spotThumbnail+"' alt=''></div>"
+								+"</div><div class='col-xs-6'><div class='caption'><h4>"
 							+ value.spotName
-							+ "</p></h4>"
+							+ "</h4><p>"
 							+ value.spotIntro
-							+ "</div></div>"
+							+ "</p></div></div>"
 							+ "</div></div></li>"
 							);
 						
@@ -248,7 +532,25 @@ jQuery(document).ready(	function() {
 				}
 			}
 		});
-		
+
+		$('#mycollect').dynatable({
+			  table: {
+			    bodyRowSelector: 'li'
+			  },
+			  dataset: {
+			    perPageDefault: 3,
+			    perPageOptions: [3, 6]
+			  },
+			  writers: {
+			    _rowWriter: ulWriter
+			  },
+			  readers: {
+			    _rowReader: ulReader
+			  },
+			  params: {
+			    records: 'spot'
+			  },
+			});
 	});
 	
 
@@ -374,198 +676,80 @@ jQuery(document).ready(	function() {
 			jQuery('#listDetails').empty();	
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);
+				
+		
 				jQuery('#listDetails').append(
-						"<div class='col-xs-7'>"
-						+"<div class='thumbnail'><img src='" +
-						value.spotThumbnail + "' alt=''>"
-						+"<div class='caption'><h4><p class='detail' id='"+value.spotId+"'>"
-						+ value.spotName
-						+ "</p></h4>"
-						+"<div class='fixedHeight'>"
-						+ value.spotIntro
-						+"</div>"
-						+ "</div></div></div>"
+						"<div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
+						+"<div class='col-xs-6'>"
+						+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
+						+"</div><div class='col-xs-6'><div class='caption'><h4>"
+					+ value.spotName
+					+ "</h4><p>"
+					+ value.spotIntro
+					+ "</p></div></div>"
+					+ "</div></div>"
 				); // end of jQuery
+				//console.log(value.spotId);
+				console.log("+++="+$('#'+value.spotId).attr("id"));
+				//-- add spot into trip when click this spot.
+				$('#'+value.spotId).on('click',function(){
+					console.log("AAAA="+$(this).attr("id"));
+					console.log(currentDiv);
+					
+ 					var flag = 0;
+					//----------判斷左側是否有加入過~~~該圖片
+					$(currentDiv+" > div").each(function(){
+						console.log("verfiy="+$(this).attr("id"));
+						if($(this).attr('id') == value.spotId){						
+							flag++;
+//							alert("id相同"+"; flag:"+flag)
+						} 
+					});
+					if(flag<1){
+						createSportObj(value,value.spotId);
+						deleteSportObj(); 
+					}
+					//deleteSportObj(); 
+				});
 			});
 		});
+		function deleteSportObj(e){
+			$(currentDiv+' span.glyphicon-minus-sign').click(function(e){
+				$(this).parents('div').remove();				
+				e.stopImmediatePropagation();
+				counter--;
+//				alert(counter);
+			});
+		}
+	function createSportObj (value,sportId){
+
+		$(currentDiv).append(
+				"<div id='"+value.spotId+"'class='col-xs-12'><div style='text-align: right;' hidden><span class='glyphicon glyphicon-remove' ></span></div><div class='row'>"
+				+"<div class='col-xs-6'>"
+				+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
+				+"</div><div class='col-xs-6'><div class='caption'><h4>"
+			+ value.spotName
+			+ "</h4><p>"
+			+ value.spotIntro
+			+ "</p></div></div>"
+			+ "</div></div>"
+		);
+		$(currentDiv+' #'+value.spotId).mouseover(function(e){
+			console.log("overover");
+			$(this).children('div').removeAttr("hidden");
+			//$(this).parents('div').remove();				
+			//e.stopImmediatePropagation();
+			//counter--;
+//			alert(counter);
+		}).mouseout(function(e){
+			$(this).children('div:first-child').attr("hidden","hidden");
+			
+		});
+		
+	}
 	}
 }(jQuery, google));
 </script>
-<script>
-var tempDay = $("#days").text() ;
-	jQuery(document).ready(function() {
-		console.log($("#days").text());
-		console.log($("#tripId").text());
-		//according to days to create the tabs on the left side of screen.
-		for(var index = 2; index <= $("#days").text(); index++ ) {
-			
-			console.log(index);
-			var tabId = 'contact_' + index;
-		    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
-		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + index + '</div>');
-		    $('#pageTab li:nth-child(' + index + ') a').click();
-			if ($("#pageTab").children().length>5) {
-			    	$('#pageTab .add-contact').hide();
-			 }
-			
-			
-		}
-		
-		$('#pageTab .add-contact').click(function (e) {
-			
-		    e.preventDefault();
-		   
-		    var id = $("#pageTab").children().length; //think about it ;)
-			var tabId = 'contact_' + id;
-		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
-		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
-		    $('#pageTab li:nth-child(' + id + ') a').click();
-			if ($("#pageTab").children().length>5) {
-			    	$('#pageTab .add-contact').hide();
-			 }
-			console.log("add-contact==="+$("#pageTab").children().length);
-			tempDay = $("#pageTab").children().length - 1;
-			console.log("tempDay=="+tempDay);
-		});
-		$("#createTrip").click(function(){
-			$("#tripForm").submit();
-			/* jQuey.ajax({
-				type : "POST",
-				url : '<c:url value='/controller/AddTripServlet' />',
-				data : {
-					spotName : spotName,
-					city : city,
-					category : category,
-					subcategory : null
-				}
-			}).done(function(data) {
-				//console.log("detail from server....." + data);
-			
-			}); */
-			
-		});
-		
-	
-		$("#doNothing").click(function(){
-			bootbox.dialog({
-				  message: "確定取消新增行程表? ",
-				  buttons: {
-				    cancel: {
-				      label: "取消",
-				      className: "btn btn-default",
-				      callback: function() {
-				    	  console.log("do nothing");  
-				      }
-				    },
-				    confirm: {
-				      label: "確定",
-				      className: "btn btn-info",
-				      callback: function() {
-				    	  window.location.href = '<c:url value="/first.jsp"/>';  
-				      }
-				    }
-				  }
-				});
-			
-			
-		/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
-				 if (result == true) {                                             
-					 window.location.href = '<c:url value="/first.jsp"/>';                          
-					  } else {
-						  console.log("do nothing");                        
-				}
-			});  */
-			//
-		
-		})
-		
-		$("#pageTab").on("click", "a", function (e) {
-	        e.preventDefault();
-	        if (!$(this).hasClass('add-contact')) {
-	            $(this).tab('show');
-	        }
-	    })
-	    .on("click", "span", function () {
-		    var tabId = $(this).parents('li').children('a').attr('href');
-		    console.log(tabId);
-		    $(this).parents('li').remove('li');
-		    $(tabId).remove();
-		    reNumberPages();
-		    reContentPages();
-		    console.log("pageTab-Len==="+$("#pageTab").children().length);
-	        if($("#pageTab").children().length<6){
-		    	
-		    	$('#pageTab .add-contact').show();
-		    }
-	        $("#pageTab li").children('a').first().click();
-		    var id = $("#pageTab").children().length; //think about it ;)
-			tempDay = $("#pageTab").children().length - 1;
-			console.log("tempDay=="+tempDay);
-	
-	    });
 
-		/**
-		* Reset numbering on tab buttons
-		*/
-		function reNumberPages() {
-		    pageNum = 1;
-		    listNum = 1;
-		    var tabCount = $('#pageTab > li').length;
-		    console.log("reNumberPages==="+tabCount);
-		    
-		    $('#pageTab > li').each(function() {
-		    	var listId = "#contact_"+listNum;
-		    	listNum++;
-		        var pageId = $(this).children('a').attr('href');
-	
-		        if (pageId == "#contact_1") {
-		            return true;
-		        } else if (pageId =="#add-tab"){
-		        	return true;
-		        }
-		        pageNum++;
-		        $(this).children('a').html('Day' + pageNum);
-		        if(listId!=pageId){
-		        	$(this).children('a').attr('href',listId);
-		        	
-		        }
-		        
-		    });
-		   if($("#pageTab").children().length>5){
-		    	$('#pageTab .add-contact').hide();
-		    }
-		}	
-		/**
-		* Reset numbering on contents
-		*/
-		function reContentPages() {
-		    pageNum = 1;
-		    listNum = 1;
-		    var tabCount = $('#pageContent > div').length;
-		    console.log(tabCount);
-		    $('#pageContent > div').each(function() {
-		    	var listId = "contact_"+listNum;
-		    	listNum++;
-		        var pageId = $(this).attr('id');
-		        console.log(pageId);
-		        if (pageId == "contact_1") {
-		            return true;
-		        }
-		        if(listId!=pageId){
-		        	$(this).attr('id',listId);
-		        }
-		        
-		    });
-		
-		}	
-	$("#mycollect").dynatable({
-		dataset: {
-		    perPageDefault: 5
-		   
-		  },
-		
-	});	
-});
-</script>
 </body>
 </html>
