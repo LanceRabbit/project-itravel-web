@@ -5,6 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--  
 <link href="<c:url value="/css/kendo.common.min.css"/>" rel="stylesheet" />
 <link href="<c:url value="/css/kendo.default.min.css"/>"
 	rel="stylesheet" />
@@ -12,7 +13,7 @@
 	rel="stylesheet" />
 <link href="<c:url value="/css/kendo.dataviz.default.min.css"/>"
 	rel="stylesheet" />
-
+-->
 <style>
 .container {
 	font-family: Microsoft JhengHei;
@@ -44,7 +45,7 @@
 				<p>廣告</p>
 				<div class="container">
 					<div class="container">
-						<button class="btn btn-primary btn-lg" data-toggle="modal"
+						<button id="btnSpotAd" class="btn btn-primary btn-lg" data-toggle="modal"
 							data-target="#ADModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
@@ -89,20 +90,29 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<form id="ADform" action="<c:url value="/controller/GetAdImgSevlet"/>;"
+						<form id="ADform"
+							action="<c:url value="/controller/GetAdImgSevlet"/>;"
 							method="POST" enctype="multipart/form-data" name="formAd">
 							<div class="col-sm-8">
 								<div class="form-group">
-									<label for="ADname">顯示名稱 </label> <input type="text"
-										class="form-control" id="ADname" name="ADname" placeholder="輸入名稱">
+									<label for="ADname">顯示名稱 </label> 
+									<input type="text" class="form-control" id="ADname" name="ADname"
+										placeholder="輸入名稱">
 								</div>
 								<div class="form-group">
-									<label for="ADdate">截止日期 </label> <input type="date"
-										class="form-control" id="ADdate" name="ADdate">
+									<label for="ADdate">選擇宣傳的景點 </label> 
+									<select id="spotIdList"class="form-control">
+									
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="ADdate">截止日期 </label> <input type="text"
+										class="form-control" id="ADdate" name="ADdate" readonly>
 								</div>
 								<div class="form-group">
 									<label for="ADtextarea">說明文字</label>
-									<textarea id="ADtext" name="ADtext" class="form-control" rows="3"></textarea>
+									<textarea id="ADtext" name="ADtext" class="form-control"
+										rows="3"></textarea>
 								</div>
 								<div class="form-group">
 									<label for="ADInputFile">上傳檔案</label> <input type="file"
@@ -163,26 +173,58 @@
 
 	<script>
 		jQuery(document).ready(function() {
-			$("#files").kendoUpload({
+			/*
+			jQuery("#files").kendoUpload({
 				async : {
 					saveUrl : "<c:url value='/controller/Fileuploader'/>",
 					removeUrl : "remove",
 					autoUpload : true
 				}
 			});
-
-			$("#saveADBtn").click(function() {
+			*/
+	
+			jQuery("#saveADBtn").click(function() {
 				$("#ADform").submit();
 
 			});
 
+			
+			jQuery("#btnSpotAd").click(function(){
+				//console.log("btnSpotAd");
+				jQuery.ajax({
+					url : '<c:url value='/controller/findAdspotServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",
+					async : false,
+					dataType : "json",	
+					data : {AccountId : "${user.accountId}"	},								
+					success : function(data) {
+						jQuery.each(data,function(index,value) {
+							jQuery("#spotIdList").empty();
+							jQuery("#spotIdList").append("<option id="+value.spotId+">"+value.spotName+"</option>");
+							jQuery("#ADdate").val(value.ValidDate);
+						
+						});
+					}
+					
+				});
+				
+				
+				
+				
+			});
+			
+			
+			
+			
+			
 		});
 	</script>
 	<jsp:include page="/fragment/bottom.jsp" />
-
+<!--  
 	<script src="../js/angular.min.js"></script>
 	<script src="../js/kendo.all.min.js"></script>
-
+-->
 
 </body>
 </html>
