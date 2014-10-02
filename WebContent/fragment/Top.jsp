@@ -129,9 +129,9 @@
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<ul class="dropdown-menu">
 							<li><a href="#" data-toggle="modal"
-										data-target="#addSpotModal"> 景點</a></li>
+										data-target="#addSpotModal"> 新增景點</a></li>
 							<li><a href="#" data-toggle="modal"
-										data-target="#addTripModal"> 行程</a></li>
+										data-target="#addTripModal"> 新增行程</a></li>
 						</ul></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
@@ -214,8 +214,8 @@
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
 						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#addSpotModal"> 景點</a></li>
-							<li><a href="#">宣傳</a></li>
+							<li><a href="#" data-toggle="modal" data-target="#addSpotModal"> 新增景點</a></li>
+							<li><a href="<c:url value="/store/Disseminate.jsp"/>">宣傳店鋪</a></li>
 						</ul></li>
 
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
