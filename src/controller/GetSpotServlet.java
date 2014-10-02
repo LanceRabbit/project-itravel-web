@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import model.Account;
 import model.SpotInfo;
+import model.service.CommentService;
 import model.service.SearchSpotService;
 
 /**
@@ -50,6 +51,10 @@ public class GetSpotServlet extends HttpServlet {
 			
 			SearchSpotService service = new SearchSpotService();
 			SpotInfo spotInfo = service.getSpotIfoById(spotId, viewer, webAppURL, deployDir);
+			
+			// reset commenter's nickname by the account id
+			CommentService cmtService = new CommentService();
+			cmtService.setCommenterNickname(spotInfo.getSpotComments());
 			
 			JSONObject jsonSpotInfo = new JSONObject(spotInfo);
 			

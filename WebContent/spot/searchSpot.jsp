@@ -46,7 +46,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 }
 
 
-.scrollable {
+.queryItemScrollable {
     height: auto;
     max-height: 150px;
     overflow-x: hidden;
@@ -69,6 +69,12 @@ h4 {/*用於標題   單行文字溢出用...取代*/
     overflow-y:auto
 }
 
+#commentList {
+	height: auto;
+    max-height: 550px;
+    overflow-x: hidden;
+    overflow-y:auto
+}
 /*
 #myCarousel .carousel-caption {
 	left: 0;
@@ -147,8 +153,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 
 	<!-- Modal -->
 
-	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="spotInfoModal" tabindex="-1" role="dialog"
+		aria-labelledby="spotInfoModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
 				
@@ -156,16 +162,16 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<!--  <h4 class="modal-title" id="myModalLabel">新增景點  縣市 分類資訊</h4> -->
+					<!--  <h4 class="modal-title" id="spotInfoModalLabel">新增景點  縣市 分類資訊</h4> -->
 				</div>
 
 				<div class="modal-body">
 					<ul class="nav nav-tabs" role="tablist" id="myTab">
 						<li class="active"><a href="#info" role="tab"
-							data-toggle="tab">景點資訊</a></li>
-						<li><a href="#regions" role="tab" data-toggle="tab">附近景點</a></li>
-						<li><a href="#coupons" role="tab" data-toggle="tab">折價券</a></li>
-						<li><a href="#comments" role="tab" data-toggle="tab">評論</a></li>
+							data-toggle="tab" id="briefInfoTab">景點資訊</a></li>
+						<li><a href="#regions" role="tab" data-toggle="tab" id="regionInfoTab">附近景點</a></li>
+						<li><a href="#coupons" role="tab" data-toggle="tab" id="couponInfoTab">折價券</a></li>
+						<li><a href="#comments" role="tab" data-toggle="tab" id="commentInfoTab">評論</a></li>
 					</ul>
 
 					<div class="tab-content">
@@ -248,20 +254,23 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						</div>
 						<!-- <div class="tab-pane active" id="info"> -->
 
-						<div class="tab-pane itravel-tab" id="regions">region...</div>
+						<div class="tab-pane itravel-tab" id="region">region...</div>
 						<div class="tab-pane itravel-tab" id="coupons">coupons...</div>
-						<div class="tab-pane itravel-tab" id="comments">comments...</div>
+						<div class="tab-pane itravel-tab" id="comments">
+							<div class="list-group" id="commentList">
+							</div> <!-- <div class="list-group"> -->
+						</div>
 					</div>
 
 
 				</div>
 				<!-- <div class="modal-body"> -->
 				
-				<!--
-				<div class="modal-footer">
-					<button id="resetBtn" type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
-					<button id="saveBtn" type="button" class="btn btn-primary">儲存</button>
-				</div>  <div class="modal-footer"> -->
+				<div class="modal-footer" id="spotInfoModelFooter" hidden>
+					<button id="commentResetBtn" type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
+					<button id="commentSaveBtn" type="button" class="btn btn-primary">儲存</button>
+					<button id="commentCreationBtn" type="button" class="btn btn-primary" >新增評論</button>
+				</div>
 				
 			</div> <!-- <div class="modal-content"> -->	
 				
@@ -287,7 +296,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
 											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
+											<ul class="dropdown-menu dropdown-menu-right queryItemScrollable"
 												role="menu">
 											</ul>
 										</div>
@@ -307,7 +316,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
 											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
+											<ul class="dropdown-menu dropdown-menu-right queryItemScrollable"
 												role="menu">
 											</ul>
 										</div>
@@ -327,7 +336,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 												data-toggle="dropdown">
 												選擇 <span class="caret"></span>
 											</button>
-											<ul class="dropdown-menu dropdown-menu-right scrollable"
+											<ul class="dropdown-menu dropdown-menu-right queryItemScrollable"
 												role="menu">
 											</ul>
 										</div>
@@ -487,7 +496,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	google.maps.event.addDomListener(window, 'load', map_init);
 	
 	// modal google map
-	$('#myModal').on('shown.bs.modal', function() {
+	$('#spotInfoModal').on('shown.bs.modal', function() {
 		google.maps.event.trigger(var_map, "resize");
 		var_map.setCenter(var_location);
 	});
@@ -545,17 +554,18 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	jQuey("#subqueryCategoryIdMenu .dropdown-menu").on("click", "li",function(){
 		//console.log(jQuey(this).text());
 		jQuey("#subqueryCategory").val(jQuey(this).text());
-		jQuey("#subqueryCategoryIdMenu .scrollable").hide();
+		jQuey("#subqueryCategoryIdMenu .queryItemScrollable").hide();
 		
 		activeQuery();
 	});
 	
 	// to trigger modal view
+	var selectedSpotId;
+	var spotInfo;
 	jQuery("#listDetails").on("click", ".detail", function(){
 		
-		
-		var selectedSpotId = jQuery(this).attr("id");
-		//console.log("spot id : " + selectedSpotId);
+		selectedSpotId = jQuery(this).attr("id");
+		console.log("spot id : " + selectedSpotId);
 		jQuery.ajax({
 			type : "POST",
 			url : '<c:url value='/controller/GetSpot' />',
@@ -564,7 +574,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			},
 			dataType : "json"
 		}).done(function(data){
-			var spotInfo = data;
+			spotInfo = data;
 			jQuery("#spotNameP").text(spotInfo.spotName);
 			jQuery("#spotAddrP").text(spotInfo.address);
 			jQuery("#spotPhoneP").text(spotInfo.phone);
@@ -595,9 +605,10 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			//console.log("lng : " + spotInfo.longitude);
 			addSpotMarker(spotInfo.latitude, spotInfo.longitude);
 			
-			jQuery('#myModal').modal("show");
+			jQuery("#briefInfoTab").click();
+			jQuery('#spotInfoModal').modal("show");
 		});
-		//jQuery('#myModalLabel')
+		//jQuery('#spotInfoModalLabel')
 	});
 	
 	
@@ -609,6 +620,96 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	
 	// load data from server
 	activeQuery();
+	
+	// tabs of spot info modal
+	jQuery("#commentCreationBtn").on("click", function(){
+		
+		jQuery("#commentCreationBtn").hide();
+		jQuery("#commentSaveBtn").show();
+		jQuery("#commentResetBtn").show();
+		
+		jQuery("#commentList").append("<div><a href='#' class='list-group-item list-group-item-info'><div class='panel panel-default'>"+
+				
+				"<div class='panel-body'><textarea class='form-control' id='newComment' name='newComment'></textarea></div>"+
+				"</div></a></div>");
+		
+		jQuery("#newComment").focus();
+	});
+	
+	jQuery("#commentSaveBtn").on("click", function(){
+		
+		jQuery("#commentCreationBtn").show();
+		jQuery("#commentSaveBtn").hide();
+		jQuery("#commentResetBtn").hide();
+		
+		// refresh this tab	
+		jQuery.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/AddComment' />',
+			data : {
+				commenterId:"${user.accountId}",
+				spotId : selectedSpotId,
+				comment : jQuery("#newComment").val()
+			},
+			dataType : "text"
+		}).done(function(data){
+			console.log("data : " + data);
+		});
+	});
+	
+	jQuery("#commentResetBtn").on("click", function(){
+		
+		jQuery("#commentCreationBtn").show();
+		jQuery("#commentSaveBtn").hide();
+		jQuery("#commentResetBtn").hide();
+		
+	});
+	
+	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
+		jQuery("#spotInfoModelFooter").hide();
+	});
+	
+	jQuery("#commentInfoTab").on("click", function(){
+		console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
+		console.log(spotInfo.spotComments); 
+		
+		var comments = spotInfo.spotComments;
+		$("#commentList").empty();
+		
+		if(comments.length == 0) {
+			//console.log("no comments")
+			jQuery("#commentList").append("<div><a href='#' class='list-group-item'><div class='panel panel-default'><div class='panel-heading'>尚無任何評論</div></div></a></div>");
+			
+		}
+		else {
+			jQuery.each(comments, function(index, value){
+				var comment = value;
+				jQuery("#commentList").append(
+						"<div><a href='#' class='list-group-item list-group-item-info'>"+
+							"<div class='panel panel-default'>"+
+								"<div class='panel-heading'>"+
+									"<p>" + comment.commenterNickname + " " +comment.creationDate +"</p>"+
+								"</div>"+
+
+								"<div>" +
+									"<div class='panel-body'>"+
+										"<p id='" + comment.commentId +"'>"+ comment.comment + "</p>" +
+									"</div>" +	
+								"</div>" + 
+							"</div>" + 
+						"</a></div>");
+			});
+			
+		}	
+		
+		<c:if test='${! empty user }'>
+			//console.log("you've logged in");
+			jQuery("#spotInfoModelFooter").show();
+			jQuery("#commentCreationBtn").show();
+			jQuery("#commentSaveBtn").hide();
+			jQuery("#commentResetBtn").hide();
+		</c:if>
+	});
 	
 	function initElements() {
 		// populate city ids
@@ -694,7 +795,6 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						}																						
 					}				
 				});	
-				
 				
 				jQuery.ajax({
 					url : '<c:url value='/controller/CheckSpotCollectServlet'/>',
