@@ -143,7 +143,7 @@ public class AdDAOHibernate implements AdDAO {
 	private static DateFormat dateFormat = new SimpleDateFormat("(yyyy,MM,dd)");
 
 	// 計算七天後到期日期
-	public static java.util.Date addDate(java.util.Date now, int day) {
+	public java.util.Date addDate(java.util.Date now, int day) {
 		try {
 
 			now.setTime(now.getTime() + day * 1000 * 60 * 60 * 24);
@@ -161,7 +161,7 @@ public class AdDAOHibernate implements AdDAO {
 //		 ad.setSpotDetail(spot);
 		 java.util.Date date = new java.util.Date();
 		// //計算7天後到期的日期
-		 date=addDate(date, 7);
+		 //date=addDate(date, 7);
 		//
 //		 ad.setValidDay(date);
 //		 ad.setTempAdId("EMP");

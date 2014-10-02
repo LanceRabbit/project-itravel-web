@@ -13,4 +13,6 @@ public interface AdDAO {
 	
 	public abstract List<Ad> selectTopN(int num);
 	
+	public abstract java.util.Date addDate(java.util.Date now, int day);
+	
 }
