@@ -78,7 +78,7 @@ public class SpotCommentRecord implements java.io.Serializable {
 		this.comment = comment;
 	}
 
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "CMT_DT", nullable = false, length = 10)
 	public Date getCmtDt() {
 		return this.cmtDt;
