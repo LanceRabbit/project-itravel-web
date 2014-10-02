@@ -654,6 +654,19 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			dataType : "text"
 		}).done(function(data){
 			console.log("data : " + data);
+			if(data == "true") {
+				jQuery.ajax({
+					type : "POST",
+					url : '<c:url value='/controller/GetSpot' />',
+					data : {
+						spotId : selectedSpotId
+					},
+					dataType : "json"
+				}).done(function(data){
+					spotInfo = data;
+					jQuery("#commentInfoTab").click();					
+				});
+			}
 		});
 	});
 	
