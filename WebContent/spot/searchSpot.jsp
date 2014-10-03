@@ -690,8 +690,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	});
 	
 	jQuery("#commentInfoTab").on("click", function(){
-		console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
-		console.log(spotInfo.spotComments); 
+		//console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
+		//console.log(spotInfo.spotComments); 
 		
 		var comments = spotInfo.spotComments;
 		$("#commentList").empty();
@@ -709,7 +709,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						"<div><a href='#' class='list-group-item list-group-item-info'>"+
 							"<div class='panel panel-primary'>"+
 								"<div class='panel-heading'>"+
-									"<label>" + comment.commenterNickname + "</label><label class='text-right'> " +comment.creationDate +"</label>"+
+									"<label>" + comment.commenterNickname + "</label><label class='pull-right'> " +comment.creationDate +"</label>"+
 								"</div>"+
 
 								"<div class='panel-body'>"+
