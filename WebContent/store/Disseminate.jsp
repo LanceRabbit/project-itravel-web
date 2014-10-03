@@ -42,30 +42,65 @@
 		</ul>
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade active in" id="Myadvert">
-				<p>廣告</p>
-				<div class="container">
-					<div class="container">
+				<br>
+				<div class="container">				
+					<div class="col-sm-4">
 						<button id="btnSpotAd" class="btn btn-primary btn-lg" data-toggle="modal"
 							data-target="#ADModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
-
-
+					<div class="col-sm-8">
+					<p>新增廣告</p>
+					</div>
+					<div class="col-sm-12">
+					<hr>
+					</div>
+				<div class="row">
+        			<div id="Adlist" class="col-sm-12">
+    					<!--  
+    					<ul class="thumbnails" style="list-style:none;">
+					 		<li class="col-sm-8 clearfix">
+                  			<div class="thumbnail clearfix">
+                    			 <div id="divpic" style="width:320px; height:200px;">  
+                    			<img src="http://placehold.it/320x200"  class="pull-left span2 clearfix" style='margin-right:10px'>
+                    		</div>
+                    			<button id="btnDetel" class="btn btn-danger icon  pull-right">刪除</button>
+                    			<div class="caption" class="pull-left">                      				
+                     			 	<h3>      
+                      				<p>AdName</p>
+                      				</h3>
+                      			<small><b class="text-danger">截止日期: </b>2014-10-15</small>                      			
+                    			</div>                    			
+                  				</div>                  				
+               				 </li>               				 
+						</ul>
+						--> 
+						
+					</div>
 				</div>
+				
+					
+				</div>
+			
 
 			</div>
 			<div class="tab-pane fade" id="Mycoupon">
-				<p>coupon</p>
+				<br>			
 				<div class="container">
-					<div class="container">
-						<button class="btn btn-primary btn-lg" data-toggle="modal"
+					<div class="col-sm-4">
+						<button id="btnSpotC" class="btn btn-primary btn-lg" data-toggle="modal"
 							data-target="#CouponModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
-
-
+				
+					<div class="col-sm-8">
+						<p>新增coupon</p>
+					</div>
+					<div class="col-sm-12">
+						<hr>
+					</div>
 				</div>
 			</div>
 
@@ -91,31 +126,20 @@
 				<div class="modal-body">
 					<div class="row">
 						<form id="ADform"
-							action="<c:url value="/controller/GetAdImgSevlet"/>;"
+							action="<c:url value="/controller/AddAdSevlet"/>;"
 							method="POST" enctype="multipart/form-data" name="formAd">
-							<div class="col-sm-8">
-								<div class="form-group">
-									<label for="ADname">顯示名稱 </label> 
-									<!-- <input type="text" class="form-control" id="ADname" name="ADname"
-										placeholder="輸入名稱"> -->
-								</div>
+							<div class="col-sm-8">								
 								<div class="form-group">
 									<label for="ADdate">選擇宣傳的景點 </label> 
-									<select id="spotIdList" name="spotIdList" class="form-control">
-									
+									<select id="spotIdList" name="spotIdList" class="form-control">									
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="ADdate">截止日期 </label> <input type="text"
 										class="form-control" id="ADdate" name="ADdate" readonly>
-								</div>
+								</div>								
 								<div class="form-group">
-									<label for="ADtextarea">說明文字</label>
-									<!-- <textarea id="ADtext" name="ADtext" class="form-control"
-										rows="3"></textarea>-->
-								</div>
-								<div class="form-group">
-									<label for="ADInputFile">上傳檔案</label> <input type="file"
+									<label for="ADInputFile">選擇檔案</label> <input type="file"
 										id="ADInputFile" name="image">
 								</div>
 							</div>
@@ -146,23 +170,43 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col-sm-12">
-							<div id="example">
-								<div>
-									<div class="demo-section k-header">
-										<input name="files" id="files" type="file" />
-									</div>
+						<form id="Cform"
+							action="<c:url value="/controller/AddCouponServlet"/>;"
+							method="POST" enctype="multipart/form-data" name="formC">
+							<div class="col-sm-8">								
+								<div class="form-group">
+									<label for="Cdate">選擇使用Coupon的景點 </label> 
+									<select id="CspotIdList" name="CspotIdList" class="form-control">
+									
+									</select>
+								</div>
+								<div class="form-group">
+									<label for="Cdate">截止日期 </label> <input type="date"
+										class="form-control" id="Cdate" name="Cdate">
+								</div>
+								<div class="form-group">
+									<label for="Ctextarea">說明文字</label>
+									<textarea id="Ctext" name="Ctext" class="form-control"
+										rows="3"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="CInputFile">選擇檔案</label> <input type="file"
+										id="CInputFile" name="Cimage">
 								</div>
 							</div>
-						</div>
+						</form>
+						
+						
+						
+						
 					</div>
 				</div>
 				<!-- <div class="modal-body"> -->
 
 				<div class="modal-footer">
-					<button id="resetADBtn" type="button" class="btn btn-default"
+					<button id="resetCBtn" type="button" class="btn btn-default"
 						data-dismiss="modal">放棄</button>
-					<button id="saveCouponBtn" type="submit" class="btn btn-primary">完成</button>
+					<button id="saveCBtn" type="submit" class="btn btn-primary">完成</button>
 				</div>
 			</div>
 		</div>
@@ -173,26 +217,47 @@
 
 	<script>
 		jQuery(document).ready(function() {
-			/*
-			jQuery("#files").kendoUpload({
-				async : {
-					saveUrl : "<c:url value='/controller/Fileuploader'/>",
-					removeUrl : "remove",
-					autoUpload : true
-				}
-			});
-			*/
+
+			//頁面一進來就先找已有的AD
+			
+			jQuery.ajax({
+					url : '<c:url value='/controller/FindAdspotServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",
+					async : false,
+					dataType : "json",	
+					data : {AccountId : "${user.accountId}"	},								
+					success : function(data) {						
+						jQuery.each(data,function(index,value) {
+							console.log(value.spotName);
+							if(value.spotId!="false"){
+								jQuery("#Adlist").append("<ul id='Adlist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='btnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+															
+							}else{
+								alert("沒東西");
+							}
+							
+						});
+					}
+					
+				});
+			
+			
+			
 	
 			jQuery("#saveADBtn").click(function() {
 				$("#ADform").submit();
 
 			});
-
+			jQuery("#saveCBtn").click(function(){
+				$("#Cform").submit();
+				
+			});
 			
 			jQuery("#btnSpotAd").click(function(){
 				//console.log("btnSpotAd");
 				jQuery.ajax({
-					url : '<c:url value='/controller/findAdspotServlet'/>',
+					url : '<c:url value='/controller/FindAdspotServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",
 					async : false,
@@ -205,10 +270,10 @@
 								
 								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
 								jQuery("#spotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
-								jQuery("#ADdate").val(value.ValidDate);
+								//jQuery("#ADdate").val(value.ValidDate);
 							}else{
 								jQuery("#spotIdList").empty();
-								jQuery("#ADdate").val(value.ValidDate);								
+								//jQuery("#ADdate").val(value.ValidDate);								
 								jQuery("#saveADBtn").hide();
 							}
 							
@@ -217,16 +282,47 @@
 					
 				});
 				
-				
-				
-				
+			});
+			
+			jQuery("#btnSpotC").click(function(){
+				//console.log("btnSpotAd");
+				jQuery.ajax({
+					url : '<c:url value='/controller/FindCouponServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",
+					async : false,
+					dataType : "json",	
+					data : {AccountId : "${user.accountId}"	},								
+					success : function(data) {
+						jQuery("#CspotIdList").empty();
+						jQuery.each(data,function(index,value) {							
+							if(value.spotId!="false"){
+								
+								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
+								jQuery("#CspotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
+								jQuery("#Cdate").val(value.ValidDate);
+							}else{
+								jQuery("#CspotIdList").empty();
+								jQuery("#Cdate").val(value.ValidDate);								
+								jQuery("#saveCBtn").hide();
+							}
+							
+						});
+					}
+					
+				});
+			
+			
 			});
 			
 			
 			
 			
 			
+			
+			
 		});
+		
 	</script>
 	<jsp:include page="/fragment/bottom.jsp" />
 <!--  

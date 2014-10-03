@@ -9,7 +9,7 @@ public interface AdDAO {
 
 	public abstract Ad update(Ad ad);
 
-	public abstract Ad selectById(String id);
+	public abstract List<Ad> selectBySpotId(String spotid);
 	
 	public abstract List<Ad> selectTopN(int num);
 	
