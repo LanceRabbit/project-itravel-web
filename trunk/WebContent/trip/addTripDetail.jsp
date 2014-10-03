@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="../css/jquery.dynatable.css"/>
+<link rel="stylesheet" href="../css/jquery.bootstrap-touchspin.min.css"/>
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -27,6 +28,12 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
+
+.select-div {
+	background: #d0dafd;
+	
+}
+
 
 }
 div{
@@ -78,9 +85,8 @@ width: 300px;
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
-		<div class='col-xs-5'>
-		<form class="form-horizontal" method="post" id="tripForm"
-					action='<c:url value="/controller/AddTripServlet" />'>
+		<div class='col-xs-6'>
+
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
 		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
 		        </li>
@@ -91,10 +97,10 @@ width: 300px;
 		    <div id="pageContent" class="tab-content">
 		        <div class="tab-pane active" id="contact_1"></div>
 		    </div>
-		 </form>
+		
 		</div>
 		<div class="clearfix visible-xs-block"></div>
-		<div class='col-xs-7'>
+		<div class='col-xs-6'>
 			<ul id="spotTab" class="nav nav-tabs" role="tablist">
 		        <li class="active">
 		        <a href="#spot_1" data-toggle="tab">搜尋景點</a>
@@ -165,7 +171,7 @@ width: 300px;
 		</div>
 		</div>
 	</div>
-	
+
 	
 			<div class="row" id="listDetails">
 			<ul class="thumbnails">
@@ -208,7 +214,8 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
-    <script src="../js/jquery.dynatable.js"></script>
+<script src="../js/jquery.dynatable.js"></script>
+<script src="../js/jquery.bootstrap-touchspin.min.js"></script>
 <script>
 var tempDay = $("#days").text() ;
 var currentDiv = "#contact_1";
@@ -219,7 +226,7 @@ jQuery(document).ready(function() {
 	//according to days to create the tabs on the left side of screen.
 	for(var index = 2; index <= $("#days").text(); index++ ) {
 		
-		console.log(index);
+		//console.log(index);
 		var tabId = 'contact_' + index;
 	    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
 	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
@@ -233,10 +240,10 @@ jQuery(document).ready(function() {
 	//record current tab is where focus.
 	$('#pageTab').on('click','li',function(e){
 		 e.stopPropagation();
-		console.log($(this).index());
+		//console.log($(this).index());
 		
 		currentDiv = "#contact_"+($(this).index()+1);
-		console.log(currentDiv);
+		//console.log(currentDiv);
 	});
 	//dynamic add tabs when user click this one 
 	$('#pageTab .add-contact').click(function (e) {
@@ -258,20 +265,47 @@ jQuery(document).ready(function() {
 		
 	//
 	$("#createTrip").click(function(){
-		$("#tripForm").submit();
-		/* jQuey.ajax({
+		//$("#tripForm").submit();
+		var info = {};
+		
+		info.TripName =  "要去哪裡玩";
+		info.StartDay =  "2014/10/03";
+		info.TotalDay = 2;
+		var spotInfo = [];
+		var listSpot = {};
+		var byDay = [];
+		 var id = $("#pageTab").children().length-1;
+		 console.log("adddddddd="+id);
+		for(var i = 1 ; i <= id ; i ++){
+			
+			 byDay = [];
+			$('#contact_'+i).children().length;
+			//console.log("#contact_"+i+'='+$('#contact_'+i).children().length);
+			$('#contact_'+i+'> div').each(function(){
+				 listSpot = {};
+				 listSpot.spotId = $(this).attr("id")
+				 listSpot.stayTime = 60;
+				console.log($(this).attr("id"));
+				byDay.push(listSpot);
+			});
+			spotInfo.push(byDay);
+			console.log(byDay);
+			console.log(i+"===========");
+		};
+		info.spot=spotInfo;
+		console.log(info);
+/* 		 $.ajax({
 			type : "POST",
+			 dataType:"json", //xml,text
+			 async: false,
 			url : '<c:url value='/controller/AddTripServlet' />',
 			data : {
-				spotName : spotName,
-				city : city,
-				category : category,
-				subcategory : null
+				tripInfo :  JSON.stringify(tripInfo)
 			}
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
 		
-		}); */
+		});  */
 		
 	});
 		
@@ -327,9 +361,9 @@ jQuery(document).ready(function() {
 	        $("#pageTab li").children('a').first().click();
 		    var id = $("#pageTab").children().length; //think about it ;)
 			tempDay = $("#pageTab").children().length - 1;
-			console.log("tempDay=="+tempDay);
+			//console.log("tempDay=="+tempDay);
 			currentDiv = "#contact_1";
-			console.log(currentDiv);
+			//console.log(currentDiv);
 	    });
 
 		/**
@@ -690,16 +724,16 @@ jQuery(document).ready(	function() {
 					+ "</div></div>"
 				); // end of jQuery
 				//console.log(value.spotId);
-				console.log("+++="+$('#'+value.spotId).attr("id"));
+				//console.log("+++="+$('#'+value.spotId).attr("id"));
 				//-- add spot into trip when click this spot.
 				$('#'+value.spotId).on('click',function(){
-					console.log("AAAA="+$(this).attr("id"));
-					console.log(currentDiv);
+					//console.log("AAAA="+$(this).attr("id"));
+					//console.log(currentDiv);
 					
  					var flag = 0;
 					//----------判斷左側是否有加入過~~~該圖片
 					$(currentDiv+" > div").each(function(){
-						console.log("verfiy="+$(this).attr("id"));
+						//console.log("verfiy="+$(this).attr("id"));
 						if($(this).attr('id') == value.spotId){						
 							flag++;
 //							alert("id相同"+"; flag:"+flag)
@@ -709,15 +743,29 @@ jQuery(document).ready(	function() {
 						createSportObj(value,value.spotId);
 						deleteSportObj(); 
 					}
-					//deleteSportObj(); 
+				})
+				.mouseover(function(e){
+					//console.log($(this).children().children().children().attr('class'));
+					$(this).children().children().children().addClass('select-div');
+					
+				})
+				.mouseout(function(e){
+					$(this).children().children().children().removeClass('select-div');
+					
 				});
 			});
 		});
 		function deleteSportObj(e){
-			$(currentDiv+' span.glyphicon-minus-sign').click(function(e){
-				$(this).parents('div').remove();				
+			$(currentDiv+' span.glyphicon-remove').click(function(e){
+				 e.stopPropagation();
+				//console.log($(this).parent().parent().attr('id'));
+				var divId = $(this).parent().parent().attr('id');
+				$(currentDiv+' #'+divId).remove();
+				
+				//$(this).parent().parent().index();
+				//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
 				e.stopImmediatePropagation();
-				counter--;
+				//counter--;
 //				alert(counter);
 			});
 		}
@@ -729,19 +777,23 @@ jQuery(document).ready(	function() {
 				+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
 				+"</div><div class='col-xs-6'><div class='caption'><h4>"
 			+ value.spotName
-			+ "</h4><p>"
-			+ value.spotIntro
-			+ "</p></div></div>"
+			+ "</h4><div style='width:120px'>"
+			+ "	<input id='setTime' type='text'>"
+			+
+			+ "</div></div></div>"
 			+ "</div></div>"
 		);
+		$("#setTime").TouchSpin();
+		
+		
 		$(currentDiv+' #'+value.spotId).mouseover(function(e){
-			console.log("overover");
+			//console.log("overover");
 			$(this).children('div').removeAttr("hidden");
 			//$(this).parents('div').remove();				
 			//e.stopImmediatePropagation();
-			//counter--;
-//			alert(counter);
+
 		}).mouseout(function(e){
+			 e.stopPropagation();
 			$(this).children('div:first-child').attr("hidden","hidden");
 			
 		});
