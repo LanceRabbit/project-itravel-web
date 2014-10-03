@@ -88,15 +88,21 @@ public class AdDAOHibernate implements AdDAO {
 		return result;
 	}
 
-	public Ad selectById(String id) {
+	public List<Ad> selectBySpotId(String Spotid) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
-		Ad result = null;
+		List<Ad> ads = new ArrayList<Ad>();
 
 		try {
 			tx = session.beginTransaction();
-			result = (Ad) session.get(Ad.class, id);
+			Query query = session
+					.createQuery("FROM Ad ads where ads.spotDetail.spotId = '"+ Spotid+"'");
+			
+			for (Object o : query.list()) {
+				ads.add((Ad) o);
+			}
+			
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)
@@ -104,7 +110,7 @@ public class AdDAOHibernate implements AdDAO {
 			e.printStackTrace();
 		}
 
-		return result;
+		return ads;
 	}
 
 	@Override
@@ -182,15 +188,16 @@ public class AdDAOHibernate implements AdDAO {
 //		 }
 
 		// 放圖片		
-		  	spot.setSpotId("RES14090019");
-			String adImgId = "D1409001";
-			ad.setAdId(adImgId);
-			ad.setValidDay(date);
-			ad.setSpotDetail(spot);
-			ad.setAdImg(ImageIOUtil.getImageByFilename("D1409001.jpg"));
-			
-			dao.update(ad);
+//		  	spot.setSpotId("RES14090019");
+//			String adImgId = "D1409001";
+//			ad.setAdId(adImgId);
+//			ad.setValidDay(date);
+//			ad.setSpotDetail(spot);
+//			ad.setAdImg(ImageIOUtil.getImageByFilename("D1409001.jpg"));
+//			
+//			dao.update(ad);
 		
+			System.out.println(dao.selectBySpotId("LAN14100001"));
 
 	}
 
