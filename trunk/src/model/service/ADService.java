@@ -44,22 +44,24 @@ public class ADService {
 		return date;
 	}
 	
-	public boolean AdInsert(String spotId ,String Adname,String Adtext,byte[] image){
+	public boolean AdInsert(String spotId ,byte[] image){
 		
 		SpotDetail spot = new SpotDetail();
 		spot.setSpotId(spotId);
 		ad.setSpotDetail(spot);
 		java.util.Date date = new java.util.Date();
-		date = dao.addDate(date, 7);		
+		date = dao.addDate(date, 7);	
+		ad.setTempAdId("EMP");
 		ad.setValidDay(date);
 		ad.setAdImg(image);
 		
-		dao.insert(ad);
+		if(dao.insert(ad)!=null){
+			return true;
+		}else{
+			return false;
+		}
 		
 		
-		
-		
-		return true;
 	}
 	
 }

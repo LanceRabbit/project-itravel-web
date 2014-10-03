@@ -96,12 +96,12 @@
 							<div class="col-sm-8">
 								<div class="form-group">
 									<label for="ADname">顯示名稱 </label> 
-									<input type="text" class="form-control" id="ADname" name="ADname"
-										placeholder="輸入名稱">
+									<!-- <input type="text" class="form-control" id="ADname" name="ADname"
+										placeholder="輸入名稱"> -->
 								</div>
 								<div class="form-group">
 									<label for="ADdate">選擇宣傳的景點 </label> 
-									<select id="spotIdList"class="form-control">
+									<select id="spotIdList" name="spotIdList" class="form-control">
 									
 									</select>
 								</div>
@@ -111,8 +111,8 @@
 								</div>
 								<div class="form-group">
 									<label for="ADtextarea">說明文字</label>
-									<textarea id="ADtext" name="ADtext" class="form-control"
-										rows="3"></textarea>
+									<!-- <textarea id="ADtext" name="ADtext" class="form-control"
+										rows="3"></textarea>-->
 								</div>
 								<div class="form-group">
 									<label for="ADInputFile">上傳檔案</label> <input type="file"
@@ -199,11 +199,12 @@
 					dataType : "json",	
 					data : {AccountId : "${user.accountId}"	},								
 					success : function(data) {
+						jQuery("#spotIdList").empty();
 						jQuery.each(data,function(index,value) {							
 							if(value.spotId!="false"){
-								jQuery("#spotIdList").empty();
+								
 								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
-								jQuery("#spotIdList").append("<option id="+value.spotId+">"+value.spotName+"</option>");
+								jQuery("#spotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
 								jQuery("#ADdate").val(value.ValidDate);
 							}else{
 								jQuery("#spotIdList").empty();

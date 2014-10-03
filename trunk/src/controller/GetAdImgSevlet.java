@@ -10,7 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+
+import model.service.ADService;
 
 import org.apache.commons.io.IOUtils;
 
@@ -36,13 +39,14 @@ public class GetAdImgSevlet extends HttpServlet {
 		String name = null;
 		String date = null;
 		String text = null;
-	
+		String spotId = null;
 		byte[] image = null;
 		try {
-			name = request.getParameter("ADname");
-			date = request.getParameter("ADdate");
-			text = request.getParameter("ADtext");
-			System.out.println(name+":"+date+":"+":"+text);
+			spotId = request.getParameter("spotIdList");
+			//name = request.getParameter("ADname");//廣告名稱
+			date = request.getParameter("ADdate");//
+			//text = request.getParameter("ADtext");
+			System.out.println(spotId+":"+date);
 			
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
@@ -78,6 +82,20 @@ public class GetAdImgSevlet extends HttpServlet {
 			e.printStackTrace();
 			
 		}
+		HttpSession session = request.getSession();
+		String path = request.getContextPath();
+		ADService service = new ADService();
+		
+		if(service.AdInsert(spotId, image)){
+			System.out.println("成功");
+			response.sendRedirect(path+"/store/Disseminate.jsp");
+		}else{
+			System.out.println("失敗");			
+			response.sendRedirect(path+"/store/Disseminate.jsp");
+		}
+		
+		
+		
 		
 		
 	}
