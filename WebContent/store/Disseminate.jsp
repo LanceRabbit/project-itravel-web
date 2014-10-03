@@ -226,7 +226,7 @@
 						jQuery.each(data,function(index,value) {
 							console.log(value.spotName);
 							if(value.spotId!="false"){
-								jQuery("#Adlist").append("<ul id='Adlist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='btnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+								jQuery("#Adlist").append("<ul id='Adlist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='AdbtnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
 															
 							}else{
 								alert("沒東西");
@@ -254,32 +254,54 @@
 			});
 			jQuery("#saveCBtn").click(function(){
 				var CfileInput =jQuery("#CInputFile").val();	
-				var Cdate =jQuery("#Cdate").val();
-				console.log(Cdate);
+				var Cdate =jQuery("#Cdate").val();				
 				var Ctext =jQuery("#Ctext").val();
-				
 				
 				if(CfileInput==""){//檔案為空
 					jQuery("#Cfilenull").empty();
-					jQuery("#Cfilenull").append("<div class='alert alert-danger' role='alert'>請選擇檔案!</div>");							
+					jQuery("#Cfilenull").append("<div class='alert alert-danger' role='alert'>請選擇檔案!</div>");						
 		        
-				}
-				if(Cdate==""){ //說明為空
-					jQuery("#Cdatenull").empty();
-					jQuery("#Cdatenull").append("<div class='alert alert-danger' role='alert'>請填入正確日期!</div>");	
-				}
-				if(Ctext==""){ //日期錯誤 和 為空
-					jQuery("#Ctextnull").empty();
-					jQuery("#Ctextnull").append("<div class='alert alert-danger' role='alert'>請輸入說明文字!</div>");	
-				}
-
-				if(CfileInput!="" && Cdate!="" && Ctext!=""){
+				}else if(Cdate!="" && Ctext!="" && CfileInput!=""){
 					$("#Cform").submit();
 				}
 				
 				
 				
 				
+			});
+			/*
+			jQuery("#CInputFile").focusout(function(){
+				var CfileInput =jQuery("#CInputFile").val();	
+				jQuery("#Cfilenull").empty();
+				if(CfileInput==""){//檔案為空
+					
+					jQuery("#Cfilenull").append("<div class='alert alert-danger' role='alert'>請選擇檔案!</div>");						
+		        
+				}else{
+					jQuery("#Cfilenull").empty();
+				}
+				
+			});*/
+			jQuery("#Cdate").focusout(function(){
+				var Cdate =jQuery("#Cdate").val();				
+				jQuery("#Cdatenull").empty();
+				if(Cdate==""){ //日期錯誤 和 為空
+					
+					jQuery("#Cdatenull").append("<div class='alert alert-danger' role='alert'>請填入正確日期!</div>");	
+				}else{
+					jQuery("#Cdatenull").empty();
+				}
+				
+			});
+			jQuery("#Ctext").focusout(function(){
+				var Ctext =jQuery("#Ctext").val();
+				
+				if(Ctext==""){ //說明為空
+					
+					jQuery("#Ctextnull").append("<div class='alert alert-danger' role='alert'>請輸入說明文字!</div>");	
+				}else{
+					jQuery("#Ctextnull").empty();
+				}
 			});
 			
 			jQuery("#btnSpotAd").click(function(){
@@ -344,7 +366,13 @@
 			
 			
 			});
-			
+			jQuery("#AdbtnDetel").click(function(){
+				
+				console.log($(this).id);
+				
+				
+				
+			});
 			
 			
 			
