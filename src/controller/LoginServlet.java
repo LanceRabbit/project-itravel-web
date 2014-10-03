@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -98,13 +99,21 @@ public class LoginServlet extends HttpServlet {
 						bean = adservice.removeBlacklist(bean.getAccountId());
 					}else{
 						//還在停權
-						session.setAttribute("accountLocked", "帳號停權中，將於"+df.format(bean.getLastLogonDt())+"恢復權限。");
-						response.sendRedirect(path+"/first.jsp");
-						return;
-						
+						//判斷是否為永久停權
+						Calendar calendar = Calendar.getInstance();
+				    	calendar.setTime(current);
+				    	calendar.add(Calendar.MONTH, 2);//停權日期大於兩個月後，視為永久停權
+				    	if(black.after(calendar.getTime())){
+				    		session.setAttribute("accountLocked", "帳號停權中。");
+							response.sendRedirect(path+"/first.jsp");
+							return;
+				    	}else{
+				    		session.setAttribute("accountLocked", "帳號停權中，將於"+df.format(bean.getLastLogonDt())+"恢復權限。");
+							response.sendRedirect(path+"/first.jsp");
+							return;
+				    	}
 					}
 				}
-				
 			}
 			session.setAttribute("user", bean);
 			session.removeAttribute("requestFrom");

@@ -9,6 +9,7 @@ public interface AccountDAO {
 	public abstract boolean updateAccountLevel(String accountId, int accountLevel);
 	public abstract Account selectById(String id);
 	public abstract Account selectByEmail(String email);
+	public abstract List<Account> selectBlackList();
 	public abstract List<Account> selectAll();
-	public abstract boolean updateBlackDeadline(String accountId, Date deadline);
+	public abstract boolean updateBlackDeadline(String accountId, String deadline);
 }

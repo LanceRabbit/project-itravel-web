@@ -2,12 +2,14 @@ package model.dao;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import model.Account;
 import model.AccountDAO;
-import model.BlacklistRecord;
 import model.util.HibernateUtil;
 
 import org.hibernate.Query;
@@ -46,7 +48,8 @@ public class AccountDAOHibernate implements AccountDAO {
 //		acc.setLastLogonDt(new Date());
 //		acc = dao.update(acc);
 //		System.out.println("Update Test:" + acc);
-
+		//UpdateBlackDeadline Test
+		
 		// SelectById Test
 		acc = dao.selectById("M14090001");
 		//要抓景點或行程收藏時可直接用Account的get方法，Account.hbn.xml的lazy要設false
@@ -68,6 +71,8 @@ public class AccountDAOHibernate implements AccountDAO {
 		List<Account> accAll = dao.selectAll();
 		System.out.println("SelectAll Test:"+accAll);
 		
+		List<Account> accByAccountLevel = dao.selectBlackList();
+		System.out.println("SelectByAccountLevel Test= "+accByAccountLevel);
 	}
 
 	private SessionFactory sessionFactory = null;
@@ -137,14 +142,14 @@ public class AccountDAOHibernate implements AccountDAO {
 	}
 	
 	@Override
-	public boolean updateBlackDeadline(String accountId, Date deadline) {
+	public boolean updateBlackDeadline(String accountId, String deadline) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
 		Transaction tx = null;
 		int result = 0;
 		try {
 			tx = session.beginTransaction();
-			result = session.createQuery("update Account ac set ac.lastLogonDt = "+deadline+
+			result = session.createQuery("update Account ac set ac.lastLogonDt = '"+deadline+"'"+
 		    				" where ac.accountId = '"+accountId+"'").executeUpdate();
 			tx.commit();
 		} catch (Exception e) {
@@ -187,6 +192,28 @@ public class AccountDAOHibernate implements AccountDAO {
 					.createQuery(
 							"FROM Account ac where ac.email = ?")
 					.setString(0, email).uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	
+	@Override
+	public List<Account> selectBlackList() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Account> result = null;
+		try {
+			tx = session.beginTransaction();
+			result = (List<Account>) session
+					.createQuery(
+							"FROM Account ac where ac.accountLevel = 41 or ac.accountLevel = 42 order by ac.lastLogonDt")
+					.list();
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)

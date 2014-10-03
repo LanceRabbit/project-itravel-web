@@ -75,6 +75,11 @@
     overflow-x: hidden;
     overflow-y:auto
 }
+.adela-modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #e5e5e5;
+  min-height: 16.42857143px;
+}
 
 </style>
 </head>
@@ -254,7 +259,7 @@
 			<div id="topmodals" class="modal fade" style="margin-top:100px">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="adela-modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 							<h4 class="adela-modal-title" style="font-weight: bold;">登入</h4>
@@ -293,7 +298,7 @@
 			<div id="signupmodalsMember" class="modal fade" style="margin-top:100px">
 				<div class="modal-dialog modal-signup">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="adela-modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 							<h4 class="adela-modal-title" style="font-weight: bold;">會員註冊</h4>
@@ -353,7 +358,7 @@
 		<div id="signupmodalsOwner" class="modal fade" style="margin-top:100px">
 				<div class="modal-dialog modal-signup">
 					<div class="modal-content">
-						<div class="modal-header">
+						<div class="adela-modal-header">
 							<button type="button" class="close" data-dismiss="modal"
 								aria-hidden="true">&times;</button>
 							<h4 class="adela-modal-title" style="font-weight: bold;">店家註冊</h4>
@@ -422,7 +427,7 @@
 <div id="signupTypeSelect" class="modal fade" style="margin-top:100px">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" style="font-weight: bold;">選擇註冊身分</h4>
       </div>
@@ -450,7 +455,7 @@
 <div id="modalForgotPsw" class="modal fade " style="margin-top:100px">
   <div class="modal-dialog modal-forgotPsw">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px;font-weight: bold;">忘記密碼</h4>
       </div>
@@ -481,7 +486,7 @@
 <div id="unactivated" class="modal fade" style="margin-top:100px">
   <div class="modal-dialog modal-jumpout">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
       </div>
@@ -498,12 +503,12 @@
 <div id="atBlackListAnnouncement" class="modal fade" style="margin-top:100px">
   <div class="modal-dialog modal-jumpout">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
       </div>
       <!-- dialog body -->
-      <div class="top-modal-body" style="color:red;font-size:14px"></i>
+      <div class="top-modal-body" style="color:red;font-size:14px;margin-left:20px"></i>
         <table>
         	<tr><td>&nbsp;</td></tr>
         	<tr><td>${accountLocked}</td></tr>
@@ -520,7 +525,7 @@
 <div id="signupOK" class="modal fade">
   <div class="modal-dialog modal-jumpout">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;">註冊結果</h4>
       </div>
@@ -536,7 +541,7 @@
 <div id="signupError" class="modal fade">
   <div class="modal-dialog modal-jumpout">
     <div class="modal-content">
-    	<div class="modal-header">
+    	<div class="adela-modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;"><i class="fa "></i>註冊結果</h4>
       </div>
