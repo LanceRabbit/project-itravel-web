@@ -3,6 +3,7 @@ package model.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import model.Account;
 import model.BlacklistRecord;
 import model.BlacklistRecordDAO;
 import model.BlacklistRecordId;
@@ -31,8 +32,8 @@ public class BlacklistRecordDAOHibernate implements BlacklistRecordDAO {
 		List<BlacklistRecord> bRecord1 = null;
 		//select all, id=null;
 		//三條件隨意開關，測select排列組合
-		id.setReporterId("M14090002");
-		id.setReportedId("M14090003");
+		//id.setReporterId("M14090002");
+		//id.setReportedId("M14090003");
 		id.setCommentId("CMT140900001");
 		
 		bRecord1 = dao.select(id);
@@ -150,6 +151,61 @@ public class BlacklistRecordDAOHibernate implements BlacklistRecordDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public List<BlacklistRecord> selectByStatus(int status) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<BlacklistRecord> result = new ArrayList<BlacklistRecord>();
+		try {
+			tx = session.beginTransaction();
+			result = (List<BlacklistRecord>) session
+					.createQuery(
+							"FROM BlacklistRecord br where br.status ="+status + "order by br.reportDt").list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean updateStatus(BlacklistRecordId id) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		String reporterId = null;
+		String reportedId = null;
+		String commentId = null;
+		try {
+			reporterId = id.getReporterId();
+			reportedId = id.getReportedId();
+			commentId = id.getCommentId();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		int result = 0;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("update BlacklistRecord br set br.status = 1 "
+					+ "where br.id.reporterId = '"+reporterId+"' "
+							+ "and br.id.reportedId = '"+reportedId+"' "
+									+ "and br.id.commentId = '"+commentId+"'").executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		if(result==1){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 }

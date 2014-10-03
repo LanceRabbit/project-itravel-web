@@ -3,6 +3,8 @@ package model.dao;
 import java.util.List;
 
 
+
+
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -169,6 +171,30 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		}
 
 		return result;
+	}
+
+	@Override
+	public boolean update(String commentId, String comment) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		int result = 0;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("update SpotCommentRecord acr set acr.comment = '"+comment+"'"+
+		    				" where acr.commentId = '"+commentId+"'").executeUpdate();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		if(result==1){
+			return true;
+		}else{
+			return false;
+		}
+		
 	}
 
 }

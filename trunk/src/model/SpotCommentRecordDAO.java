@@ -9,6 +9,6 @@ public interface SpotCommentRecordDAO {
 	public abstract  SpotCommentRecord selectByCommentId(String commId);
 	//此景點下的所有評論
 	public abstract List<SpotCommentRecord> selectBySpot(String spotId);
-	
+	public abstract boolean update(String commentId, String comment);
 	
 }

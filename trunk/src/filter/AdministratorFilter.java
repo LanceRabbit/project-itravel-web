@@ -21,7 +21,11 @@ import javax.servlet.http.HttpSession;
 import model.Account;
 
 @WebFilter(filterName="AdministratorFilter", 
-		   urlPatterns={"/admin/*",
+		   urlPatterns={"/admin/*","/controller/GetInitialBlacklistServlet",
+						"/controller/ManageBlacklistServlet",
+						"/controller/ReinstateBlacklistServlet",
+						"/controller/GetPermBlacklistServlet",
+						"/controller/GetTempBlacklistServlet"
 		   })
 public class AdministratorFilter implements Filter {
 	Collection<String> url = new ArrayList<String>();

@@ -22,7 +22,7 @@ public class BlacklistRecord implements java.io.Serializable {
 	private BlacklistRecordId id;
 	private String reason;
 	private Date reportDt;
-
+	private Integer status;
 	public BlacklistRecord() {
 	}
 
@@ -38,7 +38,7 @@ public class BlacklistRecord implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return id+";"+reason+";"+reportDt;
+		return id+";"+reason+";"+reportDt+";"+status;
 	}
 
 	@EmbeddedId
@@ -71,6 +71,14 @@ public class BlacklistRecord implements java.io.Serializable {
 
 	public void setReportDt(Date reportDt) {
 		this.reportDt = reportDt;
+	}
+	@Column(name = "STATUS")
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 }
