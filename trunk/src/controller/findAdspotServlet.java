@@ -44,65 +44,51 @@ public class FindAdspotServlet extends HttpServlet {
 		OutputStream os = response.getOutputStream();
 
 		DisseminateService service = new DisseminateService();
-		Set<SpotDetail> result = service.findSpotId(AccountId);
-		java.util.Date date = service.findDate();
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-		 String webAppURL = request.getScheme() 
-					+ "://"
-					+ request.getServerName()
-					+ ":"
-					+ request.getServerPort()
-					+ request.getContextPath();
-       
-		if (!result.isEmpty()) {
-			try {
-				for (SpotDetail o : result) {
-					String spotId =o.getSpotId();
-					JSONObject jsonSpot = new JSONObject();
-					jsonSpot.put("spotId", spotId);
-					jsonSpot.put("spotName", o.getSpotName());					
-					jsonSpot.put("ValidDate",sdFormat.format(date) );					
-					String imgURL = null;
-					
-					/**要改   一個spotid會有多張ADImg***/
-					
-					String imgPath = ImageIOUtil.generateImageDirPath(o.getAccountId(),o.getSpotId());
-					String deployDir = getServletContext().getRealPath("/");					
-					//System.out.println("thumbnail saved at : " + (deployDir+imgPath));
-						
 
-					List<Ad> resultAd=service.findAds(spotId);
-					Iterator<Ad> itimg =resultAd.listIterator();
-					
-					imgURL = webAppURL + "/images/team1.jpg";
-					while (itimg.hasNext()) {
-						Ad image = itimg.next();
-						
-						System.out.println("MyADimage : " + image.getAdId() + ";"+ image.getAdImg());
-						
-						if (image.getAdId() != null) {
-							ImageIOUtil.saveImage((deployDir+imgPath),image.getAdId(),image.getAdImg());
-							imgURL = webAppURL + "/" + imgPath + "/" + image.getAdId();
-							
-						}
-						
-					}									
-					
+		List<Ad> ads = service.findAdsByAccountId(AccountId);
+		java.util.Date date = service.findDate();
+		String webAppURL = request.getScheme() + "://"
+				+ request.getServerName() + ":" + request.getServerPort()
+				+ request.getContextPath();
+		if (ads != null) {
+			for (Ad o : ads) {
+				
+				try {
+					JSONObject jsonSpot = new JSONObject();
+					jsonSpot.put("spotId", o.getSpotDetail().getSpotId());
+					jsonSpot.put("spotName", o.getSpotDetail().getSpotName());
+					jsonSpot.put("ValidDate", sdFormat.format(date));
+					String imgURL = null;
+
+					String imgPath = ImageIOUtil.generateImageDirPath(o
+							.getSpotDetail().getAccountId(), o.getSpotDetail()
+							.getSpotId());
+					String deployDir = getServletContext().getRealPath("/");
+					// System.out.println("thumbnail saved at : " +
+					// (deployDir+imgPath));
+
+					if (o.getAdId() != null) {
+						ImageIOUtil.saveImage((deployDir + imgPath), o.getAdId(),
+								o.getAdImg());
+						imgURL = webAppURL + "/" + imgPath + "/" + o.getAdId();
+
+					}
 					System.out.println("image url : " + imgURL);
 					jsonSpot.put("spotThumbnail", imgURL);
 					jsonSpots.put(jsonSpot);
+				} catch (JSONException e) {
+					e.printStackTrace();					
 				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
 			}
+
 		} else {
 
 			try {
 				JSONObject jsonSpot = new JSONObject();
 				jsonSpot.put("spotId", "false");
 				jsonSpot.put("spotName", "無景點");
-				jsonSpot.put("ValidDate",sdFormat.format(date) );
+				jsonSpot.put("ValidDate", sdFormat.format(date));
 				String imgURL = webAppURL + "/images/team1.jpg";
 				jsonSpot.put("spotThumbnail", imgURL);
 				jsonSpots.put(jsonSpot);

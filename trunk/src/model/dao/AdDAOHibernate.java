@@ -197,8 +197,30 @@ public class AdDAOHibernate implements AdDAO {
 //			
 //			dao.update(ad);
 		
-			System.out.println(dao.selectBySpotId("LAN14100001"));
+			//System.out.println(dao.selectBySpotId("LAN14100001"));
+			System.out.println(dao.selectByAccountId("M14100001"));
+	}
 
+	@Override
+	public List<Ad> selectByAccountId(String accountid) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Ad> result = null;
+
+		try {
+			tx = session.beginTransaction();
+			
+			result = session.createQuery("From Ad ads where ads.spotDetail.accountId='"+accountid+"'").list();
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }

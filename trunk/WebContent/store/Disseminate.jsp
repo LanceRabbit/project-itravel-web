@@ -5,15 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!--  
-<link href="<c:url value="/css/kendo.common.min.css"/>" rel="stylesheet" />
-<link href="<c:url value="/css/kendo.default.min.css"/>"
-	rel="stylesheet" />
-<link href="<c:url value="/css/kendo.dataviz.min.css"/>"
-	rel="stylesheet" />
-<link href="<c:url value="/css/kendo.dataviz.default.min.css"/>"
-	rel="stylesheet" />
--->
+
 <style>
 .container {
 	font-family: Microsoft JhengHei;
@@ -43,22 +35,22 @@
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade active in" id="Myadvert">
 				<br>
-				<div class="container">				
+				<div class="container">
 					<div class="col-sm-4">
-						<button id="btnSpotAd" class="btn btn-primary btn-lg" data-toggle="modal"
-							data-target="#ADModal">
+						<button id="btnSpotAd" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#ADModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
 					<div class="col-sm-8">
-					<p>新增廣告</p>
+						<p>新增廣告</p>
 					</div>
 					<div class="col-sm-12">
-					<hr>
+						<hr>
 					</div>
-				<div class="row">
-        			<div id="Adlist" class="col-sm-12">
-    					<!--  
+					<div class="row">
+						<div id="Adlist" class="col-sm-12">
+							<!--  
     					<ul class="thumbnails" style="list-style:none;">
 					 		<li class="col-sm-8 clearfix">
                   			<div class="thumbnail clearfix">
@@ -75,26 +67,26 @@
                   				</div>                  				
                				 </li>               				 
 						</ul>
-						--> 
-						
+						-->
+
+						</div>
 					</div>
+
+
 				</div>
-				
-					
-				</div>
-			
+
 
 			</div>
 			<div class="tab-pane fade" id="Mycoupon">
-				<br>			
+				<br>
 				<div class="container">
 					<div class="col-sm-4">
-						<button id="btnSpotC" class="btn btn-primary btn-lg" data-toggle="modal"
-							data-target="#CouponModal">
+						<button id="btnSpotC" class="btn btn-primary btn-lg"
+							data-toggle="modal" data-target="#CouponModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
-				
+
 					<div class="col-sm-8">
 						<p>新增coupon</p>
 					</div>
@@ -126,21 +118,22 @@
 				<div class="modal-body">
 					<div class="row">
 						<form id="ADform"
-							action="<c:url value="/controller/AddAdSevlet"/>;"
-							method="POST" enctype="multipart/form-data" name="formAd">
-							<div class="col-sm-8">								
+							action="<c:url value="/controller/AddAdSevlet"/>;" method="POST"
+							enctype="multipart/form-data" name="formAd">
+							<div class="col-sm-8">
 								<div class="form-group">
-									<label for="ADdate">選擇宣傳的景點 </label> 
-									<select id="spotIdList" name="spotIdList" class="form-control">									
+									<label for="ADdate">選擇宣傳的景點 </label> <select id="spotIdList"
+										name="spotIdList" class="form-control">
 									</select>
 								</div>
 								<div class="form-group">
-									<label for="ADdate">截止日期 </label> <input type="text"
+									<label for="ADdate">截止日期系統訂為七天後 </label> <input type="text"
 										class="form-control" id="ADdate" name="ADdate" readonly>
-								</div>								
+								</div>
 								<div class="form-group">
 									<label for="ADInputFile">選擇檔案</label> <input type="file"
 										id="ADInputFile" name="image">
+									<lable id="Adfilenull"></lable>
 								</div>
 							</div>
 						</form>
@@ -173,32 +166,34 @@
 						<form id="Cform"
 							action="<c:url value="/controller/AddCouponServlet"/>;"
 							method="POST" enctype="multipart/form-data" name="formC">
-							<div class="col-sm-8">								
+							<div class="col-sm-8">
 								<div class="form-group">
-									<label for="Cdate">選擇使用Coupon的景點 </label> 
-									<select id="CspotIdList" name="CspotIdList" class="form-control">
-									
+									<label for="Cdate">選擇使用Coupon的景點 </label> <select
+										id="CspotIdList" name="CspotIdList" class="form-control">
+
 									</select>
 								</div>
 								<div class="form-group">
 									<label for="Cdate">截止日期 </label> <input type="date"
 										class="form-control" id="Cdate" name="Cdate">
+										<lable id="Cdatenull"></lable>
 								</div>
 								<div class="form-group">
 									<label for="Ctextarea">說明文字</label>
-									<textarea id="Ctext" name="Ctext" class="form-control"
-										rows="3"></textarea>
+									<textarea id="Ctext" name="Ctext" class="form-control" rows="3"></textarea>
+									<lable id="Ctextnull"></lable>
 								</div>
 								<div class="form-group">
 									<label for="CInputFile">選擇檔案</label> <input type="file"
 										id="CInputFile" name="Cimage">
+										<lable id="Cfilenull"></lable>
 								</div>
 							</div>
 						</form>
-						
-						
-						
-						
+
+
+
+
 					</div>
 				</div>
 				<!-- <div class="modal-body"> -->
@@ -246,11 +241,44 @@
 			
 	
 			jQuery("#saveADBtn").click(function() {
-				$("#ADform").submit();
-
+				
+							var AdfileInput =jQuery("#ADInputFile").val();								
+							if(AdfileInput==""){
+								jQuery("#Adfilenull").empty();
+								jQuery("#Adfilenull").append("<div class='alert alert-danger' role='alert'>請選擇檔案!</div>");								
+					        
+							}else{
+								$("#ADform").submit();
+							}
+					   
 			});
 			jQuery("#saveCBtn").click(function(){
-				$("#Cform").submit();
+				var CfileInput =jQuery("#CInputFile").val();	
+				var Cdate =jQuery("#Cdate").val();
+				console.log(Cdate);
+				var Ctext =jQuery("#Ctext").val();
+				
+				
+				if(CfileInput==""){//檔案為空
+					jQuery("#Cfilenull").empty();
+					jQuery("#Cfilenull").append("<div class='alert alert-danger' role='alert'>請選擇檔案!</div>");							
+		        
+				}
+				if(Cdate==""){ //說明為空
+					jQuery("#Cdatenull").empty();
+					jQuery("#Cdatenull").append("<div class='alert alert-danger' role='alert'>請填入正確日期!</div>");	
+				}
+				if(Ctext==""){ //日期錯誤 和 為空
+					jQuery("#Ctextnull").empty();
+					jQuery("#Ctextnull").append("<div class='alert alert-danger' role='alert'>請輸入說明文字!</div>");	
+				}
+
+				if(CfileInput!="" && Cdate!="" && Ctext!=""){
+					$("#Cform").submit();
+				}
+				
+				
+				
 				
 			});
 			
@@ -265,15 +293,17 @@
 					data : {AccountId : "${user.accountId}"	},								
 					success : function(data) {
 						jQuery("#spotIdList").empty();
-						jQuery.each(data,function(index,value) {							
-							if(value.spotId!="false"){
-								
+						jQuery("#Adfilenull").empty();
+						jQuery.each(data,function(index,value) {						
+							if(value.spotId!="false"){								
 								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
 								jQuery("#spotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
-								//jQuery("#ADdate").val(value.ValidDate);
+								jQuery("#ADdate").val(value.ValidDate);	
+								//var AdfileInput = ADform["ADInputFile"].val();
+								
 							}else{
 								jQuery("#spotIdList").empty();
-								//jQuery("#ADdate").val(value.ValidDate);								
+								jQuery("#ADdate").val(value.ValidDate);								
 								jQuery("#saveADBtn").hide();
 							}
 							
@@ -294,10 +324,10 @@
 					dataType : "json",	
 					data : {AccountId : "${user.accountId}"	},								
 					success : function(data) {
+						jQuery("#Cfilenull").empty();
 						jQuery("#CspotIdList").empty();
 						jQuery.each(data,function(index,value) {							
-							if(value.spotId!="false"){
-								
+							if(value.spotId!="false"){								
 								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
 								jQuery("#CspotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
 								jQuery("#Cdate").val(value.ValidDate);
@@ -325,10 +355,7 @@
 		
 	</script>
 	<jsp:include page="/fragment/bottom.jsp" />
-<!--  
-	<script src="../js/angular.min.js"></script>
-	<script src="../js/kendo.all.min.js"></script>
--->
+
 
 </body>
 </html>
