@@ -77,6 +77,7 @@ public class FindAdspotServlet extends HttpServlet {
 					imgURL = webAppURL + "/images/team1.jpg";
 					while (itimg.hasNext()) {
 						Ad image = itimg.next();
+						
 						System.out.println("MyADimage : " + image.getAdId() + ";"+ image.getAdImg());
 						
 						if (image.getAdId() != null) {
