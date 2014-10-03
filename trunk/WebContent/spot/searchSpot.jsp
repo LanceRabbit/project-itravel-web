@@ -267,7 +267,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				<!-- <div class="modal-body"> -->
 				
 				<div class="modal-footer" id="spotInfoModelFooter" hidden>
-					<button id="commentResetBtn" type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
+					<button id="commentResetBtn" type="button" class="btn btn-default">放棄</button>
 					<button id="commentSaveBtn" type="button" class="btn btn-primary">儲存</button>
 					<button id="commentCreationBtn" type="button" class="btn btn-primary" >新增評論</button>
 				</div>
@@ -621,19 +621,23 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	// load data from server
 	activeQuery();
 	
-	// tabs of spot info modal
+	// tabs of spot info modal :
+	// comment-related buttons
 	jQuery("#commentCreationBtn").on("click", function(){
 		
 		jQuery("#commentCreationBtn").hide();
 		jQuery("#commentSaveBtn").show();
 		jQuery("#commentResetBtn").show();
 		
-		jQuery("#commentList").append("<div><a href='#' class='list-group-item list-group-item-info'><div class='panel panel-default'>"+
+		jQuery("#commentList").append("<div id='newComment'><a href='#' class='list-group-item list-group-item-info'><div class='panel panel-default'>"+
 				
-				"<div class='panel-body'><textarea class='form-control' id='newComment' name='newComment'></textarea></div>"+
+				"<div class='panel-body'><textarea class='form-control' name='newComment'></textarea></div>"+
 				"</div></a></div>");
 		
-		jQuery("#newComment").focus();
+		jQuery("#newComment textarea").focus();
+		
+		// reset resetResetBtn
+		jQuery("#commentList .resetReportBtn").click();
 	});
 	
 	jQuery("#commentSaveBtn").on("click", function(){
@@ -649,7 +653,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			data : {
 				commenterId:"${user.accountId}",
 				spotId : selectedSpotId,
-				comment : jQuery("#newComment").val()
+				comment : jQuery("#newComment textarea").val()
 			},
 			dataType : "text"
 		}).done(function(data){
@@ -676,8 +680,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		jQuery("#commentSaveBtn").hide();
 		jQuery("#commentResetBtn").hide();
 		
+		jQuery("#newComment").remove();
+		
 	});
 	
+	// switch between tabs
 	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
 		jQuery("#spotInfoModelFooter").hide();
 	});
@@ -697,19 +704,24 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		else {
 			jQuery.each(comments, function(index, value){
 				var comment = value;
+				//console.log("index : " + index); start from 0
 				jQuery("#commentList").append(
 						"<div><a href='#' class='list-group-item list-group-item-info'>"+
-							"<div class='panel panel-default'>"+
+							"<div class='panel panel-primary'>"+
 								"<div class='panel-heading'>"+
-									"<p>" + comment.commenterNickname + " " +comment.creationDate +"</p>"+
+									"<label>" + comment.commenterNickname + "</label><label class='text-right'> " +comment.creationDate +"</label>"+
 								"</div>"+
 
-								"<div>" +
-									"<div class='panel-body'>"+
-										"<p id='" + comment.commentId +"'>"+ comment.comment + "</p>" +
-									"</div>" +	
-								"</div>" + 
-							"</div>" + 
+								"<div class='panel-body'>"+
+									"<p id='" + index +"'>"+ comment.comment + "</p>" +
+								"</div>"+	
+							"</div>"+
+							
+							<c:if test='${! empty user}'>
+							"<button type='button' class='btn btn-default addReportBtn'>檢舉</button>"+
+							"<button type='button' class='btn btn-default resetReportBtn'>放棄</button>"+
+							"<button type='button' class='btn btn-primary saveReportBtn'>儲存</button>"+
+							</c:if>
 						"</a></div>");
 			});
 			
@@ -721,7 +733,41 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			jQuery("#commentCreationBtn").show();
 			jQuery("#commentSaveBtn").hide();
 			jQuery("#commentResetBtn").hide();
+			
+			// report related buttons
+			jQuery(".addReportBtn").show();
+			jQuery(".resetReportBtn").hide();
+			jQuery(".saveReportBtn").hide();
 		</c:if>
+	});
+	
+	// report-related buttons
+	jQuery("#commentList").on('click', '.addReportBtn', function(){
+		jQuery(this).siblings(".panel").after("<textarea class='form-control newReport' name='newReport'></textarea>");
+		var resetBtnThisItem = jQuery(this).siblings('.resetReportBtn');
+		jQuery("#commentList .resetReportBtn").not(resetBtnThisItem).click();
+		
+		// reset buttons in this list item
+		jQuery(this).hide();
+		jQuery(this).siblings(".resetReportBtn").show();
+		jQuery(this).siblings(".newReport").focus();
+		
+		// click commentResetBtn
+		jQuery("#commentResetBtn").click();
+		jQuery(this).siblings(".saveReportBtn").show();
+	});
+		
+	jQuery("#commentList").on('click', '.resetReportBtn', function(){
+		jQuery(this).siblings('.newReport').remove();
+		
+		// reset buttons
+		jQuery(this).siblings(".addReportBtn").show();
+		jQuery(this).hide();
+		jQuery(this).siblings(".saveReportBtn").hide();
+	});
+	
+	jQuery("#commentList").on('click', '.saveReportBtn', function(){
+		jQuery("#commentInfoTab").click();
 	});
 	
 	function initElements() {
