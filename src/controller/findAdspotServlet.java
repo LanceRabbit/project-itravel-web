@@ -24,10 +24,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @WebServlet("/controller/FindAdspotServlet")
-public class FindAdspotServlet extends HttpServlet {
+public class findAdspotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public FindAdspotServlet() {
+	public findAdspotServlet() {
 
 	}
 
@@ -58,7 +58,7 @@ public class FindAdspotServlet extends HttpServlet {
 					JSONObject jsonSpot = new JSONObject();
 					jsonSpot.put("spotId", o.getSpotDetail().getSpotId());
 					jsonSpot.put("spotName", o.getSpotDetail().getSpotName());
-					jsonSpot.put("ValidDate", sdFormat.format(date));
+					jsonSpot.put("ValidDate", sdFormat.format(date));//轉換date
 					String imgURL = null;
 
 					String imgPath = ImageIOUtil.generateImageDirPath(o
