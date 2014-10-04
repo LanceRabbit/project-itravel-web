@@ -496,7 +496,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	google.maps.event.addDomListener(window, 'load', map_init);
 	
 	// modal google map
-	$('#spotInfoModal').on('shown.bs.modal', function() {
+	jQuery('#spotInfoModal').on('shown.bs.modal', function() {
 		google.maps.event.trigger(var_map, "resize");
 		var_map.setCenter(var_location);
 	});
