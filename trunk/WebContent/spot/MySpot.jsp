@@ -75,6 +75,28 @@ height:330px;
 		
 	</div>
 	
+	<div class="modal fade" id="confimModal" tabindex="-1" role="dialog"
+		aria-labelledby="confirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="confirmModalLabel">刪除景點</h4>
+				</div>
+				<div class="modal-body" id="confirmModalDescription">
+				</div>
+				<!-- <div class="modal-body"> -->
+
+				<div class="modal-footer">
+					<button id="cancelBtn" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="confirmBtn" type="button" class="btn btn-primary">確認</button>
+				</div>
+			</div>
+			<!-- <div class="modal-content"> -->
+		</div>
+	</div>
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script type="text/javascript">
 	function alter(id){
@@ -95,48 +117,57 @@ height:330px;
 				});
 			},
 		});
-		
-		
-		
-		
 	}
 	
 	function delet(id){
-		alert("刪除"+id);
+		jQuery("#confimModal").modal('show');
+		
+		var tokens = id.split("#");
+		var spotId = tokens[0];
+		var spotName = tokens[1];
+		jQuery("#confirmModalDescription").empty().append("<p id='"+spotId+"'>確認刪除景點"+spotName+"嗎?</p>");
+		//alert("刪除"+id);
 		
 	}
 	</script>
 	<script type="text/javascript">
 		jQuery(document).ready(	function() {
+			var count = 0;
+			jQuery.ajax({
+				url : '<c:url value='/controller/MySpotServlet' />',
+				type : "GET",
+				contentType : "application/json; charset=utf-8",
+				async : false,
+				dataType : "json",	
+				data : {AccountId : "${user.accountId}"	},								
+				success : function(data) {
+					jQuery.each(data,function(index,value) {
+						jQuery('#listDetails').append(
+							"<div id='div"+count+"'class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''><div class='caption'><h4><a href='#'>"
+									+ value.spotName
+									+ "</a></h4><p>"
+									+ value.spotIntro
+									+ "</p></div><div class='ratings'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.spotID+"#"+value.spotName+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p></div></div></div>");
+							count++;				
+					});
+				},
+			});
+							
+			// configure confirmBtn
+			jQuery("#confirmBtn").on('click', function(){
+				var spotId = jQuery("#confirmModalDescription p").attr("id");
+				console.log("confirm button pressed : " + spotId);
+				
+				jQuery.ajax({
+					url:"<c:url value='/control/DeleteSpot' />",
+					type:"POST",
+					//contentType:"text/html; charset=utf-8",
+					data:{SpotId:spotId}
+				});
+			});
+							
 
-							
-			
-							var count = 0;
-							jQuery.ajax({
-								url : '<c:url value='/controller/MySpotServlet' />',
-								type : "GET",
-								contentType : "application/json; charset=utf-8",
-								async : false,
-								dataType : "json",	
-								data : {AccountId : "${user.accountId}"	},								
-								success : function(data) {
-									jQuery.each(data,function(index,value) {
-										jQuery('#listDetails')
-																.append(
-																		"<div id='div"+count+"'class='col-xs-3'><div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''><div class='caption'><h4><a href='#'>"
-																				+ value.spotName
-																				+ "</a></h4><p>"
-																				+ value.spotIntro
-																				+ "</p></div><div class='ratings'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg'>修改</i></a><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p></div></div></div>");
-									count++;				
-									});
-								},
-							});
-							
-							
-							
-
-						});
+		});
 	</script>
 </body>
 </html>
