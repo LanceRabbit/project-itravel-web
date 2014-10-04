@@ -80,7 +80,7 @@ width: 300px;
 		<div style="width:350px; text-align: center;">
 		<h4>${param.tripName}</h4>
 		</div>
-		<span id='tripId' hidden>${param.tripName}</span>
+		<span id='tripName' hidden>${param.tripName}</span>
 		<span id='startDay' hidden>${param.dateStart}</span>
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
@@ -110,7 +110,7 @@ width: 300px;
 		    </ul>
 		    <div id="spotContent" class="tab-content">
 		        <div class="tab-pane active" id="spot_1">
- <div class="container">
+ <div >
 	<div class="row">
 		<div class="col-md-12">
 				<form class="form-horizontal" method="post" id="infoForm"
@@ -118,7 +118,7 @@ width: 300px;
 					<fieldset>
 						<div class="form-group">
 							<div class="row">
-								<div class="col-xs-2">
+								<div style='margin-left:15px' class="col-xs-4">
 									<div class="input-group" id="queryCityGroup" data-toggle="popover"
 										data-placement="top" data-content="請選擇縣市">
 										<input id="queryCity" name="city" type="text" placeholder="縣市"
@@ -137,7 +137,7 @@ width: 300px;
 									<!-- /input-group -->
 								</div>
 
-								<div class="col-xs-2">
+								<div class="col-xs-4">
 									<div class="input-group" id="queryCategoryGroup"
 										data-toggle="popover" data-toggle="popover"
 										data-placement="top" data-content="請選擇分類">
@@ -159,7 +159,7 @@ width: 300px;
 
 							
 
-								<div class="col-xs-2">
+								<div class="col-xs-3">
 									<input id="querySpotName" name="spotName" type="text"
 										placeholder="景點名稱" class="form-control" data-toggle="popover"
 										data-placement="top" data-content="請輸入名稱">
@@ -217,12 +217,13 @@ width: 300px;
 <script src="../js/jquery.dynatable.js"></script>
 <script src="../js/jquery.bootstrap-touchspin.min.js"></script>
 <script>
-var tempDay = $("#days").text() ;
+
 var currentDiv = "#contact_1";
 
 jQuery(document).ready(function() {
-	console.log($("#days").text());
-	console.log($("#tripId").text());
+	var tempDay = $("#days").text() ;
+	console.log($("#startDay").text());
+	console.log($("#tripName").text());
 	//according to days to create the tabs on the left side of screen.
 	for(var index = 2; index <= $("#days").text(); index++ ) {
 		
@@ -259,54 +260,74 @@ jQuery(document).ready(function() {
 		    	$('#pageTab .add-contact').hide();
 		 }
 		console.log("add-contact==="+$("#pageTab").children().length);
+		
 		tempDay = $("#pageTab").children().length - 1;
-		console.log("tempDay=="+tempDay);
+		console.log("tempDay=="+ tempDay);
 	});
 		
 	//
 	$("#createTrip").click(function(){
 		//$("#tripForm").submit();
+		var noError = 0 ;
 		var info = {};
-		
-		info.TripName =  "要去哪裡玩";
-		info.StartDay =  "2014/10/03";
-		info.TotalDay = 2;
+		console.log();
+		console.log();
 		var spotInfo = [];
 		var listSpot = {};
 		var byDay = [];
-		 var id = $("#pageTab").children().length-1;
-		 console.log("adddddddd="+id);
-		for(var i = 1 ; i <= id ; i ++){
-			
-			 byDay = [];
-			$('#contact_'+i).children().length;
+		var tabs = $("#pageTab").children().length-1;
+		console.log("tabs count="+tabs);
+		for(var index = 0 ; index < tabs ; index ++){
+			var times = 0;	
+			byDay = [];
+			$('#contact_'+(index+1)).children().length;
 			//console.log("#contact_"+i+'='+$('#contact_'+i).children().length);
-			$('#contact_'+i+'> div').each(function(){
+			$('#contact_'+(index+1)+'> div').each(function(){
+				 times +=$(this).find("input").val();
+				 //collect spot info
 				 listSpot = {};
-				 listSpot.spotId = $(this).attr("id")
-				 listSpot.stayTime = 60;
-				console.log($(this).attr("id"));
-				byDay.push(listSpot);
+				 listSpot.spotId = $(this).attr("id");
+				 listSpot.stayTime = $(this).find("input").val();
+				 console.log("~~~!@#!@"+$(this).find("input").val());
+				 byDay.push(listSpot);
 			});
+			if (times>50) {
+				noError = 1;
+				var aa = index;
+				//aa = index;
+				console.log("aaaa="+index);
+				var string = "#pageTab li a:eq("+index+")";
+				console.log("string="+string);
+				$(string).click();
+				bootbox.alert("Day"+(index+1)+"設定停留時間超過一天的分鐘數(1440 分/日)", function() {
+					 
+				});
+				break;
+		}
 			spotInfo.push(byDay);
-			console.log(byDay);
-			console.log(i+"===========");
 		};
-		info.spot=spotInfo;
-		console.log(info);
-/* 		 $.ajax({
-			type : "POST",
-			 dataType:"json", //xml,text
-			 async: false,
-			url : '<c:url value='/controller/AddTripServlet' />',
-			data : {
-				tripInfo :  JSON.stringify(tripInfo)
-			}
-		}).done(function(data) {
-			//console.log("detail from server....." + data);
+	
 		
-		});  */
-		
+		// if no error occurs, sent out data to backend.
+		if (noError==0) {
+			info.TripName =  $("#startDay").text();
+			info.StartDay =  $("#tripName").text();
+			info.TotalDay = tempDay;
+			info.spot=spotInfo;
+			console.log(info);
+	  		$.ajax({
+				type : "POST",
+				 dataType:"json", //xml,text
+				 async: false,
+				url : '<c:url value='/controller/AddTripServlet' />',
+				data : {
+					tripInfo :  JSON.stringify(info)
+				}
+			}).done(function(data) {
+				//console.log("detail from server....." + data);
+			
+			});   
+		}
 	});
 		
 	//confirm doalog when user want to cancel current add trip step.
@@ -440,58 +461,7 @@ function ulWriter(rowIndex, record, columns, cellWriter) {
 	  	 +'</div></li>';
   return li;
 }
-/* 
-	<li>
-		<div id='div"+count+"'class='col-xs-12'>
-			<div class='row'>
-				<div class='col-xs-6'>
-					<div class='thumbnail'>
-						<img src='"+value.spotThumbnail+"' alt=''>
-					</div>"
-				</div>
-				<div class='col-xs-6'>
-					<div class='caption'>
-						<h4>
-						<p>value.spotName</p>
-						</h4>
-						value.spotIntro
-					</div>
-				</div>
-			</div>
-		</div>
-	</li>
 
-
-
-
-<li class="span4 first">
-	<div class="thumbnail">
-imgae	<div class="thumbnail-image">
-    		<img src="https://s3.amazonaws.com/dynatable-docs-assets/images/dinosaurs/Stegosaurus_BW.jpg">
- 		 </div>
-caption		<div class="caption">
-label    	<h3>Stegosaurus armatus</h3>
-	    	<p>State: Colorado</p>
-	  	  	<p>Year: 1982</p>
-	 	    <p>
-		 	   <a target="_blank" 
-		 	   href="http://en.wikipedia.org/wiki/Stegosaurus" 
-		 	   class="btn btn-primary">View</a> <a href="#" class="btn">
-		 	   Action</a>
-	 	    </p>
- 	    </div>
- 	 </div>
-</li> 
-*/
-/* function ulReader(index, li, record) {
-	  var $li = $(li),
-	      $caption = $li.find('.caption');
-	  record.thumbnail = $li.find('.thumbnail-image').html();
-	  record.caption = $caption.html();
-	  record.label = $caption.find('h3').text();
-	  record.description = $caption.find('p').text();
-	  record.color = $li.data('color');
-	} */
 // Function that creates our records from the DOM when the page is loaded
 function ulReader(index, li, record) {
 		var index = 1;
@@ -507,27 +477,6 @@ function ulReader(index, li, record) {
   record.description = $caption.find('p').text();
 
 }
-/* <li><div id='div"+count+"'class='col-xs-12'>
-<div class='row'>
-	<div class='col-xs-6'>
-		<div class='thumbnail'>
-			<img src='"+value.spotThumbnail+"' alt=''>
-		</div>"
-	</div>
-	<div class='col-xs-6'>
-		<div class='caption'>
-			<h4>
-			value.spotName
-			</h4>
-			<p>value.spotIntro</p>
-		</div>
-	</div>
-</div>
-</div> */
-
-
-
-
 
 </script>
 <script type="text/javascript">
@@ -595,7 +544,7 @@ jQuery(document).ready(	function() {
 <script>
 	
 (function(jQuey){
-	
+	var ovretime = 0;
 	var categories = [{"type":"全部", "subtype":["全部子分類"]},
 	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
 	                  {"type":"購物", "subtype":["全部子分類", "百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
@@ -710,23 +659,26 @@ jQuery(document).ready(	function() {
 			jQuery('#listDetails').empty();	
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);
-				
+	
 		
 				jQuery('#listDetails').append(
 						"<div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
 						+"<div class='col-xs-6'>"
 						+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
-						+"</div><div class='col-xs-6'><div class='caption'><h4>"
-					+ value.spotName
-					+ "</h4><p>"
-					+ value.spotIntro
-					+ "</p></div></div>"
-					+ "</div></div>"
+						+"</div><div class='col-xs-6'><div class='pull-right' hidden>"
+						+"<span class='glyphicon glyphicon-plus'></span></div>"
+						+"<div class='caption'><h4>"
+						+ value.spotName
+						+ "</h4><p>"
+						+ value.spotIntro
+						+ "</p></div></div>"
+						+ "</div></div>"
 				); // end of jQuery
 				//console.log(value.spotId);
 				//console.log("+++="+$('#'+value.spotId).attr("id"));
 				//-- add spot into trip when click this spot.
-				$('#'+value.spotId).on('click',function(){
+				$('#'+value.spotId).on('click','span',function(){
+
 					//console.log("AAAA="+$(this).attr("id"));
 					//console.log(currentDiv);
 					
@@ -745,56 +697,65 @@ jQuery(document).ready(	function() {
 					}
 				})
 				.mouseover(function(e){
+					 e.stopPropagation();
 					//console.log($(this).children().children().children().attr('class'));
 					$(this).children().children().children().addClass('select-div');
-					
+					$(this).children().children().children('div').removeAttr("hidden");
+						
 				})
 				.mouseout(function(e){
 					$(this).children().children().children().removeClass('select-div');
-					
+					$(this).children().children().children('div:first-child').attr("hidden","hidden");
 				});
 			});
 		});
 		function deleteSportObj(e){
 			$(currentDiv+' span.glyphicon-remove').click(function(e){
 				 e.stopPropagation();
-				//console.log($(this).parent().parent().attr('id'));
-				var divId = $(this).parent().parent().attr('id');
+				console.log($(this).parent().parent().parent().parent().attr('id'));
+				var divId = $(this).parent().parent().parent().parent().attr('id');
 				$(currentDiv+' #'+divId).remove();
 				
 				//$(this).parent().parent().index();
 				//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
 				e.stopImmediatePropagation();
-				//counter--;
-//				alert(counter);
 			});
 		}
 	function createSportObj (value,sportId){
-
 		$(currentDiv).append(
-				"<div id='"+value.spotId+"'class='col-xs-12'><div style='text-align: right;' hidden><span class='glyphicon glyphicon-remove' ></span></div><div class='row'>"
-				+"<div class='col-xs-6'>"
+				"<div id='"+value.spotId+"'class='col-xs-12'>"
+				+"<div class='row'><div class='col-xs-6'>"
 				+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
-				+"</div><div class='col-xs-6'><div class='caption'><h4>"
-			+ value.spotName
-			+ "</h4><div style='width:120px'>"
-			+ "	<input id='setTime' type='text'>"
-			+
-			+ "</div></div></div>"
-			+ "</div></div>"
+				+"</div><div class='col-xs-6'>"
+				+"<div class='pull-right'  hidden>"
+				+"<span class='glyphicon glyphicon-remove' ></span></div>"
+				+"<div class='caption'><h4>"
+				+ value.spotName
+				+ "</h4><div style='width:120px'>"
+
+				+ "<input id='setTime"+value.spotId+"' type='text' value='60'>"
+				+ "</div></div></div>"
+				+ "</div></div>"
 		);
-		$("#setTime").TouchSpin();
-		
+		$(currentDiv+" #setTime"+value.spotId).TouchSpin({
+            min: 30,
+            max: 420,
+            step: 30,
+            boostat: 5,
+            maxboostedstep: 10,
+            verticalbuttons: true,
+            postfix: '分'
+        });
 		
 		$(currentDiv+' #'+value.spotId).mouseover(function(e){
 			//console.log("overover");
-			$(this).children('div').removeAttr("hidden");
+			$(this).children().children().children().removeAttr("hidden");
 			//$(this).parents('div').remove();				
 			//e.stopImmediatePropagation();
 
 		}).mouseout(function(e){
 			 e.stopPropagation();
-			$(this).children('div:first-child').attr("hidden","hidden");
+			 $(this).children().children().children('div:first-child').attr("hidden","hidden");
 			
 		});
 		

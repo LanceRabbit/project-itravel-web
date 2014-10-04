@@ -10,7 +10,8 @@
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/container.css" />" />
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-
+<link rel="stylesheet" href="../css/jquery.dynatable.css"/>
+<link rel="stylesheet" href="../css/jquery.bootstrap-touchspin.min.css"/>
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
@@ -28,6 +29,12 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
 
+.select-div {
+	background: #d0dafd;
+	
+}
+
+
 }
 div{
 border-collapse:collapse;
@@ -36,7 +43,10 @@ border-collapse:collapse;
 .bootbox > .modal-dialog {
 width: 300px;
 }
-
+  ul {
+  list-style-type: none;
+  
+  }
 .nav-tabs > li {
     position:relative;
 }
@@ -56,7 +66,7 @@ width: 300px;
 }
 
 .trip-name {
-	text-align: center;
+	padding-left: 0px;
 }
 </style>
 </head>
@@ -67,13 +77,16 @@ width: 300px;
 	<!-- Page Content -->
 	<div class="container thumbnail">
 	<div class="trip-name">
+		<div style="width:350px; text-align: center;">
 		<h4>${param.tripName}</h4>
+		</div>
 		<span id='tripId' hidden>${param.tripName}</span>
 		<span id='startDay' hidden>${param.dateStart}</span>
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
-		<div class='col-xs-5'>
+		<div class='col-xs-6'>
+
 			<ul id="pageTab" class="nav nav-tabs" role="tablist">
 		        <li class="active"><a href="#contact_1" data-toggle="tab">Day1</a>
 		        </li>
@@ -82,101 +95,117 @@ width: 300px;
 		        </li>
 		    </ul>
 		    <div id="pageContent" class="tab-content">
-		        <div class="tab-pane active" id="contact_1">Contact Form: Day1</div>
+		        <div class="tab-pane active" id="contact_1"></div>
 		    </div>
+		
 		</div>
 		<div class="clearfix visible-xs-block"></div>
-		<div class='col-xs-7'>
+		<div class='col-xs-6'>
 			<ul id="spotTab" class="nav nav-tabs" role="tablist">
-		        <li class="active"><a href="#spot_1" data-toggle="tab">搜尋景點</a>
+		        <li class="active">
+		        <a href="#spot_1" data-toggle="tab">搜尋景點</a>
 		        </li>
-		        <li><a href="#spot_2" data-toggle="tab">收藏景點</a> 
+		        <li><a id="myselfcollect" href="#spot_2" data-toggle="tab">收藏景點</a> 
 		        </li>
 		    </ul>
 		    <div id="spotContent" class="tab-content">
 		        <div class="tab-pane active" id="spot_1">
-		        <div class="container">
-				<div class="row">
-				<div class="col-md-12">
-					<div>
-						<form class="form-horizontal" method="post" id="infoForm"
-							action='<c:url value="/controller/AddSpot" />'>
-							<fieldset>
-								<div class="form-group">
-									<div class="row">
-									<div class="col-xs-0">
+ <div class="container">
+	<div class="row">
+		<div class="col-md-12">
+				<form class="form-horizontal" method="post" id="infoForm"
+					action='<c:url value="/controller/AddSpot" />'>
+					<fieldset>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="input-group" id="queryCityGroup" data-toggle="popover"
+										data-placement="top" data-content="請選擇縣市">
+										<input id="queryCity" name="city" type="text" placeholder="縣市"
+											class="form-control" disabled>
+										<div class="input-group-btn" id="queryCityIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
 									</div>
-									<div class="col-xs-2">
-											<input id="spotName" name="spotName" type="text"
-												placeholder="景點名稱" class="form-control" data-toggle="popover"
-												data-placement="top" data-content="請輸入名稱" maxlength="10">
-										</div>
-										<div class="col-xs-2">
-											<div class="input-group" id="cityGroup" data-toggle="popover"
-												data-placement="top" data-content="請選擇縣市">
-												<input id="city" name="city" type="text" placeholder="縣市"
-													class="form-control" disabled>
-												<div class="input-group-btn" id="cityIdMenu">
-													<button type="button" class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														選擇 <span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu dropdown-menu-right scrollable"
-														role="menu">
-													</ul>
-												</div>
-												<!-- /btn-group -->
-											</div>
-											<!-- /input-group -->
-										</div>
-		
-										<div class="col-xs-2">
-											<div class="input-group" id="categoryGroup"
-												data-toggle="popover" data-toggle="popover"
-												data-placement="top" data-content="請選擇分類">
-												<input id="category" name="category" type="text"
-													placeholder="分類" class="form-control" disabled>
-												<div class="input-group-btn" id="categoryIdMenu">
-													<button type="button" class="btn btn-default dropdown-toggle"
-														data-toggle="dropdown">
-														選擇 <span class="caret"></span>
-													</button>
-													<ul class="dropdown-menu dropdown-menu-right scrollable"
-														role="menu">
-													</ul>
-												</div>
-												<!-- /btn-group -->
-											</div>
-											<!-- /input-group -->
-										</div>
-		
-						
-		
-							
-									</div>
+									<!-- /input-group -->
 								</div>
-							</fieldset>
-						</form>
-					</div>
-				</div>
-			</div>
-	
-	
-		<div class="row" id="listDetails">
-		</div>	
-	</div>
-		        
-		        
-		        </div>
-		        <div class="tab-pane" id="spot_2">Contact Form: Day2</div>
-		    </div>
+
+								<div class="col-xs-2">
+									<div class="input-group" id="queryCategoryGroup"
+										data-toggle="popover" data-toggle="popover"
+										data-placement="top" data-content="請選擇分類">
+										<input id="queryCategory" name="category" type="text"
+											placeholder="全部" class="form-control" disabled>
+										<div class="input-group-btn" id="queryCategoryIdMenu">
+											<button type="button" class="btn btn-default dropdown-toggle"
+												data-toggle="dropdown">
+												選擇 <span class="caret"></span>
+											</button>
+											<ul class="dropdown-menu dropdown-menu-right scrollable"
+												role="menu">
+											</ul>
+										</div>
+										<!-- /btn-group -->
+									</div>
+									<!-- /input-group -->
+								</div>
+
+							
+
+								<div class="col-xs-2">
+									<input id="querySpotName" name="spotName" type="text"
+										placeholder="景點名稱" class="form-control" data-toggle="popover"
+										data-placement="top" data-content="請輸入名稱">
+								</div>
+							</div>
+						</div>
+					</fieldset>
+				</form>
+		</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<button id="test"  type="button" class="btn btn-default" 
-				>取消</button>
-		<input type="submit" class="btn btn-info" value="建立" />
+
+	
+			<div class="row" id="listDetails">
+			<ul class="thumbnails">
+                <li class="span5 clearfix">
+                  <div class="thumbnail clearfix">
+                    <img src="http://placehold.it/320x200" alt="ALT NAME" class="pull-left span2 clearfix" style="margin-right:10px">
+                    <div class="caption">
+                      <a href="http://bootsnipp.com/" class="btn btn-primary icon  pull-right">Select</a>
+                      <h4>      
+                      <a href="#">Luis Felipe Kaufmann</a>
+                      </h4>
+                      <small><b>RG: </b>99384877</small>  
+                    </div>
+                  </div>
+                </li>
+            </ul>
+			</div>	
+		</div>
+
+		<div class="tab-pane" id="spot_2">
+	
+			<ul id="mycollect"  class="row-fluid">
+			</ul>
+			
+          </div>
 	</div>
+		</div>
+
+	</div>
+		<div class="modal-footer">
+		<button id="doNothing"  type="button" class="btn btn-default" 
+				>取消</button>
+		<input id="createTrip" type="submit" class="btn btn-info" value="建立" />
+	</div>	
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -185,94 +214,156 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
+<script src="../js/jquery.dynatable.js"></script>
+<script src="../js/jquery.bootstrap-touchspin.min.js"></script>
 <script>
+var tempDay = $("#days").text() ;
+var currentDiv = "#contact_1";
 
-	jQuery(document).ready(function() {
+jQuery(document).ready(function() {
+	console.log($("#days").text());
+	console.log($("#tripId").text());
+	//according to days to create the tabs on the left side of screen.
+	for(var index = 2; index <= $("#days").text(); index++ ) {
 		
-		console.log($("#days").text());
-		console.log($("#tripId").text());
+		//console.log(index);
+		var tabId = 'contact_' + index;
+	    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageTab li:nth-child(' + index + ') a').click();
+		if ($("#pageTab").children().length>5) {
+		    	$('#pageTab .add-contact').hide();
+		 }
 		
-		for(var index = 2; index <= $("#days").text(); index++ ) {
-			
-			console.log(index);
-			var tabId = 'contact_' + index;
-		    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
-		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + index + '</div>');
-		    $('#pageTab li:nth-child(' + index + ') a').click();
-			if ($("#pageTab").children().length>5) {
-			    	$('#pageTab .add-contact').hide();
-			 }
-			
-			
-		}
 		
-		$('#pageTab .add-contact').click(function (e) {
-			
-		    e.preventDefault();
-		   
-		    var id = $("#pageTab").children().length; //think about it ;)
-			var tabId = 'contact_' + id;
-		    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
-		    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '">Contact Form: New Contact ' + id + '</div>');
-		    $('#pageTab li:nth-child(' + id + ') a').click();
-			if ($("#pageTab").children().length>5) {
-			    	$('#pageTab .add-contact').hide();
-			 }
-		});
+	}
+	//record current tab is where focus.
+	$('#pageTab').on('click','li',function(e){
+		 e.stopPropagation();
+		//console.log($(this).index());
 		
-		$("#test").click(function(){
-			bootbox.dialog({
-				  message: "確定取消新增行程表? ",
-				  buttons: {
-				    cancel: {
-				      label: "取消",
-				      className: "btn btn-default",
-				      callback: function() {
-				    	  console.log("do nothing");  
-				      }
-				    },
-				    confirm: {
-				      label: "確定",
-				      className: "btn btn-info",
-				      callback: function() {
-				    	  window.location.href = '<c:url value="/first.jsp"/>';  
-				      }
-				    }
-				  }
-				});
-			
-			
-		/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
-				 if (result == true) {                                             
-					 window.location.href = '<c:url value="/first.jsp"/>';                          
-					  } else {
-						  console.log("do nothing");                        
-				}
-			});  */
-			//
+		currentDiv = "#contact_"+($(this).index()+1);
+		//console.log(currentDiv);
+	});
+	//dynamic add tabs when user click this one 
+	$('#pageTab .add-contact').click(function (e) {
+		 e.stopPropagation();
+	    e.preventDefault();
+	   
+	    var id = $("#pageTab").children().length; //think about it ;)
+		var tabId = 'contact_' + id;
+	    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageTab li:nth-child(' + id + ') a').click();
+		if ($("#pageTab").children().length>5) {
+		    	$('#pageTab .add-contact').hide();
+		 }
+		console.log("add-contact==="+$("#pageTab").children().length);
+		tempDay = $("#pageTab").children().length - 1;
+		console.log("tempDay=="+tempDay);
+	});
 		
-		})
+	//
+	$("#createTrip").click(function(){
+		//$("#tripForm").submit();
+		var info = {};
+		
+		info.TripName =  "要去哪裡玩";
+		info.StartDay =  "2014/10/03";
+		info.TotalDay = 2;
+		var spotInfo = [];
+		var listSpot = {};
+		var byDay = [];
+		 var id = $("#pageTab").children().length-1;
+		 console.log("adddddddd="+id);
+		for(var i = 1 ; i <= id ; i ++){
+			
+			 byDay = [];
+			$('#contact_'+i).children().length;
+			//console.log("#contact_"+i+'='+$('#contact_'+i).children().length);
+			$('#contact_'+i+'> div').each(function(){
+				 listSpot = {};
+				 listSpot.spotId = $(this).attr("id")
+				 listSpot.stayTime = 60;
+				console.log($(this).attr("id"));
+				byDay.push(listSpot);
+			});
+			spotInfo.push(byDay);
+			console.log(byDay);
+			console.log(i+"===========");
+		};
+		info.spot=spotInfo;
+		console.log(info);
+/* 		 $.ajax({
+			type : "POST",
+			 dataType:"json", //xml,text
+			 async: false,
+			url : '<c:url value='/controller/AddTripServlet' />',
+			data : {
+				tripInfo :  JSON.stringify(tripInfo)
+			}
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+		
+		});  */
+		
+	});
+		
+	//confirm doalog when user want to cancel current add trip step.
+	$("#doNothing").click(function(){
+		bootbox.dialog({
+			  message: "確定取消新增行程表? ",
+			  buttons: {
+			    cancel: {
+			      label: "取消",
+			      className: "btn btn-default",
+			      callback: function() {
+			    	  console.log("do nothing");  
+			      }
+			    },
+			    confirm: {
+			      label: "確定",
+			      className: "btn btn-info",
+			      callback: function() {
+			    	  window.location.href = '<c:url value="/first.jsp"/>';  
+			      }
+			    }
+			  }
+			});
+	/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
+			 if (result == true) {                                             
+				 window.location.href = '<c:url value="/first.jsp"/>';                          
+				  } else {
+					  console.log("do nothing");                        
+			}
+		});  */
+	
+	});
 		
 		$("#pageTab").on("click", "a", function (e) {
+			 
 	        e.preventDefault();
 	        if (!$(this).hasClass('add-contact')) {
 	            $(this).tab('show');
 	        }
 	    })
-	    .on("click", "span", function () {
+	    .on("click", "span", function (e) {
+	    	 e.stopPropagation();
 		    var tabId = $(this).parents('li').children('a').attr('href');
-		    console.log(tabId);
 		    $(this).parents('li').remove('li');
 		    $(tabId).remove();
 		    reNumberPages();
 		    reContentPages();
-		    console.log("pageTab-Len==="+$("#pageTab").children().length);
 	        if($("#pageTab").children().length<6){
 		    	
 		    	$('#pageTab .add-contact').show();
 		    }
 	        $("#pageTab li").children('a').first().click();
-	
+		    var id = $("#pageTab").children().length; //think about it ;)
+			tempDay = $("#pageTab").children().length - 1;
+			//console.log("tempDay=="+tempDay);
+			currentDiv = "#contact_1";
+			//console.log(currentDiv);
 	    });
 
 		/**
@@ -281,8 +372,7 @@ width: 300px;
 		function reNumberPages() {
 		    pageNum = 1;
 		    listNum = 1;
-		    var tabCount = $('#pageTab > li').length;
-		    $()
+		    
 		    $('#pageTab > li').each(function() {
 		    	var listId = "#contact_"+listNum;
 		    	listNum++;
@@ -297,22 +387,18 @@ width: 300px;
 		        $(this).children('a').html('Day' + pageNum);
 		        if(listId!=pageId){
 		        	$(this).children('a').attr('href',listId);
-		        	
 		        }
-		        
 		    });
 		   if($("#pageTab").children().length>5){
 		    	$('#pageTab .add-contact').hide();
 		    }
 		}	
 		/**
-		* Reset numbering on tab buttons
+		* Reset numbering on contents
 		*/
 		function reContentPages() {
 		    pageNum = 1;
 		    listNum = 1;
-		    var tabCount = $('#pageContent > div').length;
-		    console.log(tabCount);
 		    $('#pageContent > div').each(function() {
 		    	var listId = "contact_"+listNum;
 		    	listNum++;
@@ -328,8 +414,407 @@ width: 300px;
 		    });
 		
 		}	
-			
+});
+</script>    
+<script>
+//Function that renders the list items from our records
+function ulWriter(rowIndex, record, columns, cellWriter) {
+	var index = 1;
+	console.log("writer==="+index);
+  var cssClass = "span4", li;
+  if (rowIndex % 3 === 0) { cssClass += ' first'; }
+  li = '<li>'
+	  	  +'<div id="'+record.spotId+'"class="col-xs-12">'
+	  		+'<div class="row">'
+	  			+'<div class="col-xs-6">'
+	  				+'<div class="thumbnail">'
+	  	 			+ record.thumbnail 
+	  	 			+'</div>'
+	  	 		+'</div>'
+	  			+'<div class="col-xs-6">'
+	  		 		+'<div class="caption">' 
+	  	 				+ record.caption 
+	  	 			+'</div>'
+	  	 		+'</div>'
+	  	 	+'</div>'
+	  	 +'</div></li>';
+  return li;
+}
+/* 
+	<li>
+		<div id='div"+count+"'class='col-xs-12'>
+			<div class='row'>
+				<div class='col-xs-6'>
+					<div class='thumbnail'>
+						<img src='"+value.spotThumbnail+"' alt=''>
+					</div>"
+				</div>
+				<div class='col-xs-6'>
+					<div class='caption'>
+						<h4>
+						<p>value.spotName</p>
+						</h4>
+						value.spotIntro
+					</div>
+				</div>
+			</div>
+		</div>
+	</li>
+
+
+
+
+<li class="span4 first">
+	<div class="thumbnail">
+imgae	<div class="thumbnail-image">
+    		<img src="https://s3.amazonaws.com/dynatable-docs-assets/images/dinosaurs/Stegosaurus_BW.jpg">
+ 		 </div>
+caption		<div class="caption">
+label    	<h3>Stegosaurus armatus</h3>
+	    	<p>State: Colorado</p>
+	  	  	<p>Year: 1982</p>
+	 	    <p>
+		 	   <a target="_blank" 
+		 	   href="http://en.wikipedia.org/wiki/Stegosaurus" 
+		 	   class="btn btn-primary">View</a> <a href="#" class="btn">
+		 	   Action</a>
+	 	    </p>
+ 	    </div>
+ 	 </div>
+</li> 
+*/
+/* function ulReader(index, li, record) {
+	  var $li = $(li),
+	      $caption = $li.find('.caption');
+	  record.thumbnail = $li.find('.thumbnail-image').html();
+	  record.caption = $caption.html();
+	  record.label = $caption.find('h3').text();
+	  record.description = $caption.find('p').text();
+	  record.color = $li.data('color');
+	} */
+// Function that creates our records from the DOM when the page is loaded
+function ulReader(index, li, record) {
+		var index = 1;
+		console.log("Reader==="+index);
+  var $li = $(li),
+   $caption = $li.find('.caption');
+  record.spotId =$li.find('div').attr("id");
+  //console.log(record.spotId);
+  record.thumbnail = $li.find('.thumbnail').html();
+  record.caption = $caption.html();
+  console.log(record.caption);
+  record.label = $caption.find('h4').text();
+  record.description = $caption.find('p').text();
+
+}
+/* <li><div id='div"+count+"'class='col-xs-12'>
+<div class='row'>
+	<div class='col-xs-6'>
+		<div class='thumbnail'>
+			<img src='"+value.spotThumbnail+"' alt=''>
+		</div>"
+	</div>
+	<div class='col-xs-6'>
+		<div class='caption'>
+			<h4>
+			value.spotName
+			</h4>
+			<p>value.spotIntro</p>
+		</div>
+	</div>
+</div>
+</div> */
+
+
+
+
+
+</script>
+<script type="text/javascript">
+jQuery(document).ready(	function() {
+	$("#myselfcollect").one("click",function(){
+		$("#mycollect").empty();
+		var count = 0;
+		jQuery.ajax({
+			url : '<c:url value='/controller/MyCollectServlet' />',
+			type : "GET",
+			contentType : "application/json; charset=utf-8",
+			async : false,
+			dataType : "json",	
+			data : {AccountId : "${user.accountId}"	},								
+			success : function(data) {									
+				if(data){
+					jQuery.each(data,function(index,value) {				
+						jQuery('#mycollect').append("<li><div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
+								+"<div class='col-xs-6'>"
+								+"<div class='thumbnail'><img style='width:200px;height:200px' src='"+value.spotThumbnail+"' alt=''></div>"
+								+"</div><div class='col-xs-6'><div class='caption'><h4>"
+							+ value.spotName
+							+ "</h4><p>"
+							+ value.spotIntro
+							+ "</p></div></div>"
+							+ "</div></div></li>"
+							);
+						
+						count++;
+						
+					});
+				}else{											
+						jQuery('#mycollect').append("<div class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a>無收藏景點</a></h4>無收藏景點資訊</div><div class='ratings'><p class='pull-right'></p></div></div></div>");	
+						
+				
+				}
+			}
+		});
+
+		$('#mycollect').dynatable({
+			  table: {
+			    bodyRowSelector: 'li'
+			  },
+			  dataset: {
+			    perPageDefault: 3,
+			    perPageOptions: [3, 6]
+			  },
+			  writers: {
+			    _rowWriter: ulWriter
+			  },
+			  readers: {
+			    _rowReader: ulReader
+			  },
+			  params: {
+			    records: 'spot'
+			  },
+			});
+	});
+	
+
 });
 </script>
+
+
+<script>
+	
+(function(jQuey){
+	
+	var categories = [{"type":"全部", "subtype":["全部子分類"]},
+	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
+	                  {"type":"購物", "subtype":["全部子分類", "百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
+	                  {"type":"住宿", "subtype":["全部子分類", "飯店", "旅舍", "民宿", "營地", "其他"]},
+	                  {"type":"景點", "subtype":["全部子分類", "風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
+	                  {"type":"活動", "subtype":["全部子分類", "藝文展覽", "親子活動", "競賽活動", "其他"]}];
+	
+	initElements();
+	
+	// modal google map
+	$('#myModal').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_map, "resize");
+		var_map.setCenter(var_location);
+	});
+	
+	// config category
+	jQuey('#queryCityIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCityIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+	});
+	
+	jQuey("#queryCityIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuey(this).text());
+		jQuey("#queryCity").val(jQuey(this).text());
+		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+		
+		activeQuery();
+	}); 
+	
+	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuey("#queryCategoryIdMenu .dropdown-menu").show();
+	}).on("hide.bs.dropdown", function(){
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+	});
+	
+	jQuey("#queryCategoryIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuey(this).index());
+		jQuey("#queryCategory").val(jQuey(this).text());
+		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+		
+		// populate subcategory
+		var subcategories = categories[jQuey(this).index()].subtype;
+		//console.log(subcategories);
+		jQuey("#subqueryCategory").attr("placeholder", "全部子分類");
+		jQuey("#subqueryCategory").val("");
+		jQuey("#subqueryCategoryIdMenu ul:first").empty();
+		jQuey.each(subcategories, function(index, value){
+			jQuey("#subqueryCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		});
+		
+
+		
+		activeQuery();
+	});
+
+	// input field : spot name
+	jQuey('#querySpotName').on("change", function() {
+		
+		activeQuery();
+	}); 
+	
+	// load data from server
+	activeQuery();
+	
+	function initElements() {
+		// populate city ids
+		var cities = [ "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
+				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
+				"澎湖", "金門", "馬祖" ];
+		jQuey.each(cities, function(index, value) {
+			//console.log(value);
+			if (value == 'dummy')
+				jQuey("#queryCityIdMenu ul:first").append("<li class='divider'></li>");
+			else
+				jQuey("#queryCityIdMenu ul:first").append(
+						"<li><a href='#'>" + value + "</a></li>");
+		});
+
+		// populate category
+		jQuey.each(categories, function(index, value) {
+			var type = value.type;
+			jQuey("#queryCategoryIdMenu ul:first").append(
+					"<li><a href='#'>" + type + "</a></li>");
+		});
+	}
+
+	/*
+	var curPath = window.location.pathname;
+	var rootPath = window.location.protocol+"//"+window.location.host+
+					":"+window.location.port+"/"
+	*/					
+	function activeQuery() {
+		var spotName = jQuey('#querySpotName').val();
+		//console.log("querySpotName : " + spotName);
+		var city = jQuey("#queryCity").val();
+		//console.log("city : " + city);
+		var category = jQuey('#queryCategory').val();
+		//console.log("queryCategory : " + category);
+
+		jQuey.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/SearchSpot' />',
+			data : {
+				spotName : spotName,
+				city : city,
+				category : category,
+				subcategory : null
+			}
+		}).done(function(data) {
+			//console.log("detail from server....." + data);
+			jQuery('#listDetails').empty();	
+			jQuey.each(data, function(index, value){
+				//console.log("Hello" + index + ":" + value);
+	
+		
+				jQuery('#listDetails').append(
+						"<div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
+						+"<div class='col-xs-6'>"
+						+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
+						+"</div><div class='col-xs-6'><div class='pull-right' hidden>"
+						+"<span class='glyphicon glyphicon-plus'></span></div>"
+						+"<div class='caption'><h4>"
+						+ value.spotName
+						+ "</h4><p>"
+						+ value.spotIntro
+						+ "</p></div></div>"
+						+ "</div></div>"
+				); // end of jQuery
+				//console.log(value.spotId);
+				//console.log("+++="+$('#'+value.spotId).attr("id"));
+				//-- add spot into trip when click this spot.
+				$('#'+value.spotId).on('click','',function(){
+					//console.log("AAAA="+$(this).attr("id"));
+					//console.log(currentDiv);
+					
+ 					var flag = 0;
+					//----------判斷左側是否有加入過~~~該圖片
+					$(currentDiv+" > div").each(function(){
+						//console.log("verfiy="+$(this).attr("id"));
+						if($(this).attr('id') == value.spotId){						
+							flag++;
+//							alert("id相同"+"; flag:"+flag)
+						} 
+					});
+					if(flag<1){
+						createSportObj(value,value.spotId);
+						deleteSportObj(); 
+					}
+				})
+				.mouseover(function(e){
+					 e.stopPropagation();
+					//console.log($(this).children().children().children().attr('class'));
+					$(this).children().children().children().addClass('select-div');
+					$(this).children().children().children('div').removeAttr("hidden");
+						
+				})
+				.mouseout(function(e){
+					$(this).children().children().children().removeClass('select-div');
+					$(this).children().children().children('div:first-child').attr("hidden","hidden");
+				});
+			});
+		});
+		function deleteSportObj(e){
+			$(currentDiv+' span.glyphicon-remove').click(function(e){
+				 e.stopPropagation();
+				console.log($(this).parent().parent().parent().parent().attr('id'));
+				var divId = $(this).parent().parent().parent().parent().attr('id');
+				$(currentDiv+' #'+divId).remove();
+				
+				//$(this).parent().parent().index();
+				//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
+				e.stopImmediatePropagation();
+			});
+		}
+	function createSportObj (value,sportId){
+
+		$(currentDiv).append(
+				"<div id='"+value.spotId+"'class='col-xs-12'>"
+				+"<div class='row'><div class='col-xs-6'>"
+				+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
+				+"</div><div class='col-xs-6'>"
+				+"<div class='pull-right'  hidden>"
+				+"<span class='glyphicon glyphicon-remove' ></span></div>"
+				+"<div class='caption'><h4>"
+				+ value.spotName
+				+ "</h4><div style='width:150px'>"
+				+ "	<input id='setTime' type='text' value='60'>"
+				+ "</div></div></div>"
+				+ "</div></div>"
+		);
+		$("#setTime").TouchSpin({
+            min: 30,
+            max: 180,
+            step: 1,
+            decimals: 2,
+            boostat: 5,
+            maxboostedstep: 10,
+            verticalbuttons: true,
+            postfix: 'min'
+        });
+		
+		
+		$(currentDiv+' #'+value.spotId).mouseover(function(e){
+			//console.log("overover");
+			$(this).children().children().children().removeAttr("hidden");
+			//$(this).parents('div').remove();				
+			//e.stopImmediatePropagation();
+
+		}).mouseout(function(e){
+			 e.stopPropagation();
+			 $(this).children().children().children('div:first-child').attr("hidden","hidden");
+			
+		});
+		
+	}
+	}
+}(jQuery, google));
+</script>
+
 </body>
 </html>
