@@ -162,7 +162,10 @@ height:330px;
 					url:"<c:url value='/control/DeleteSpot' />",
 					type:"POST",
 					//contentType:"text/html; charset=utf-8",
-					data:{SpotId:spotId}
+					data:{SpotId:spotId},
+					dataType : "text"
+				}).done(function(data) {
+					window.location.reload();
 				});
 			});
 							
