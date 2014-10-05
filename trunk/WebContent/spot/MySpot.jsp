@@ -56,7 +56,12 @@ height:330px;
     z-index: 1;
     }
 
-
+#alterSpotInfoForm {
+	height: auto;
+    max-height: 225px;
+    overflow-x: hidden;
+    overflow-y:auto
+}
 </style>
 
 </head>
@@ -97,25 +102,368 @@ height:330px;
 			<!-- <div class="modal-content"> -->
 		</div>
 	</div>
+	
+	<!-- Modal for spot -->
+
+	<div class="modal fade" id="alterSpotModal" tabindex="-1" role="dialog"
+		aria-labelledby="alterSpotModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="modal-title" id="alterSpotModalLabel">修改景點</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6 itravel-block-frame">
+
+							<div class="itravel-block-1-pic well alterSpotImagePreview_zone" id="alterSpotImagePreview_zone_1">
+								<!--  <span class="glyphicon glyphicon-picture itravel-block-1-pic-content alterspot-fileinput-button" id="alterspotFileinputBtn"></span> -->
+							</div>
+							<!--  
+							<div id="alterSpotPreviews_zone_1">
+								<div id="alterSpotTemplate_1"></div>
+								
+							</div>
+							-->
+							<!-- <div id="alterSpotPreviews_zone_1"> -->
+
+						</div>
+						<!-- <div class="col-md-6 itravel-block">  -->
+						
+						<div class="col-md-6 itravel-block-frame hidden-element" id="alterspot-itravel-block-thumbnails">
+							<div class="row">
+								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
+									<div id="alterSpotImagePreview_zone_2" class='alterSpotImagePreview_zone'>
+									</div>
+								</div>
+								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
+									<div id="alterSpotImagePreview_zone_3" class='alterSpotImagePreview_zone'>
+									</div>
+								</div>
+
+							</div>
+							<!-- <div class="row"> -->
+							<div class="row">
+								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
+									<div id="alterSpotImagePreview_zone_4" class='alterSpotImagePreview_zone'>
+									</div>
+								</div>
+								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
+									<div id="alterSpotImagePreview_zone_5" class='alterSpotImagePreview_zone'>
+									</div>
+									<div id="alterSpotImagePreview_zone_6" class='alterSpotImagePreview_zone hidden'>
+									</div>
+								</div>
+							</div>
+							<!-- <div class="row"> -->
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-6 itravel-block-frame">
+							<div class="well well-md itravel-block-1-group">
+								<form class="form-horizontal" method="post" id="alterSpotInfoForm" action='<c:url value="/controller/AlterSpot" />'>
+									<fieldset>
+										<legend class="text-center header"><h4>景點資訊</h4></legend>
+
+
+
+										<!-- 名稱 -->
+										<!-- 分店負責人 -->
+										<!-- 地址 -->
+										<!-- 電話 -->
+										<!-- 簡介 -->
+										<!-- 經緯度 -->
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-5 col-md-offset-1">
+
+													<div class="input-group" id="alterSpotCityGroup" data-toggle="popover" data-placement="top" data-content="請選擇縣市">
+														<input id="alterSpotCity" name="alterSpotCity" type="text" placeholder="縣市"
+															class="form-control" disabled>
+														<div class="input-group-btn" id="alterSpotCityIdMenu">
+															<button type="button"
+																class="btn btn-default dropdown-toggle"
+																data-toggle="dropdown">
+																選擇 <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu dropdown-menu-right spot-scrollable" role="menu">
+															</ul>
+														</div>
+														<!-- /btn-group -->
+													</div>
+													<!-- /input-group -->
+												</div>
+											</div>
+											<!-- <div class="row"> -->
+										</div>
+										<!-- <div class="form-group"> -->
+										
+										<!-- 大小分類 -->
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-5 col-md-offset-1">
+													<div class="input-group" id="alterSpotCategoryGroup" data-toggle="popover" data-toggle="popover" data-placement="top" data-content="請選擇分類">
+														<input id="alterSpotCategory" name="alterSpotCategory" type="text"
+															placeholder="分類" class="form-control" disabled>
+														<div class="input-group-btn" id="alterSpotCategoryIdMenu">
+															<button type="button"
+																class="btn btn-default dropdown-toggle"
+																data-toggle="dropdown">
+																選擇 <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu dropdown-menu-right spot-scrollable-small" role="menu">
+															</ul>
+														</div>
+														<!-- /btn-group -->
+													</div>
+													<!-- /input-group -->
+												</div>
+
+												<div class="col-md-5 col-md-offset-0">
+													<div class="input-group" id="subalterSpotCategoryGroup" data-toggle="popover" data-placement="top" data-content="請選擇子分類">
+														<input id="subalterSpotCategory" name="subalterSpotCategory" type="text"
+															placeholder="子分類" class="form-control" disabled>
+														<div class="input-group-btn" id="subalterSpotCategoryIdMenu">
+															<button type="button"
+																class="btn btn-default dropdown-toggle"
+																data-toggle="dropdown">
+																選擇 <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu dropdown-menu-right spot-scrollable-small" role="menu">
+															</ul>
+														</div>
+														<!-- /btn-group -->
+													</div>
+													<!-- /input-group -->
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-5 col-md-offset-1">
+													<input id="alterSpotName" name="alterSpotName" type="text"
+														placeholder="景點名稱" class="form-control" 
+														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
+												</div>
+
+												<div class="col-md-5 col-md-offset-0">
+													<input id="alterSpotOwner" name="alterSpotOwner" type="text"
+														placeholder="分店負責人" class="form-control">
+												</div>
+											</div>
+										</div>
+										
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<input id="alterSpotAddress" name="alterSpotAddress" type="text"
+														placeholder="地址" class="form-control">
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<input id="phone" name="phone" type="text" placeholder="電話"
+														class="form-control">
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<textarea class="form-control" id="alterSpotIntro" name="alterSpotIntro"
+														placeholder="簡介" rows="7"></textarea>
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<div class="row">
+												<div class="col-md-10 col-md-offset-1">
+													<div class="input-group" id="alterSpotHiddens">
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</fieldset>
+								</form>
+							</div>
+						</div>
+						<div class="col-md-6 itravel-block-frame" id="itravel-block-map">
+							<div class="itravel-block-1-group" id="alterspot-map-container"></div>
+						</div>
+					</div>
+				</div>
+				<!-- <div class="modal-body"> -->
+
+				<div class="modal-footer">
+					<button id="alterSpotResetBtn" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="alterSpotSaveBtn" type="button" class="btn btn-primary">更新</button>
+				</div>
+			</div>
+			<!-- <div class="modal-content"> -->
+		</div>
+	</div>
+	
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script type="text/javascript">
+	// spot related 
+	var alterSpotDropzone;
+	var alterspot_zone_index = 1;
+	var alterspot_location = new google.maps.LatLng(23.973299, 120.978398);
+	var alterspot_map;
+	var alterspot_marker;
+	var alterspotInfo;
+	
 	function alter(id){
-		//按下修改後做的事情
 		//傳入的id是SpotId
-		alert("修改"+id);
 		jQuery.ajax({
-			url : '<c:url value='controller/SpotAlterServlet' />',
-			type : "GET",
-			contentType : "application/json; charset=utf-8",
+			url : "<c:url value='/controller/GetSpot' />",
+			type : "POST",
+			//contentType : "application/json; charset=utf-8",
 			async : false,
-			dataType : "json",	
-			data : {AccountId : "${user.accountId}",  
-					SpotId:id},								
-			success : function(data) {
-				jQuery.each(data,function(index,value) {
+			data : {
+				//AccountId : "${user.accountId}",  
+				spotId:id},	
+			dataType : "json"
+		}).done(function(data){
+			
+			alterspotInfo = data;
+			
+			// populate the html elements
+			jQuery("#alterSpotCity").val(alterspotInfo.city);
+			jQuery("#alterSpotCategory").val(alterspotInfo.category);
+			jQuery("#subalterSpotCategory").val(alterspotInfo.subcategory);
+			jQuery("#alterSpotName").val(alterspotInfo.spotName); jQuery("#alterSpotName").trigger('change');
+			jQuery("#alterSpotAddress").val(alterspotInfo.address);
+			jQuery("#alterSpotPhone").val(alterspotInfo.phone);
+
+			if(((alterspotInfo.leader != null) && (alterspotInfo.leader.trim().length > 0)))
+				jQuery("#alterSpotOwner").val(alterspotInfo.leader);
+			else
+				jQuery("#alterSpotOwner").hide();
+			
+			jQuery("#alterSpotIntro").val(alterspotInfo.intro);
+			jQuery("#alterSpotModal").modal('show');
+			
+			// images
+			jQuery.each(alterspotInfo.spotImgs, function(index, value) {
+				console.log("alterspot_zone_index : " + alterspot_zone_index);
+				//alert(jQuery("#alterSpotFileinputBtn"));
+				//jQuery("#alterSpotFileinputBtn").hide();
+				
+				var className;
+				if(alterspot_zone_index != 1) {
+					//height = '95px';
+					//width = '150px';
+					className = 'itravel-block-1-thumbnail-content';
+				} else {
+					//height = '190px';
+					//width = '300px';
+					className = 'itravel-block-1-pic-content';
 					
+					jQuery("#alterspot-itravel-block-thumbnails").show();
+				}
+				
+				var oImg=document.createElement("img");
+			  	oImg.setAttribute('src', value);
+			  	//oImg.setAttribute('alt', file.name);
+			  	oImg.setAttribute("class", className);
+			  	oImg.setAttribute("style", "max-width:100%; max-height:100%;margin:auto;display:block;");
+			  	
+			  	document.getElementById("alterSpotImagePreview_zone_" + alterspot_zone_index).appendChild(oImg);
+			  	var imgPZ = "#alterSpotImagePreview_zone_" + alterspot_zone_index;
+			  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-trash alterSpotDeleteImg '</span>");
+			  	
+			  	// move and then show
+			  	alterspot_zone_index++; console.log("zone index : " + alterspot_zone_index);
+			  	//var imgPZ = "#alterSpotImagePreview_zone_" + alterspot_zone_index;
+			  	//jQuery(imgPZ).append("<span class='glyphicon glyphicon-picture itravel-block-1-pic-content fileinput-button' id='alterspotFileinputBtn'></span>");
+			  	
+			  	//jQuery("#alterSpotFileinputBtn").show().detach().appendTo("#alterSpotImagePreview_zone_" + alterspot_zone_index);
+			});
+			
+			// append for drop zone
+			jQuery("#alterSpotImagePreview_zone_" + alterspot_zone_index).parents(".itravel-block-frame").append(
+				"<div id='alterSpotPreviews_zone_1'>"+
+					"<div id='alterSpotTemplate_1'>"+
+					"</div>"+
+				"</div>"
+			);
+			
+			var imgPZ = "#alterSpotImagePreview_zone_" + alterspot_zone_index;
+		  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-picture itravel-block-1-pic-content alterspot-fileinput-button' id='alterspotFileinputBtn'></span>");
+		  	alterSpotInitDropzone("#alterSpotPreviews_zone_1","#alterSpotTemplate_1");
+		  	
+		 // config drop zone
+			alterSpotDropzone.on("addedfile", function(file) {
+				  
+				  jQuery("#alterspotFileinputBtn").hide();
+				  //console.log("addedfile...");
+				  //console.log(file);
+				  
 				});
-			},
+
+			alterSpotDropzone.on("thumbnail", function(file, dataUrl){
+				//console.log("thumbnail...");
+				var className;
+				
+				if(alterspot_zone_index != 1) {
+					//height = '95px';
+					//width = '150px';
+					className = 'itravel-block-1-thumbnail-content';
+				} else {
+					//height = '190px';
+					//width = '300px';
+					className = 'itravel-block-1-pic-content';
+					
+					jQuery("#alterspot-itravel-block-thumbnails").show();
+				}
+				
+				var oImg=document.createElement("img");
+			  	oImg.setAttribute('src', dataUrl);
+			  	oImg.setAttribute('alt', file.name);
+			  	//oImg.setAttribute('height', height);
+			  	//oImg.setAttribute('width', width);
+			  	oImg.setAttribute("class", className);
+			  	oImg.setAttribute("style", "max-width:100%; max-height:95%;margin:auto;display:block;");
+			  	
+			  	document.getElementById("alterSpotImagePreview_zone_" + alterspot_zone_index).appendChild(oImg);
+			  	var imgPZ = "#alterSpotImagePreview_zone_" + alterspot_zone_index;
+			  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-trash alterSpotDeleteImg '</span>");
+			  	
+			  	// move and then show
+			  	alterspot_zone_index++; //console.log("zone index : " + alterspot_zone_index);
+			  	jQuery("#alterspotFileinputBtn").show().detach().appendTo("#alterSpotImagePreview_zone_" + alterspot_zone_index);
+			  
+			});
+
+			alterSpotDropzone.on("queuecomplete", function(progress) {
+				  console.log("finished uploading");
+			});
+			
+			/*
+			alterSpotDropzone.on("done", function(file){
+				console.log("donw.....");
+			});
+			
+			alterSpotDropzone.on("maxFilesize", function(file){
+				console.log("maxFilesize.....");
+			});
+			
+			alterSpotDropzone.on("maxfilesexceeded", function(file){
+				console.log("maxfilesexceeded.....");
+			});
+			*/
 		});
 	}
 	
@@ -126,9 +474,204 @@ height:330px;
 		var spotId = tokens[0];
 		var spotName = tokens[1];
 		jQuery("#confirmModalDescription").empty().append("<p id='"+spotId+"'>確認刪除景點"+spotName+"嗎?</p>");
-		//alert("刪除"+id);
-		
 	}
+	
+
+	
+	/*
+	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
+	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
+	                  {"type":"住宿", "subtype":["飯店", "旅舍", "民宿", "營地", "其他"]},
+	                  {"type":"景點", "subtype":["風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
+	                  {"type":"活動", "subtype":["藝文展覽", "親子活動", "競賽活動", "其他"]}];*/
+	
+	// config buttons
+	/*
+	function popoverHandler(elem) {
+		
+		jQuery(elem).popover('enable');	
+		jQuery(elem).popover('show');
+		//jQuery('body').scrollTo('');
+		jQuery(elem).on('click', function(){
+			jQuery(elem).popover('disable');
+			jQuery(elem).off('click');
+		});
+	}                  
+	*/
+	
+	function resetAlterSpotPage() {
+		// reset the image zones
+		alterspot_zone_index = 1;
+		jQuery('.alterSpotImagePreview_zone img').remove();
+		jQuery("#alterspotFileinputBtn").detach().appendTo("#alterSpotImagePreview_zone_1");
+		jQuery('.alterSpotDeleteImg').remove();
+		
+		// reset the form
+		jQuery('#alterSpotInfoForm input').val('');
+		jQuery('#alterSpotIntro').val('');
+		//jQuery('#subalterSpotcategoryGroup').hide();
+		jQuery("#itravel-block-map").hide();
+	}
+	
+	// drop zone
+	function alterSpotInitDropzone(previews_zone_id, template_id) {
+		// Get the template HTML and remove it from the doument
+		var previewNode = document.querySelector(template_id);
+		previewNode.id = "";
+		var previewTemplate = previewNode.parentNode.innerHTML;
+		previewNode.parentNode.removeChild(previewNode);
+
+		alterSpotDropzone = new Dropzone(previews_zone_id, { // Make the whole body a dropzone
+		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
+		  url: "<c:url value='/controller/Fileuploader' />",
+		  thumbnailWidth: 5000,
+		  thumbnailHeight: 5000,
+		  //maxFilesize: 2, //MB
+		  parallelUploads: 5,
+		  
+		  previewTemplate: previewTemplate,
+		  autoQueue: true, // Make sure the files aren't queued until manually added
+		  previewsContainer: previews_zone_id, // Define the container to display the previews
+		  clickable: ".alterspot-fileinput-button" // Define the element that should be used as click trigger to select files.
+		});
+	}
+	
+	function alterSpotInitElements() {
+		// populate city ids
+		var cities = ["基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投", "雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "宜蘭", "花蓮", "台東", "dummy", "綠島", "蘭嶼", "澎湖", "金門", "馬祖"];
+		jQuery.each(cities, function(index, value){
+			//console.log(value);
+			if(value == 'dummy')
+				jQuery("#alterSpotCityIdMenu ul:first").append("<li class='divider'></li>");
+			else
+				jQuery("#alterSpotCityIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		});
+		
+		// populate category
+		jQuery.each(categories, function(index, value){
+			var type = value.type;
+			jQuery("#alterSpotCategoryIdMenu ul:first").append("<li><a href='#'>"+type+"</a></li>");
+		});
+	}
+	
+	function alterspot_map_init() {
+		console.log("alterspot_map_init called");
+		var alterspot_mapoptions = {
+			center : alterspot_location,
+			zoom : 14,
+			mapTypeId : google.maps.MapTypeId.ROADMAP,
+			mapTypeControl : false,
+			panControl : false,
+			rotateControl : false,
+			streetViewControl : false,
+		};
+		alterspot_map = new google.maps.Map(document
+				.getElementById("alterspot-map-container"), alterspot_mapoptions);
+		
+		//var spot_infowindow = new google.maps.InfoWindow();
+
+		alterspot_marker = new google.maps.Marker({
+					
+					position : alterspot_location,
+					map : alterspot_map,
+					title : "台灣",
+					maxWidth : jQuery("#alterspot-map-container").width(),
+					maxHeight : jQuery("#alterspot-map-container").height(), 
+					draggable:true,
+				    animation: google.maps.Animation.DROP
+		});
+
+		//增加標記點的click事件
+		google.maps.event.addListener(alterspot_marker, 'click', function() {
+			console.log("spot marker clicked");
+			//spot_infowindow.open(alterspot_map, alterspot_marker);
+			
+			LatLng = alterspot_marker.getPosition();
+			alterspot_location = LatLng;
+			geocoder.geocode({'latLng': LatLng}, function(results, status) {
+		   		if (status == google.maps.GeocoderStatus.OK) {
+			        if (results[1]) {
+			        	address = results[1].formatted_address;
+			        	alterspot_marker.setTitle(address);	//重新設定標記點的title
+			        	jQuery('#alterSpotAddress').val(address);
+			        	jQuery('#alterSpotAddress').focus();
+			        }
+			    }else 
+			      	console.log("Geocoder failed due to: " + status);
+		   });
+		});
+		
+		//增加標記點的mouseup事件
+		google.maps.event.addListener(alterspot_marker, 'mouseup', function() {
+			console.log("spot marker mouseup");
+			
+			LatLng = alterspot_marker.getPosition();
+			geocoder.geocode({'latLng': LatLng}, function(results, status) {
+		   		if (status == google.maps.GeocoderStatus.OK) {
+			        if (results[1]) {
+			        	address = results[1].formatted_address;
+			        	alterspot_marker.setTitle(address);	//重新設定標記點的title
+			        	//jQuery('#spotAddress').val(address);
+			        	//jQuery('#spotAddress').focus();
+			        }
+			    }else 
+			      	console.log("Geocoder failed due to: " + status);
+		   });
+		});
+	} 
+	
+	function alterSpotGetAddressMarkerByName(address){	 
+		//重新定位地圖位置與標記點位置
+		 //address = jQuery("#spotName").val();
+		 geocoder = new google.maps.Geocoder();
+		 geocoder.geocode({'address':address},function (results,status) {
+				if(status==google.maps.GeocoderStatus.OK) 
+				{
+				   //console.log(results[0].geometry.location);
+				   LatLng = results[0].geometry.location;
+				   alterspot_location = LatLng;
+				   
+				   alterspot_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
+				   alterspot_marker.setPosition(LatLng);	//將標記點定位到查詢結果
+				   
+				   // Reverse geocoding to get the address
+				   var rev_address = "";
+				   geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	rev_address = results[1].formatted_address;
+					        	alterspot_marker.setTitle(rev_address);	//重新設定標記點的title
+					        	jQuery('#spotAddress').val(rev_address);
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				   
+				   jQuery('#spotAddress').focus();
+				} // end of if(status==google.maps.GeocoderStatus.OK) 
+			 }// end of function
+		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
+	  }
+	
+	function alterSpotGetAddressMarkerByAddr(address){	 
+		 //重新定位地圖位置與標記點位置
+		 //address = jQuery("#spotName").val();
+		 geocoder = new google.maps.Geocoder();
+		 geocoder.geocode({'address':address},function (results,status) {
+				if(status==google.maps.GeocoderStatus.OK) 
+				{
+				   //console.log(results[0].geometry.location);
+				   LatLng = results[0].geometry.location;
+				   alterspot_location = LatLng;
+				   
+				   alterspot_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
+				   alterspot_marker.setPosition(LatLng);	//將標記點定位到查詢結果
+				   
+				   alterspot_marker.setTitle(address);	//重新設定標記點的title
+				} // end of if(status==google.maps.GeocoderStatus.OK) 
+			 }// end of function
+		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
+	  }	
 	</script>
 	<script type="text/javascript">
 		jQuery(document).ready(	function() {
@@ -169,7 +712,212 @@ height:330px;
 				});
 			});
 							
+			
+			// spot related
+			//alterSpotInitDropzone("#alterSpotPreviews_zone_1","#alterSpotTemplate_1");
+			alterSpotInitElements();
+			google.maps.event.addDomListener(window, 'load', alterspot_map_init);
+			
+			
+			// modal google map
+			jQuery('#alterSpotModal').on('shown.bs.modal', function() {
+				console.log("modal google map.....");
+				google.maps.event.trigger(alterspot_map, "resize");
+				alterspot_map.setCenter(alterspot_location);
+			});
+			
+			
+				
+			// config category
+			jQuery('#alterSpotCityIdMenu').on('show.bs.dropdown', function () {
+				jQuery("#alterSpotCityIdMenu .dropdown-menu").show();
+			}).on("hide.bs.dropdown", function(){
+				jQuery("#alterSpotCityIdMenu .dropdown-menu").hide();
+			});
+			
+			jQuery("#alterSpotCityIdMenu .dropdown-menu li").click(function(){
+				//console.log(jQuery(this).text());
+				jQuery("#alterSpotCity").val(jQuery(this).text());
+				jQuery("#alterSpotCityIdMenu .dropdown-menu").hide();
+			}) 
+			
+			jQuery('#alterSpotCategoryIdMenu').on('show.bs.dropdown', function () {
+				jQuery("#alterSpotCategoryIdMenu .dropdown-menu").show();
+			}).on("hide.bs.dropdown", function(){
+				jQuery("#alterSpotCategoryIdMenu .dropdown-menu").hide();
+			});
+			
+			jQuery("#alterSpotCategoryIdMenu .dropdown-menu li").click(function(){
+				//console.log(jQuery(this).index());
+				jQuery("#alterSpotCategory").val(jQuery(this).text());
+				jQuery("#alterSpotCategoryIdMenu .dropdown-menu").hide();
+				
+				// populate subcategory
+				var subcategories = categories[jQuery(this).index()].subtype;
+				//console.log(subcategories);
+				jQuery("#subalterSpotcategory").attr("placeholder", "子分類");
+				jQuery("#subalterSpotcategory").val("");
+				jQuery("#subalterSpotCategoryIdMenu ul:first").empty();
+				jQuery.each(subcategories, function(index, value){
+					jQuery("#subalterSpotCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+				});
+				
+				//if (!jQuery('#subalterSpotCategoryGroup').is(':visible'))
+				//	jQuery("#subalterSpotCategoryGroup").show();
+			})
+			
+			// config subcategory
+			//jQuery("#subalterSpotCategoryGroup").hide();
+			jQuery('#subalterSpotCategoryIdMenu').on('show.bs.dropdown', function () {
+				jQuery("#subalterSpotCategoryIdMenu .dropdown-menu").show();
+			}).on("hide.bs.dropdown", function(){
+				jQuery("#subalterSpotCategoryIdMenu .dropdown-menu").hide();
+			});
+			
+			jQuery("#subalterSpotCategoryIdMenu .dropdown-menu").on("click", "li",function(){
+				//console.log(jQuery(this).text());
+				jQuery("#subalterSpotCategory").val(jQuery(this).text());
+				jQuery("#subalterSpotCategoryIdMenu .spot-scrollable").hide();
+			})
+			
+			// config image deletion
+			jQuery('.alterSpotImagePreview_zone').on('click', '.alterSpotDeleteImg', function(){
+				//console.log('deleting image.....' + jQuery(this));
+				var zone = jQuery(this).closest('.alterSpotImagePreview_zone');
+				zone.find('img:first').remove();
+				
+				// reset icons and the alterspot_zone_index
+				jQuery(this).remove();
+				var curIndex = zone.attr('id').substr(zone.attr('id').lastIndexOf('_')+1);
+				
+				// create all the ids to be processed
+				var zoneIds = [];
+				for(var i = curIndex; i <= 6; i++)
+					zoneIds.push("#alterSpotImagePreview_zone_" + i);
+			
+				var reachEmptyZone = false;
+					
+				jQuery(zoneIds).each(function(index){
+					if((index != 0) && !reachEmptyZone) {
+						var curZoneId = zoneIds[index];
+						var prevZoneId = zoneIds[index-1]; 
+						
+						var curZoneIndex = curZoneId.substr(curZoneId.lastIndexOf('_')+1);
+						console.log("curZoneIndex : " + curZoneIndex);
+						if(curZoneIndex == 6) {
+							jQuery("#alterspotFileinputBtn").show();
+							alterspot_zone_index = 5;
+						}
+						
+						//if(!jQuery(curZoneId).is(':empty')) {
+						if(jQuery(curZoneId).html().trim().length > 0) {
+							
+							//console.log("children : " + jQuery(curZoneId).html());
+							//console.log("children with length : " + jQuery(curZoneId).html().length);
+							jQuery(curZoneId).children().detach().appendTo(jQuery(prevZoneId));
+							
+							
+						}
+						else {
+								//console.log("index : " + index);
+								//console.log("current zone : " + zoneIds[index]);	
+								var emptyZoneId = zoneIds[index].substr(zoneIds[index].lastIndexOf('_')+1);
+								
+								zone_index = emptyZoneId - 2; // 1 for the original next preview zone; 1 for the deletion
+								reachEmptyZone = true;
+						}	
+					} 
+				});
 
+			});
+			
+			jQuery("#alterSpotSaveBtn").click(function(){
+				//console.log("saveBtn pressed.....");
+				
+				// check the fields
+				if(jQuery("#alterSpotName").val().length == 0)
+					popoverHandler("#alterSpotName", "#alterSpotName");
+				else if(jQuery("#alterSpotCity").val().length == 0)
+					popoverHandler("#alterSpotCityGroup");
+				else if(jQuery("#alterSpotCategory").val().length == 0)
+					popoverHandler("#alterSpotCategoryGroup");
+				else if(jQuery("#subalterSpotcategory").val().length == 0)
+					popoverHandler("#subalterSpotcategoryGroup");
+				else { 
+					// add hidden fields for images into form
+					var name;
+					var value;
+					var content;
+					jQuery(".alterSpotImagePreview_zone").each(function(index){
+						
+						name = jQuery(this).attr('id');
+						value = jQuery(this).find('img:first').attr('alt'); //console.log("value : " + value);
+						
+						content = "<input type='hidden' name='"+name+"' value=' "+value+"'>";
+						//console.log("content : "+content);
+						jQuery("#alterSpotHiddens").append(content);
+					});
+					
+					
+					// add hidden fields for input field filled by drop down menu
+					content = "<input type='hidden' name='dupCity' value=' "+jQuery("#alterSpotCity").val()+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					
+					content = "<input type='hidden' name='dupCategory' value=' "+jQuery("#alterSpotCategory").val()+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					
+					content = "<input type='hidden' name='dupSubcategory' value=' "+jQuery("#alterSpotSubcategory").val()+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					
+					// add hidden fields for longitude and latitude
+					var lng = alterspot_location.lng();
+					var lat = alterspot_location.lat();
+					
+					//console.log("lng : " + lng);
+					//console.log("lat : " + lat);
+					
+					content = "<input type='hidden' name='lng' value=' "+lng+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					content = "<input type='hidden' name='lat' value=' "+lat+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					
+					// ready to submit
+					jQuery("#alterSpotInfoForm").submit();
+					resetAlterSpotPage();
+				}
+			});
+			
+			jQuery("#alterSpotResetBtn").click(function(){
+				//console.log("reset......");
+				resetAlterSpotPage();
+			});
+			
+			
+			jQuery("#alterSpotName").change(function(){
+				//console.log("spot name : changing....");
+				
+				if(!jQuery("#itravel-block-map").is(':visible')) {
+					jQuery("#itravel-block-map").show();
+				}
+				
+				google.maps.event.trigger(alterspot_map, "resize");
+				alterspot_map.setCenter(alterspot_location);
+				
+				var addr = "台灣";
+				var city = jQuery("#alterSpotCity").val();
+				if(city.length > 0)
+					addr = addr + city + jQuery(this).val();
+				else 
+					addr = addr + jQuery(this).val();
+				
+				alterSpotGetAddressMarkerByName(addr);
+			});
+			
+			jQuery("#alterSpotpotAddress").change(function(){
+				console.log("spot address : changing....");
+				alterSpotGetAddressMarkerByAddr(jQuery(this).val());
+			});
+			
 		});
 	</script>
 </body>
