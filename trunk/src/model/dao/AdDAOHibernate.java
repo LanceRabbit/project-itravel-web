@@ -88,6 +88,25 @@ public class AdDAOHibernate implements AdDAO {
 		return result;
 	}
 
+	public Ad selectById(String id) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		Ad result = null;
+
+		try {
+			tx = session.beginTransaction();
+			result = (Ad) session.get(Ad.class, id);
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+	
 	public List<Ad> selectBySpotId(String Spotid) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
