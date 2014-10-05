@@ -68,6 +68,12 @@ width: 300px;
 .trip-name {
 	padding-left: 0px;
 }
+
+.scrollable {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+}
 </style>
 </head>
 
@@ -94,7 +100,7 @@ width: 300px;
 		        <li><a href="#add-tab" id ="add-tab" class="add-contact">+</a>
 		        </li>
 		    </ul>
-		    <div id="pageContent" class="tab-content">
+		    <div id="pageContent" class="tab-content scrollable">
 		        <div class="tab-pane active" id="contact_1"></div>
 		    </div>
 		
@@ -103,9 +109,10 @@ width: 300px;
 		<div class='col-xs-6'>
 			<ul id="spotTab" class="nav nav-tabs" role="tablist">
 		        <li class="active">
-		        <a href="#spot_1" data-toggle="tab">搜尋景點</a>
+		        	<a href="#spot_1" id="searchByInput" data-toggle="tab">搜尋景點</a>
 		        </li>
-		        <li><a id="myselfcollect" href="#spot_2" data-toggle="tab">收藏景點</a> 
+		        <li>
+		        	<a id="myselfcollect" href="#spot_2" data-toggle="tab">收藏景點</a> 
 		        </li>
 		    </ul>
 		    <div id="spotContent" class="tab-content">
@@ -173,7 +180,7 @@ width: 300px;
 	</div>
 
 	
-			<div class="row" id="listDetails">
+			<div class="row scrollable" id="listDetails">
 			<ul class="thumbnails">
                 <li class="span5 clearfix">
                   <div class="thumbnail clearfix">
@@ -193,8 +200,8 @@ width: 300px;
 
 		<div class="tab-pane" id="spot_2">
 	
-			<ul id="mycollect"  class="row-fluid">
-			</ul>
+			<div id="mycollect"  class="row scrollable">
+			</div>
 			
           </div>
 	</div>
@@ -283,7 +290,7 @@ jQuery(document).ready(function() {
 			$('#contact_'+(index+1)).children().length;
 			//console.log("#contact_"+i+'='+$('#contact_'+i).children().length);
 			$('#contact_'+(index+1)+'> div').each(function(){
-				 times +=$(this).find("input").val();
+				 times += parseInt($(this).find("input").val());
 				 //collect spot info
 				 listSpot = {};
 				 listSpot.spotId = $(this).attr("id");
@@ -291,28 +298,28 @@ jQuery(document).ready(function() {
 				 console.log("~~~!@#!@"+$(this).find("input").val());
 				 byDay.push(listSpot);
 			});
-			if (times>50) {
+			if (times > 1440) {
+				console.log("TimeTime==="+times);
 				noError = 1;
-				var aa = index;
-				//aa = index;
-				console.log("aaaa="+index);
+				//console.log("index="+index);
 				var string = "#pageTab li a:eq("+index+")";
 				console.log("string="+string);
 				$(string).click();
-				bootbox.alert("Day"+(index+1)+"設定停留時間超過一天的分鐘數(1440 分/日)", function() {
+				bootbox.alert("Day"+(index+1)+"設定時間超過 1440 分鐘/日", function() {
 					 
 				});
 				break;
-		}
+			}
 			spotInfo.push(byDay);
 		};
 	
 		
 		// if no error occurs, sent out data to backend.
 		if (noError==0) {
-			info.TripName =  $("#startDay").text();
-			info.StartDay =  $("#tripName").text();
-			info.TotalDay = tempDay;
+			info.userId = "${user.accountId}";
+			info.tripName =  $("#tripName").text();
+			info.startDay =  $("#startDay").text();
+			info.totalDay = tempDay;
 			info.spot=spotInfo;
 			console.log(info);
 	  		$.ajax({
@@ -481,60 +488,7 @@ function ulReader(index, li, record) {
 </script>
 <script type="text/javascript">
 jQuery(document).ready(	function() {
-	$("#myselfcollect").one("click",function(){
-		$("#mycollect").empty();
-		var count = 0;
-		jQuery.ajax({
-			url : '<c:url value='/controller/MyCollectServlet' />',
-			type : "GET",
-			contentType : "application/json; charset=utf-8",
-			async : false,
-			dataType : "json",	
-			data : {AccountId : "${user.accountId}"	},								
-			success : function(data) {									
-				if(data){
-					jQuery.each(data,function(index,value) {				
-						jQuery('#mycollect').append("<li><div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
-								+"<div class='col-xs-6'>"
-								+"<div class='thumbnail'><img style='width:200px;height:200px' src='"+value.spotThumbnail+"' alt=''></div>"
-								+"</div><div class='col-xs-6'><div class='caption'><h4>"
-							+ value.spotName
-							+ "</h4><p>"
-							+ value.spotIntro
-							+ "</p></div></div>"
-							+ "</div></div></li>"
-							);
-						
-						count++;
-						
-					});
-				}else{											
-						jQuery('#mycollect').append("<div class='col-xs-3'><div class='thumbnail'><img src='http://placehold.it/300x300' alt=''><div class='caption'><h4><a>無收藏景點</a></h4>無收藏景點資訊</div><div class='ratings'><p class='pull-right'></p></div></div></div>");	
-						
-				
-				}
-			}
-		});
 
-		$('#mycollect').dynatable({
-			  table: {
-			    bodyRowSelector: 'li'
-			  },
-			  dataset: {
-			    perPageDefault: 3,
-			    perPageOptions: [3, 6]
-			  },
-			  writers: {
-			    _rowWriter: ulWriter
-			  },
-			  readers: {
-			    _rowReader: ulReader
-			  },
-			  params: {
-			    records: 'spot'
-			  },
-			});
-	});
 	
 
 });
@@ -656,7 +610,8 @@ jQuery(document).ready(	function() {
 			}
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
-			jQuery('#listDetails').empty();	
+			jQuery('#listDetails').empty();
+			$("#mycollect").empty();
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);
 	
@@ -677,50 +632,114 @@ jQuery(document).ready(	function() {
 				//console.log(value.spotId);
 				//console.log("+++="+$('#'+value.spotId).attr("id"));
 				//-- add spot into trip when click this spot.
-				$('#'+value.spotId).on('click','span',function(){
-
-					//console.log("AAAA="+$(this).attr("id"));
-					//console.log(currentDiv);
-					
- 					var flag = 0;
-					//----------判斷左側是否有加入過~~~該圖片
-					$(currentDiv+" > div").each(function(){
-						//console.log("verfiy="+$(this).attr("id"));
-						if($(this).attr('id') == value.spotId){						
-							flag++;
-//							alert("id相同"+"; flag:"+flag)
-						} 
-					});
-					if(flag<1){
-						createSportObj(value,value.spotId);
-						deleteSportObj(); 
-					}
-				})
-				.mouseover(function(e){
-					 e.stopPropagation();
-					//console.log($(this).children().children().children().attr('class'));
-					$(this).children().children().children().addClass('select-div');
-					$(this).children().children().children('div').removeAttr("hidden");
-						
-				})
-				.mouseout(function(e){
-					$(this).children().children().children().removeClass('select-div');
-					$(this).children().children().children('div:first-child').attr("hidden","hidden");
-				});
+				setEventOnSpan("#listDetails",value);
 			});
 		});
-		function deleteSportObj(e){
-			$(currentDiv+' span.glyphicon-remove').click(function(e){
-				 e.stopPropagation();
-				console.log($(this).parent().parent().parent().parent().attr('id'));
-				var divId = $(this).parent().parent().parent().parent().attr('id');
-				$(currentDiv+' #'+divId).remove();
-				
-				//$(this).parent().parent().index();
-				//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
-				e.stopImmediatePropagation();
+
+		$("#myselfcollect").one("click",function(){
+			//$('#listDetails').empty();	
+			$("#mycollect").empty();
+			var count = 0;
+			jQuery.ajax({
+				url : '<c:url value='/controller/MyCollectServlet' />',
+				type : "GET",
+				contentType : "application/json; charset=utf-8",
+				async : false,
+				dataType : "json",	
+				data : {AccountId : "${user.accountId}"	},								
+				success : function(data) {									
+					if(data){
+						jQuery.each(data,function(index,value) {				
+							jQuery('#mycollect').append(
+								"<div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
+								+"<div class='col-xs-6'>"
+								+"<div class='thumbnail'><img src='"+value.spotThumbnail+"' alt=''></div>"
+								+"</div><div class='col-xs-6'><div class='pull-right' hidden>"
+								+"<span class='glyphicon glyphicon-plus'></span></div>"
+								+"<div class='caption'><h4>"
+								+ value.spotName
+								+ "</h4><p>"
+								+ value.spotIntro
+								+ "</p></div></div>"
+								+ "</div></div>"
+								);
+							
+							//style='width:200px;height:200px'
+							setEventOnSpan("#mycollect",value);
+			
+							count++;
+						});
+					}
+				}
 			});
-		}
+
+	/* 		$('#mycollect').dynatable({
+				  table: {
+				    bodyRowSelector: 'li'
+				  },
+				  dataset: {
+				    perPageDefault: 3,
+				    perPageOptions: [3, 6]
+				  },
+				  writers: {
+				    _rowWriter: ulWriter
+				  },
+				  readers: {
+				    _rowReader: ulReader
+				  },
+				  params: {
+				    records: 'spot'
+				  },
+				}); */
+	});	
+		
+	function setEventOnSpan (setDiv,value){
+		
+		$(setDiv+" #"+value.spotId).on('click','span',function(){
+
+			//console.log("AAAA="+$(this).attr("id"));
+			//console.log(currentDiv);
+			
+			var flag = 0;
+			//----------判斷左側是否有加入過~~~該圖片
+			$(currentDiv+" > div").each(function(){
+				//console.log("verfiy="+$(this).attr("id"));
+				if($(this).attr('id') == value.spotId){						
+					flag++;
+//					alert("id相同"+"; flag:"+flag)
+				} 
+			});
+			if(flag<1){
+				createSportObj(value,value.spotId);
+				deleteSportObj(); 
+			}
+		})
+		.mouseover(function(e){
+			 e.stopPropagation();
+			//console.log($(this).children().children().children().attr('class'));
+			$(this).children().children().children().addClass('select-div');
+			$(this).children().children().children('div').removeAttr("hidden");
+				
+		})
+		.mouseout(function(e){
+			$(this).children().children().children().removeClass('select-div');
+			$(this).children().children().children('div:first-child').attr("hidden","hidden");
+		});
+		
+	}	
+		
+	function deleteSportObj(e){
+		$(currentDiv+' span.glyphicon-remove').click(function(e){
+			 e.stopPropagation();
+			console.log($(this).parent().parent().parent().parent().attr('id'));
+			var divId = $(this).parent().parent().parent().parent().attr('id');
+			$(currentDiv+' #'+divId).remove();
+			
+			//$(this).parent().parent().index();
+			//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
+			e.stopImmediatePropagation();
+		});
+	}
 	function createSportObj (value,sportId){
 		$(currentDiv).append(
 				"<div id='"+value.spotId+"'class='col-xs-12'>"
@@ -731,7 +750,7 @@ jQuery(document).ready(	function() {
 				+"<span class='glyphicon glyphicon-remove' ></span></div>"
 				+"<div class='caption'><h4>"
 				+ value.spotName
-				+ "</h4><div style='width:120px'>"
+				+ "</h4><div style='margin-bottom: 5px'>預計停留：</div><div style='width:120px'>"
 
 				+ "<input id='setTime"+value.spotId+"' type='text' value='60'>"
 				+ "</div></div></div>"

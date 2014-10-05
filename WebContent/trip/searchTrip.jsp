@@ -316,7 +316,7 @@ border-collapse:collapse;
 		
 	</script>
 <script>
-$(document).ready(function() {
+(function(jQuery){
 	//一開始載入頁面就先搜尋所有Trip
 	//先設定預設值 0 給 #day, 提供後面做判斷使用 
 	$("#day").val($("#dayMenu .dropdown-menu li:eq(0)").text());
@@ -340,8 +340,17 @@ $(document).ready(function() {
 		
 		});	
 	});
-	
-	
+	var var_map;
+	var var_location = new google.maps.LatLng(23.973299, 120.978398);
+	var var_marker;
+
+	google.maps.event.addDomListener(window, 'load', map_init);
+	//start of modal google map
+	$('#tripmodals').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_map, "resize");
+		var_map.setCenter(var_location);
+	});
+
 
 
 
@@ -578,19 +587,12 @@ $(document).ready(function() {
 							$(this).tab('show');
 						});
 	
-
+	
 
 	
-	var var_map;
-	var var_location = new google.maps.LatLng(45.430817, 12.331516);
-	
-	google.maps.event.addDomListener(window, 'load', map_init);
 
-	//start of modal google map
-	$('#tripmodals').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_map, "resize");
-		var_map.setCenter(var_location);
-	});
+
+
 	function map_init() {
 
 		
@@ -608,7 +610,7 @@ $(document).ready(function() {
 		var_map = new google.maps.Map(document
 				.getElementById("search-trip-map-container"), var_mapoptions);
 
-		var contentString = '<div id="mapInfo">'
+/* 		var contentString = '<div id="mapInfo">'
 				+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
 				+ 'Dorsoduro, 701-704<br>'
 				+ '30123<br>Venezia<br>'
@@ -631,10 +633,10 @@ $(document).ready(function() {
 
 		google.maps.event.addListener(var_marker, 'click', function() {
 			var_infowindow.open(var_map, var_marker);
-		});
+		}); */
 	}
-	
-});
+
+}(jQuery, google));
 </script>
     	
 </body>

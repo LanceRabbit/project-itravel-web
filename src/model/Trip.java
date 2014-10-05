@@ -46,7 +46,7 @@ public class Trip implements java.io.Serializable {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return tripId+", "+tripName+", "+startDate+", "+likeCount;
+		return tripId+", "+tripName+", "+startDate+", "+likeCount+", "+totalDay;
 	}
 	public Trip() {
 	}
