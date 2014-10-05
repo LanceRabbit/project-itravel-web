@@ -61,7 +61,7 @@ public class FindCouponSpotServlet extends HttpServlet {
 
 					try {
 						JSONObject jsonSpot = new JSONObject();
-						jsonSpot.put("spotId", o.getSpotDetail().getSpotId());
+						jsonSpot.put("CouponId", o.getCouponId());
 						jsonSpot.put("spotName", o.getSpotDetail()
 								.getSpotName());
 						jsonSpot.put("Description", o.getCouponDescription());
@@ -95,7 +95,7 @@ public class FindCouponSpotServlet extends HttpServlet {
 
 				try {
 					JSONObject jsonSpot = new JSONObject();
-					jsonSpot.put("spotId", "false");
+					jsonSpot.put("CouponId", "false");
 					jsonSpot.put("spotName", "無景點");
 					jsonSpot.put("ValidDate",
 							sdFormat.format(new java.util.Date()));
@@ -116,7 +116,7 @@ public class FindCouponSpotServlet extends HttpServlet {
 				SpotDetail spot = spots.next();
 				try {
 					JSONObject jsonSpot = new JSONObject();
-					jsonSpot.put("spotId", spot.getSpotId());
+					jsonSpot.put("CouponId", spot.getSpotId());
 					jsonSpot.put("spotName", spot.getSpotName());
 					jsonSpots.put(jsonSpot);
 				} catch (JSONException e) {

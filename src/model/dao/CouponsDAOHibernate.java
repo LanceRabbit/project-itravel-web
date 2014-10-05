@@ -111,19 +111,27 @@ public class CouponsDAOHibernate implements CouponsDAO {
 		CouponsDAOHibernate dao = new CouponsDAOHibernate();
 		Coupons coupon = new Coupons();
 		
-		SpotDetail spot = new SpotDetail();
-		spot.setSpotId("RES14090004");
-		coupon.setSpotDetail(spot);
+//		SpotDetail spot = new SpotDetail();
+//		spot.setSpotId("RES14090004");
+//		coupon.setSpotDetail(spot);
+//		
+//		java.util.Date date = new java.util.Date();
+//		coupon.setValidDay(date);
+//		coupon.setTempCouponId("EMP");
+////		coupon = dao.insert(coupon);
+//	
+//		coupon.setCouponId("C1409001");
+//		coupon.setCouponDescription("Wa ta si no Lance de s!!");
+//		coupon = dao.update(coupon);
+//		System.out.println(coupon);
 		
-		java.util.Date date = new java.util.Date();
-		coupon.setValidDay(date);
-		coupon.setTempCouponId("EMP");
-//		coupon = dao.insert(coupon);
-	
-		coupon.setCouponId("C1409001");
-		coupon.setCouponDescription("Wa ta si no Lance de s!!");
-		coupon = dao.update(coupon);
-		System.out.println(coupon);
+		coupon = dao.selectById("STR14100001");
+		if(coupon !=null){
+			dao.delete(coupon);
+			System.out.println("成功刪除");
+		}else{
+			System.out.println("刪除失敗");
+		}
 		
 	}
 

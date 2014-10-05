@@ -17,4 +17,5 @@ public interface AdDAO {
 	
 	public abstract java.util.Date addDate(java.util.Date now, int day);
 	
+	public abstract Ad selectById(String id);
 }

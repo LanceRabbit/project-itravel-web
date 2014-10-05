@@ -121,5 +121,32 @@ public class DisseminateService {
 		}
 
 	}
+	
+	public boolean AdDelet(String adId){
+		
+		Ad ad = dao.selectById(adId);
+		if(ad !=null){
+			dao.delete(ad);
+			return true;
+		}else{
+			return false;
+		}
+		
+		
+		
+		
+	}
+	
+	public boolean CouponDelet(String couponId){
+		
+		Coupons coupon =daoCoupon.selectById(couponId);
+		if(coupon!=null){
+			daoCoupon.delete(coupon);
+			return true;
+		}else{
+			return false;
+		}
+		
+	}
 
 }
