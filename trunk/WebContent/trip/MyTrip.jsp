@@ -80,12 +80,7 @@ div.tabimg > img{
    
 }
 
-.scrollable {
-    height: auto;
-    max-height: 150px;
-    overflow-x: hidden;
-   
-}
+
 
 div{
 border-collapse:collapse;
@@ -165,8 +160,17 @@ border-collapse:collapse;
 		<!-- /.modal -->
 
 	<script>
-		var var_map;
-		var var_location = new google.maps.LatLng(45.430817, 12.331516);
+	var var_map;
+	var var_location = new google.maps.LatLng(23.973299, 120.978398);
+	var var_marker;
+
+	google.maps.event.addDomListener(window, 'load', map_init);
+
+	//start of modal google map
+	$('#tripmodals').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_map, "resize");
+		var_map.setCenter(var_location);
+	});
 
 		function map_init() {
 
@@ -182,7 +186,7 @@ border-collapse:collapse;
 			var_map = new google.maps.Map(document
 					.getElementById("my-trip-map-container"), var_mapoptions);
 
-			var contentString = '<div id="mapInfo">'
+/* 			var contentString = '<div id="mapInfo">'
 					+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
 					+ 'Dorsoduro, 701-704<br>'
 					+ '30123<br>Venezia<br>'
@@ -205,21 +209,14 @@ border-collapse:collapse;
 
 			google.maps.event.addListener(var_marker, 'click', function() {
 				var_infowindow.open(var_map, var_marker);
-			});
+			}); */
 		}
 
-		google.maps.event.addDomListener(window, 'load', map_init);
-
-		//start of modal google map
-		$('#tripmodals').on('shown.bs.modal', function() {
-			google.maps.event.trigger(var_map, "resize");
-			var_map.setCenter(var_location);
-		});
 
 	</script>
 
 <script type="text/javascript">
-(function(jQuey){
+(function(jQuery){
 
 	$.ajax({
 		
@@ -382,7 +379,7 @@ border-collapse:collapse;
 							e.preventDefault();
 							$(this).tab('show');
 						});
-}(jQuery));
+}(jQuery, google));
 </script>
 
 </body>
