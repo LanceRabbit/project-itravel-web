@@ -1158,14 +1158,14 @@
 	}
 	
 	// drop zone
-	function initDropzone() {
+	function initDropzone(previews_zone_id, template_id) {
 		// Get the template HTML and remove it from the doument
-		var previewNode = document.querySelector("#template_1");
+		var previewNode = document.querySelector(template_id);
 		previewNode.id = "";
 		var previewTemplate = previewNode.parentNode.innerHTML;
 		previewNode.parentNode.removeChild(previewNode);
 
-		myDropzone = new Dropzone("#previews_zone_1", { // Make the whole body a dropzone
+		myDropzone = new Dropzone(previews_zone_id, { // Make the whole body a dropzone
 		  //url: "http://www.torrentplease.com/dropzone.php", // Set the url
 		  url: "<c:url value='/controller/Fileuploader' />",
 		  thumbnailWidth: 5000,
@@ -1175,7 +1175,7 @@
 		  
 		  previewTemplate: previewTemplate,
 		  autoQueue: true, // Make sure the files aren't queued until manually added
-		  previewsContainer: "#previews_zone_1", // Define the container to display the previews
+		  previewsContainer: previews_zone_id, // Define the container to display the previews
 		  clickable: ".fileinput-button" // Define the element that should be used as click trigger to select files.
 		});
 	}
@@ -1380,7 +1380,7 @@
 		});
 		
 		// spot related
-		initDropzone();
+		initDropzone("#previews_zone_1","#template_1");
 		initElements();
 		google.maps.event.addDomListener(window, 'load', map_init);
 		
