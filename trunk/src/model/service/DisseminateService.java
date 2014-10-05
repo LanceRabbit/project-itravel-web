@@ -30,8 +30,16 @@ public class DisseminateService {
 	public static void main(String[] args) {
 
 		DisseminateService s = new DisseminateService();
-		s.findAdsByAccountId("M14100001");
+		//s.findAdsByAccountId("M14100001");
+		s.findCouponsByAccountId("M14100001");
 		
+	}
+	public List<Coupons> findCouponsByAccountId(String accountId) {
+
+		List<Coupons> result = daoCoupon.selectByAccountId(accountId);	
+		System.out.println("Coupon list:"+result);
+				
+		return result;
 	}
 
 	public Set<SpotDetail> findSpotId(String AccountId) {
@@ -52,12 +60,12 @@ public class DisseminateService {
 
 	}
 
-	public List<Ad> findAds(String spotId) {
-
-		List<Ad> result = dao.selectBySpotId(spotId);
-
-		return result;
-	}
+//	public List<Ad> findAds(String spotId) {
+//
+//		List<Ad> result = dao.selectBySpotId(spotId);
+//
+//		return result;
+//	}
 
 	public List<Ad> findAdsByAccountId(String accountId) {
 

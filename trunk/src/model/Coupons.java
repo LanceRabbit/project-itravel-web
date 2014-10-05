@@ -65,7 +65,7 @@ public class Coupons implements java.io.Serializable {
 		this.couponId = couponId;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "SPOT_ID", nullable = false)
 	public SpotDetail getSpotDetail() {
 		return this.spotDetail;

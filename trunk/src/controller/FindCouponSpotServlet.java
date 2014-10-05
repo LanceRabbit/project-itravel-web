@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.Ad;
+import model.Coupons;
 import model.SpotDetail;
-import model.SpotImg;
 import model.service.DisseminateService;
 import model.util.ImageIOUtil;
 
@@ -23,11 +22,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@WebServlet("/controller/FindAdspotServlet")
-public class findAdspotServlet extends HttpServlet {
+/**
+ * Servlet implementation class FindCouponSpotServlet
+ */
+@WebServlet("/controller/FindCouponSpotServlet")
+public class FindCouponSpotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public findAdspotServlet() {
+	public FindCouponSpotServlet() {
 
 	}
 
@@ -47,22 +49,24 @@ public class findAdspotServlet extends HttpServlet {
 		DisseminateService service = new DisseminateService();
 		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
 
-		List<Ad> ads = service.findAdsByAccountId(AccountId);
-		java.util.Date date = service.findDate();
+		List<Coupons> coupons = service.findCouponsByAccountId(AccountId);
+		// java.util.Date date = service.findDate();
 		String webAppURL = request.getScheme() + "://"
 				+ request.getServerName() + ":" + request.getServerPort()
 				+ request.getContextPath();
 
 		if (Find.equals("0")) {// 找現有的資料
-			if (ads != null) {
-				for (Ad o : ads) {
+			if (coupons != null) {
+				for (Coupons o : coupons) {
 
 					try {
 						JSONObject jsonSpot = new JSONObject();
 						jsonSpot.put("spotId", o.getSpotDetail().getSpotId());
 						jsonSpot.put("spotName", o.getSpotDetail()
 								.getSpotName());
-						jsonSpot.put("ValidDate", sdFormat.format(o.getValidDay()));// 轉換date
+						jsonSpot.put("Description", o.getCouponDescription());
+						jsonSpot.put("ValidDate",
+								sdFormat.format(o.getValidDay()));// 轉換date
 						String imgURL = null;
 
 						String imgPath = ImageIOUtil.generateImageDirPath(o
@@ -72,11 +76,11 @@ public class findAdspotServlet extends HttpServlet {
 						// System.out.println("thumbnail saved at : " +
 						// (deployDir+imgPath));
 
-						if (o.getAdId() != null) {
+						if (o.getCouponId() != null) {
 							ImageIOUtil.saveImage((deployDir + imgPath),
-									o.getAdId(), o.getAdImg());
+									o.getCouponId(), o.getCouponImg());
 							imgURL = webAppURL + "/" + imgPath + "/"
-									+ o.getAdId();
+									+ o.getCouponId();
 
 						}
 						System.out.println("image url : " + imgURL);
@@ -93,7 +97,9 @@ public class findAdspotServlet extends HttpServlet {
 					JSONObject jsonSpot = new JSONObject();
 					jsonSpot.put("spotId", "false");
 					jsonSpot.put("spotName", "無景點");
-					jsonSpot.put("ValidDate", sdFormat.format(date));
+					jsonSpot.put("ValidDate",
+							sdFormat.format(new java.util.Date()));
+					jsonSpot.put("Description", "無資料");
 					String imgURL = webAppURL + "/images/team1.jpg";
 					jsonSpot.put("spotThumbnail", imgURL);
 					jsonSpots.put(jsonSpot);
@@ -102,28 +108,23 @@ public class findAdspotServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-		}else if(Find.equals("1")){ //找所有資料
-			
-			Iterator<SpotDetail> spots =service.findSpotId(AccountId).iterator();
-			while(spots.hasNext()){
+		} else if (Find.equals("1")) { // 找所有資料
+
+			Iterator<SpotDetail> spots = service.findSpotId(AccountId)
+					.iterator();
+			while (spots.hasNext()) {
 				SpotDetail spot = spots.next();
 				try {
 					JSONObject jsonSpot = new JSONObject();
 					jsonSpot.put("spotId", spot.getSpotId());
 					jsonSpot.put("spotName", spot.getSpotName());
-					jsonSpot.put("ValidDate", sdFormat.format(date));					
 					jsonSpots.put(jsonSpot);
 				} catch (JSONException e) {
-					
+
 					e.printStackTrace();
 				}
-				
-				
+
 			}
-			
-			
-			
-			
 		}
 		System.out.println(jsonSpots.toString());
 		// os.write(jsonSpots.toString().getBytes());

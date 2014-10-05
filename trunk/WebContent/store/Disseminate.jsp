@@ -93,6 +93,10 @@
 					<div class="col-sm-12">
 						<hr>
 					</div>
+					<div class="row">
+						<div id="Clist" class="col-sm-12">
+						</div>
+					</div>
 				</div>
 			</div>
 
@@ -221,12 +225,38 @@
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "json",	
-					data : {AccountId : "${user.accountId}"	},								
+					data : {Find :"0",  //找現在有的spotId
+						AccountId : "${user.accountId}"	},								
 					success : function(data) {						
 						jQuery.each(data,function(index,value) {
 							console.log(value.spotName);
 							if(value.spotId!="false"){
-								jQuery("#Adlist").append("<ul id='Adlist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='AdbtnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+								jQuery("#Adlist").append("<ul id='AdUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='AdbtnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+															
+							}else{
+								alert("沒東西");
+							}
+							
+						});
+					}
+					
+				});
+			
+			//頁面一進來就先找已有的Coupon
+			
+			jQuery.ajax({
+					url : '<c:url value='/controller/FindCouponSpotServlet'/>',
+					type : "GET",
+					contentType : "application/json; charset=utf-8",
+					async : false,
+					dataType : "json",	
+					data : {Find :"0",  //找現在有的spotId
+						    AccountId : "${user.accountId}"	},								
+					success : function(data) {						
+						jQuery.each(data,function(index,value) {
+							console.log(value.spotName);
+							if(value.spotId!="false"){
+								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='AdbtnDetel' name='"+value.spotId+"'class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><b class='text-danger'>說明內容:</b><h4>"+value.Description+"</h4></div></li></ul>");
 															
 							}else{
 								alert("沒東西");
@@ -304,6 +334,7 @@
 				}
 			});
 			
+			//點新增的時候自動填入可選的spotName
 			jQuery("#btnSpotAd").click(function(){
 				//console.log("btnSpotAd");
 				jQuery.ajax({
@@ -312,7 +343,8 @@
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "json",	
-					data : {AccountId : "${user.accountId}"	},								
+					data : {Find :"1",  //找所有的spotId
+						AccountId : "${user.accountId}"	},								
 					success : function(data) {
 						jQuery("#spotIdList").empty();
 						jQuery("#Adfilenull").empty();
@@ -336,26 +368,31 @@
 				
 			});
 			
+			//點新增的時候自動填入可選的spotName
 			jQuery("#btnSpotC").click(function(){
 				//console.log("btnSpotAd");
+						jQuery("#Cfilenull").empty();
+						jQuery("#Cdatenull").empty();
+						jQuery("#Ctextnull").empty();
 				jQuery.ajax({
-					url : '<c:url value='/controller/FindCouponServlet'/>',
+					url : '<c:url value='/controller/FindCouponSpotServlet'/>',
 					type : "GET",
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "json",	
-					data : {AccountId : "${user.accountId}"	},								
+					data : {Find :"1",  //找所有的spotId
+						    AccountId : "${user.accountId}"	},								
 					success : function(data) {
-						jQuery("#Cfilenull").empty();
+						
 						jQuery("#CspotIdList").empty();
 						jQuery.each(data,function(index,value) {							
 							if(value.spotId!="false"){								
 								//jQuery("#spotIdList[name='spotIdList']").removeAttr("disabled");
 								jQuery("#CspotIdList").append("<option id='"+value.spotId+"'  value='"+value.spotId+"'>"+value.spotName+"</option>");
-								jQuery("#Cdate").val(value.ValidDate);
+								//jQuery("#Cdate").val(value.ValidDate);
 							}else{
 								jQuery("#CspotIdList").empty();
-								jQuery("#Cdate").val(value.ValidDate);								
+								//jQuery("#Cdate").val(value.ValidDate);								
 								jQuery("#saveCBtn").hide();
 							}
 							

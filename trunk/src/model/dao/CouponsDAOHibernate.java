@@ -1,9 +1,14 @@
 package model.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Ad;
 import model.Coupons;
 import model.CouponsDAO;
 import model.SpotDetail;
@@ -120,6 +125,29 @@ public class CouponsDAOHibernate implements CouponsDAO {
 		coupon = dao.update(coupon);
 		System.out.println(coupon);
 		
+	}
+
+	@Override
+	public List<Coupons> selectByAccountId(String accountId) {
+
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Coupons> result = null;
+
+		try {
+			tx = session.beginTransaction();
+			
+			result = session.createQuery("From Coupons c where c.spotDetail.accountId='"+accountId+"'").list();
+			
+			
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
