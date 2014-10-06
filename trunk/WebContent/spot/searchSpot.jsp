@@ -597,8 +597,10 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			if(!((spotInfo.leader != null) && (spotInfo.leader.length > 0))) {
 				jQuery("a[href='#coupons']").hide();
 				jQuery('#spotOwnerP').text("負責人").parent().hide();
-			} else
-				jQuery("#spotOwnerP").text(spotInfo.leader);
+			} else {
+				jQuery("a[href='#coupons']").show();
+				jQuery("#spotOwnerP").text(spotInfo.leader).parent().show();
+			}
 	
 			// set google map marker
 			//console.log("lat : " + spotInfo.latitude);
