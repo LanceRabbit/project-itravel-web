@@ -100,7 +100,7 @@
 				<li><a href="<c:url value="/first.jsp"/>">News</a></li>
 				<li><a href="<c:url value="/spot/searchSpot.jsp"/>">找景點</a></li>
 				<li><a href="<c:url value="/trip/searchTrip.jsp"/>">找行程</a></li>
-				<li><a href="#">coupon</a></li>
+				<li><a href="<c:url value="/coupon/coupon.jsp"/>">coupon</a></li>
 
 			</ul>
 			

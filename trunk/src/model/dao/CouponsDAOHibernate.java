@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import model.Account;
 import model.Ad;
 import model.Coupons;
 import model.CouponsDAO;
@@ -149,6 +150,25 @@ public class CouponsDAOHibernate implements CouponsDAO {
 			result = session.createQuery("From Coupons c where c.spotDetail.accountId='"+accountId+"'").list();
 			
 			
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public List<Coupons> selectAll() {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Coupons> result = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery("from Coupons");//用HQL寫
+			result = query.list();
 			tx.commit();
 		} catch (Exception e) {
 			if (tx != null)
