@@ -87,7 +87,7 @@ width: 300px;
 		<h4>${param.tripName}</h4>
 		</div>
 		<span id='tripName' hidden>${param.tripName}</span>
-		<span id='startDay' hidden>${param.dateStart}</span>
+		<span id='startDay' hidden>${param.startDate}</span>
 		<span id='days' hidden>${param.totalDay}</span>
 	</div>
 	<div class="row"> 
@@ -198,7 +198,7 @@ width: 300px;
 		<div class="modal-footer">
 		<button id="doNothing"  type="button" class="btn btn-default" 
 				>取消</button>
-		<input id="createTrip" type="submit" class="btn btn-info" value="建立" />
+		<input id="createTrip" type="submit" class="btn btn-info" value="修改" />
 	</div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -214,9 +214,14 @@ width: 300px;
 var currentDiv = "#contact_1";
 
 jQuery(document).ready(function() {
+	//${param.tripId}	
+	
 	var tempDay = $("#days").text() ;
+	var tripId =  "${param.tripId}";
 	console.log($("#startDay").text());
 	console.log($("#tripName").text());
+	console.log($("#days").text());
+	console.log(tripId);
 	//according to days to create the tabs on the left side of screen.
 	for(var index = 2; index <= $("#days").text(); index++ ) {
 		
@@ -231,6 +236,88 @@ jQuery(document).ready(function() {
 		
 		
 	}
+	
+	//based on Trip Day to create Trip Details
+	for(var dayNum=1,max=tempDay; dayNum<=max; dayNum++) { 
+		
+		
+		$.ajax({
+			
+			 url:"<c:url value='/controller/TripDetailServlet' />",
+			 type:"post",
+			 data:{"TripId":tripId,"totalDay":dayNum},
+			 dataType:"json", //xml,text
+			 async: false,
+			 success:function(data){
+				 //console.log("get data from server....");
+				 //console.log(data);
+				 //console.log(data.length);
+				 count = 1 ;
+
+				 //(data.length==0)
+				// ?
+				//	$('#tabContent').append('<div class="tab-pane" id="day' 
+				//		 + dayNum +'"><div class="row" "></div></div>')
+				// :
+				 $.each(data,function(index,value){
+					
+						$('#contact_'+dayNum).append(
+							$(	"<div id='"+value.spotId+"'class='col-xs-12'>"
+									+"<div class='row'><div class='col-xs-6'>"
+									+'<div class="thumbnail"><img src="<c:url value="/controller/TripDetailImageServlet?id='
+									+value.spotId+'&index=1"/>"  alt="'+value.spotName+'"'
+									+'title="'+value.spotName+'"/></div>'
+									+"</div><div class='col-xs-6'>"
+									+"<div class='pull-right'  hidden>"
+									+"<span class='glyphicon glyphicon-remove' ></span></div>"
+									+"<div class='caption'><h4>"
+									+ value.spotName
+									+ "</h4><div style='margin-bottom: 5px'>預計停留：</div><div style='width:120px'>"
+									+ "<input id='setTime"+value.spotId+"' type='text' value='"+value.stayTime+"'>"
+									+ "</div></div></div>"
+									+ "</div></div>")
+						);
+						$('#contact_'+dayNum+" #setTime"+value.spotId).TouchSpin({
+				            min: 30,
+				            max: 420,
+				            step: 30,
+				            boostat: 5,
+				            maxboostedstep: 10,
+				            verticalbuttons: true,
+				            postfix: '分'
+				        });
+						
+						$('#contact_'+dayNum+' #'+value.spotId).mouseover(function(e){
+							//console.log("overover");
+							$(this).children().children().children().removeAttr("hidden");
+							//$(this).parents('div').remove();				
+							//e.stopImmediatePropagation();
+
+						}).mouseout(function(e){
+							 e.stopPropagation();
+							 $(this).children().children().children('div:first-child').attr("hidden","hidden");
+							
+						});
+		
+						$('#contact_'+dayNum+' span.glyphicon-remove').click(function(e){
+							 e.stopPropagation();
+							console.log($(this).parent().parent().parent().parent().attr('id'));
+							var divId = $(this).parent().parent().parent().parent().attr('id');
+							$(currentDiv+' #'+divId).remove();
+							
+							//$(this).parent().parent().index();
+							//$(currentDiv+' div:eq('+$(this).parent().parent().index()+')').remove();				
+							e.stopImmediatePropagation();
+						});
+					    count++;
+						$(currentDiv).tab('show');	 
+				 });//.each	
+			 }
+		 });//ajax
+
+	}//for loop
+	
+	
 	//record current tab is where focus.
 	$('#pageTab').on('click','li',function(e){
 		 e.stopPropagation();
@@ -306,7 +393,7 @@ jQuery(document).ready(function() {
 			info.totalDay = tempDay;
 			info.spot=spotInfo;
 			console.log(info);
- 	  		$.ajax({
+ 	  		/* $.ajax({
 				type : "POST",
 				 dataType:"json", //xml,text
 				 async: false,
@@ -317,17 +404,17 @@ jQuery(document).ready(function() {
 			}).done(function(data) {
 				var result = String(data);
 				if(result == 'true' ) {
-					bootbox.alert("新增行程成功", function() {
+					bootbox.alert("修改行程成功", function() {
 						 window.location.href = '<c:url value="/trip/MyTrip.jsp"/>';  
 					});
 				} else {
 					console.log("XXXXXXXXXXXXX=" + data);
-					bootbox.alert("新增失敗，請重新再確認", function() {
+					bootbox.alert("修改失敗，請重新再確認", function() {
 						
 					});
 				}
 
-			}); 
+			});  */
 		}
 	});
 
@@ -336,7 +423,7 @@ jQuery(document).ready(function() {
 	//confirm doalog when user want to cancel current add trip step.
 	$("#doNothing").click(function(){
 		 bootbox.dialog({
-			  message: "確定取消新增行程表? ",
+			  message: "放棄修改行程表? ",
 			  buttons: {
 			    cancel: {
 			      label: "取消",
@@ -349,7 +436,7 @@ jQuery(document).ready(function() {
 			      label: "確定",
 			      className: "btn btn-info",
 			      callback: function() {
-			    	  window.location.href = '<c:url value="/first.jsp"/>';  
+			    	  window.location.href = '<c:url value="/trip/MyTrip.jsp"/>';  
 			      }
 			    }
 			  }
@@ -437,7 +524,8 @@ jQuery(document).ready(function() {
 		        
 		    });
 		
-		}	
+		}
+		
 });
 </script>    
 <script>

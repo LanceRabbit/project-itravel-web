@@ -249,17 +249,40 @@ border-collapse:collapse;
 						+"刪除</i></a></p>"
 						+"<span id='tripId' hidden>"+value.tripId+"</span>"+
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
+						"<span id='startDate' hidden>"+value.startDate+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-						"</div></div>");
+						"</div></div>"
 						
-				 //count++;
+						+"<form id ='modify"+value.tripId+"' action='<c:url value='/trip/modifyTripDetail.jsp'/>' method='POST'>"
+				        +"<table><tr>"
+				        +"<td><input  name='tripId' type='text' hidden></td>"
+				        +"<td><input  name='tripName' type='text' hidden></td>"
+				        +"<td><input  name='totalDay' type='text' hidden></td>"
+				        +"<td><input  name='startDate' type='text' hidden></td>"
+			 			+"</tr></table></form>");
+			 	//count++;
 			 });	
 		 }
 	 });  //--ajax
 
 	
 	 $("#showtrip").on("click",".modify", function(e) {
+			var tripId = $("#"+($(this).parent().parent().parent().attr("id"))+" span:first").text();
+			var totalDay =$("#"+($(this).parent().parent().parent().attr("id"))+" span:last").text();
+			var tripName = $("#"+($(this).parent().parent().parent().attr("id"))+" span:eq(1)").text();
+			var startDate = $("#"+($(this).parent().parent().parent().attr("id"))+" span:eq(2)").text();
+			console.log(tripId);
+			console.log(totalDay);
+			console.log(tripName);
+			console.log(startDate);
 		 console.log("Modify");
+		 //console.log($(this).attr("id"));
+		 $('#'+$(this).attr("id")+' input[name="tripId"]').val(tripId);
+		 $('#'+$(this).attr("id")+' input[name="tripName"]').val(tripName);
+		 $('#'+$(this).attr("id")+' input[name="totalDay"]').val(totalDay);
+		 $('#'+$(this).attr("id")+' input[name="startDate"]').val(startDate);
+		 
+		 $('#'+$(this).attr("id")+' #modify'+$(this).attr("id")).submit();
 		 e.stopPropagation();
 	 });
 	 

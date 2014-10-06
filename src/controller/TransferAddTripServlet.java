@@ -47,16 +47,19 @@ public class TransferAddTripServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		
 		String sessionId = request.getSession().getId();
-		String tripName = request.getParameter("tripName").trim();
-		String tripDate = request.getParameter("dateStart");
-		int totalDay = Integer.parseInt(request.getParameter("totalDay"));
-		request.setAttribute("tripName", tripName);
-		request.setAttribute("dateStart", tripDate);
-		request.setAttribute("totalDay", totalDay);
+		String tripId = request.getParameter("tripId").trim();
+		System.out.println("TRIPIDDDDDDDDD=" +tripId );
+		//String tripDate = request.getParameter("dateStart");
+		//int totalDay = Integer.parseInt(request.getParameter("totalDay"));
+		request.setAttribute("tripId", tripId);
+		//request.setAttribute("dateStart", tripDate);
+		//request.setAttribute("totalDay", totalDay);
 		
 		request.getRequestDispatcher(
-				"/trip/addTripDetail.jsp").forward(request, response);
+				"/trip/modifyTripDetail.jsp").forward(request, response);
 	}
 
 	/**
