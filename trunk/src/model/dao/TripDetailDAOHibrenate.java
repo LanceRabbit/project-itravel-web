@@ -257,17 +257,23 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		System.out.println("tripId====="+ tripId);
 		try {
 			tx = session.beginTransaction();
-			// Using HQL to search
+			// delete related detail of tripId
 			Query query = session
 					.createQuery(
-					"FROM TripDetail detail where detail.trip.tripId=:tripId "
+					"delete FROM TripDetail detail where detail.trip.tripId=:tripId "
 					)
 				    .setParameter("tripId", tripId);
-			if (query!=null){
-				for(Object obj : query.list()) {
-					session.delete((TripDetail)obj);;
-				}
-			}
+			 int x = query.executeUpdate();
+			  if(x>0){
+				  result = 0;
+				  System.out.println("result====="+ result);
+			  }
+			
+//			if (query!=null){
+//				for(Object obj : query.list()) {
+//					session.delete((TripDetail)obj);;
+//				}
+//			}
 			tx.commit();
 		} catch (Exception e) {
 			result = 1; 
