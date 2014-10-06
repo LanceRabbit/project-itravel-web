@@ -17,28 +17,29 @@ public class BlacklistRecordDAOHibernate implements BlacklistRecordDAO {
 	public static void main(String[] args) {
 		BlacklistRecordDAO dao =new BlacklistRecordDAOHibernate();
 		//Insert Test
-//		BlacklistRecord bRecord = new BlacklistRecord();
+		BlacklistRecord bRecord = new BlacklistRecord();
 		BlacklistRecordId id = new BlacklistRecordId();
-//		id.setReporterId("M14090002");
-//		id.setReportedId("M14090004");
-//		id.setCommentId("CMT140900002");
-//		bRecord.setId(id);
-//		bRecord.setReason("liar");
-//		bRecord.setReportDt(new Date());
-//		bRecord = dao.insert(bRecord);
-//		System.out.println("Insert Test:"+bRecord);
+		id.setReporterId("M14090001");
+		id.setReportedId("M14090002");
+		id.setCommentId("CMT140900003");
+		bRecord.setId(id);
+		bRecord.setReason("liar");
+		bRecord.setReportDt(new java.util.Date());
+		bRecord.setStatus(0);
+		bRecord = dao.insert(bRecord);
+		System.out.println("Insert Test:"+bRecord);
 		
-		//Select Test
-		List<BlacklistRecord> bRecord1 = null;
-		//select all, id=null;
-		//三條件隨意開關，測select排列組合
-		//id.setReporterId("M14090002");
-		//id.setReportedId("M14090003");
-		id.setCommentId("CMT140900001");
-		
-		bRecord1 = dao.select(id);
-		System.out.println("Select Test筆數:"+bRecord1.size());
-		System.out.println("Select Test:"+bRecord1);
+//		//Select Test
+//		List<BlacklistRecord> bRecord1 = null;
+//		//select all, id=null;
+//		//三條件隨意開關，測select排列組合
+//		//id.setReporterId("M14090002");
+//		//id.setReportedId("M14090003");
+//		id.setCommentId("CMT140900001");
+//		
+//		bRecord1 = dao.select(id);
+//		System.out.println("Select Test筆數:"+bRecord1.size());
+//		System.out.println("Select Test:"+bRecord1);
 		
 	}
 
