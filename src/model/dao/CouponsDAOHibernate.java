@@ -126,14 +126,15 @@ public class CouponsDAOHibernate implements CouponsDAO {
 //		coupon = dao.update(coupon);
 //		System.out.println(coupon);
 		
-		coupon = dao.selectById("STR14100001");
-		if(coupon !=null){
-			dao.delete(coupon);
-			System.out.println("成功刪除");
-		}else{
-			System.out.println("刪除失敗");
-		}
-		
+//		coupon = dao.selectById("STR14100001");
+//		if(coupon !=null){
+//			dao.delete(coupon);
+//			System.out.println("成功刪除");
+//		}else{
+//			System.out.println("刪除失敗");
+//		}
+		List<Coupons> result =dao.selectBySpotId("NAT14100001");
+		System.out.println(result);
 	}
 
 	@Override
@@ -176,6 +177,25 @@ public class CouponsDAOHibernate implements CouponsDAO {
 			e.printStackTrace();
 		}
 		return result;
+	}
+
+	@Override
+	public List<Coupons> selectBySpotId(String spotId) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		List<Coupons> result = null;
+		try {
+			tx = session.beginTransaction();
+			result = session.createQuery("From Coupons c where c.spotDetail.spotId='"+spotId+"'").list();
+			tx.commit();
+		} catch (Exception e) {
+			if (tx != null)
+				tx.rollback();
+			e.printStackTrace();
+		}
+		return result;
+		
 	}
 
 }

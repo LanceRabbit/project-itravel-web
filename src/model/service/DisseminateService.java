@@ -42,7 +42,13 @@ public class DisseminateService {
 				
 		return result;
 	}
+	public List<Coupons> findCouponsBySpotId(String spotId) {
 
+		List<Coupons> result = daoCoupon.selectBySpotId(spotId);	
+		System.out.println("Coupon list:"+result);
+				
+		return result;
+	}
 	public Set<SpotDetail> findSpotId(String AccountId) {
 
 		AccountDAO daoAcc = new AccountDAOHibernate();
@@ -152,4 +158,7 @@ public class DisseminateService {
 	public List<Coupons> getWholeCoupons(){
 		return daoCoupon.selectAll();
 	}
+	
+	
+	
 }

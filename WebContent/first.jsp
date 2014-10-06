@@ -14,6 +14,17 @@ body {
 	background-color: #529abb;
 }
 
+#topImg{
+width:700px;
+height:305px;
+overflow:hidden;
+}
+#list{
+
+height:80px;
+}
+
+
 p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -80,23 +91,27 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	
    
 	<div class="container" style="background-color: #529abb">
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<!-- Wrapper for slides -->
-			<div class="carousel-inner" id="itemtag"></div>
-			<!-- End Carousel Inner -->
-			<ul class="list-group col-sm-4" id="list">
-
-			</ul>
-			<div class="carousel-controls">
-				<a class="left carousel-control" href="#myCarousel"
-					data-slide="prev"> <span
-					class="glyphicon glyphicon-chevron-left"></span>
-				</a> <a class="right carousel-control" href="#myCarousel"
-					data-slide="next"> <span
-					class="glyphicon glyphicon-chevron-right"></span>
-				</a>
-			</div>
-
+		
+				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			
+				
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" id="itemtag"></div>
+					<!-- End Carousel Inner -->
+					<ul class="list-group col-sm-4" id="list">
+		
+					</ul>
+					<div class="carousel-controls">
+						<a class="left carousel-control" href="#myCarousel"
+							data-slide="prev"> <span
+							class="glyphicon glyphicon-chevron-left"></span>
+						</a> <a class="right carousel-control" href="#myCarousel"
+							data-slide="next"> <span
+							class="glyphicon glyphicon-chevron-right"></span>
+						</a>
+					</div>
+				
+			
 		</div>
 
 		<!-- End Carousel -->
@@ -131,20 +146,20 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																		jQuery(
 																				'#itemtag')
 																				.append(			               																			
-																						"<div class='item active' ><img src='<c:url value='/" + value.spotThumbnailURL+" '/>'/><div class='carousel-caption'><h4><a href='#'>"
+																						"<div class='item active' ><div id='topImg'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
-																								+ "<br><br></p></div></div>");
+																								+ "<br><br></p></div></div></div>");
 																	} else {
 																		jQuery(
 																				'#itemtag')
 																				.append(
-																						"<div class='item ' ><img src='<c:url value='/" + value.spotThumbnailURL+" '/>'/><div class='carousel-caption'><h4><a href='#'>"
+																						"<div class='item ' ><div id='topImg'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
-																								+ "<br><br></p></div></div>");
+																								+ "<br><br></p></div></div></div>");
 																		//buttom <a class='label label-primary' href='#' target='_blank'>"+ value.spotName+"</a>
 																	}
 																	picactive = false;

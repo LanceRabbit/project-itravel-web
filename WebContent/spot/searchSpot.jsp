@@ -255,7 +255,13 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 						<!-- <div class="tab-pane active" id="info"> -->
 
 						<div class="tab-pane itravel-tab" id="region">region...</div>
-						<div class="tab-pane itravel-tab" id="coupons">coupons...</div>
+						<div class="tab-pane itravel-tab" id="coupons">
+							<label id="userForCouponsUse" hidden>${user}</label>
+							<div class="row">
+								<div id="Clist" class="col-sm-12">
+								</div>
+							</div>
+						</div>
 						<div class="tab-pane itravel-tab" id="comments">
 							<div class="list-group" id="commentList">
 							</div> <!-- <div class="list-group"> -->
@@ -476,10 +482,14 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 				
 			}			
 		}		
-		
+		function btnPrint(id){
+			console.log(id);
+			
+		}
 </script>
+
 <script>
-	
+
 (function(jQuey){
 	var var_map;
 	var var_location = new google.maps.LatLng(23.973299, 120.978398);
@@ -642,6 +652,8 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		jQuery("#commentList .resetReportBtn").click();
 	});
 	
+	
+	
 	jQuery("#commentSaveBtn").on("click", function(){
 		
 		if(jQuery("#newComment textarea").val().length <= 0) {
@@ -695,6 +707,41 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
 		jQuery("#spotInfoModelFooter").hide();
 	});
+	
+	//coupon tab click
+	
+	jQuery("#couponInfoTab").on("click",function(){
+		var couponSpotId = selectedSpotId;
+		jQuery.ajax({
+			url : '<c:url value='/controller/SearchCouponServlet'/>',
+			type : "GET",
+			contentType : "application/json; charset=utf-8",				
+			dataType : "json",	
+			data : {SpotId:couponSpotId},						
+			success : function(data) {			
+				jQuery.each(data,function(index,value) {
+					jQuery("#Clist").empty();
+					
+						if(value.State){
+							if($("#userForCouponsUse").text()!=""){
+								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+							}else{
+								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
+							}
+						}else{
+							jQuery("#Clist").append("<h3 class='text-danger'>店家暫無張貼coupon!</h3>");	
+						}
+					
+				});						
+				
+												
+			}				
+		});	
+		
+	});
+	
+	
+	
 	
 	jQuery("#commentInfoTab").on("click", function(){
 		//console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
