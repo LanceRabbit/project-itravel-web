@@ -30,9 +30,16 @@ public class AddTripService {
 		return tripDao.insert(trip);
 	}
 	
+	public Trip updateTrip (Trip trip) {
+		return tripDao.update(trip);
+	}
+	
 	public TripDetail addTripDetail (TripDetail tripDetail) {
 		return detailDao.insert(tripDetail);
 	}
-	
+	public int deleteTripDetail (String tripId) {
+		//delete TripDetail is TripId  
+		return detailDao.delete(tripId);
+	}
 
 }

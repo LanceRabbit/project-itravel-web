@@ -84,11 +84,11 @@ width: 300px;
 	<div class="container thumbnail">
 	<div class="trip-name">
 		<div style="width:350px; text-align: center;">
-		<h4>${param.tripName}</h4>
+		<h4>${param.modifytripName}</h4>
 		</div>
-		<span id='tripName' hidden>${param.tripName}</span>
-		<span id='startDay' hidden>${param.startDate}</span>
-		<span id='days' hidden>${param.totalDay}</span>
+		<span id='tripName' hidden>${param.modifytripName}</span>
+		<span id='startDay' hidden>${param.modifyDate}</span>
+		<span id='days' hidden>${param.totalDays}</span>
 	</div>
 	<div class="row"> 
 		<div class='col-xs-6'>
@@ -217,7 +217,7 @@ jQuery(document).ready(function() {
 	//${param.tripId}	
 	
 	var tempDay = $("#days").text() ;
-	var tripId =  "${param.tripId}";
+	var tripId =  "${param.modfiyTripId}";
 	console.log($("#startDay").text());
 	console.log($("#tripName").text());
 	console.log($("#days").text());
@@ -388,16 +388,17 @@ jQuery(document).ready(function() {
 		// if no error occurs, sent out data to backend.
 		if (noError==0) {
 			info.userId = "${user.accountId}";
+			info.tripId = tripId;
 			info.tripName =  $("#tripName").text();
 			info.startDay =  $("#startDay").text();
-			info.totalDay = tempDay;
+			info.totalDay = parseInt(tempDay);
 			info.spot=spotInfo;
 			console.log(info);
- 	  		/* $.ajax({
+ 	  		 $.ajax({
 				type : "POST",
 				 dataType:"json", //xml,text
 				 async: false,
-				url : '<c:url value='/controller/AddTripServlet' />',
+				url : '<c:url value='/controller/ModifyTripServlet' />',
 				data : {
 					tripInfo :  JSON.stringify(info)
 				}
@@ -414,7 +415,7 @@ jQuery(document).ready(function() {
 					});
 				}
 
-			});  */
+			});  
 		}
 	});
 

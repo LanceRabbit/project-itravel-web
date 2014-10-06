@@ -247,4 +247,37 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		return result;
 	}
 
+	@Override
+	public int delete(String tripId) {
+		sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = this.sessionFactory.getCurrentSession();
+		Transaction tx = null;
+		// 0 : success
+		int result = 0;
+		System.out.println("tripId====="+ tripId);
+		try {
+			tx = session.beginTransaction();
+			// Using HQL to search
+			Query query = session
+					.createQuery(
+					"FROM TripDetail detail where detail.trip.tripId=:tripId "
+					)
+				    .setParameter("tripId", tripId);
+			if (query!=null){
+				for(Object obj : query.list()) {
+					session.delete((TripDetail)obj);;
+				}
+			}
+			tx.commit();
+		} catch (Exception e) {
+			result = 1; 
+			if (tx != null)
+				tx.rollback();
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		System.out.println("result====="+ result);
+		return result;
+	}
+
 }
