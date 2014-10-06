@@ -753,7 +753,6 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		if(comments.length == 0) {
 			//console.log("no comments")
 			jQuery("#commentList").append("<div><a href='#' class='list-group-item'><div class='panel panel-default'><div class='panel-heading'>尚無任何評論</div></div></a></div>");
-			
 		}
 		else {
 			jQuery.each(comments, function(index, value){
@@ -767,10 +766,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 					commentText = "此評論已被檢舉!!";
 					commentTextClass = "style='color:red'";
 					addReportBtnClass = "hidden";
-				} else {
-					console.log("comment : " + commentText);
-				}
-					
+				} 
 					
 				//console.log("index : " + index); start from 0
 				jQuery("#commentList").append(
@@ -781,8 +777,10 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 								"</div>"+
 
 								"<div class='panel-body'>"+
-									"<p " + commentTextClass + " id='" + index +"'>"+ commentText + "</p>" +
+									"<p " + commentTextClass + " >"+ commentText + "</p>" +
 								"</div>"+	
+								"<label class='commenterId' hidden>" + comment.commenterId + "</label>" + 
+								"<label class='commentId' hidden>" + comment.commentId + "</label>" + 
 							"</div>"+
 							
 							<c:if test='${! empty user}'>
@@ -835,7 +833,36 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	});
 	
 	jQuery("#commentList").on('click', '.saveReportBtn', function(){
-		
+		var commenterId = jQuery(this).siblings(".panel-primary").children("label:first").text(); //console.log("commenterId : " + commenterId);
+		var commentId = jQuery(this).siblings(".panel-primary").children("label:last").text(); //console.log("commentId : " + commentId);
+		var report = jQuery(".newReport").val(); //console.log("report : " + comment);
+			
+		jQuery.ajax({
+			type : "POST",
+			url : '<c:url value='/controller/ReportBlacklist' />',
+			data : {
+				reporterId:"${user.accountId}",
+				reportedId:commenterId,
+				commentId:commentId,
+				report:report
+			},
+			dataType : "text"
+		}).done(function(data){
+			console.log("data : " + data);
+			if(data == "true") {
+				jQuery.ajax({
+					type : "POST",
+					url : '<c:url value='/controller/GetSpot' />',
+					data : {
+						spotId : selectedSpotId
+					},
+					dataType : "json"
+				}).done(function(data){
+					spotInfo = data;
+					jQuery("#commentInfoTab").click();					
+				});
+			}
+		});
 	});
 	
 	function initElements() {
