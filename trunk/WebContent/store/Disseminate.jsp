@@ -135,7 +135,8 @@
 										class="form-control" id="ADdate" name="ADdate" readonly>
 								</div>
 								<div class="form-group">
-									<label for="ADInputFile">選擇檔案</label> <input type="file"
+									<label for="ADInputFile">選擇檔案</label> 
+									<lable >建議使用:760*400 效果最佳</lable><input type="file"
 										id="ADInputFile" name="image">
 									<lable id="Adfilenull"></lable>
 								</div>
@@ -187,8 +188,10 @@
 									<textarea id="Ctext" name="Ctext" class="form-control" rows="3"></textarea>
 									<lable id="Ctextnull"></lable>
 								</div>
-								<div class="form-group">
-									<label for="CInputFile">選擇檔案</label> <input type="file"
+								<div class="form-group">									
+									<label for="CInputFile">選擇檔案</label> 
+									<lable >建議使用:760*400 效果最佳</lable>
+									<input type="file"
 										id="CInputFile" name="Cimage">
 										<lable id="Cfilenull"></lable>
 								</div>
@@ -278,7 +281,7 @@
 						jQuery.each(data,function(index,value) {
 							console.log(value.spotName);
 							if(value.spotId!="false"){
-								jQuery("#Adlist").append("<ul id='AdUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.AdId+"' onclick='AdbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+								jQuery("#Adlist").append("<ul id='AdUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:320px; height:200px; margin-right:10px;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.AdId+"' onclick='AdbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
 															
 							}else{
 								console.log("沒有廣告唷!");
@@ -303,7 +306,7 @@
 						jQuery.each(data,function(index,value) {
 							console.log(value.spotName);
 							if(value.spotId!="false"){
-								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:60%; height:60%;'class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='CbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><b class='text-danger'>說明內容:</b><h4>"+value.Description+"</h4></div></li></ul>");
+								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='CbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><b class='text-danger'>說明內容:</b><h4>"+value.Description+"</h4></div></li></ul>");
 															
 							}else{
 								console.log("沒有Coupon唷!");

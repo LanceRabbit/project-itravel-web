@@ -70,8 +70,7 @@ height:330px;
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp"/>
 	<!-- Page Content -->
-	<h3>測試取得的資料</h3>
-	AccountId= ${user.accountId}
+	
 	<div class="container">		
 			<h4>我的景點</h4>
 			<div class="row" id="listDetails">

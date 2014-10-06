@@ -11,6 +11,8 @@ public interface CouponsDAO {
 
 	public abstract Coupons selectById(String id);
 	
+	public abstract List<Coupons> selectBySpotId(String spotId);
+	
 	public abstract List<Coupons> selectByAccountId(String accountId);
 	
 	public abstract List<Coupons> selectAll();
