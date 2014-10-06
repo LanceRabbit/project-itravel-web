@@ -366,8 +366,6 @@ height:330px;
 			
 			// images
 			jQuery.each(alterspotInfo.spotImgs, function(index, value) {
-				console.log("alterspot_zone_index : " + alterspot_zone_index);
-				//alert(jQuery("#alterSpotFileinputBtn"));
 				//jQuery("#alterSpotFileinputBtn").hide();
 				
 				var className;
@@ -394,7 +392,7 @@ height:330px;
 			  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-trash alterSpotDeleteImg '</span>");
 			  	
 			  	// move and then show
-			  	alterspot_zone_index++; console.log("zone index : " + alterspot_zone_index);
+			  	alterspot_zone_index++; //console.log("zone index : " + alterspot_zone_index);
 			});
 			
 			// append for drop zone
@@ -683,6 +681,8 @@ height:330px;
 	</script>
 	<script type="text/javascript">
 		jQuery(document).ready(	function() {
+			google.maps.event.addDomListener(window, 'load', alterspot_map_init);
+		
 			var count = 0;
 			jQuery.ajax({
 				url : '<c:url value='/controller/MySpotServlet' />',
@@ -722,19 +722,8 @@ height:330px;
 							
 			
 			// spot related
-			//alterSpotInitDropzone("#alterSpotPreviews_zone_1","#alterSpotTemplate_1");
 			alterSpotInitElements();
-			google.maps.event.addDomListener(window, 'load', alterspot_map_init);
 			
-			/*
-			// modal google map
-			jQuery('#alterSpotModal').on('shown.bs.modal', function() {
-				console.log("modal google map.....");
-				google.maps.event.trigger(alterspot_map, "resize");
-				alterspot_map.setCenter(alterspot_location);
-			});
-			*/
-		
 			// config category
 			jQuery('#alterSpotCityIdMenu').on('show.bs.dropdown', function () {
 				jQuery("#alterSpotCityIdMenu .dropdown-menu").show();
