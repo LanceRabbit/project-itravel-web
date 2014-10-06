@@ -317,6 +317,7 @@ height:330px;
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script type="text/javascript">
 	// spot related 
+	Dropzone.autoDiscover = false; //Turn off autoDiscover globally to avoid the second self-created dropzone causing an error (need to be refined....)
 	var alterSpotDropzone;
 	var alterspot_zone_index = 1;
 	var alterspot_location = new google.maps.LatLng(23.973299, 120.978398);
@@ -336,7 +337,7 @@ height:330px;
 				spotId:id},	
 			dataType : "json"
 		}).done(function(data){
-			
+			resetAlterSpotPage();
 			alterspotInfo = data;
 			
 			// populate the html elements
@@ -386,10 +387,6 @@ height:330px;
 			  	
 			  	// move and then show
 			  	alterspot_zone_index++; console.log("zone index : " + alterspot_zone_index);
-			  	//var imgPZ = "#alterSpotImagePreview_zone_" + alterspot_zone_index;
-			  	//jQuery(imgPZ).append("<span class='glyphicon glyphicon-picture itravel-block-1-pic-content fileinput-button' id='alterspotFileinputBtn'></span>");
-			  	
-			  	//jQuery("#alterSpotFileinputBtn").show().detach().appendTo("#alterSpotImagePreview_zone_" + alterspot_zone_index);
 			});
 			
 			// append for drop zone
@@ -404,7 +401,7 @@ height:330px;
 		  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-picture itravel-block-1-pic-content alterspot-fileinput-button' id='alterspotFileinputBtn'></span>");
 		  	alterSpotInitDropzone("#alterSpotPreviews_zone_1","#alterSpotTemplate_1");
 		  	
-		 // config drop zone
+		 	// config drop zone
 			alterSpotDropzone.on("addedfile", function(file) {
 				  
 				  jQuery("#alterspotFileinputBtn").hide();
@@ -503,14 +500,17 @@ height:330px;
 		// reset the image zones
 		alterspot_zone_index = 1;
 		jQuery('.alterSpotImagePreview_zone img').remove();
-		jQuery("#alterspotFileinputBtn").detach().appendTo("#alterSpotImagePreview_zone_1");
 		jQuery('.alterSpotDeleteImg').remove();
 		
 		// reset the form
 		jQuery('#alterSpotInfoForm input').val('');
 		jQuery('#alterSpotIntro').val('');
-		//jQuery('#subalterSpotcategoryGroup').hide();
 		jQuery("#itravel-block-map").hide();
+		
+		// reset drop zone
+		
+		jQuery("#alterSpotPreviews_zone_1").remove();
+		jQuery("#alterspotFileinputBtn").remove();
 	}
 	
 	// drop zone
@@ -782,7 +782,7 @@ height:330px;
 			
 			// config image deletion
 			jQuery('.alterSpotImagePreview_zone').on('click', '.alterSpotDeleteImg', function(){
-				//console.log('deleting image.....' + jQuery(this));
+				console.log('deleting image.....' + jQuery(this));
 				var zone = jQuery(this).closest('.alterSpotImagePreview_zone');
 				zone.find('img:first').remove();
 				
@@ -795,6 +795,7 @@ height:330px;
 				for(var i = curIndex; i <= 6; i++)
 					zoneIds.push("#alterSpotImagePreview_zone_" + i);
 			
+				//console.log("zoneIds : " + zoneIds);
 				var reachEmptyZone = false;
 					
 				jQuery(zoneIds).each(function(index){
@@ -803,7 +804,7 @@ height:330px;
 						var prevZoneId = zoneIds[index-1]; 
 						
 						var curZoneIndex = curZoneId.substr(curZoneId.lastIndexOf('_')+1);
-						console.log("curZoneIndex : " + curZoneIndex);
+						//console.log("curZoneIndex : " + curZoneIndex);
 						if(curZoneIndex == 6) {
 							jQuery("#alterspotFileinputBtn").show();
 							alterspot_zone_index = 5;
@@ -815,16 +816,16 @@ height:330px;
 							//console.log("children : " + jQuery(curZoneId).html());
 							//console.log("children with length : " + jQuery(curZoneId).html().length);
 							jQuery(curZoneId).children().detach().appendTo(jQuery(prevZoneId));
-							
-							
 						}
 						else {
 								//console.log("index : " + index);
 								//console.log("current zone : " + zoneIds[index]);	
 								var emptyZoneId = zoneIds[index].substr(zoneIds[index].lastIndexOf('_')+1);
 								
-								zone_index = emptyZoneId - 2; // 1 for the original next preview zone; 1 for the deletion
+								alterspot_zone_index = emptyZoneId - 2; // 1 for the original next preview zone; 1 for the deletion
 								reachEmptyZone = true;
+								
+								//console.log("reach empty zone, zone_index : " + zone_index);
 						}	
 					} 
 				});
@@ -888,7 +889,6 @@ height:330px;
 			});
 			
 			jQuery("#alterSpotResetBtn").click(function(){
-				//console.log("reset......");
 				resetAlterSpotPage();
 			});
 			
