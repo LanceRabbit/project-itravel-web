@@ -336,7 +336,15 @@ height:330px;
 				//AccountId : "${user.accountId}",  
 				spotId:id},	
 			dataType : "json"
-		}).done(function(data){
+		}).done(function(data){		
+			
+			// modal google map
+			jQuery('#alterSpotModal').on('shown.bs.modal', function() {
+				console.log("modal google map.....");
+				google.maps.event.trigger(alterspot_map, "resize");
+				alterspot_map.setCenter(alterspot_location);
+			});
+			
 			resetAlterSpotPage();
 			alterspotInfo = data;
 			
@@ -718,16 +726,15 @@ height:330px;
 			alterSpotInitElements();
 			google.maps.event.addDomListener(window, 'load', alterspot_map_init);
 			
-			
+			/*
 			// modal google map
 			jQuery('#alterSpotModal').on('shown.bs.modal', function() {
 				console.log("modal google map.....");
 				google.maps.event.trigger(alterspot_map, "resize");
 				alterspot_map.setCenter(alterspot_location);
 			});
-			
-			
-				
+			*/
+		
 			// config category
 			jQuery('#alterSpotCityIdMenu').on('show.bs.dropdown', function () {
 				jQuery("#alterSpotCityIdMenu .dropdown-menu").show();
