@@ -32,6 +32,7 @@ public class DisseminateService {
 		DisseminateService s = new DisseminateService();
 		//s.findAdsByAccountId("M14100001");
 		s.findCouponsByAccountId("M14100001");
+		System.out.println("DisseminateService getWholeCoupons = "+s.getWholeCoupons());
 		
 	}
 	public List<Coupons> findCouponsByAccountId(String accountId) {
@@ -148,5 +149,7 @@ public class DisseminateService {
 		}
 		
 	}
-
+	public List<Coupons> getWholeCoupons(){
+		return daoCoupon.selectAll();
+	}
 }

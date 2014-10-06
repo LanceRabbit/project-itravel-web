@@ -154,17 +154,11 @@ jQuery(document).ready(	function() {
 							+value.ReportDate+"</td><td id='"+value.CommentId+"' name='comment'>"+value.Comment+"</td><td>"
 							+value.Reason+"</td><td><select><option value='0'>不處分</option><option value='1'>停權一週</option><option value='2'>停權兩週</option><option value='4'>停權一個月</option><option value='9'>永久停權</option></select></td><td><input type='button' value='確定' name='btConfirmBlack'></td></tr>");
 					count++;
-					
 				});
 			}else{											
 					jQuery('#tbBlackList').append("<tr><td colspan='3' style='font-size:14px;font-weight:bold;background:white;'>無待處理名單</td></tr>");	
-					
-			
 			}
 		}
-		
-		
-		
 	});
 	jQuery('#tbBlackList ').on('click','[name="btConfirmBlack"]',function(){
 		$(this).attr("id","idSelectTr");
@@ -186,11 +180,9 @@ jQuery(document).ready(	function() {
 					$("#idSelectTr").removeAttr("id");
 				} else {
 					alert('Something Wrong!');
-					
 				}
 			}				
 		});	
-		
      });
 	
 	jQuery("#idShiftToTempBlack").on('click', function(){
@@ -209,19 +201,12 @@ jQuery(document).ready(	function() {
 								"<tr><td name='count'>"+count+"</td><td name='accountId'>"
 								+value.AccountId+"</td><td>"+value.AccountLevel+"</td><td>"
 								+value.Deadline+"</td><td><input type='button' value='恢復' id='"+value.AccountId+"' name='btReinstateBlack'></td></tr>");
-								
 						count++;
-						
 					});
 				}else{											
 						jQuery('#tbTempBlackList').append("<tr><td colspan='5' style='font-size:14px;font-weight:bold;background:white;'>無暫時停權名單</td></tr>");	
-						
-				
 				}
 			}
-			
-			
-			
 		});
 	});
 	
@@ -240,23 +225,14 @@ jQuery(document).ready(	function() {
 						jQuery('#tbPermBlackList').append(
 								"<tr><td name='count'>"+count+"</td><td name='accountId'>"
 								+value.AccountId+"</td><td>"+value.AccountLevel+"</td><td><input type='button' value='恢復' id='"+value.AccountId+"' name='btReinstateBlack'></td></tr>");
-								
 						count++;
 					});
 				}else{											
 						jQuery('#tbPermBlackList').append("<tr><td colspan='4' style='font-size:14px;font-weight:bold;background:white;'>無永久停權名單</td></tr>");	
-						
-				
 				}
 			}
-			
-			
-			
 		});
 	});
-	
-	
-
 });
 jQuery('#tbTempBlackList').on('click','[name="btReinstateBlack"]',function(){
 	var aId = $(this).attr('id');
@@ -286,7 +262,6 @@ jQuery("#btReinstateOK").click(function(){
 				$('#'+accountIdPrepared+'').attr("disabled","disabled");
 			} else {
 				alert('Something Wrong!');
-				
 			}
 		}				
 	});	
