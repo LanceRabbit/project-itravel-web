@@ -644,6 +644,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	
 	jQuery("#commentSaveBtn").on("click", function(){
 		
+		if(jQuery("#newComment textarea").val().length <= 0) {
+			console.log("you must enter something....");
+			return;
+		}
+			
 		jQuery("#commentCreationBtn").show();
 		jQuery("#commentSaveBtn").hide();
 		jQuery("#commentResetBtn").hide();
@@ -685,7 +690,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		jQuery("#newComment").remove();
 		
 	});
-	
+
 	// switch between tabs
 	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
 		jQuery("#spotInfoModelFooter").hide();
@@ -706,6 +711,20 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		else {
 			jQuery.each(comments, function(index, value){
 				var comment = value;
+				var commentText = comment.comment;
+				var commentTextClass = "style='color:blue'";
+				var addReportBtnClass = "addReportBtn";
+				
+				if(comment.comment.trim().length <= 0) {
+					
+					commentText = "此評論已被檢舉!!";
+					commentTextClass = "style='color:red'";
+					addReportBtnClass = "hidden";
+				} else {
+					console.log("comment : " + commentText);
+				}
+					
+					
 				//console.log("index : " + index); start from 0
 				jQuery("#commentList").append(
 						"<div><a href='#' class='list-group-item list-group-item-info'>"+
@@ -715,14 +734,14 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 								"</div>"+
 
 								"<div class='panel-body'>"+
-									"<p id='" + index +"'>"+ comment.comment + "</p>" +
+									"<p " + commentTextClass + " id='" + index +"'>"+ commentText + "</p>" +
 								"</div>"+	
 							"</div>"+
 							
 							<c:if test='${! empty user}'>
-							"<button type='button' class='btn btn-default addReportBtn'>檢舉</button>"+
-							"<button type='button' class='btn btn-default resetReportBtn'>放棄</button>"+
-							"<button type='button' class='btn btn-primary saveReportBtn'>儲存</button>"+
+								"<button type='button' class='btn btn-default " + addReportBtnClass + " '>檢舉</button>"+
+								"<button type='button' class='btn btn-default resetReportBtn'>取消</button>"+
+								"<button type='button' class='btn btn-primary saveReportBtn'>確認</button>" + 
 							</c:if>
 						"</a></div>");
 			});
@@ -769,7 +788,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	});
 	
 	jQuery("#commentList").on('click', '.saveReportBtn', function(){
-		jQuery("#commentInfoTab").click();
+		
 	});
 	
 	function initElements() {
