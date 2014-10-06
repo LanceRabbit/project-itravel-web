@@ -209,31 +209,7 @@ border-collapse:collapse;
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 <script>
-	var var_map;
-	var var_location = new google.maps.LatLng(23.973299, 120.978398);
-	var var_marker;
 
-	google.maps.event.addDomListener(window, 'load', map_init);
-
-	//start of modal google map
-	$('#tripmodals').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_map, "resize");
-		var_map.setCenter(var_location);
-	});
-
-		function map_init() {
-
-			var var_mapoptions = {
-				center : var_location,
-				zoom : 14,
-				mapTypeId : google.maps.MapTypeId.ROADMAP,
-				mapTypeControl : false,
-				panControl : false,
-				rotateControl : false,
-				streetViewControl : false,
-			};
-			var_map = new google.maps.Map(document
-					.getElementById("my-trip-map-container"), var_mapoptions);
 
 /* 			var contentString = '<div id="mapInfo">'
 					+ '<p><strong>Peggy Guggenheim Collection</strong><br><br>'
@@ -259,7 +235,7 @@ border-collapse:collapse;
 			google.maps.event.addListener(var_marker, 'click', function() {
 				var_infowindow.open(var_map, var_marker);
 			}); */
-		}
+		//}
 
 
 </script>
@@ -306,7 +282,37 @@ border-collapse:collapse;
 		 }
 	 });  //--ajax
 
+		var var_map;
+		var var_location = new google.maps.LatLng(23.973299, 120.978398);
+		var var_marker;
+
+		google.maps.event.addDomListener(window, 'load', map_init);
+
+		//start of modal google map
+		$('#tripmodals').on('shown.bs.modal', function() {
+			google.maps.event.trigger(var_map, "resize");
+			var_map.setCenter(var_location);
+		});
+
+
+		
+		function map_init() {
 	
+			var var_mapoptions = {
+				center : var_location,
+				zoom : 14,
+				mapTypeId : google.maps.MapTypeId.ROADMAP,
+				mapTypeControl : false,
+				panControl : false,
+				rotateControl : false,
+				streetViewControl : false,
+			};
+			var_map = new google.maps.Map(document
+					.getElementById("my-trip-map-container"), var_mapoptions);
+		}
+	
+
+	 
 	 $("#showtrip").on("click",".modify", function(e) {
 			var tripId = $("#"+($(this).parent().parent().parent().attr("id"))+" span:first").text();
 			var totalDay =$("#"+($(this).parent().parent().parent().attr("id"))+" span:last").text();
