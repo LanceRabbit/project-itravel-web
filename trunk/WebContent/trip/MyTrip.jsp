@@ -227,7 +227,7 @@ border-collapse:collapse;
 		 dataType:"json", //xml,text
 		 success:function(data){
 			 console.log("get data from server....");
-			 console.log(data);
+			 //console.log(data);
 			 //count = 1 ;
 			 $.each(data,function(index,value){
 
@@ -264,6 +264,7 @@ border-collapse:collapse;
 	 });
 	 
 	 $("#showtrip").on("click",".delete", function(e) {
+		 e.stopPropagation();
 		 console.log("Delete");
 		 console.log($(this).attr("id"));
 		 var tripId = $(this).attr("id");
@@ -302,19 +303,17 @@ border-collapse:collapse;
 				});
 		 
 		 
-		 e.stopPropagation();
+	
 	 });
 	 
 	 $("#showtrip").on("click",".temp", function() {
-		var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
-		var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
-		var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
-		console.log(tripId);
-		console.log(totalDay);
-		console.log(tripName);
-		console.log($(this).parent().parent().parent().index());
+		var tripId = $("#"+($(this).parent().parent().parent().attr("id"))+" span:first").text();
+		var totalDay =$("#"+($(this).parent().parent().parent().attr("id"))+" span:last").text();
+		var tripName = $("#"+($(this).parent().parent().parent().attr("id"))+" span:eq(1)").text();
+		//console.log(tripId);
 		//console.log(totalDay);
 		//console.log(tripName);
+		//console.log("AAAAA="+$(this).parent().parent().parent().attr("id"));
 		
 		// when .modal-wide opened, set content-body height based on browser height; 
 		// 200 is appx height of modal padding, modal title and button bar
@@ -324,7 +323,6 @@ border-collapse:collapse;
 		
 		//According to trip day to dynamic create Tabs. 
 		$("#mytab , #tabContent ").empty();
-		 console.log()
 		$("#tripTitle").html('<h4 class="modal-title">'
 				+tripName+
 				'</h4>');
@@ -347,9 +345,9 @@ border-collapse:collapse;
 				 dataType:"json", //xml,text
 				 async: false,
 				 success:function(data){
-					 console.log("get data from server....");
-					 console.log(data);
-					 console.log(data.length);
+					 //console.log("get data from server....");
+					 //console.log(data);
+					 //console.log(data.length);
 					 count = 1 ;
 
 					 (data.length==0)?$('#tabContent').append('<div class="tab-pane" id="day' 
