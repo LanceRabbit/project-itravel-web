@@ -158,8 +158,8 @@ border-collapse:collapse;
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
-
-	<script>
+<script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
+<script>
 	var var_map;
 	var var_location = new google.maps.LatLng(23.973299, 120.978398);
 	var var_marker;
@@ -213,7 +213,7 @@ border-collapse:collapse;
 		}
 
 
-	</script>
+</script>
 
 <script type="text/javascript">
 (function(jQuery){
@@ -228,10 +228,10 @@ border-collapse:collapse;
 		 success:function(data){
 			 console.log("get data from server....");
 			 console.log(data);
-			 count = 1 ;
+			 //count = 1 ;
 			 $.each(data,function(index,value){
 
-			 	$("#showtrip").append("<div name='test' id='"+count+"' class='col-xs-3'>"
+			 	$("#showtrip").append("<div name='test' id='"+value.tripId+"' class='col-xs-3'>"
 						+"<div class='thumbnail'>"
 						+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
 						+value.tripName+"</h4></div>"
@@ -252,7 +252,7 @@ border-collapse:collapse;
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
 						"</div></div>");
 						
-				 count++;
+				 //count++;
 			 });	
 		 }
 	 });  //--ajax
@@ -265,6 +265,43 @@ border-collapse:collapse;
 	 
 	 $("#showtrip").on("click",".delete", function(e) {
 		 console.log("Delete");
+		 console.log($(this).attr("id"));
+		 var tripId = $(this).attr("id");
+			bootbox.dialog({
+				  message: "確定刪除行程表? ",
+				  buttons: {
+				    cancel: {
+				      label: "取消",
+				      className: "btn btn-default",
+				      callback: function() {
+				    	  console.log("do nothing");  
+				      }
+				    },
+				    confirm: {
+				      label: "確定",
+				      className: "btn btn-info",
+				      callback: function() {
+				    	  //window.location.href = '<c:url value="/first.jsp"/>';
+				    	  jQuery.ajax({
+								url:"<c:url value='/control/DeleteTripServelt' />",
+								type:"POST",
+								//contentType:"text/html; charset=utf-8",
+								data:{TripId:tripId},
+								dataType : "text"
+							}).done(function(data) {
+								var result = String(data);
+								if(result == 'true' ) {
+									window.location.reload();
+								} else {
+									
+								}
+							});
+				      }
+				    }
+				  }
+				});
+		 
+		 
 		 e.stopPropagation();
 	 });
 	 

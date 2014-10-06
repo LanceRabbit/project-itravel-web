@@ -181,20 +181,7 @@ width: 300px;
 
 	
 			<div class="row scrollable" id="listDetails">
-			<ul class="thumbnails">
-                <li class="span5 clearfix">
-                  <div class="thumbnail clearfix">
-                    <img src="http://placehold.it/320x200" alt="ALT NAME" class="pull-left span2 clearfix" style="margin-right:10px">
-                    <div class="caption">
-                      <a href="http://bootsnipp.com/" class="btn btn-primary icon  pull-right">Select</a>
-                      <h4>      
-                      <a href="#">Luis Felipe Kaufmann</a>
-                      </h4>
-                      <small><b>RG: </b>99384877</small>  
-                    </div>
-                  </div>
-                </li>
-            </ul>
+			
 			</div>	
 		</div>
 
@@ -212,17 +199,16 @@ width: 300px;
 		<button id="doNothing"  type="button" class="btn btn-default" 
 				>取消</button>
 		<input id="createTrip" type="submit" class="btn btn-info" value="建立" />
-	</div>	
+	</div>
 </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <!-- 如果從Google下載失敗，我們就從自己的Server上下載jQuery.js檔 -->
 <script>!window.jQuery && document.write("<script src='${pageContext.request.contextPath}/js/jquery-1.11.1.min.js'><\/script>")</script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
-<script src="../js/jquery.dynatable.js"></script>
-<script src="../js/jquery.bootstrap-touchspin.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.dynatable.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.min.js"></script>
 <script>
 
 var currentDiv = "#contact_1";
@@ -305,15 +291,13 @@ jQuery(document).ready(function() {
 				var string = "#pageTab li a:eq("+index+")";
 				console.log("string="+string);
 				$(string).click();
-				bootbox.alert("Day"+(index+1)+"設定時間超過 1440 分鐘/日", function() {
-					 
+				bootbox.alert("Day"+(index+1)+"設定停留時間超過 1440 分鐘/日", function() {
+					
 				});
 				break;
 			}
 			spotInfo.push(byDay);
 		};
-	
-		
 		// if no error occurs, sent out data to backend.
 		if (noError==0) {
 			info.userId = "${user.accountId}";
@@ -322,7 +306,7 @@ jQuery(document).ready(function() {
 			info.totalDay = tempDay;
 			info.spot=spotInfo;
 			console.log(info);
-	  		$.ajax({
+ 	  		$.ajax({
 				type : "POST",
 				 dataType:"json", //xml,text
 				 async: false,
@@ -331,15 +315,27 @@ jQuery(document).ready(function() {
 					tripInfo :  JSON.stringify(info)
 				}
 			}).done(function(data) {
-				//console.log("detail from server....." + data);
-			
-			});   
+				var result = String(data);
+				if(result == 'true' ) {
+					bootbox.alert("新增行程成功", function() {
+						 window.location.href = '<c:url value="/trip/MyTrip.jsp"/>';  
+					});
+				} else {
+					console.log("XXXXXXXXXXXXX=" + data);
+					bootbox.alert("新增失敗，請重新再確認", function() {
+						
+					});
+				}
+
+			}); 
 		}
 	});
-		
+
+	
+
 	//confirm doalog when user want to cancel current add trip step.
 	$("#doNothing").click(function(){
-		bootbox.dialog({
+		 bootbox.dialog({
 			  message: "確定取消新增行程表? ",
 			  buttons: {
 			    cancel: {
@@ -357,7 +353,7 @@ jQuery(document).ready(function() {
 			      }
 			    }
 			  }
-			});
+			}); 
 	/* 	bootbox.confirm("確定取消新增行程表?", function(result) {
 			 if (result == true) {                                             
 				 window.location.href = '<c:url value="/first.jsp"/>';                          

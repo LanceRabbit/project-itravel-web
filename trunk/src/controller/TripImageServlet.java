@@ -31,7 +31,7 @@ public class TripImageServlet extends HttpServlet {
 
 		String pathToWeb = getServletContext().getRealPath(
 				File.separator);
-		System.out.println(pathToWeb);
+		//System.out.println(pathToWeb);
 		try {
 			File file = new File(pathToWeb + "images/team1.jpg");
 
@@ -63,7 +63,7 @@ public class TripImageServlet extends HttpServlet {
 
 		String id = request.getParameter("id");
 
-		System.out.println(id);
+		//System.out.println(id);
 		OutputStream out = null;
 		FileInputStream in = null;
 		TripDetailDAOHibrenate tripdetail = new TripDetailDAOHibrenate();
@@ -75,7 +75,7 @@ public class TripImageServlet extends HttpServlet {
 			}
 			
 			SpotImgDAOHibernate imgdao = new SpotImgDAOHibernate();
-			System.out.println(detail.getSpotDetail().getSpotId());
+			//System.out.println(detail.getSpotDetail().getSpotId());
 			SpotImg img = imgdao.selectOneBySpotId(detail.getSpotDetail()
 					.getSpotId(), 1);
 			if (img == null) {
