@@ -705,8 +705,11 @@
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
+													<c:if test="${user.accountLevel == 2}">
 													<input id="spotOwner" name="spotOwner" type="text"
-														placeholder="分店負責人" class="form-control">
+														placeholder="分店負責人" class="form-control"
+														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
+													</c:if>	
 												</div>
 											</div>
 										</div>
@@ -1061,7 +1064,7 @@
 		  onShow:function( ct ){
 		   this.setOptions({
 			minDate:jQuery('#date_timepicker_end').val()
-				?new Date(Date.reduceDay(new Date($('#date_timepicker_end').val()))):0,
+				?new Date(Date.reduceDay(new Date(jQuery('#date_timepicker_end').val()))):0,
 			maxDate:jQuery('#date_timepicker_end').val()
 				?jQuery('#date_timepicker_end').val():false
 		   });
@@ -1078,7 +1081,7 @@
 			minDate:(jQuery('#date_timepicker_start').val().length!=0)
 				?jQuery('#date_timepicker_start').val():0,
 			maxDate:(jQuery('#date_timepicker_start').val().length!=0)
-				?new Date(Date.addFiveDay(new Date($('#date_timepicker_start').val())))
+				?new Date(Date.addFiveDay(new Date(jQuery('#date_timepicker_start').val())))
 				:false,
 		   });
 		  },
@@ -1133,7 +1136,7 @@
 	
 	// config buttons
 	function popoverHandler(elem) {
-		
+		//console.log("pop : " + elem);
 		jQuery(elem).popover('enable');	
 		jQuery(elem).popover('show');
 		//jQuery('body').scrollTo('');
@@ -1386,7 +1389,7 @@
 		
 		
 		// modal google map
-		$('#addSpotModal').on('shown.bs.modal', function() {
+		jQuery('#addSpotModal').on('shown.bs.modal', function() {
 			google.maps.event.trigger(spot_map, "resize");
 			spot_map.setCenter(spot_location);
 		});
@@ -1394,7 +1397,7 @@
 		// config drop zone
 		myDropzone.on("addedfile", function(file) {
 			  
-			  $("#fileinputBtn").hide();
+			  jQuery("#fileinputBtn").hide();
 			  //console.log("addedfile...");
 			  //console.log(file);
 			  
@@ -1413,7 +1416,7 @@
 				//width = '300px';
 				className = 'itravel-block-1-pic-content';
 				
-				$("#itravel-block-thumbnails").show();
+				jQuery("#itravel-block-thumbnails").show();
 			}
 			
 			var oImg=document.createElement("img");
@@ -1426,11 +1429,11 @@
 		  	
 		  	document.getElementById("imagePreview_zone_" + zone_index).appendChild(oImg);
 		  	var imgPZ = "#imagePreview_zone_" + zone_index;
-		  	$(imgPZ).append("<span class='glyphicon glyphicon-trash deleteImg '</span>");
+		  	jQuery(imgPZ).append("<span class='glyphicon glyphicon-trash deleteImg '</span>");
 		  	
 		  	// move and then show
 		  	zone_index++; //console.log("zone index : " + zone_index);
-		  	$("#fileinputBtn").show().detach().appendTo("#imagePreview_zone_" + zone_index);
+		  	jQuery("#fileinputBtn").show().detach().appendTo("#imagePreview_zone_" + zone_index);
 		  
 		});
 
@@ -1453,65 +1456,65 @@
 		*/
 			
 		// config category
-		$('#cityIdMenu').on('show.bs.dropdown', function () {
-			$("#cityIdMenu .dropdown-menu").show();
+		jQuery('#cityIdMenu').on('show.bs.dropdown', function () {
+			jQuery("#cityIdMenu .dropdown-menu").show();
 		}).on("hide.bs.dropdown", function(){
-			$("#cityIdMenu .dropdown-menu").hide();
+			jQuery("#cityIdMenu .dropdown-menu").hide();
 		});
 		
-		$("#cityIdMenu .dropdown-menu li").click(function(){
-			//console.log($(this).text());
-			$("#city").val($(this).text());
-			$("#cityIdMenu .dropdown-menu").hide();
+		jQuery("#cityIdMenu .dropdown-menu li").click(function(){
+			//console.log(jQuery(this).text());
+			jQuery("#city").val(jQuery(this).text());
+			jQuery("#cityIdMenu .dropdown-menu").hide();
 		}) 
 		
-		$('#categoryIdMenu').on('show.bs.dropdown', function () {
-			$("#categoryIdMenu .dropdown-menu").show();
+		jQuery('#categoryIdMenu').on('show.bs.dropdown', function () {
+			jQuery("#categoryIdMenu .dropdown-menu").show();
 		}).on("hide.bs.dropdown", function(){
-			$("#categoryIdMenu .dropdown-menu").hide();
+			jQuery("#categoryIdMenu .dropdown-menu").hide();
 		});
 		
-		$("#categoryIdMenu .dropdown-menu li").click(function(){
-			//console.log($(this).index());
-			$("#category").val($(this).text());
-			$("#categoryIdMenu .dropdown-menu").hide();
+		jQuery("#categoryIdMenu .dropdown-menu li").click(function(){
+			//console.log(jQuery(this).index());
+			jQuery("#category").val(jQuery(this).text());
+			jQuery("#categoryIdMenu .dropdown-menu").hide();
 			
 			// populate subcategory
-			var subcategories = categories[$(this).index()].subtype;
+			var subcategories = categories[jQuery(this).index()].subtype;
 			//console.log(subcategories);
-			$("#subcategory").attr("placeholder", "子分類");
-			$("#subcategory").val("");
-			$("#subcategoryIdMenu ul:first").empty();
-			$.each(subcategories, function(index, value){
-				$("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+			jQuery("#subcategory").attr("placeholder", "子分類");
+			jQuery("#subcategory").val("");
+			jQuery("#subcategoryIdMenu ul:first").empty();
+			jQuery.each(subcategories, function(index, value){
+				jQuery("#subcategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
 			});
 			
-			if (!$('#subcategoryGroup').is(':visible'))
-				$("#subcategoryGroup").show();
+			if (!jQuery('#subcategoryGroup').is(':visible'))
+				jQuery("#subcategoryGroup").show();
 		})
 		
 		// config subcategory
-		$("#subcategoryGroup").hide();
-		$('#subcategoryIdMenu').on('show.bs.dropdown', function () {
-			$("#subcategoryIdMenu .dropdown-menu").show();
+		jQuery("#subcategoryGroup").hide();
+		jQuery('#subcategoryIdMenu').on('show.bs.dropdown', function () {
+			jQuery("#subcategoryIdMenu .dropdown-menu").show();
 		}).on("hide.bs.dropdown", function(){
-			$("#subcategoryIdMenu .dropdown-menu").hide();
+			jQuery("#subcategoryIdMenu .dropdown-menu").hide();
 		});
 		
-		$("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
-			//console.log($(this).text());
-			$("#subcategory").val($(this).text());
-			$("#subcategoryIdMenu .spot-scrollable").hide();
+		jQuery("#subcategoryIdMenu .dropdown-menu").on("click", "li",function(){
+			//console.log(jQuery(this).text());
+			jQuery("#subcategory").val(jQuery(this).text());
+			jQuery("#subcategoryIdMenu .spot-scrollable").hide();
 		})
 		
 		// config image deletion
-		$('.imagePreview_zone').on('click', '.deleteImg', function(){
-			//console.log('deleting image.....' + $(this));
-			var zone = $(this).closest('.imagePreview_zone');
+		jQuery('.imagePreview_zone').on('click', '.deleteImg', function(){
+			//console.log('deleting image.....' + jQuery(this));
+			var zone = jQuery(this).closest('.imagePreview_zone');
 			zone.find('img:first').remove();
 			
 			// reset icons and the zone_index
-			$(this).remove();
+			jQuery(this).remove();
 			var curIndex = zone.attr('id').substr(zone.attr('id').lastIndexOf('_')+1);
 			
 			// create all the ids to be processed
@@ -1521,7 +1524,7 @@
 		
 			var reachEmptyZone = false;
 				
-			$(zoneIds).each(function(index){
+			jQuery(zoneIds).each(function(index){
 				if((index != 0) && !reachEmptyZone) {
 					var curZoneId = zoneIds[index];
 					var prevZoneId = zoneIds[index-1]; 
@@ -1529,16 +1532,16 @@
 					var curZoneIndex = curZoneId.substr(curZoneId.lastIndexOf('_')+1);
 					console.log("curZoneIndex : " + curZoneIndex);
 					if(curZoneIndex == 6) {
-						$("#fileinputBtn").show();
+						jQuery("#fileinputBtn").show();
 						zone_index = 5;
 					}
 					
-					//if(!$(curZoneId).is(':empty')) {
-					if($(curZoneId).html().trim().length > 0) {
+					//if(!jQuery(curZoneId).is(':empty')) {
+					if(jQuery(curZoneId).html().trim().length > 0) {
 						
-						//console.log("children : " + $(curZoneId).html());
-						//console.log("children with length : " + $(curZoneId).html().length);
-						$(curZoneId).children().detach().appendTo($(prevZoneId));
+						//console.log("children : " + jQuery(curZoneId).html());
+						//console.log("children with length : " + jQuery(curZoneId).html().length);
+						jQuery(curZoneId).children().detach().appendTo(jQuery(prevZoneId));
 						
 						
 					}
@@ -1555,43 +1558,47 @@
 
 		});
 		
-		$("#saveBtn").click(function(){
+		jQuery("#saveBtn").click(function(){
 			//console.log("saveBtn pressed.....");
 			
 			// check the fields
-			if($("#spotName").val().length == 0)
-				popoverHandler("#spotName", "#spotName");
-			else if($("#city").val().length == 0)
+			if(jQuery("#city").val().length == 0)
 				popoverHandler("#cityGroup");
-			else if($("#category").val().length == 0)
+			else if(jQuery("#category").val().length == 0)
 				popoverHandler("#categoryGroup");
-			else if($("#subcategory").val().length == 0)
+			else if(jQuery("#subcategory").val().length == 0)
 				popoverHandler("#subcategoryGroup");
+			else if(jQuery("#spotName").val().length == 0)
+				popoverHandler("#spotName", "#spotName");
+			<c:if test="${user.accountLevel == 2}">
+			else if(jQuery("#spotOwner").val().length == 0)
+				popoverHandler("#spotOwner");
+			</c:if>
 			else { 
 				// add hidden fields for images into form
 				var name;
 				var value;
 				var content;
-				$(".imagePreview_zone").each(function(index){
+				jQuery(".imagePreview_zone").each(function(index){
 					
-					name = $(this).attr('id');
-					value = $(this).find('img:first').attr('alt'); //console.log("value : " + value);
+					name = jQuery(this).attr('id');
+					value = jQuery(this).find('img:first').attr('alt'); //console.log("value : " + value);
 					
 					content = "<input type='hidden' name='"+name+"' value=' "+value+"'>";
 					//console.log("content : "+content);
-					$("#hiddens").append(content);
+					jQuery("#hiddens").append(content);
 				});
 				
 				
 				// add hidden fields for input field filled by drop down menu
-				content = "<input type='hidden' name='dupCity' value=' "+$("#city").val()+"'>";
-				$("#hiddens").append(content);
+				content = "<input type='hidden' name='dupCity' value=' "+jQuery("#city").val()+"'>";
+				jQuery("#hiddens").append(content);
 				
-				content = "<input type='hidden' name='dupCategory' value=' "+$("#category").val()+"'>";
-				$("#hiddens").append(content);
+				content = "<input type='hidden' name='dupCategory' value=' "+jQuery("#category").val()+"'>";
+				jQuery("#hiddens").append(content);
 				
-				content = "<input type='hidden' name='dupSubcategory' value=' "+$("#subcategory").val()+"'>";
-				$("#hiddens").append(content);
+				content = "<input type='hidden' name='dupSubcategory' value=' "+jQuery("#subcategory").val()+"'>";
+				jQuery("#hiddens").append(content);
 				
 				// add hidden fields for longitude and latitude
 				var lng = spot_location.lng();
@@ -1601,45 +1608,45 @@
 				//console.log("lat : " + lat);
 				
 				content = "<input type='hidden' name='lng' value=' "+lng+"'>";
-				$("#hiddens").append(content);
+				jQuery("#hiddens").append(content);
 				content = "<input type='hidden' name='lat' value=' "+lat+"'>";
-				$("#hiddens").append(content);
+				jQuery("#hiddens").append(content);
 				
 				// ready to submit
-				$("#spotInfoForm").submit();
+				jQuery("#spotInfoForm").submit();
 				resetPage();
 			}
 		});
 		
-		$("#resetBtn").click(function(){
+		jQuery("#resetBtn").click(function(){
 			//console.log("reset......");
 			resetPage();
 		});
 		
 		
-		$("#spotName").change(function(){
+		jQuery("#spotName").change(function(){
 			//console.log("spot name : changing....");
 			
-			if(!$("#itravel-block-map").is(':visible')) {
-				$("#itravel-block-map").show();
+			if(!jQuery("#itravel-block-map").is(':visible')) {
+				jQuery("#itravel-block-map").show();
 			}
 			
 			google.maps.event.trigger(spot_map, "resize");
 			spot_map.setCenter(spot_location);
 			
 			var addr = "台灣";
-			var city = $("#city").val();
+			var city = jQuery("#city").val();
 			if(city.length > 0)
-				addr = addr + city + $(this).val();
+				addr = addr + city + jQuery(this).val();
 			else 
-				addr = addr + $(this).val();
+				addr = addr + jQuery(this).val();
 			
 			spotGetAddressMarkerByName(addr);
 		});
 		
-		$("#spotAddress").change(function(){
+		jQuery("#spotAddress").change(function(){
 			console.log("spot address : changing....");
-			spotGetAddressMarkerByAddr($(this).val());
+			spotGetAddressMarkerByAddr(jQuery(this).val());
 		});
 		
 	}); // end of jQuery(document).ready(function(){	
