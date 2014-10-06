@@ -766,7 +766,9 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 					commentText = "此評論已被檢舉!!";
 					commentTextClass = "style='color:red'";
 					addReportBtnClass = "hidden";
-				} 
+				} else if (comment.commenterId == "${user.accountId}") {
+					addReportBtnClass = "hidden";
+				}
 					
 				//console.log("index : " + index); start from 0
 				jQuery("#commentList").append(
