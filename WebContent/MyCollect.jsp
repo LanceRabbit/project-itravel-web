@@ -10,12 +10,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Collect</title>
 <style type="text/css">
-.col-xs-3{
-width:220px;
-height:330px;
 
-
-}
 p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -25,6 +20,12 @@ p { /*用於內文   多行文字溢出用...取代*/
 	display: -webkit-box;
 }
 
+
+.col-xs-3{
+width:220px;
+height:330px;
+
+}
 h4 { /*用於標題   單行文字溢出用...取代*/
 	white-space: nowrap;
 	width: 100%; /* IE6 需要定义宽度 */

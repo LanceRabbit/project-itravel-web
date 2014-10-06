@@ -113,8 +113,7 @@ border-collapse:collapse;
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
-	<h3>測試取得的資料</h3>
-	AccountId= ${user.accountId}
+	
 <div class="container">
 	<div class="row" id="showtrip">
 	</div>
