@@ -113,7 +113,6 @@ border-collapse:collapse;
 	<!-- Page Content -->
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
-	
 <div class="container">
 	<div class="row" id="showtrip">
 	</div>
@@ -157,7 +156,58 @@ border-collapse:collapse;
 			<!-- /.modal-dialog -->
 		</div>
 		<!-- /.modal -->
+		
+<div class="modal fade" id="modifyTripModal" tabindex="-1" role="dialog"
+		aria-labelledby="addTripModal" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" style="text-align: center;" id="myModalLabel">修改行程</h4>
+				</div>
+				<div class="top-modal-body">
+					<form action="<c:url value="/trip/modifyTripDetail.jsp"/>;"
+						method="POST">
+						<table>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold; width: 75px">行程名稱：</td>
+								<td><input type="text" id="modifytripName" name="modifytripName" class="top-form-control"
+									required></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td style="font-weight: bold;">起始日期：</td>
+								<td><input id="modifyDate" type="text" name="modifyDate"
+									class="top-form-control" required></td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td><input id="totalDays" name="totalDays" type="text" hidden></td>
+							</tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td><input id="modfiyTripId" name="modfiyTripId" type="text" hidden></td>
+							</tr>
+						</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" 
+						data-dismiss="modal">取消</button>
+					<input type="submit" class="btn btn-info" value="繼續" />
+					
+				</div>
+				</form>
+			</div>
+		</div>
+	</div>		
+		
 <script src="${pageContext.request.contextPath}/js/bootbox.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 <script>
 	var var_map;
 	var var_location = new google.maps.LatLng(23.973299, 120.978398);
@@ -250,15 +300,7 @@ border-collapse:collapse;
 						"<span id='tripName' hidden>"+value.tripName+"</span>"+
 						"<span id='startDate' hidden>"+value.startDate+"</span>"+
 						"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
-						"</div></div>"
-						
-						+"<form id ='modify"+value.tripId+"' action='<c:url value='/trip/modifyTripDetail.jsp'/>' method='POST'>"
-				        +"<table><tr>"
-				        +"<td><input  name='tripId' type='text' hidden></td>"
-				        +"<td><input  name='tripName' type='text' hidden></td>"
-				        +"<td><input  name='totalDay' type='text' hidden></td>"
-				        +"<td><input  name='startDate' type='text' hidden></td>"
-			 			+"</tr></table></form>");
+						"</div></div>");
 			 	//count++;
 			 });	
 		 }
@@ -276,15 +318,37 @@ border-collapse:collapse;
 			console.log(startDate);
 		 console.log("Modify");
 		 //console.log($(this).attr("id"));
-		 $('#'+$(this).attr("id")+' input[name="tripId"]').val(tripId);
-		 $('#'+$(this).attr("id")+' input[name="tripName"]').val(tripName);
-		 $('#'+$(this).attr("id")+' input[name="totalDay"]').val(totalDay);
-		 $('#'+$(this).attr("id")+' input[name="startDate"]').val(startDate);
-		 
-		 $('#'+$(this).attr("id")+' #modify'+$(this).attr("id")).submit();
+		
+		 $("#modifytripName").val(tripName);
+		 var transferDay = new Date(startDate);
+		 var setDay = transferDay.getFullYear()+"/"+(transferDay.getMonth()+1)+"/"+padLeft(transferDay.getDate(),2)
+		 $("#modfiyTripId").val(tripId);
+		 $("#totalDays").val(totalDay);
+		 $("#modifyDate").val(setDay);
+		 $('#modifyTripModal').modal('show');
+		 //$('#'+$(this).attr("id")+' #modify'+$(this).attr("id")).submit();
 		 e.stopPropagation();
 	 });
+	 //add 0 on str left side when the str is not enough Double-digit
+	 function padLeft(str, len) {
+		    str = '' + str;
+		    if (str.length >= len) {
+		        return str;
+		    } else {
+		        return padLeft("0" + str, len);
+		    }
+		}
 	 
+		// trip related
+	 jQuery('#modifyDate').datetimepicker({
+	  format:'Y/m/d',
+	  startDate:0,
+      minDate:0,
+	  closeOnDateSelect:true,
+	  onShow:function( ct ){
+	  },
+	  timepicker:false
+ });
 	 $("#showtrip").on("click",".delete", function(e) {
 		 e.stopPropagation();
 		 console.log("Delete");
