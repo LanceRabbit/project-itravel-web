@@ -287,7 +287,7 @@ height:330px;
 								<div class="col-md-3">
 									<div class="input-group" id="queryCityGroup" data-toggle="popover"
 										data-placement="top" data-content="請選擇縣市">
-										<input id="queryCity" name="city" type="text" placeholder="縣市"
+										<input id="queryCity" name="city" type="text" placeholder="全部縣市"
 											class="form-control" disabled>
 										<div class="input-group-btn" id="queryCityIdMenu">
 											<button type="button" class="btn btn-default dropdown-toggle"
@@ -865,7 +865,7 @@ height:330px;
 	
 	function initElements() {
 		// populate city ids
-		var cities = [ "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
+		var cities = [ "全部縣市", "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
 				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
 				"澎湖", "金門", "馬祖" ];
 		jQuey.each(cities, function(index, value) {
