@@ -77,6 +77,8 @@ public class TripDetailServlet extends HttpServlet {
 						.getSpotName());
 				jsonDetail.put("spotAddress", details.getSpotDetail()
 						.getAddress());
+				jsonDetail.put("Lat", details.getSpotDetail().getLatitude());
+				jsonDetail.put("Lng", details.getSpotDetail().getLongitude());
 				jsonDetail.put("stayTime", details.getStayTime());
 				jsonTrips.put(jsonDetail);
 			}
