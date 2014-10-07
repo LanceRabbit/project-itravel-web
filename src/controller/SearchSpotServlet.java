@@ -81,6 +81,7 @@ public class SearchSpotServlet extends HttpServlet {
 				jsonSpot.put("spotId", spot.getSpotId());
 				jsonSpot.put("spotName", spot.getSpotName());
 				jsonSpot.put("spotIntro", spot.getSpotIntro());
+				jsonSpot.put("Leader", spot.getLeader());
 				Integer likeCount = null;
 				if(spot.getLikeCount()==null){
 					likeCount=0;
