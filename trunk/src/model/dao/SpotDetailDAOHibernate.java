@@ -7,6 +7,7 @@ import model.Account;
 import model.SpotDetail;
 import model.SpotDetailDAO;
 import model.Trip;
+import model.service.SearchSpotService;
 import model.util.HibernateUtil;
 
 import org.hibernate.Query;
@@ -16,8 +17,7 @@ import org.hibernate.Transaction;
 
 public class SpotDetailDAOHibernate implements SpotDetailDAO {
 	private SessionFactory sessionFactory = null;
-	private static final int SPOTS_PER_PAGE = 4; 
-	
+		
 	public SpotDetail insert(SpotDetail spot) {
 		sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = this.sessionFactory.getCurrentSession();
@@ -137,8 +137,8 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		try {
 			tx = session.beginTransaction();
 			Query query = session.createQuery("FROM SpotDetail spot ORDER BY spot.creationTime DESC");
-			query.setFirstResult((pageNo-1)*SPOTS_PER_PAGE+0);
-			query.setMaxResults(SPOTS_PER_PAGE);
+			query.setFirstResult((pageNo-1)*SearchSpotService.SPOTS_PER_PAGE+0);
+			query.setMaxResults(SearchSpotService.SPOTS_PER_PAGE);
 			for(Object o : query.list()) {
 				spots.add((SpotDetail)o);
 			}
@@ -218,11 +218,12 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		
 		try {
 			tx = session.beginTransaction();
+			
 			Query query = session.createQuery(queryStr);
 			if(pageNo > 0) {
-				System.out.println("page no : " + pageNo);
-				query.setFirstResult((pageNo-1)*SPOTS_PER_PAGE+0);
-				query.setMaxResults(SPOTS_PER_PAGE);
+				//System.out.println("selectByHQL : page no : " + pageNo);
+				query.setFirstResult((pageNo-1)*SearchSpotService.SPOTS_PER_PAGE+0);
+				query.setMaxResults(SearchSpotService.SPOTS_PER_PAGE);
 			}
 			
 			for (Object o : query.list()) {
@@ -289,9 +290,10 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 //			System.out.println(spot.toString());
 //		}
 		
-		String query = "FROM SpotDetail spot WHERE spot.spotName LIKE '%蘭%' ORDER BY spot.creationTime DESC";
+		String query = "FROM SpotDetail spot ORDER BY spot.creationTime DESC";
+		//String query = "FROM SpotDetail spot WHERE spot.spotName LIKE '%蘭%' ORDER BY spot.creationTime DESC";
 		SpotDetailDAOHibernate hibernateDAO = new SpotDetailDAOHibernate();
-		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 1);
+		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 2);
 		if(list != null) {
 			for (SpotDetail o : list) {
 				System.out.println(o.toString());
