@@ -13,15 +13,19 @@
 <link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
 
 <style type="text/css">
-p {/*用於內文   多行文字溢出用...取代*/
+body {
+	padding: 20px;
+}
+.fixedHeight { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
-	text-overflow: ellipsis; display : -webkit-box;
+	text-overflow: ellipsis;
+	display: -webkit-box;
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 }
 
-h4 {/*用於標題   單行文字溢出用...取代*/
+h4 { /*用於標題   單行文字溢出用...取代*/
 	white-space: nowrap;
 	width: 100%; /* IE6 需要定义宽度 */
 	overflow: hidden;
@@ -29,22 +33,11 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
 
-#social:hover {
-	-webkit-transform: scale(1.1);
-	-moz-transform: scale(1.1);
-	-o-transform: scale(1.1);
-}
+.col-xs-3{
+width:220px;
+height:330px;
 
-#social {
-	-webkit-transform: scale(0.8);
-	/* Browser Variations: */
-	-moz-transform: scale(0.8);
-	-o-transform: scale(0.8);
-	-webkit-transition-duration: 0.5s;
-	-moz-transition-duration: 0.5s;
-	-o-transition-duration: 0.5s;
 }
-
 
 .queryItemScrollable {
     height: auto;
