@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -10,7 +10,9 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Collect</title>
 <style type="text/css">
-
+body {
+	padding: 20px;
+}
 p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -20,12 +22,6 @@ p { /*用於內文   多行文字溢出用...取代*/
 	display: -webkit-box;
 }
 
-
-.col-xs-3{
-width:220px;
-height:330px;
-
-}
 h4 { /*用於標題   單行文字溢出用...取代*/
 	white-space: nowrap;
 	width: 100%; /* IE6 需要定义宽度 */
@@ -33,7 +29,12 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
-/*移動到上方放大*/
+.col-xs-3{
+width:220px;
+height:330px;
+
+}
+
 .thumbnail {
     margin: 10px 10px 10px 10px;
     -webkit-transform: scale(1, 1);
@@ -45,43 +46,46 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 
 .thumbnail:hover {
 	cursor: pointer;
-	-webkit-transform: scale(1.1, 1.1);
-    -ms-transform: scale(1.1, 1.1);
-    transform: scale(1.1, 1.1);
+	-webkit-transform: scale(1.2, 1.2);
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
     transition-duration: 0.3s;
     -webkit-transition-duration: 0.3s; /* Safari */
     box-shadow: 10px 10px 5px #888888;
     z-index: 1;
     }
-
-img { 
-wudth:200px;
-height:200px;
-} 
 </style>
 </head>
-
-
 <body>
-<!-- Page Content -->
-	<jsp:include page="/fragment/Top.jsp"/>
-	<!-- Page Content -->
-	<div class="container">		
-			<h4 style='text-align:center'>我收藏的景點</h4>
-			<div class="row" id="listDetails">
-
-			</div>
+	<jsp:include page="/fragment/Top.jsp" />
+	<div class="container">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#MyCollectSpot" data-toggle="tab">收藏景點</a></li>
+			<li class=""><a href="#MyCollectTrip" data-toggle="tab">收藏行程</a></li>
+		</ul>		
 		
-	</div>
-	
-		<div class="container">		
-			<h4 style='text-align:center'>我收藏的行程</h4>
-			<div class="row" id="TriplistDetails">
-
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade active in" id="MyCollectSpot">
+				<br>								
+					<div class="col-sm-12">
+						<p></p>
+						<div class="row" id="listDetails">
+						</div>
+					</div>
+					
 			</div>
-		
+				
+			<div class="tab-pane fade" id="MyCollectTrip">
+				<br>	
+					<div class="col-sm-12">
+						<p></p>
+						<div class="row" id="TriplistDetails">
+						</div>
+					</div>
+			</div>
+		</div>
 	</div>
-	
+
 	
 	
 	<jsp:include page="/fragment/bottom.jsp" />
@@ -99,13 +103,9 @@ height:200px;
 							SpotId:id },								
 					success : function(data) {
 							if(data){
-								//jQuery('#listDetails').empty();
-								console.log("刪除成功");
-								location.reload();
-							
-								/*
-								var count = 0;
+								jQuery('#listDetails').empty();
 								
+								var count = 0;
 								jQuery.ajax({
 									url : '<c:url value='/controller/MyCollectServlet' />',
 									type : "GET",
@@ -132,16 +132,10 @@ height:200px;
 										}
 									}
 								});
-								*/
 								
-							}else{
-								console.log("Error Collect delet");
 							}		
-					}
-		
+					}		
 		});
-		
-		
 		
 	}
 	
@@ -158,9 +152,7 @@ height:200px;
 					success : function(data) {
 							if(data){
 								jQuery('#TriplistDetails').empty();
-								console.log("刪除成功");
-								location.reload();
-								/*
+								
 								var i = 0;
 								jQuery.ajax({
 									url : '<c:url value='/controller/MyCollectTripServlet' />',
@@ -189,20 +181,14 @@ height:200px;
 										}
 									}
 								});					
-					*/
-							}else{
-								console.log("Error Collect delet");
+					
 							}		
 					}		
 		});
 		
-		
-		
 	}
-	
-	
 	</script>
-	<script type="text/javascript">
+<script type="text/javascript">
 		jQuery(document).ready(	function() {
 											
 							var count = 0;
@@ -266,6 +252,5 @@ height:200px;
 					
 						});
 	</script>
-	
 </body>
 </html>
