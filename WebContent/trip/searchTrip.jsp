@@ -345,6 +345,14 @@ border-collapse:collapse;
 	var var_search_marker;
 	var var_list = [];
 	google.maps.event.addDomListener(window, 'load', search_map_init);
+	
+	
+	//start of modal google map
+	$('#tripmodals').on('shown.bs.modal', function() {
+		google.maps.event.trigger(var_search_map, "resize");
+		var_search_map.setCenter(var_search_location);
+	});
+	
 	function search_map_init() {
 		var_list = [];
 		var var_search_mapoptions = {
@@ -389,71 +397,6 @@ border-collapse:collapse;
 		}
 		var_search_map.fitBounds(bounds);
 	}
-	
-	function alterTripGetAddressMarkerByAddr(address){	
-		console.log("googleMap gogogog="+address);
-		
-		
-		
-		 //重新定位地圖位置與標記點位置
-		 //address = jQuery("#spotName").val();
-		 geocoder = new google.maps.Geocoder();
-		 geocoder.geocode({'address':address},function (results,status) {
-				if(status==google.maps.GeocoderStatus.OK) 
-				{
-				   //console.log(results[0].geometry.location);
-				   LatLng = results[0].geometry.location;
-				   var_search_location = LatLng;
-				   var_list.push(LatLng);
-				   console.log("alter---var_list==="+var_list);
-				   //var_search_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
-				   //var_search_marker.setPosition(LatLng);	//將標記點定位到查詢結果
-				   
-				   //var_search_marker.setTitle(address);	//重新設定標記點的title
-					var var_search_marker = new google.maps.Marker(
-							{
-								position : var_search_location,
-								map : var_search_map,
-								title : address,
-								maxWidth : 200,
-								maxHeight : 200
-							});
-					google.maps.event.addListener(var_search_marker, 'click', function() {
-						console.log("spot marker clicked");
-						//spot_infowindow.open(alterspot_map, alterspot_marker);
-						
-						LatLng = var_search_marker.getPosition();
-						var_search_location = LatLng;
-						geocoder.geocode({'latLng': LatLng}, function(results, status) {
-					   		if (status == google.maps.GeocoderStatus.OK) {
-						        if (results[1]) {
-						        	address = results[1].formatted_address;
-						        	var_search_marker.setTitle(address);	//重新設定標記點的title
-						        	//jQuery('#alterSpotAddress').val(address);
-						        	//jQuery('#alterSpotAddress').focus();
-						        }
-						    }else 
-						      	console.log("Geocoder failed due to: " + status);
-					   });
-					});
-				   
-				   
-				  	   
-				} // end of if(status==google.maps.GeocoderStatus.OK) 
-			 }// end of function
-		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
-	  }	
-	
-	
-	//start of modal google map
-	$('#tripmodals').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_search_map, "resize");
-		var_search_map.setCenter(var_search_location);
-	});
-
-
-
-
 
 	//根據 天數去做搜尋,若click同一個欄位則不執行搜尋
 	$("#dayMenu .dropdown-menu li").click(function(){
@@ -579,6 +522,7 @@ border-collapse:collapse;
 	 });
 	 
 	$("#listTrips").on("click",".temp", function() {
+		search_map_init();
 		var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
 		var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
 		var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
@@ -600,7 +544,6 @@ border-collapse:collapse;
 				'</h4>');
 		//based on Trip Day to create Trip Details
 		for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
-			 search_map_init();
 			$('#mytab').append(
 					$('<li><a href="#day' 
 							+ dayNum 
@@ -658,13 +601,14 @@ border-collapse:collapse;
 								    	+'</div><')
 							) ;
 							//alterTripGetAddressMarkerByAddr(value.spotAddress);
-							var_list.push(value.spotAddress);
+							//var_list.push(value.spotAddress);
 						   //var_search_map.setCenter(LatLng);		//將地圖中心定位到查詢結果
 						   //var_search_marker.setPosition(LatLng);	//將標記點定位到查詢結果
 						   
 						   //var_search_marker.setTitle(address);	//重新設定標記點的title
-											   
+							console.log("spotAddress==="+value.spotAddress);				   
 						   	var_search_location = new google.maps.LatLng(value.Lat,value.Lng);
+						   	console.log("var_search_location==="+var_search_location);	
 							var var_search_marker = new google.maps.Marker(
 									{
 										position : var_search_location,
@@ -699,7 +643,7 @@ border-collapse:collapse;
 				 }
 			 });//ajax
 		}//for loop
-		  console.log("var_list==="+var_list);
+		  //console.log("var_list==="+var_list);
 		//console.log("var_list="+var_list.length);
 		//adjustZoom(var_list);
 		$('#mytab a:first').tab('show');
