@@ -361,7 +361,6 @@ height:330px;
 	</div>
 	
 	<div class="row" style="margin-top: 40px;text-align: center;" id="pages">
-    	<ul id="pagination" class="display: inline-block pagination-sm" ></ul>
     </div>
  </div>
 <jsp:include page="/fragment/bottom.jsp" />
@@ -1004,6 +1003,9 @@ height:330px;
 			//console.log("total page count : " + totalPageCount);
 			// pagination
 			if(redrawIndex == true) {
+				jQuery("#pages").empty();
+				jQuery("#pages").append("<ul id='pagination' class='pagination-sm' ></ul>");
+				
 				jQuery('#pagination').twbsPagination({
 			        totalPages: totalPageCount,
 			        visiblePages: 5,
