@@ -101,7 +101,9 @@ width: 300px;
 		        </li>
 		    </ul>
 		    <div id="pageContent" class="tab-content scrollable">
-		        <div class="tab-pane active" id="contact_1"></div>
+		       	<div class="tab-pane active" id="contact_1">
+		       	<ul id="sortable" class="sortable grid"></ul>
+		       	</div>
 		    </div>
 		
 		</div>
@@ -209,6 +211,7 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.dynatable.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.sortable.min.js"></script>
 <script>
 
 var currentDiv = "#contact_1";
@@ -223,7 +226,7 @@ jQuery(document).ready(function() {
 		//console.log(index);
 		var tabId = 'contact_' + index;
 	    $("#pageTab li:last").before('<li><a href="#contact_' + index + '">Day'+index+'</a> <span> x </span></li>');
-	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"><ul id="sortable" class="sortable"></ul></div>');
 	    $('#pageTab li:nth-child(' + index + ') a').click();
 		if ($("#pageTab").children().length>5) {
 		    	$('#pageTab .add-contact').hide();
@@ -247,7 +250,7 @@ jQuery(document).ready(function() {
 	    var id = $("#pageTab").children().length; //think about it ;)
 		var tabId = 'contact_' + id;
 	    $(this).closest('li').before('<li><a href="#contact_' + id + '">Day'+id+'</a> <span> x </span></li>');
-	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"></div>');
+	    $('#pageContent').append('<div class="tab-pane" id="' + tabId + '"><ul class="sortable"></ul></div>');
 	    $('#pageTab li:nth-child(' + id + ') a').click();
 		if ($("#pageTab").children().length>5) {
 		    	$('#pageTab .add-contact').hide();
@@ -263,8 +266,6 @@ jQuery(document).ready(function() {
 		//$("#tripForm").submit();
 		var noError = 0 ;
 		var info = {};
-		console.log();
-		console.log();
 		var spotInfo = [];
 		var listSpot = {};
 		var byDay = [];
@@ -275,7 +276,7 @@ jQuery(document).ready(function() {
 			byDay = [];
 			$('#contact_'+(index+1)).children().length;
 			//console.log("#contact_"+i+'='+$('#contact_'+i).children().length);
-			$('#contact_'+(index+1)+'> div').each(function(){
+			$('#contact_'+(index+1)+'> ul > li > div').each(function(){
 				 times += parseInt($(this).find("input").val());
 				 //collect spot info
 				 listSpot = {};
@@ -306,7 +307,7 @@ jQuery(document).ready(function() {
 			info.totalDay = tempDay;
 			info.spot=spotInfo;
 			console.log(info);
- 	  		$.ajax({
+ 	  		 $.ajax({
 				type : "POST",
 				 dataType:"json", //xml,text
 				 async: false,
@@ -327,7 +328,7 @@ jQuery(document).ready(function() {
 					});
 				}
 
-			}); 
+			});  
 		}
 	});
 
@@ -692,14 +693,14 @@ jQuery(document).ready(	function() {
 	function setEventOnSpan (setDiv,value){
 		
 		$(setDiv+" #"+value.spotId).on('click','span',function(){
-
+			//$(this).parent().parent().parent().parent().attr('id')
 			//console.log("AAAA="+$(this).attr("id"));
 			//console.log(currentDiv);
 			
 			var flag = 0;
 			//----------判斷左側是否有加入過~~~該圖片
-			$(currentDiv+" > div").each(function(){
-				//console.log("verfiy="+$(this).attr("id"));
+			$(currentDiv+" > ul > li > div").each(function(){
+				console.log("verfiy="+$(this).attr('id'));
 				if($(this).attr('id') == value.spotId){						
 					flag++;
 //					alert("id相同"+"; flag:"+flag)
@@ -737,8 +738,8 @@ jQuery(document).ready(	function() {
 		});
 	}
 	function createSportObj (value,sportId){
-		$(currentDiv).append(
-				"<div id='"+value.spotId+"'class='col-xs-12'>"
+		$(currentDiv+' > ul').append(
+				"<li ><div style='margin-top: 10px;' id='"+value.spotId+"'class='col-xs-12'>"
 				+"<div class='row'><div class='col-xs-6'>"
 				+"<div class='thumbnail'><img  src='"+value.spotThumbnail+"' alt=''></div>"
 				+"</div><div class='col-xs-6'>"
@@ -750,8 +751,9 @@ jQuery(document).ready(	function() {
 
 				+ "<input id='setTime"+value.spotId+"' type='text' value='60'>"
 				+ "</div></div></div>"
-				+ "</div></div>"
+				+ "</div></div></li>"
 		);
+	    $(".sortable").sortable();
 		$(currentDiv+" #setTime"+value.spotId).TouchSpin({
             min: 30,
             max: 420,

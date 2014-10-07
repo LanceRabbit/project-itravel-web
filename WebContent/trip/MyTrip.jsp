@@ -282,33 +282,34 @@ border-collapse:collapse;
 		 }
 	 });  //--ajax
 
-		var var_map;
-		var var_location = new google.maps.LatLng(23.973299, 120.978398);
-		var var_marker;
+		var var_list = [];
+		var var_my_trip_map;
+		var var_my_trip_location = new google.maps.LatLng(23.973299, 120.978398);
+		var var_my_trip_marker;
 
-		google.maps.event.addDomListener(window, 'load', map_init);
+		google.maps.event.addDomListener(window, 'load', my_trip_map_init);
 
 		//start of modal google map
 		$('#tripmodals').on('shown.bs.modal', function() {
-			google.maps.event.trigger(var_map, "resize");
-			var_map.setCenter(var_location);
+			google.maps.event.trigger(var_my_trip_map, "resize");
+			var_my_trip_map.setCenter(var_my_trip_location);
 		});
 
 
 		
-		function map_init() {
+		function my_trip_map_init() {
 	
-			var var_mapoptions = {
-				center : var_location,
-				zoom : 14,
+			var var_my_trip_mapoptions = {
+				center : var_my_trip_location,
+				zoom : 8,
 				mapTypeId : google.maps.MapTypeId.ROADMAP,
 				mapTypeControl : false,
 				panControl : false,
 				rotateControl : false,
 				streetViewControl : false,
 			};
-			var_map = new google.maps.Map(document
-					.getElementById("my-trip-map-container"), var_mapoptions);
+			var_my_trip_map = new google.maps.Map(document
+					.getElementById("my-trip-map-container"), var_my_trip_mapoptions);
 		}
 	
 
@@ -399,6 +400,7 @@ border-collapse:collapse;
 	 });
 	 
 	 $("#showtrip").on("click",".temp", function() {
+		 my_trip_map_init();
 		var tripId = $("#"+($(this).parent().parent().parent().attr("id"))+" span:first").text();
 		var totalDay =$("#"+($(this).parent().parent().parent().attr("id"))+" span:last").text();
 		var tripName = $("#"+($(this).parent().parent().parent().attr("id"))+" span:eq(1)").text();
@@ -477,6 +479,36 @@ border-collapse:collapse;
 								        +'</div></div>'
 								    	+'</div><')
 							) ;
+								
+							
+								var_my_trip_location = new google.maps.LatLng(value.Lat,value.Lng)
+								var_my_trip_marker = new google.maps.Marker({
+												position : var_my_trip_location,
+												map : var_my_trip_map,
+												title : value.spotName,
+												maxWidth : 200,
+												maxHeight : 200
+											});
+								google.maps.event.addListener(var_my_trip_marker, 'click', function() {
+									console.log("spot marker clicked");
+									//spot_infowindow.open(alterspot_map, alterspot_marker);
+									
+									LatLng = var_my_trip_marker.getPosition();
+									var_my_trip_location = LatLng;
+									geocoder.geocode({'latLng': LatLng}, function(results, status) {
+								   		if (status == google.maps.GeocoderStatus.OK) {
+									        if (results[1]) {
+									        	address = results[1].formatted_address;
+									        	var_my_trip_marker.setTitle(address);	//重新設定標記點的title
+									        	//jQuery('#alterSpotAddress').val(address);
+									        	//jQuery('#alterSpotAddress').focus();
+									        }
+									    }else 
+									      	console.log("Geocoder failed due to: " + status);
+								   	});
+								});
+			
+								
 						    count++;
 							$('#day' + dayNum).tab('show');	 
 					 });//.each	
