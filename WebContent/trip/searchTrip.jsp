@@ -458,7 +458,7 @@ border-collapse:collapse;
 				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
 				+"<img class='temp' src='<c:url value='/controller/TripImageServlet?id="
 				+value.tripId+"'/>'></a><div ><h5>行程天數:"
-				+value.totalDay+"</h5></div>"
+				+value.totalDay+"</h5><h5>遊玩日期:"+value.startDate+"</h5></div>"
 				+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
 	 	
 	 	jQuery.ajax({
@@ -579,8 +579,8 @@ border-collapse:collapse;
 												+'</div><div class="clearfix visible-xs-block"></div>'
 												+'<div class="col-xs-6 " >'
 													+'<div class="title"><label>'+value.spotName+'</label></div>'
-							        				+'<div class="title"><label>'+value.spotAddress+'</label></div>'
-							       			 		+'<div class="title"><label>'+value.stayTime+'</label></div>'
+							        				//+'<div class="title"><label>'+value.spotAddress+'</label></div>'
+							       			 		+'<div class="title"><label>停留時間:'+value.stayTime+'分</label></div>'
 						        				+'</div>'
 							       	+'</div>'
 							      +'</div>')
@@ -595,8 +595,8 @@ border-collapse:collapse;
 										+'</div></div><div class="clearfix visible-xs-block"></div>'
 										+'<div class="col-xs-6 " >'
 										+'<div class="title"><label>'+value.spotName+'</label></div>'
-								        +'<div class="title"><label>'+value.spotAddress+'</label></div>'
-								        +'<div class="title"><label>'+value.stayTime+'</label></div>'
+								        //+'<div class="title"><label>'+value.spotAddress+'</label></div>'
+								        +'<div class="title"><label>停留時間:'+value.stayTime+'分</label></div>'
 								        +'</div></div>'
 								    	+'</div><')
 							) ;
