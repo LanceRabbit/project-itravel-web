@@ -25,7 +25,7 @@ import org.json.JSONObject;
 public class FileuploaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private void process(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("process called");		
+		//System.out.println("process called");		
 		
 		String accountId = null;
     	Account user = (Account)request.getSession().getAttribute("user");
@@ -83,12 +83,12 @@ public class FileuploaderServlet extends HttpServlet {
 	}
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doGet() called");
+		//System.out.println("doGet() called");
 		process(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("doPost() called");
+		//System.out.println("doPost() called");
 		process(request, response);		
 	}
 }

@@ -11,6 +11,7 @@ public class SpotInfo implements java.io.Serializable {
 
 	//private String accountId;
 	//private Account account;
+	private String spotId;
 	private String creater;
 	private String leader;
 	
@@ -36,6 +37,7 @@ public class SpotInfo implements java.io.Serializable {
 	}
 	
 	public SpotInfo(SpotDetail spotDetail, String viewer, String webAppURL, String deployDir) {
+		spotId = spotDetail.getSpotId();
 		creater = spotDetail.getAccount().getNickname();
 		leader = spotDetail.getLeader();
 		spotName = spotDetail.getSpotName();
@@ -87,6 +89,15 @@ public class SpotInfo implements java.io.Serializable {
 	}
 	
 	// getter and setter
+	public String getSpotId() {
+		return spotId;
+	}
+
+	public void setSpotId(String spotId) {
+		this.spotId = spotId;
+	}
+
+	
 	public String getCreater() {
 		return creater;
 	}

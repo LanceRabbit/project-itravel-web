@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -24,13 +26,13 @@ import model.util.ImageIOUtil;
 public class AlterSpotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private void process(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("updating spot info.....");
+	private void process(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		//System.out.println("updating spot info.....");
 		
-		/*
 		request.setCharacterEncoding("UTF-8");
-    	System.out.println("printParams......");
-    	String spotName = request.getParameter("spotName").trim(); System.out.println("spotName : " + spotName);
+    	
+		String spotId = request.getParameter("spotId").trim(); System.out.println("spotId : " + spotId);
+    	String spotName = request.getParameter("alterSpotName").trim(); System.out.println("spotName : " + spotName);
     	String city = request.getParameter("dupCity").trim(); System.out.println("city : " + city);
     	System.out.println("cityMap : " + ConstantsUtil.getCityMap().get(city));
     	Integer cityId = ConstantsUtil.getCityMap().get(city); System.out.println("cityId : " + cityId);
@@ -38,14 +40,14 @@ public class AlterSpotServlet extends HttpServlet {
     	Integer categoryId = ConstantsUtil.getCategoryMap().get(category); System.out.println("categoryId : " + categoryId);
     	String subcategory = request.getParameter("dupSubcategory").trim(); System.out.println("subcategory : " + subcategory); 	
     	String subcategoryId = ConstantsUtil.getSubcategoryMap().get(subcategory); System.out.println("subcategoryId : " + subcategoryId);
-    	String address = request.getParameter("address").trim(); System.out.println("address : " + address);
-    	String phone = request.getParameter("phone").trim(); System.out.println("phone : " + phone);
-    	String intro = request.getParameter("intro").trim(); System.out.println("intro : " + intro);
-    	String img1 = request.getParameter("imagePreview_zone_1").trim(); System.out.println("img1 : " + img1);
-    	String img2 = request.getParameter("imagePreview_zone_2").trim(); System.out.println("img2 : " + img2);
-    	String img3 = request.getParameter("imagePreview_zone_3").trim(); System.out.println("img3 : " + img3);
-    	String img4 = request.getParameter("imagePreview_zone_4").trim(); System.out.println("img4 : " + img4);
-    	String img5 = request.getParameter("imagePreview_zone_5").trim(); System.out.println("img5 : " + img5);
+    	String address = request.getParameter("alterSpotAddress").trim(); System.out.println("address : " + address);
+    	String phone = request.getParameter("alterSpotPhone").trim(); System.out.println("phone : " + phone);
+    	String intro = request.getParameter("alterSpotIntro").trim(); System.out.println("intro : " + intro);
+    	String img1 = request.getParameter("alterSpotImagePreview_zone_1").trim(); System.out.println("img1 : " + img1);
+    	String img2 = request.getParameter("alterSpotImagePreview_zone_2").trim(); System.out.println("img2 : " + img2);
+    	String img3 = request.getParameter("alterSpotImagePreview_zone_3").trim(); System.out.println("img3 : " + img3);
+    	String img4 = request.getParameter("alterSpotImagePreview_zone_4").trim(); System.out.println("img4 : " + img4);
+    	String img5 = request.getParameter("alterSpotImagePreview_zone_5").trim(); System.out.println("img5 : " + img5);
     	List<String> imgs = new ArrayList<String>();
     	imgs.add(img1);
     	imgs.add(img2);
@@ -65,7 +67,7 @@ public class AlterSpotServlet extends HttpServlet {
     	if(user!= null) {
     		accountId = user.getAccountId();
     		if(user.getAccountLevel() == 2) 
-    			spotOwner = request.getParameter("spotOwner").trim(); System.out.println("spotOwner : " + spotOwner);
+    			spotOwner = request.getParameter("alterSpotOwner").trim(); System.out.println("spotOwner : " + spotOwner);
     	}
 
     	// temporarily
@@ -77,26 +79,43 @@ public class AlterSpotServlet extends HttpServlet {
     			longitude, latitude, intro, 0,
     			categoryId, subcategoryId, "NEW", null, null, null, null, null,
     			null,null, null);
+    	spot.setSpotId(spotId);
     	
     	SpotDetailDAO spotDeailDAO = new SpotDetailDAOHibernate();
-    	spotDeailDAO.insert(spot);
+    	spot = spotDeailDAO.update(spot);
     	
     	SpotImgDAO spotImgDAO =  new SpotImgDAOHibernate();
+    	spotImgDAO.deleteBySpotId(spotId);
+    	
     	String imgPath = request.getServletContext().getRealPath("/") + "images/" + accountId + "/temp/";
     	
     	for(int i = 1; i <=5; i++) {
+    		String path = imgPath;
     		String imgName = imgs.get(i-1);
     		if((imgName == null) || (imgName.equalsIgnoreCase("undefined")))
     			break;
-    				
-    		SpotImg spotImg = new SpotImg(spot.getSpotId(), spot, ImageIOUtil.getImageByFilename(imgPath, imgName),
+    		
+    		String name = imgName;
+    		if(name.startsWith("http")) {
+    			String[] dirs = name.split("/");
+    			name = dirs[dirs.length - 1]; System.out.println("image name : " + name);
+    			
+    			String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
+    			path = request.getServletContext().getRealPath("/") + "images/" + dateDir + "/" + accountId + "/" + spotId + "/";
+    			System.out.println("old image path : " + path);
+    		}
+    		
+    		if((name == null) || (path == null))
+    			break;
+    		
+    		SpotImg spotImg = new SpotImg(spot.getSpotId(), spot, ImageIOUtil.getImageByFilename(path, name),
         			i, "NEW", null);
         	spotImgDAO.insert(spotImg);
     	}
     	
     	response.setCharacterEncoding("UTF-8");
     	response.sendRedirect(request.getContextPath()+"/spot/MySpot.jsp");
-    	*/
+    	
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
