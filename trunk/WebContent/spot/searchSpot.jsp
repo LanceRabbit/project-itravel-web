@@ -358,13 +358,12 @@ height:330px;
 	
 	
 	<div class="row" id="listDetails">
-		</div>	
 	</div>
 	
-	<div id="pages">
+	<div class="row" style="margin-top: 40px;text-align: center;" id="pages">
     	<ul id="pagination" class="display: inline-block pagination-sm" ></ul>
     </div>
-
+ </div>
 <jsp:include page="/fragment/bottom.jsp" />
 <!--  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
 <script src="${pageContext.request.contextPath}/js/jquery.twbsPagination.js"></script>
