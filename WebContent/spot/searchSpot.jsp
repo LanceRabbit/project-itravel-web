@@ -247,7 +247,11 @@ height:330px;
 						</div>
 						<!-- <div class="tab-pane active" id="info"> -->
 
-						<div class="tab-pane itravel-tab" id="region">region...</div>
+						<div class="tab-pane itravel-tab" id="regions">
+							<div id="map_neighborhood" style="width:100%; height:100%;"></div>
+						</div>
+						
+						
 						<div class="tab-pane itravel-tab" id="coupons">
 							<label id="userForCouponsUse" hidden>${user}</label>
 							<div class="row">
@@ -490,6 +494,10 @@ height:330px;
 	var var_location = new google.maps.LatLng(23.973299, 120.978398);
 	var var_marker;
 	
+	// neighborhood related
+	var neighborhood_infowindow = new google.maps.InfoWindow();  
+	var neighborhood_map;
+	
 	var categories = [{"type":"全部分類", "subtype":["全部子分類"]},
 	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
 	                  {"type":"購物", "subtype":["全部子分類", "百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
@@ -702,6 +710,34 @@ height:330px;
 	// switch between tabs
 	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
 		jQuery("#spotInfoModelFooter").hide();
+	});
+	
+	// neighborhood tab
+	jQuery("#regionInfoTab").on("click", function(){
+		
+		var center = new google.maps.LatLng(spotInfo.latitude, spotInfo.longitude); 
+	    var mapOptions = {
+	      zoom: 10,
+	      center: center,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    };
+		
+	    neighborhood_map = new google.maps.Map(document.getElementById("map_neighborhood"), mapOptions);
+	    spot_marker = new google.maps.Marker({
+			
+			position : center,
+			map : neighborhood_map,
+			maxWidth : $("#map_neighborhood").width(),
+			maxHeight : $("#map_neighborhood").height(), 
+			draggable: false,
+		    animation: google.maps.Animation.DROP
+		});
+	    
+	    console.log("spot_marker : " + spot_marker);
+	    
+	    neighborhood_infowindow.setContent(InfoContent());
+	    neighborhood_infowindow.open(neighborhood_map, spot_marker);
+	    
 	});
 	
 	//coupon tab click
@@ -1059,6 +1095,15 @@ height:330px;
 		});
 		
 	}
+	
+	function InfoContent() {
+		 console.log("spot name : " + spotInfo.spotName);
+		 //設定資訊視窗內容要呈現什麼	
+		 var html = "<div>景點：" + spotInfo.spotName + "</div>";
+		 html += "<div>緯度： " + spotInfo.latitude + "</div>";
+		 html += "<div>經度： " + spotInfo.longitude + "</div>";	
+		 return html;
+	  }
 }(jQuery, google));
 </script>
     	
