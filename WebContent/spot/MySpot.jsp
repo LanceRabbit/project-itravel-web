@@ -272,7 +272,7 @@ height:330px;
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-10 col-md-offset-1">
-													<input id="phone" name="phone" type="text" placeholder="電話"
+													<input id="alterSpotPhone" name="alterSpotPhone" type="text" placeholder="電話"
 														class="form-control">
 												</div>
 											</div>
@@ -319,6 +319,14 @@ height:330px;
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script type="text/javascript">
 	// spot related 
+	
+	/*
+	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
+	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
+	                  {"type":"住宿", "subtype":["飯店", "旅舍", "民宿", "營地", "其他"]},
+	                  {"type":"景點", "subtype":["風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
+	                  {"type":"活動", "subtype":["藝文展覽", "親子活動", "競賽活動", "其他"]}];*/
+	                  
 	Dropzone.autoDiscover = false; //Turn off autoDiscover globally to avoid the second self-created dropzone causing an error (need to be refined....)
 	var alterSpotDropzone;
 	var alterspot_zone_index = 1;
@@ -352,8 +360,22 @@ height:330px;
 			
 			// populate the html elements
 			jQuery("#alterSpotCity").val(alterspotInfo.city);
-			jQuery("#alterSpotCategory").val(alterspotInfo.category);
+			
+			// populate category
+			jQuery("#alterSpotCategory").val(alterspotInfo.category); //jQuery("#alterSpotCategoryIdMenu .dropdown-menu li").trigger('click');
 			jQuery("#subalterSpotCategory").val(alterspotInfo.subcategory);
+		
+			jQuery.each(categories, function(index, value){
+				if(categories[index] == alterspotInfo.category) {
+					var subcategories = categories[index].subtype;
+					console.log(subcategories);
+					
+					jQuery.each(subcategories, function(index, value){
+						jQuery("#subalterSpotCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+					});
+				}
+			});
+			
 			jQuery("#alterSpotName").val(alterspotInfo.spotName); jQuery("#alterSpotName").trigger('change');
 			jQuery("#alterSpotAddress").val(alterspotInfo.address);
 			jQuery("#alterSpotPhone").val(alterspotInfo.phone);
@@ -479,15 +501,6 @@ height:330px;
 		var spotName = tokens[1];
 		jQuery("#confirmModalDescription").empty().append("<p id='"+spotId+"'>確認刪除景點"+spotName+"嗎?</p>");
 	}
-	
-
-	
-	/*
-	var categories = [{"type":"美食", "subtype":["餐廳", "小吃", "美食街", "甜品", "其他"]}, 
-	                  {"type":"購物", "subtype":["百貨公司", "大賣場", "個性商店", "路邊攤", "其他"]}, 
-	                  {"type":"住宿", "subtype":["飯店", "旅舍", "民宿", "營地", "其他"]},
-	                  {"type":"景點", "subtype":["風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
-	                  {"type":"活動", "subtype":["藝文展覽", "親子活動", "競賽活動", "其他"]}];*/
 	
 	// config buttons
 	/*
@@ -843,7 +856,7 @@ height:330px;
 					popoverHandler("#alterSpotName", "#alterSpotName");
 				<c:if test="${user.accountLevel == 2}">
 				else if(jQuery("#alterSpotOwner").val().length == 0)
-					popoverHandler("#salterSpotOwner");
+					popoverHandler("#alterSpotOwner");
 				</c:if>
 				else { 
 					// add hidden fields for images into form
@@ -868,7 +881,7 @@ height:330px;
 					content = "<input type='hidden' name='dupCategory' value=' "+jQuery("#alterSpotCategory").val()+"'>";
 					jQuery("#alterSpotHiddens").append(content);
 					
-					content = "<input type='hidden' name='dupSubcategory' value=' "+jQuery("#alterSpotSubcategory").val()+"'>";
+					content = "<input type='hidden' name='dupSubcategory' value=' "+jQuery("#subalterSpotCategory").val()+"'>";
 					jQuery("#alterSpotHiddens").append(content);
 					
 					// add hidden fields for longitude and latitude
@@ -881,6 +894,10 @@ height:330px;
 					content = "<input type='hidden' name='lng' value=' "+lng+"'>";
 					jQuery("#alterSpotHiddens").append(content);
 					content = "<input type='hidden' name='lat' value=' "+lat+"'>";
+					jQuery("#alterSpotHiddens").append(content);
+					// spot id
+					//console.log("spot id : " + alterspotInfo.spotId);
+					content = "<input type='hidden' name='spotId' value=' "+alterspotInfo.spotId+"'>";
 					jQuery("#alterSpotHiddens").append(content);
 					
 					// ready to submit

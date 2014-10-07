@@ -27,7 +27,7 @@ public class AddSpotServlet extends HttpServlet {
     private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {
     	
     	request.setCharacterEncoding("UTF-8");
-    	System.out.println("printParams......");
+    	//System.out.println("printParams......");
     	String spotName = request.getParameter("spotName").trim(); System.out.println("spotName : " + spotName);
     	String city = request.getParameter("dupCity").trim(); System.out.println("city : " + city);
     	System.out.println("cityMap : " + ConstantsUtil.getCityMap().get(city));
@@ -97,12 +97,12 @@ public class AddSpotServlet extends HttpServlet {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doGet() called");
+		//System.out.println(this.getClass().toString() + " : doGet() called");
 		this.printParams(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doPost() called");
+		//System.out.println(this.getClass().toString() + " : doPost() called");
 		this.printParams(request, response);
 	}
 

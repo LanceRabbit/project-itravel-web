@@ -78,7 +78,14 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 				
 			SpotDetail spot = (SpotDetail)session.get(SpotDetail.class, spotId);
 			Set<SpotImg> images = spot.getSpotImgs();
-			images.removeAll((Collection<SpotImg>)images);
+			for(SpotImg image : images) {
+				System.out.println("image id: " + image.getImgId());
+				System.out.println("spot id: " + image.getSpotId());
+				session.delete(image);	
+			}
+			
+			//spot.setSpotImgs(null);
+			//session.update(spot);
 
 			tx.commit();
 		} catch (Exception e) {
@@ -158,30 +165,30 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 
 	public static void main(String[] args) {
 		SpotImgDAOHibernate dao = new SpotImgDAOHibernate();
-		String spotId = "RES14090019";
+//		String spotId = "RES14090019";
+//		
+//		for(int i=0; i<3; i++) {
+//			SpotImg spotImg = new SpotImg();
+//			spotImg.setSpotId(spotId);
+//			spotImg.setSpotImg(ImageIOUtil.getImageByFilename(spotId+"_"+(i+1)));
+//			spotImg.setImgOrder(i+1);
+//			spotImg.setTempImgId("DUMMY");
+//			
+//			dao.insert(spotImg);
+//		}
+//		
+//		SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
+//		SpotDetail spot = spotDetailDAO.selectBySpotId(spotId);
+//		
+//		Set<SpotImg> images = spot.getSpotImgs();
+//		Iterator<SpotImg> it = images.iterator();
+//		
+//		while(it.hasNext()) {
+//			SpotImg image = (SpotImg)it.next();
+//			ImageIOUtil.saveImage(spotId, image.getImgId(), image.getSpotImg());
+//		}
 		
-		for(int i=0; i<3; i++) {
-			SpotImg spotImg = new SpotImg();
-			spotImg.setSpotId(spotId);
-			spotImg.setSpotImg(ImageIOUtil.getImageByFilename(spotId+"_"+(i+1)));
-			spotImg.setImgOrder(i+1);
-			spotImg.setTempImgId("DUMMY");
-			
-			dao.insert(spotImg);
-		}
-		
-		SpotDetailDAOHibernate spotDetailDAO = new SpotDetailDAOHibernate();
-		SpotDetail spot = spotDetailDAO.selectBySpotId(spotId);
-		
-		Set<SpotImg> images = spot.getSpotImgs();
-		Iterator<SpotImg> it = images.iterator();
-		
-		while(it.hasNext()) {
-			SpotImg image = (SpotImg)it.next();
-			ImageIOUtil.saveImage(spotId, image.getImgId(), image.getSpotImg());
-		}
-		
-		//dao.deleteBySpotId("RES14090001");
+		dao.deleteBySpotId("PAR14090001");
 	}
 
 	@Override

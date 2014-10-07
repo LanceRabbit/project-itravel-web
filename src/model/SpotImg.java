@@ -109,7 +109,7 @@ public class SpotImg implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name="IMG_ID")
+	@JoinColumn(name="IMG_ID", updatable = false)
 	public Set<TripDetail> getTripDetails() {
 		return this.tripDetails;
 	}
