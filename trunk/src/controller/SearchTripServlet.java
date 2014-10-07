@@ -89,7 +89,7 @@ public class SearchTripServlet extends HttpServlet {
 				jsonDetail.put("tripLike",likeCount);
 				jsonTrip.put(jsonDetail);
 			}
-			System.out.println("11111111111");
+			System.out.println("searchTripServlet");
 			os.write(jsonTrip.toString().getBytes("UTF-8"));
 
 		} catch (Exception e) {
