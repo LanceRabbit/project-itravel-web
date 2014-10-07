@@ -572,6 +572,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 	// to trigger modal view
 	var selectedSpotId;
 	var spotInfo;
+	
 	jQuery("#listDetails").on("click", ".detail", function(){
 		
 		selectedSpotId = jQuery(this).attr("id");
@@ -903,7 +904,7 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 		//console.log("queryCategory : " + category);
 		var subcategory = jQuey('#subqueryCategory').val();
 		//console.log("subqueryCategory : " + subCategory);
-
+                       
 		jQuey.ajax({
 			type : "POST",
 			url : '<c:url value='/controller/SearchSpot' />',
@@ -917,18 +918,32 @@ h4 {/*用於標題   單行文字溢出用...取代*/
 			//console.log("detail from server....." + data);
 			jQuery('#listDetails').empty();	
 			jQuey.each(data, function(index, value){
-				//console.log("Hello" + index + ":" + value);
-											
-				jQuery('#listDetails').append(
-						"<div class='col-xs-3'><div class='thumbnail'><img src='" +
-						value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#' class='detail' id='"+value.spotId+"'>"
-						+ value.spotName
-						+ "</a></h4>"
-						+"<div class='fixedHeight'>"
-						+ value.spotIntro
-						+"</div>"
-						+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
-				); // end of jQuery
+				//console.log("Hello" + index + ":" + value);		
+				var owner=value.Leader;
+				if(owner==""){						
+					jQuery('#listDetails').append(
+							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
+							value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#' class='detail' id='"+value.spotId+"'>"
+							+ value.spotName
+							+ "</a></h4>"
+							+"<div class='fixedHeight'>"
+							+ value.spotIntro
+							+"</div>"
+							+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
+					); // end of jQuery
+				}else{
+					jQuery('#listDetails').append(
+							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
+							value.spotThumbnail + "' alt=''><div class='caption'><h4><img src='../images/owner1.png' style='width:20px;height:20px;'><a href='#' class='detail' id='"+value.spotId+"'>"
+							+ value.spotName
+							+ "</a></h4>"
+							+"<div class='fixedHeight'>"
+							+ value.spotIntro
+							+"</div>"
+							+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
+					); // end of jQuery
+					
+				}
 				jQuery.ajax({
 					url : '<c:url value='/controller/CheckSpotLikeServlet'/>',
 					type : "GET",
