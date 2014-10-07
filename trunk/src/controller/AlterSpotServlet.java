@@ -20,13 +20,15 @@ import model.dao.SpotImgDAOHibernate;
 import model.util.ConstantsUtil;
 import model.util.ImageIOUtil;
 
-@WebServlet("/controller/AddSpot")
-public class AddSpotServlet extends HttpServlet {
+@WebServlet("/controller/AlterSpot")
+public class AlterSpotServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    private void printParams(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    	
-    	request.setCharacterEncoding("UTF-8");
+	
+	private void process(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("updating spot info.....");
+		
+		/*
+		request.setCharacterEncoding("UTF-8");
     	System.out.println("printParams......");
     	String spotName = request.getParameter("spotName").trim(); System.out.println("spotName : " + spotName);
     	String city = request.getParameter("dupCity").trim(); System.out.println("city : " + city);
@@ -94,16 +96,14 @@ public class AddSpotServlet extends HttpServlet {
     	
     	response.setCharacterEncoding("UTF-8");
     	response.sendRedirect(request.getContextPath()+"/spot/MySpot.jsp");
-    }
-    
+    	*/
+	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doGet() called");
-		this.printParams(request, response);
+		process(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doPost() called");
-		this.printParams(request, response);
+		process(request, response);
 	}
-
 }

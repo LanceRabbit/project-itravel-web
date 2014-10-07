@@ -251,8 +251,11 @@ height:330px;
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
+													<c:if test="${user.accountLevel == 2}">
 													<input id="alterSpotOwner" name="alterSpotOwner" type="text"
-														placeholder="分店負責人" class="form-control">
+														placeholder="分店負責人" class="form-control"
+														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
+													</c:if>	
 												</div>
 											</div>
 										</div>
@@ -355,10 +358,9 @@ height:330px;
 			jQuery("#alterSpotAddress").val(alterspotInfo.address);
 			jQuery("#alterSpotPhone").val(alterspotInfo.phone);
 
-			if(((alterspotInfo.leader != null) && (alterspotInfo.leader.trim().length > 0)))
+			<c:if test="${user.accountLevel == 2}">
 				jQuery("#alterSpotOwner").val(alterspotInfo.leader);
-			else
-				jQuery("#alterSpotOwner").hide();
+			</c:if>
 			
 			jQuery("#alterSpotIntro").val(alterspotInfo.intro);
 			jQuery("#alterSpotModal").modal('show');
@@ -381,8 +383,8 @@ height:330px;
 				}
 				
 				var oImg=document.createElement("img");
-			  	oImg.setAttribute('src', value);
-			  	//oImg.setAttribute('alt', file.name);
+			  	oImg.setAttribute('src', value); //console.log("image src : " + value);
+			  	oImg.setAttribute('alt', value);
 			  	oImg.setAttribute("class", className);
 			  	oImg.setAttribute("style", "max-width:100%; max-height:100%;margin:auto;display:block;");
 			  	
@@ -750,8 +752,8 @@ height:330px;
 				// populate subcategory
 				var subcategories = categories[jQuery(this).index()].subtype;
 				//console.log(subcategories);
-				jQuery("#subalterSpotcategory").attr("placeholder", "子分類");
-				jQuery("#subalterSpotcategory").val("");
+				jQuery("#subalterSpotCategory").attr("placeholder", "子分類");
+				jQuery("#subalterSpotCategory").val("");
 				jQuery("#subalterSpotCategoryIdMenu ul:first").empty();
 				jQuery.each(subcategories, function(index, value){
 					jQuery("#subalterSpotCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
@@ -831,14 +833,18 @@ height:330px;
 				//console.log("saveBtn pressed.....");
 				
 				// check the fields
-				if(jQuery("#alterSpotName").val().length == 0)
-					popoverHandler("#alterSpotName", "#alterSpotName");
-				else if(jQuery("#alterSpotCity").val().length == 0)
+				if(jQuery("#alterSpotCity").val().length == 0)
 					popoverHandler("#alterSpotCityGroup");
 				else if(jQuery("#alterSpotCategory").val().length == 0)
 					popoverHandler("#alterSpotCategoryGroup");
-				else if(jQuery("#subalterSpotcategory").val().length == 0)
-					popoverHandler("#subalterSpotcategoryGroup");
+				else if(jQuery("#subalterSpotCategory").val().length == 0)
+					popoverHandler("#subalterSpotCategoryGroup");
+				else if(jQuery("#alterSpotName").val().length == 0)
+					popoverHandler("#alterSpotName", "#alterSpotName");
+				<c:if test="${user.accountLevel == 2}">
+				else if(jQuery("#alterSpotOwner").val().length == 0)
+					popoverHandler("#salterSpotOwner");
+				</c:if>
 				else { 
 					// add hidden fields for images into form
 					var name;
