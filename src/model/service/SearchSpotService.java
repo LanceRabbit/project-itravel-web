@@ -12,12 +12,16 @@ import model.dao.SpotDetailDAOHibernate;
 import model.util.ConstantsUtil;
 
 public class SearchSpotService {
+	public static final int SPOTS_PER_PAGE = 4;
+	
 	public List<SpotDetail> searchSpotByGeoInfo() {
 		return null;
 	}
 	
-	public List<SpotDetail> searchSpotByConditions(String spotName, String city,
-			String category, String subcategory, int pageNo) {
+	private String getQueryStrByConditions(String spotName, String city,
+			String category, String subcategory){
+		String queryStr = null;
+		
 		Boolean multiConditions = false;
 		List<SpotDetail> result = null;
 		
@@ -62,8 +66,27 @@ public class SearchSpotService {
 			}
 		}
 		
-		String queryStr = query.append(" ORDER BY spot.creationTime DESC").toString();
-		System.out.println("query string : " + queryStr);
+		queryStr = query.append(" ORDER BY spot.creationTime DESC").toString();
+		
+		return queryStr;
+	}
+	
+	public int getTotalPageCountByConditions (String spotName, String city,
+			String category, String subcategory, int pageNo) {
+		
+		String queryStr = getQueryStrByConditions(spotName, city, category, subcategory);
+		
+		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
+		int count = (int)Math.ceil((double)dao.selectByHQL(queryStr).size() / (double)SPOTS_PER_PAGE);
+		System.out.println("total page count : " + count);
+		
+		return count;
+	}
+	
+	public List<SpotDetail> searchSpotByConditions(String spotName, String city,
+			String category, String subcategory, int pageNo) {
+		
+		String queryStr = getQueryStrByConditions(spotName, city, category, subcategory);
 		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
 		
 		if(pageNo <= 0)

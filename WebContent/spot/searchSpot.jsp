@@ -279,8 +279,7 @@ height:330px;
 	<div class="row">
 		<div class="col-md-12">
 			<div class="well well-md">
-				<form class="form-horizontal" method="post" id="infoForm"
-					action='<c:url value="/controller/AddSpot" />'>
+				<form class="form-horizontal" method="post" id="infoForm">
 					<fieldset>
 						<div class="form-group">
 							<div class="row">
@@ -358,12 +357,17 @@ height:330px;
 	</div>
 	
 	
-		<div class="row" id="listDetails">
+	<div class="row" id="listDetails">
 		</div>	
 	</div>
 	
+	<div id="pages">
+    	<ul id="pagination" class="display: inline-block pagination-sm" ></ul>
+    </div>
+
 <jsp:include page="/fragment/bottom.jsp" />
 <!--  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
+<script src="${pageContext.request.contextPath}/js/jquery.twbsPagination.js"></script>
 <script type="text/javascript">
 		function like(id) {
 			//傳入的id是SpotId				
@@ -516,7 +520,7 @@ height:330px;
 		jQuey("#queryCity").val(jQuey(this).text());
 		jQuey("#queryCityIdMenu .dropdown-menu").hide();
 		
-		activeQuery();
+		activeQuery(0, true);
 	}); 
 	
 	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
@@ -543,7 +547,7 @@ height:330px;
 		if (!jQuey('#subqueryCategoryGroup').is(':visible'))
 			jQuey("#subqueryCategoryGroup").show();
 		
-		activeQuery();
+		activeQuery(0, true);
 	});
 	
 	// config subcategory
@@ -559,7 +563,7 @@ height:330px;
 		jQuey("#subqueryCategory").val(jQuey(this).text());
 		jQuey("#subqueryCategoryIdMenu .queryItemScrollable").hide();
 		
-		activeQuery();
+		activeQuery(0, true);
 	});
 	
 	// to trigger modal view
@@ -621,11 +625,11 @@ height:330px;
 	// input field : spot name
 	jQuey('#querySpotName').on("change", function() {
 		
-		activeQuery();
+		activeQuery(0, true);
 	}); 
 	
 	// load data from server
-	activeQuery();
+	activeQuery(0, true);
 	
 	// tabs of spot info modal :
 	// comment-related buttons
@@ -888,7 +892,10 @@ height:330px;
 	var rootPath = window.location.protocol+"//"+window.location.host+
 					":"+window.location.port+"/"
 	*/					
-	function activeQuery() {
+	function activeQuery(pageNo, redrawIndex) {
+		//console.log("activeQuery : page : " + pageNo);
+		//console.log("activeQuery : redrawIndex : " + redrawIndex);	
+		
 		var spotName = jQuey('#querySpotName').val();
 		//console.log("querySpotName : " + spotName);
 		var city = jQuey("#queryCity").val();
@@ -897,21 +904,29 @@ height:330px;
 		//console.log("queryCategory : " + category);
 		var subcategory = jQuey('#subqueryCategory').val();
 		//console.log("subqueryCategory : " + subCategory);
-                       
+        
+		var totalPageCount = 0;
 		jQuey.ajax({
 			type : "POST",
-			url : '<c:url value='/controller/SearchSpot' />',
+			url : '<c:url value='/controller/SearchSpotPaging' />',
 			data : {
 				spotName : spotName,
 				city : city,
 				category : category,
-				subcategory : subcategory
+				subcategory : subcategory,
+				pageNo:pageNo
 			}
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
 			jQuery('#listDetails').empty();	
+			
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);		
+				if(index == 0) {
+					totalPageCount = value.totalPageCount;
+					return;
+				}
+				
 				var owner=value.Leader;
 				if(owner==""){						
 					jQuery('#listDetails').append(
@@ -986,8 +1001,23 @@ height:330px;
 				jQuery('#listDetails').append("</div></div>");
 				
 			});
+			
+			//console.log("total page count : " + totalPageCount);
+			// pagination
+			if(redrawIndex == true) {
+				jQuery('#pagination').twbsPagination({
+			        totalPages: totalPageCount,
+			        visiblePages: 5,
+			        
+			        onPageClick: function (event, page) {
+			        	//console.log("select page : " + page);
+			            jQuery('#page-content').text('Page ' + page);
+			            activeQuery(page, false);
+			        }
+			    });
+			}
 		});
-	}
+	}// end of avtiveQuery
 	
 	function map_init() {
 		//console.log("map_init()");
