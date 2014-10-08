@@ -18,7 +18,32 @@
 .table-hover {
 	
 }
-
+/*
+#hr1{
+    border: 0;
+    height: 1px;
+    background-image:-webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:-moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:-ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+    background-image:-o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+}
+*/
+#hr1 {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #333;
+    text-align: center;
+}
+#hr1:after {
+    content: "新增廣告";
+    display: inline-block;
+    position: relative; 
+    top: -0.7em;  
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
 /*fileupload*/
 </style>
 <title>Store disseminate</title>
@@ -36,20 +61,22 @@
 			<div class="tab-pane fade active in" id="Myadvert">
 				<br>
 				<div class="container">
-					<div class="col-sm-4">
+					<div class="col-sm-1">
 						<button id="btnSpotAd" class="btn btn-primary btn-lg"
 							data-toggle="modal" data-target="#ADModal">
 							<span class="glyphicon glyphicon-plus"></span>
 						</button>
 					</div>
-					<div class="col-sm-8">
-						<p>新增廣告</p>
+					<div class="col-sm-11">
+						
+						<!-- <p>新增廣告</p>  -->
 					</div>
 					<div class="col-sm-12">
-						<hr>
+						<br>
+						<br>
 					</div>
 					<div class="row">
-						<div id="Adlist" class="col-sm-12">
+						<div id="Adlist" class="col-sm-12 col-sm-offset-1">
 							<!--  
     					<ul class="thumbnails" style="list-style:none;">
 					 		<li class="col-sm-8 clearfix">
