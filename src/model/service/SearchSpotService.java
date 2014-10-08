@@ -151,13 +151,17 @@ public class SearchSpotService {
 		return dist;
 	}
 	
-	public List<SpotDetail> getNeighborhood(SpotDetail spot) {
+	public List<SpotDetail> getNeighborhood(String spotId) {
 		List<SpotDetail> neighbors = new ArrayList<SpotDetail>(0);
 		
 		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
+		SpotDetail spot = dao.selectBySpotId(spotId);
 		List<SpotDetail> allSpots = dao.selectAll();
 		
 		for(SpotDetail neighbor : allSpots) {
+//			System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+//			System.out.println(neighbor.toString());
+			
 			if(neighbor.getSpotId().equals(spot.getSpotId())) {
 //				System.out.println("==================================================");
 //				System.out.println("spot id : " + spot.getSpotId());
@@ -172,6 +176,9 @@ public class SearchSpotService {
 //				System.out.println("neighbor id : " + neighbor.getSpotId());
 //				System.out.println("dist : " + dist);
 				neighbors.add(neighbor);
+			} else {
+//				System.out.println("==================================================");
+//				System.out.println("not neighbor spot id : " + neighbor.getSpotId());
 			}
 		}
 		
@@ -188,7 +195,7 @@ public class SearchSpotService {
 				SpotDetail spot = (SpotDetail)o;
 				
 				System.out.println("============================================== " + o.toString() + " : neighbors ==============================================");
-				List<SpotDetail> neighbors = service.getNeighborhood(spot);
+				List<SpotDetail> neighbors = service.getNeighborhood(spot.getSpotId());
 				
 				for(SpotDetail neighbor : neighbors) {
 					System.out.println(neighbor.toString());
