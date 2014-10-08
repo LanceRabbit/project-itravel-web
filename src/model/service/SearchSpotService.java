@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+
 import model.SpotDetail;
 import model.SpotDetailDAO;
 import model.SpotImg;
@@ -11,6 +16,7 @@ import model.SpotInfo;
 import model.dao.SpotDetailDAOHibernate;
 import model.util.ConstantsUtil;
 
+@Path("/spots")
 public class SearchSpotService {
 	public static final int SPOTS_PER_PAGE = 4;
 	
@@ -185,6 +191,29 @@ public class SearchSpotService {
 		return neighbors;
 	}
 	
+	@GET
+	@Path("/{spotId}")
+	@Produces("application/json;charset=utf-8")
+	public SpotInfo getSpotById(@PathParam("spotId") String spotId) {
+		SpotInfo result = null;
+		
+		SpotDetailDAO dao = new SpotDetailDAOHibernate();
+		SpotDetail spot = dao.selectBySpotId(spotId);
+		
+		System.out.println("spot : " + spot.toString());
+		if(spot != null)
+			result = new SpotInfo(spot, null, null, null);
+		
+		return result;
+		//return spot;
+	}
+	
+	@GET
+	@Produces("text/html;charset=utf-8")
+	public String getMessage() {
+		return "<h1>哈囉, RESTful~</h1>";
+	}
+	
 	public static void main(String[] args) {
 		SearchSpotService service = new SearchSpotService();
 		
@@ -206,4 +235,6 @@ public class SearchSpotService {
 			System.out.println("null list....");
 		}
 	}
+	
+	
 }

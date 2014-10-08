@@ -3,9 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 import model.util.ConstantsUtil;
 import model.util.ImageIOUtil;
 
+@XmlRootElement
 public class SpotInfo implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 
