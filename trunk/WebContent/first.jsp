@@ -23,8 +23,17 @@ overflow:hidden;
 
 height:80px;
 }
-
-
+/*
+.img-portfolio {
+margin: 0 auto;
+}
+.img-responsive{
+display: block;
+width: 100% \9;
+max-width: 100%;
+height: auto;
+}
+*/
 p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -264,7 +273,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																	jQuery(
 																			'#rowSpot')
 																			.append(
-																					"<div class='col-xs-3'><div class='thumbnail'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' alt=''><h4><a href='#'>"
+																					"<div class='col-xs-3'><div class='thumbnail'><img class='img-portfolio img-responsive' src='<c:url value='/" + value.spotThumbnailURL+" '/>' alt=''><h4><a href='#'>"
 																							+ value.spotLikeName
 																							+ "</a></h4>"
 																							+ "<p>"
