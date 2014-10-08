@@ -251,7 +251,6 @@ height:330px;
 							<div id="map_neighborhood" style="width:100%; height:100%;"></div>
 						</div>
 						
-						
 						<div class="tab-pane itravel-tab" id="coupons">
 							<label id="userForCouponsUse" hidden>${user}</label>
 							<div class="row">
@@ -497,6 +496,8 @@ height:330px;
 	// neighborhood related
 	var neighborhood_infowindow = new google.maps.InfoWindow();  
 	var neighborhood_map;
+	var neighborMarkers = [];
+	var neighbors = [];
 	
 	var categories = [{"type":"全部分類", "subtype":["全部子分類"]},
 	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
@@ -596,7 +597,7 @@ height:330px;
 			
 			jQuery(".carousel-inner:first").empty();
 			jQuery.each(spotInfo.spotImgs, function(index, value) {
-				console.log("image url : " + value);
+				//console.log("image url : " + value);
 				if(index == 0) {
 					jQuery(".carousel-inner:first").append("<div class='item active'><img src='"
 							+ value
@@ -717,31 +718,52 @@ height:330px;
 		
 		var center = new google.maps.LatLng(spotInfo.latitude, spotInfo.longitude); 
 	    var mapOptions = {
-	      zoom: 10,
+	      zoom: 15,
 	      center: center,
 	      mapTypeId: google.maps.MapTypeId.ROADMAP
 	    };
 		
 	    neighborhood_map = new google.maps.Map(document.getElementById("map_neighborhood"), mapOptions);
-	    spot_marker = new google.maps.Marker({
-			
-			position : center,
-			map : neighborhood_map,
-			maxWidth : $("#map_neighborhood").width(),
-			maxHeight : $("#map_neighborhood").height(), 
-			draggable: false,
-		    animation: google.maps.Animation.DROP
-		});
 	    
-	    console.log("spot_marker : " + spot_marker);
-	    
-	    neighborhood_infowindow.setContent(InfoContent());
-	    neighborhood_infowindow.open(neighborhood_map, spot_marker);
-	    
+	    google.maps.event.trigger(spot_map, "resize");
+		spot_map.setCenter(spot_location);
+		
+		google.maps.event.addListenerOnce(neighborhood_map, 'idle', function() {
+			   google.maps.event.trigger(neighborhood_map, 'resize');
+			   neighborhood_map.setCenter(center);
+
+			    // get neighbors
+			    jQuery.ajax({
+			    	type : "POST",
+					url : '<c:url value='/controller/GetNeighbor' />',
+					data : {
+						spotId:spotInfo.spotId,
+					},
+					dataType : "json",
+			    }).done(function(data){
+			    	neighbors = data;
+			    	
+			    	jQuery.each(data, function(index, value){
+			    		
+			    		neighbors[index] = value;
+			    		
+			    		//設定各查詢位址的標記marker
+			    		neighborMarkers[index] = new google.maps.Marker({		  
+			    			position: new google.maps.LatLng(value.latitude, value.longitude),
+			    			map: neighborhood_map
+			    		});	
+			    		
+			    		//設定 各標記點marker的click事件		
+			    		google.maps.event.addListener(neighborMarkers[index], 'click', function() {
+			    			showInfo(neighborhood_map, neighborMarkers[index], neighbors[index]);			
+			    		});
+			    	});
+			    });
+			    
+		}); 
 	});
 	
 	//coupon tab click
-	
 	jQuery("#couponInfoTab").on("click",function(){
 		var couponSpotId = selectedSpotId;
 		jQuery.ajax({
@@ -763,17 +785,11 @@ height:330px;
 						}else{
 							jQuery("#Clist").append("<h3 class='text-danger'>店家暫無張貼coupon!</h3>");	
 						}
-					
 				});						
-				
-												
 			}				
 		});	
 		
 	});
-	
-	
-	
 	
 	jQuery("#commentInfoTab").on("click", function(){
 		//console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
@@ -824,7 +840,6 @@ height:330px;
 							</c:if>
 						"</a></div>");
 			});
-			
 		}	
 		
 		<c:if test='${! empty user }'>
@@ -1096,14 +1111,31 @@ height:330px;
 		
 	}
 	
-	function InfoContent() {
-		 console.log("spot name : " + spotInfo.spotName);
-		 //設定資訊視窗內容要呈現什麼	
-		 var html = "<div>景點：" + spotInfo.spotName + "</div>";
-		 html += "<div>緯度： " + spotInfo.latitude + "</div>";
-		 html += "<div>經度： " + spotInfo.longitude + "</div>";	
+	function infoContent(neighbor) {
+		//設定資訊視窗內容要呈現什麼	
+		 var html = "<div style='width:100px; height:100px;'>";
+		 html += "<img src='"+ neighbor.spotThumbnail + "' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
+		 html += "<div>" + neighbor.spotName + "</div>";
+		 
 		 return html;
-	  }
+	}
+	  
+	function showInfo(mapObj , markerObj, neighbor) {
+		/*
+		console.log("showInfo : " + mapObj);
+		console.log("showInfo : " + markerObj);
+		console.log("name : " + neighbor.spotName);
+		console.log("thumbnail : " + neighbor.spotThumbnail);
+		*/
+		
+		//開啟資訊視窗		
+		 if (neighborhood_infowindow)
+			 neighborhood_infowindow.close();
+		
+		 neighborhood_infowindow.setContent(infoContent(neighbor));
+		 neighborhood_infowindow.open(mapObj, markerObj);			
+	}
+	
 }(jQuery, google));
 </script>
     	
