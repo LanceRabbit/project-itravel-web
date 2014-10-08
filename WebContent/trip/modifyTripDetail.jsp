@@ -806,12 +806,12 @@ jQuery(document).ready(	function() {
 		.mouseover(function(e){
 			 e.stopPropagation();
 			//console.log($(this).children().children().children().attr('class'));
-			$(this).children().children().children().addClass('select-div');
+			//$(this).children().children().children().addClass('select-div');
 			$(this).children().children().children('div').removeAttr("hidden");
 				
 		})
 		.mouseout(function(e){
-			$(this).children().children().children().removeClass('select-div');
+			//$(this).children().children().children().removeClass('select-div');
 			$(this).children().children().children('div:first-child').attr("hidden","hidden");
 		});
 		
