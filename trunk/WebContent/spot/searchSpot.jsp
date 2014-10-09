@@ -46,28 +46,6 @@ height:330px;
     overflow-y:auto
 }
 
-.itravel-tab {
-	display: inline-block;
-	padding: 5px;
-	
-	margin:auto;
-	width : 100%;
-	height : 575px;
-}
-
-#spotIntroP {
-	height: auto;
-    max-height: 200px;
-    overflow-x: hidden;
-    overflow-y:auto
-}
-
-#commentList {
-	height: auto;
-    max-height: 550px;
-    overflow-x: hidden;
-    overflow-y:auto
-}
 /*
 #myCarousel .carousel-caption {
 	left: 0;
@@ -109,33 +87,6 @@ height:330px;
 	}
 }
 */
-
-.itravel-straight-block-frame{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding: 5px;
-	
-	margin:auto;
-	overflow:hidden;
-}
-
-.itravel-straight-block-1-pic{
-	display: inline-block;
-	/*border: 1px dotted #4F4F4F;*/
-	padding:3px;
-	
-	margin:auto;
-	width:100%;
-	height:535px;
-	
-	/*
-	background-image: url(images/thumbnail_128.png);
-	background-repeat: no-repeat;
-	opacity: 0.5;
-	background-size: 100%;
-	*/
-}
-
 
 /*basic*/
 .jm-item {
@@ -263,10 +214,6 @@ height:200px;
 	top: 0;
 }
 
-
-
-
-
 </style>
 </head>
 
@@ -275,140 +222,6 @@ height:200px;
 	<jsp:include page="/fragment/Top.jsp" />
 	<!-- Page Content -->
 
-	<!-- Modal -->
-
-	<div class="modal fade" id="spotInfoModal" tabindex="-1" role="dialog"
-		aria-labelledby="spotInfoModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<!--  <h4 class="modal-title" id="spotInfoModalLabel">新增景點  縣市 分類資訊</h4> -->
-				</div>
-
-				<div class="modal-body">
-					<ul class="nav nav-tabs" role="tablist" id="myTab">
-						<li class="active"><a href="#info" role="tab"
-							data-toggle="tab" id="briefInfoTab">景點資訊</a></li>
-						<li><a href="#regions" role="tab" data-toggle="tab" id="regionInfoTab">附近景點</a></li>
-						<li><a href="#coupons" role="tab" data-toggle="tab" id="couponInfoTab">折價券</a></li>
-						<li><a href="#comments" role="tab" data-toggle="tab" id="commentInfoTab">評論</a></li>
-					</ul>
-
-					<div class="tab-content">
-						<div class="tab-pane active itravel-tab" id="info">
-							<div class="row">
-								<div class="col-md-6 itravel-straight-block-frame">
-									<div class="itravel-straight-block-1-pic" id="imagePreview_zone">
-
-										<div id="myCarousel" class="carousel slide well"
-											data-ride="carousel">
-											<!-- Wrapper for slides -->
-											<div class="carousel-inner">
-												
-												<div class="item active">
-													<img src="../images/D1409001.jpg" alt="...">
-												</div>
-												<!-- 
-												<div class="item">
-													<img src="../images/team2.jpg" alt="...">
-												</div>
-												 -->
-											</div>
-											<!-- End Carousel Inner -->
-
-										</div>
-										<!-- End Carousel -->
-									</div>
-									<!-- <div class="itravel-block-1-pic well" id="imagePreview_zone"> -->
-
-								</div>
-								<!-- <div class="col-md-6 itravel-block-frame"> -->
-
-
-								<div class="col-md-6 itravel-straight-block-frame">
-									<div class="row">
-										<div class="col-md-12 itravel-block-frame">
-											<div class="well itravel-block-1-group">
-												<form class="form-horizontal" role="form" >
-													
-													<div class="row">
-														<label class="col-md-3">名稱:</label>
-														<p id="spotNameP"></p>
-													</div>
-
-													<div class="row">
-														<label class="col-md-3">負責人:</label>
-														<p id="spotOwnerP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">地址:</label>
-														<p id="spotAddrP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">電話:</label>
-														<p  id="spotPhoneP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">簡介:</label>
-														<p id="spotIntroP"></p>
-													</div>
-														
-												</form>
-											</div>
-										</div>
-									</div>
-									<!-- <div class="row"> -->
-
-									<div class="row">
-										<div class="col-md-12 itravel-block-frame">
-											<div class="itravel-block-1-group" id="searchSpot-map-container"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- <div class="row"> -->
-
-						</div>
-						<!-- <div class="tab-pane active" id="info"> -->
-
-						<div class="tab-pane itravel-tab" id="regions">
-							<div id="map_neighborhood" style="width:100%; height:100%;"></div>
-						</div>
-						
-						<div class="tab-pane itravel-tab" id="coupons">
-							<label id="userForCouponsUse" hidden>${user}</label>
-							<div class="row">
-								<div id="Clist" class="col-sm-12">
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane itravel-tab" id="comments">
-							<div class="list-group" id="commentList">
-							</div> <!-- <div class="list-group"> -->
-						</div>
-					</div>
-
-
-				</div>
-				<!-- <div class="modal-body"> -->
-				
-				<div class="modal-footer" id="spotInfoModelFooter" hidden>
-					<button id="commentResetBtn" type="button" class="btn btn-default">放棄</button>
-					<button id="commentSaveBtn" type="button" class="btn btn-primary">儲存</button>
-					<button id="commentCreationBtn" type="button" class="btn btn-primary" >新增評論</button>
-				</div>
-				
-			</div> <!-- <div class="modal-content"> -->	
-				
-		</div> <!-- <div class="modal-dialog modal-lg"> -->
-	</div> <!-- Modal -->	
 	<div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -497,6 +310,7 @@ height:200px;
 	<div class="row" style="margin-top: 40px;text-align: center;" id="pages">
     </div>
  </div>
+
 <jsp:include page="/fragment/bottom.jsp" />
 <!--  <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script> -->
 <script src="${pageContext.request.contextPath}/js/jquery.twbsPagination.js"></script>
@@ -621,15 +435,6 @@ height:200px;
 
 jQuery(document).ready(function() {
 //(function(jQuery){
-	var var_map;
-	var var_location = new google.maps.LatLng(23.973299, 120.978398);
-	var var_marker;
-	
-	// neighborhood related
-	var neighborhood_infowindow = new google.maps.InfoWindow();  
-	var neighborhood_map;
-	var neighborMarkers = [];
-	var neighbors = [];
 	
 	var categories = [{"type":"全部分類", "subtype":["全部子分類"]},
 	                  {"type":"美食", "subtype":["全部子分類", "餐廳", "小吃", "美食街", "甜品", "其他"]}, 
@@ -638,14 +443,10 @@ jQuery(document).ready(function() {
 	                  {"type":"景點", "subtype":["全部子分類", "風景區", "國家公園", "古蹟", "遊樂園", "其他"]},
 	                  {"type":"活動", "subtype":["全部子分類", "藝文展覽", "親子活動", "競賽活動", "其他"]}];
 	
-	initElements();
-	google.maps.event.addDomListener(window, 'load', map_init);
+	initElementsSpotInfo();
 	
-	// modal google map
-	jQuery('#spotInfoModal').on('shown.bs.modal', function() {
-		google.maps.event.trigger(var_map, "resize");
-		var_map.setCenter(var_location);
-	});
+	
+	
 	
 	// config category
 	jQuery('#queryCityIdMenu').on('show.bs.dropdown', function () {
@@ -706,8 +507,8 @@ jQuery(document).ready(function() {
 	});
 	
 	// to trigger modal view
-	var selectedSpotId;
-	var spotInfo;
+	//var selectedSpotId;
+	//var spotInfo;
 	
 	jQuery("#listDetails").on("click", ".jm-item-title", function(){
 		
@@ -721,41 +522,7 @@ jQuery(document).ready(function() {
 			},
 			dataType : "json"
 		}).done(function(data){
-			spotInfo = data;
-			jQuery("#spotNameP").text(spotInfo.spotName);
-			jQuery("#spotAddrP").text(spotInfo.address);
-			jQuery("#spotPhoneP").text(spotInfo.phone);
-			jQuery("#spotIntroP").text(spotInfo.spotIntro);
-			
-			jQuery(".carousel-inner:first").empty();
-			jQuery.each(spotInfo.spotImgs, function(index, value) {
-				//console.log("image url : " + value);
-				if(index == 0) {
-					jQuery(".carousel-inner:first").append("<div class='item active'><img src='"
-							+ value
-							+"'></div>");
-				} else {
-					jQuery(".carousel-inner:first").append("<div class='item'><img src='"
-							+ value
-							+"'></div>");
-				}
-			});
-					
-			if(!((spotInfo.leader != null) && (spotInfo.leader.length > 0))) {
-				jQuery("a[href='#coupons']").hide();
-				jQuery('#spotOwnerP').text("負責人").parent().hide();
-			} else {
-				jQuery("a[href='#coupons']").show();
-				jQuery("#spotOwnerP").text(spotInfo.leader).parent().show();
-			}
-	
-			// set google map marker
-			//console.log("lat : " + spotInfo.latitude);
-			//console.log("lng : " + spotInfo.longitude);
-			addSpotMarker(spotInfo.latitude, spotInfo.longitude);
-			
-			jQuery("#briefInfoTab").click();
-			jQuery('#spotInfoModal').modal("show");
+			displaySpotInfo(data);
 		});
 		//jQuery('#spotInfoModalLabel')
 	});
@@ -770,283 +537,9 @@ jQuery(document).ready(function() {
 	// load data from server
 	activeQuery(0, true);
 	
-	// tabs of spot info modal :
-	// comment-related buttons
-	jQuery("#commentCreationBtn").on("click", function(){
-		
-		jQuery("#commentCreationBtn").hide();
-		jQuery("#commentSaveBtn").show();
-		jQuery("#commentResetBtn").show();
-		
-		jQuery("#commentList").append("<div id='newComment'><a href='#' class='list-group-item list-group-item-info'><div class='panel panel-default'>"+
-				
-				"<div class='panel-body'><textarea class='form-control' name='newComment'></textarea></div>"+
-				"</div></a></div>");
-		
-		jQuery("#newComment textarea").focus();
-		
-		// reset resetResetBtn
-		jQuery("#commentList .resetReportBtn").click();
-	});
 	
 	
-	
-	jQuery("#commentSaveBtn").on("click", function(){
-		
-		if(jQuery("#newComment textarea").val().length <= 0) {
-			console.log("you must enter something....");
-			return;
-		}
-			
-		jQuery("#commentCreationBtn").show();
-		jQuery("#commentSaveBtn").hide();
-		jQuery("#commentResetBtn").hide();
-		
-		// refresh this tab	
-		jQuery.ajax({
-			type : "POST",
-			url : '<c:url value='/controller/AddComment' />',
-			data : {
-				commenterId:"${user.accountId}",
-				spotId : selectedSpotId,
-				comment : jQuery("#newComment textarea").val()
-			},
-			dataType : "text"
-		}).done(function(data){
-			console.log("data : " + data);
-			if(data == "true") {
-				jQuery.ajax({
-					type : "POST",
-					url : '<c:url value='/controller/GetSpot' />',
-					data : {
-						spotId : selectedSpotId
-					},
-					dataType : "json"
-				}).done(function(data){
-					spotInfo = data;
-					jQuery("#commentInfoTab").click();					
-				});
-			}
-		});
-	});
-	
-	jQuery("#commentResetBtn").on("click", function(){
-		
-		jQuery("#commentCreationBtn").show();
-		jQuery("#commentSaveBtn").hide();
-		jQuery("#commentResetBtn").hide();
-		
-		jQuery("#newComment").remove();
-		
-	});
-
-	// switch between tabs
-	jQuery("#briefInfoTab, #regionInfoTab, #couponInfoTab").on("click", function(){
-		jQuery("#spotInfoModelFooter").hide();
-	});
-	
-	// neighborhood tab
-	jQuery("#regionInfoTab").on("click", function(){
-		
-		var center = new google.maps.LatLng(spotInfo.latitude, spotInfo.longitude); 
-	    var mapOptions = {
-	      zoom: 15,
-	      center: center,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	    };
-		
-	    neighborhood_map = new google.maps.Map(document.getElementById("map_neighborhood"), mapOptions);
-	    
-	    google.maps.event.trigger(spot_map, "resize");
-		spot_map.setCenter(spot_location);
-		
-		google.maps.event.addListenerOnce(neighborhood_map, 'idle', function() {
-			   google.maps.event.trigger(neighborhood_map, 'resize');
-			   neighborhood_map.setCenter(center);
-
-			    // get neighbors
-			    jQuery.ajax({
-			    	type : "POST",
-					url : '<c:url value='/controller/GetNeighbor' />',
-					data : {
-						spotId:spotInfo.spotId,
-					},
-					dataType : "json",
-			    }).done(function(data){
-			    	neighbors = data;
-			    	
-			    	jQuery.each(data, function(index, value){
-			    		
-			    		neighbors[index] = value;
-			    		
-			    		//設定各查詢位址的標記marker
-			    		neighborMarkers[index] = new google.maps.Marker({		  
-			    			position: new google.maps.LatLng(value.latitude, value.longitude),
-			    			map: neighborhood_map
-			    		});	
-			    		
-			    		//設定 各標記點marker的click事件		
-			    		google.maps.event.addListener(neighborMarkers[index], 'click', function() {
-			    			showInfo(neighborhood_map, neighborMarkers[index], neighbors[index]);			
-			    		});
-			    	});
-			    });
-			    
-		}); 
-	});
-	
-	//coupon tab click
-	jQuery("#couponInfoTab").on("click",function(){
-		var couponSpotId = selectedSpotId;
-		jQuery.ajax({
-			url : '<c:url value='/controller/SearchCouponServlet'/>',
-			type : "GET",
-			contentType : "application/json; charset=utf-8",				
-			dataType : "json",	
-			data : {SpotId:couponSpotId},						
-			success : function(data) {			
-				jQuery.each(data,function(index,value) {
-					jQuery("#Clist").empty();
-					
-						if(value.State){
-							if(jQuery("#userForCouponsUse").text()!=""){
-								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
-							}else{
-								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
-							}
-						}else{
-							jQuery("#Clist").append("<h3 class='text-danger'>店家暫無張貼coupon!</h3>");	
-						}
-				});						
-			}				
-		});	
-		
-	});
-	
-	jQuery("#commentInfoTab").on("click", function(){
-		//console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
-		//console.log(spotInfo.spotComments); 
-		
-		var comments = spotInfo.spotComments;
-		jQuery("#commentList").empty();
-		
-		if(comments.length == 0) {
-			//console.log("no comments")
-			jQuery("#commentList").append("<div><a href='#' class='list-group-item'><div class='panel panel-default'><div class='panel-heading'>尚無任何評論</div></div></a></div>");
-		}
-		else {
-			jQuery.each(comments, function(index, value){
-				var comment = value;
-				var commentText = comment.comment;
-				var commentTextClass = "style='color:blue'";
-				var addReportBtnClass = "addReportBtn";
-				
-				if(comment.comment.trim().length <= 0) {
-					
-					commentText = "此評論已被檢舉!!";
-					commentTextClass = "style='color:red'";
-					addReportBtnClass = "hidden";
-				} else if (comment.commenterId == "${user.accountId}") {
-					addReportBtnClass = "hidden";
-				}
-					
-				//console.log("index : " + index); start from 0
-				jQuery("#commentList").append(
-						"<div><a href='#' class='list-group-item list-group-item-info'>"+
-							"<div class='panel panel-primary'>"+
-								"<div class='panel-heading'>"+
-									"<label>" + comment.commenterNickname + "</label><label class='pull-right'> " +comment.creationDate +"</label>"+
-								"</div>"+
-
-								"<div class='panel-body'>"+
-									"<p " + commentTextClass + " >"+ commentText + "</p>" +
-								"</div>"+	
-								"<label class='commenterId' hidden>" + comment.commenterId + "</label>" + 
-								"<label class='commentId' hidden>" + comment.commentId + "</label>" + 
-							"</div>"+
-							
-							<c:if test='${! empty user}'>
-								"<button type='button' class='btn btn-default " + addReportBtnClass + " '>檢舉</button>"+
-								"<button type='button' class='btn btn-default resetReportBtn'>取消</button>"+
-								"<button type='button' class='btn btn-primary saveReportBtn'>確認</button>" + 
-							</c:if>
-						"</a></div>");
-			});
-		}	
-		
-		<c:if test='${! empty user }'>
-			//console.log("you've logged in");
-			jQuery("#spotInfoModelFooter").show();
-			jQuery("#commentCreationBtn").show();
-			jQuery("#commentSaveBtn").hide();
-			jQuery("#commentResetBtn").hide();
-			
-			// report related buttons
-			jQuery(".addReportBtn").show();
-			jQuery(".resetReportBtn").hide();
-			jQuery(".saveReportBtn").hide();
-		</c:if>
-	});
-	
-	// report-related buttons
-	jQuery("#commentList").on('click', '.addReportBtn', function(){
-		jQuery(this).siblings(".panel").after("<textarea class='form-control newReport' name='newReport'></textarea>");
-		var resetBtnThisItem = jQuery(this).siblings('.resetReportBtn');
-		jQuery("#commentList .resetReportBtn").not(resetBtnThisItem).click();
-		
-		// reset buttons in this list item
-		jQuery(this).hide();
-		jQuery(this).siblings(".resetReportBtn").show();
-		jQuery(this).siblings(".newReport").focus();
-		
-		// click commentResetBtn
-		jQuery("#commentResetBtn").click();
-		jQuery(this).siblings(".saveReportBtn").show();
-	});
-		
-	jQuery("#commentList").on('click', '.resetReportBtn', function(){
-		jQuery(this).siblings('.newReport').remove();
-		
-		// reset buttons
-		jQuery(this).siblings(".addReportBtn").show();
-		jQuery(this).hide();
-		jQuery(this).siblings(".saveReportBtn").hide();
-	});
-	
-	jQuery("#commentList").on('click', '.saveReportBtn', function(){
-		var commenterId = jQuery(this).siblings(".panel-primary").children("label:first").text(); //console.log("commenterId : " + commenterId);
-		var commentId = jQuery(this).siblings(".panel-primary").children("label:last").text(); //console.log("commentId : " + commentId);
-		var report = jQuery(".newReport").val(); //console.log("report : " + comment);
-			
-		jQuery.ajax({
-			type : "POST",
-			url : '<c:url value='/controller/ReportBlacklist' />',
-			data : {
-				reporterId:"${user.accountId}",
-				reportedId:commenterId,
-				commentId:commentId,
-				report:report
-			},
-			dataType : "text"
-		}).done(function(data){
-			console.log("data : " + data);
-			if(data == "true") {
-				jQuery.ajax({
-					type : "POST",
-					url : '<c:url value='/controller/GetSpot' />',
-					data : {
-						spotId : selectedSpotId
-					},
-					dataType : "json"
-				}).done(function(data){
-					spotInfo = data;
-					jQuery("#commentInfoTab").click();					
-				});
-			}
-		});
-	});
-	
-	function initElements() {
+	function initElementsSpotInfo() {
 		// populate city ids
 		var cities = [ "全部縣市", "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
 				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
@@ -1205,70 +698,8 @@ jQuery(document).ready(function() {
 		});
 	}// end of avtiveQuery
 	
-	function map_init() {
-		//console.log("map_init()");
-		var var_mapoptions = {
-			center : var_location,
-			zoom : 14,
-			mapTypeId : google.maps.MapTypeId.ROADMAP,
-			mapTypeControl : false,
-			panControl : false,
-			rotateControl : false,
-			streetViewControl : false,
-		};
-		var_map = new google.maps.Map(document
-				.getElementById("searchSpot-map-container"), var_mapoptions);
-		
-		/*
-		var spot_infowindow = new google.maps.InfoWindow();
-		
-		var_marker = new google.maps.Marker({
-			position : var_location,
-			map : var_map,
-			maxWidth : jQuery("#searchSpot-map-container").width(),
-			maxHeight : jQuery("#searchSpot-map-container").height(), 
-		});
-		*/
-	} 
-
-	function addSpotMarker(lat, lng) {
-		//console.log("addSpotMarker()");
-		var_location =  new google.maps.LatLng(lat, lng); 
-		
-		
-		var_marker = new google.maps.Marker({
-			position : var_location,
-			map : var_map,
-			maxWidth : jQuery("#searchSpot-map-container").width(),
-			maxHeight : jQuery("#searchSpot-map-container").height(), 
-		});
-		
-	}
 	
-	function infoContent(neighbor) {
-		//設定資訊視窗內容要呈現什麼	
-		 var html = "<div style='width:100px; height:100px;'>";
-		 html += "<img src='"+ neighbor.spotThumbnail + "' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
-		 html += "<div>" + neighbor.spotName + "</div>";
-		 
-		 return html;
-	}
-	  
-	function showInfo(mapObj , markerObj, neighbor) {
-		/*
-		console.log("showInfo : " + mapObj);
-		console.log("showInfo : " + markerObj);
-		console.log("name : " + neighbor.spotName);
-		console.log("thumbnail : " + neighbor.spotThumbnail);
-		*/
-		
-		//開啟資訊視窗		
-		 if (neighborhood_infowindow)
-			 neighborhood_infowindow.close();
-		
-		 neighborhood_infowindow.setContent(infoContent(neighbor));
-		 neighborhood_infowindow.open(mapObj, markerObj);			
-	}
+
 });	
 //}(jQuery, google));
 </script>
