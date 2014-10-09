@@ -8,6 +8,8 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
+	
 <title>Myspot</title>
 <style type="text/css">
 body {
@@ -26,7 +28,7 @@ p { /*用於內文   多行文字溢出用...取代*/
 	max-width: 180px; /* IE6 需要定义宽度 */
 	overflow: hidden;
 	-o-text-overflow: ellipsis; /* Opera */
-	text-overflow: ellipsis; /* IE, Safari (WebKit) */*/
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
 /*
 .col-xs-3{
@@ -34,15 +36,18 @@ width:220px;
 height:330px;
 
 }
+*/
 
+/*
 .thumbnail {
     margin: 10px 10px 10px 10px;
     -webkit-transform: scale(1, 1);
     -ms-transform: scale(1, 1);
     transform: scale(1, 1);
     transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s; /* Safari */
+    -webkit-transition-duration: 0.3s; 
     }
+   
 
 .thumbnail:hover {
 	cursor: pointer;
@@ -50,11 +55,11 @@ height:330px;
     -ms-transform: scale(1.2, 1.2);
     transform: scale(1.2, 1.2);
     transition-duration: 0.3s;
-    -webkit-transition-duration: 0.3s; /* Safari */
+    -webkit-transition-duration: 0.3s; 
     box-shadow: 10px 10px 5px #888888;
     z-index: 1;
     }
-*/
+*/ 
 #alterSpotInfoForm {
 	height: auto;
     max-height: 225px;
