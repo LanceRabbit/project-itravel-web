@@ -84,7 +84,7 @@ public class SearchSpotService {
 		
 		SpotDetailDAOHibernate dao = new SpotDetailDAOHibernate();
 		int count = (int)Math.ceil((double)dao.selectByHQL(queryStr).size() / (double)SPOTS_PER_PAGE);
-		System.out.println("total page count : " + count);
+		//System.out.println("total page count : " + count);
 		
 		return count;
 	}
@@ -195,6 +195,8 @@ public class SearchSpotService {
 	@Path("/{spotId}")
 	@Produces("application/json;charset=utf-8")
 	public SpotInfo getSpotById(@PathParam("spotId") String spotId) {
+		
+		System.out.println("getSpotById : spot id : " + spotId);
 		SpotInfo result = null;
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
@@ -211,6 +213,7 @@ public class SearchSpotService {
 	@GET
 	@Produces("text/html;charset=utf-8")
 	public String getMessage() {
+		System.out.println("message : .....");
 		return "<h1>哈囉, RESTful~</h1>";
 	}
 	

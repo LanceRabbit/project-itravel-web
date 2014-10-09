@@ -42,7 +42,7 @@ public class GetSpotServlet extends HttpServlet {
 			String deployDir = getServletContext().getRealPath("/");
 			
 			String spotId = request.getParameter("spotId");
-			System.out.println("spot id : " + spotId);
+			//System.out.println("spot id : " + spotId);
 			
 			Account user = (Account)request.getSession().getAttribute("user");
 			String viewer = null;
@@ -61,7 +61,7 @@ public class GetSpotServlet extends HttpServlet {
 			os = response.getOutputStream();
 			os.write(jsonSpotInfo.toString().getBytes("UTF-8"));
 			
-			System.out.println("spot info : " + jsonSpotInfo.toString());
+			//System.out.println("spot info : " + jsonSpotInfo.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
