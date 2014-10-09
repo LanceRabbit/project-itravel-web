@@ -708,7 +708,7 @@ height:200px;
 	var selectedSpotId;
 	var spotInfo;
 	
-	jQuery("#listDetails").on("click", ".detail", function(){
+	jQuery("#listDetails").on("click", ".jm-item-title", function(){
 		
 		selectedSpotId = jQuery(this).attr("id");
 		console.log("spot id : " + selectedSpotId);
@@ -1115,7 +1115,7 @@ height:200px;
 							+" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
 							+value.spotIntro							
 							+ "</div></div>"
-							+ "<a href='#'><div class='jm-item-title'>"
+							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
 							+"</div></a></div></div></div>"
 							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
@@ -1126,7 +1126,7 @@ height:200px;
 							+value.spotThumbnail +" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
 							+value.spotIntro							
 							+ "</div></div>"
-							+ "<a href='#'><div class='jm-item-title'>"
+							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
 							+"</div></a></div></div></div>"
 							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
