@@ -73,13 +73,14 @@ public class AlterSpotServlet extends HttpServlet {
     	// temporarily
     	if(accountId == null)
     		accountId = "M14090001";
-    		
+    	
     	SpotDetail spot = new SpotDetail(accountId, null, spotOwner, spotName, 
     			cityId, address, phone,
     			longitude, latitude, intro, 0,
     			categoryId, subcategoryId, "NEW", null, null, null, null, null,
     			null,null, null);
     	spot.setSpotId(spotId);
+    	spot.setTempSpotId(spotId);
     	
     	SpotDetailDAO spotDeailDAO = new SpotDetailDAOHibernate();
     	spot = spotDeailDAO.update(spot);
