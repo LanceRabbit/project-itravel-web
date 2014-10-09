@@ -90,6 +90,7 @@ public class AlterSpotServlet extends HttpServlet {
     	
     	String imgPath = request.getServletContext().getRealPath("/") + "images/" + accountId + "/temp/";
     	
+    	int order = 1;
     	for(int i = 1; i <=5; i++) {
     		String path = imgPath;
     		String imgName = imgs.get(i-1);
@@ -100,6 +101,8 @@ public class AlterSpotServlet extends HttpServlet {
     		if(name.startsWith("http")) {
     			String[] dirs = name.split("/");
     			name = dirs[dirs.length - 1]; System.out.println("image name : " + name);
+    			if(name.equals("team1.jpg"))
+    				continue;
     			
     			String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     			path = request.getServletContext().getRealPath("/") + "images/" + dateDir + "/" + accountId + "/" + spotId + "/";
@@ -110,7 +113,8 @@ public class AlterSpotServlet extends HttpServlet {
     			break;
     		
     		SpotImg spotImg = new SpotImg(spot.getSpotId(), spot, ImageIOUtil.getImageByFilename(path, name),
-        			i, "NEW", null);
+        			order, "NEW", null);
+    		order++;
         	spotImgDAO.insert(spotImg);
     	}
     	
