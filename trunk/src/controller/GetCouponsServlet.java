@@ -40,8 +40,8 @@ public class GetCouponsServlet extends HttpServlet {
 				JSONObject jsonCoupon = new JSONObject();
 				jsonCoupon.put("Description", c.getCouponDescription());
 				jsonCoupon.put("ValidDate", c.getValidDay());
+				jsonCoupon.put("CouponId", c.getCouponId());
 				String imgURL = null;
-				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 				String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
 				String imgPath = "images" + "/" + dateDir + "/coupons";
 				String deployDir = getServletContext().getRealPath("/");

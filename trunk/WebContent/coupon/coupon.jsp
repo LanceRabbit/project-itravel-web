@@ -24,26 +24,19 @@
 .expand:hover{
 	text-decoration: none;
 }
+.extraBr{
+	width:480px; 
+	height:300px;
+}
 </style>
 <title>Coupon</title>
 </head>
 <body>
 	<jsp:include page="/fragment/Top.jsp" />
-	<div id="main">
-		<div id="effect-6" class="effects clearfix">
-			<div class="img">
-                <img src="<c:url value='/images/Taiwan_happy.png'/>" alt="">
-                <div class="overlay">
-                    <a href="#" class="expand">+</a>
-                    <a class="close-overlay hidden">x</a>
-                </div>
-            </div>
-		</div>
-		</div>
 		<div class="row" >
 			<div id="CouponList" >
 				<ul class="thumbnails" style="list-style: none;" >
-					<li class="col-xs-4 clearfix" style="float:left; margin-left:-15px">
+					<li class="col-xs-4 clearfix" style="float:left; margin:0px">
 						<div class="thumbnail effects clearfix" id="effect-6">
 							<div class="img" style='margin:0px; width:320px ;height:200px;'>
 							<img src="<c:url value='/images/Taiwan_happy.png'/>" 
@@ -64,7 +57,7 @@
 				</ul>
 			</div>
 		</div>
-		<div id="CouponModals">
+		<div id="CouponModals" class="container">
 		</div>
 	<label id="userForCouponsUse" hidden>${user}</label>
 	<jsp:include page="/fragment/bottom.jsp" />
@@ -84,8 +77,8 @@
 					console.log(value.Description);
 					if(data.length!=0){
 						if($("#userForCouponsUse").text()!=""){
-							jQuery("#CouponModals").append("<div id='"+value.CouponId+"Modal' class='modal fade' style='margin-top:100px'><ul name='couponList' class='thumbnails' style='list-style:none;'><li class='col-sm-6 clearfix'  style='float:left; margin-left:-15px'><div class='thumbnail clearfix'><img src='"+value.Image+"' style='width:320px; height:200px;margin-right:10px;' class='pull-left span2 clearfix'><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><input type='button' class='pull-right btPrintCoupon' name='printCoupon' value='列印'/></div></li></ul></div>");
-							jQuery("#CouponList").append("<ul name='couponList' class='thumbnails' style='list-style:none;'><li class='col-xs-4 clearfix '  style='float:left; margin-left:-15px'><div class='thumbnail effects clearfix' id='effect-6'><div class='img' style='margin:0px; width:320px ;height:200px;'><img src='"+value.Image+"' style='width:320px; height:200px;margin-right:10px;' class='pull-left span2 clearfix'><div class='overlay'><a href='#' class='expand hoverCouponImg' id='"+value.CouponId+"'>+</a></div></div></div></li></ul>");
+							jQuery("#CouponModals").append("<div id='"+value.CouponId+"Modal' class='modal fade' style='margin-top:100px'><ul name='couponList' class='thumbnails' style='list-style:none;'><li class='col-md-6 col-md-offset-3 clearfix'  style='float:left; margin-top:10px'><div class='thumbnail clearfix'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><table style='margin-top:30px'><tr><td><div><img src='"+value.Image+"' style='width:480px; height:240px;' class='pull-left span2 clearfix'></div></td></tr><tr><td><div class='caption'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><input type='button' class='pull-right btPrintCoupon' name='printCoupon' value='列印'/></td></tr></table></div></li></ul></div>");
+							jQuery("#CouponList").append("<ul name='couponList' class='thumbnails' style='list-style:none;'><li class='col-xs-4 clearfix '  style='float:left; margin-left:-15px'><div class='thumbnail effects clearfix' id='effect-6'><div class='img' style='margin-left:3px;margin-top:3px; width:320px ;height:200px;'><img src='"+value.Image+"' style='width:320px; height:200px;margin-right:10px;' class='pull-left span2 clearfix'><div class='overlay'><a href='#' class='expand hoverCouponImg' id='"+value.CouponId+"'>+</a></div></div></div></li></ul>");
 						}else{
 							
 						}
@@ -101,6 +94,7 @@
 		jQuery('[name="printCoupon"]').on('click',function(){
 			$(this).parents('ul').attr('id','printArea');
 			$(this).attr('hidden','hidden');
+			$(this).parents('ul').find('.close').attr('hidden','hidden');
 			$('ul').toggleClass('notPrintArea');
 			$("#printArea").toggleClass('notPrintArea');
 			window.print();
@@ -108,6 +102,7 @@
 			$("#printArea").removeAttr("id");
 			$('ul').toggleClass('notPrintArea');
 			$(this).removeAttr('hidden');
+			$(this).parents('ul').find('.close').removeAttr('hidden');
 		});
 		jQuery('.hoverCouponImg').on('click',function(){
 			var cId = $(this).attr('id');
