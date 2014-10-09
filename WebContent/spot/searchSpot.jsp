@@ -168,7 +168,7 @@ height:200px;
 	left: -10px;
 	bottom: 17px;
 	background: #FF6B0E;
-	line-height: 1.5em;
+	line-height: 1.5em;	
 	font-weight: normal;
 	padding: 7px 9px 6px;
 	text-transform: uppercase;
@@ -1117,7 +1117,7 @@ height:200px;
 							+ "</div></div>"
 							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
-							+"</div></a></div><p id='"+value.spotId+"' style='text-align:right;'></p></div><p id='"+value.spotId+"' class='pull-right'></p><div>"
+							+"</div></a></div><div id='l"+value.spotId+"' style=' text-align:right;'></div></div><div>"
 							//+ "<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 				}else{
@@ -1129,7 +1129,7 @@ height:200px;
 							+ "</div></div>"
 							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
-							+"</div></a></div><p id='"+value.spotId+"' style='text-align:right;'></p></div><div>"
+							+"</div></a></div><div id='l"+value.spotId+"' style='text-align:right;'></div></div><div>"
 							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 					
@@ -1143,15 +1143,15 @@ height:200px;
 					data : {SpotId:value.spotId},						
 					success : function(data) {						
 						if(data=="NoAccount"){							
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='margin-left:5px; color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 							
 						}else if(data=="Like"){
 						//有登錄的話依據like紀錄顯示圖片
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart fa-lg' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart fa-lg' style='margin-left:5px; color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
 							
 						}else if(data=="NoLike"){
 						//有登錄的話依據like紀錄顯示圖片
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='margin-left:5px; color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 						
 						}																						
 					}				
@@ -1166,15 +1166,15 @@ height:200px;
 					data : {SpotId:value.spotId},						
 					success : function(data) {														
 						if(data=="NoAccount"){							
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' style='margin-left:5px;' title='收藏'onclick='collect(this.id)'></i></a>");
 							
 						}else if(data=="Collect"){
 						
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+"' class='fa fa-minus fa-lg'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+"' class='fa fa-minus fa-lg' style='margin-left:5px;' title='取消收藏' onclick='collect(this.id)'></i></a>");
 							
 						}else if(data=="NoCollect"){
 						
-							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a>");
+							jQuery('#l'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' style='margin-left:5px;' title='收藏'onclick='collect(this.id)'></i></a>");
 						
 						}																						
 					}				
