@@ -16,7 +16,7 @@
 .jm-item-wrapper {
 	position: relative;
 	padding: 7px;
-	background: #E8D7B6;
+	background: #E8D7B6; 
 }
 
 .jm-item-image {
@@ -152,7 +152,7 @@
 						
 					</div>
 				</div>
-			</div>
+			 </div>
 			</div>		
 
 		</div>

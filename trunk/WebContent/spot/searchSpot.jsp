@@ -32,13 +32,13 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
-
+/*
 .col-xs-3{
 width:220px;
 height:330px;
 
 }
-
+*/
 .queryItemScrollable {
     height: auto;
     max-height: 150px;
@@ -135,6 +135,137 @@ height:330px;
 	background-size: 100%;
 	*/
 }
+
+
+/*basic*/
+.jm-item {
+	padding: 10px;
+	display: inline-block;
+	text-align: left;
+}
+
+.jm-item-wrapper {
+	position: relative;
+	padding: 7px;
+	background: #e0e8b6;
+}
+
+.jm-item-image {
+	position: relative;
+	overflow: hidden;
+}
+
+.jm-item-image img {
+	display: block;
+}
+
+.jm-item second{
+width:320px;
+height:200px;
+}
+.jm-item-title {
+	position: absolute;
+	left: -10px;
+	bottom: 17px;
+	background: #FF6B0E;
+	line-height: 1.5em;
+	font-weight: normal;
+	padding: 7px 9px 6px;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.4em;
+}
+
+.jm-item-overlay {
+	background: #000;
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	-webkit-transition: opacity 0.5s ease-in 0s;
+	-moz-transition: opacity 0.5s ease-in 0s;
+	-o-transition: opacity 0.5s ease-in 0s;
+	transition: opacity 0.5s ease-in 0s;
+}
+
+.jm-item-wrapper:hover .jm-item-overlay {
+	opacity: 0.3;
+}
+
+.jm-item-button {
+	
+	height: 50px;
+	width: 50px;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	margin-left: -25px;
+}
+
+.jm-item-button a {
+	
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	background: #FF6B0E;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.2em;
+	line-height: 50px;
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+	text-decoration: none !important;
+	display: block;
+}
+
+.jm-item-button a:hover {
+	background: #3b3b3b;
+}
+/**/
+.second .jm-item-wrapper .jm-item-title {
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-title {
+	/*visibility:hidden;*/
+	
+	left: -10%;
+}
+
+.second .jm-item-description {
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	font-size:20px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
+	top: 100%;
+	-webkit-transition: all 0.5s ease-in 0s;
+	-moz-transition: all 0.5s ease-in 0s;
+	-o-transition: all 0.5s ease-in 0s;
+	transition: all 0.5s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-description {
+	top: 0;
+}
+
+
+
+
 
 </style>
 </head>
@@ -979,25 +1110,26 @@ height:330px;
 				var owner=value.Leader;
 				if(owner==""){						
 					jQuery('#listDetails').append(
-							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
-							value.spotThumbnail + "' alt=''><div class='caption'><h4><a href='#' class='detail' id='"+value.spotId+"'>"
+							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='"
+							+value.spotThumbnail 
+							+" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
+							+value.spotIntro							
+							+ "</div></div>"
+							+ "<a href='#'><div class='jm-item-title'>"
 							+ value.spotName
-							+ "</a></h4>"
-							+"<div class='fixedHeight'>"
-							+ value.spotIntro
-							+"</div>"
-							+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
+							+"</div></a></div></div></div>"
+							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 				}else{
 					jQuery('#listDetails').append(
-							"<div class='col-xs-3'><div class='thumbnail'><img src='" +
-							value.spotThumbnail + "' alt=''><div class='caption'><h4><img src='../images/owner1.png' style='width:20px;height:20px;'><a href='#' class='detail' id='"+value.spotId+"'>"
+							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive'  src='"
+							+value.spotThumbnail +" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
+							+value.spotIntro							
+							+ "</div></div>"
+							+ "<a href='#'><div class='jm-item-title'>"
 							+ value.spotName
-							+ "</a></h4>"
-							+"<div class='fixedHeight'>"
-							+ value.spotIntro
-							+"</div>"
-							+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
+							+"</div></a></div></div></div>"
+							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 					
 				}
