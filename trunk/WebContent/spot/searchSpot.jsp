@@ -526,8 +526,8 @@ height:200px;
 						SpotId:id},						
 					success : function(data) {						
 						if(data=='false'){							
-							$('[name="loginError"]').text("請登入後使用。");
-							$('#topmodals').modal('show');
+							jQuery('[name="loginError"]').text("請登入後使用。");
+							jQuery('#topmodals').modal('show');
 						}						
 														
 					}				
@@ -543,8 +543,8 @@ height:200px;
 							SpotId:id},						
 					success : function(data) {						
 						if(data=='false'){							
-							$('[name="loginError"]').text("請登入後使用。");
-							$('#topmodals').modal('show');
+							jQuery('[name="loginError"]').text("請登入後使用。");
+							jQuery('#topmodals').modal('show');
 							
 						}else{							
 							jQuery("#"+id).attr('title','收回讚');
@@ -581,8 +581,8 @@ height:200px;
 						SpotId:id},						
 					success : function(data) {						
 						if(data=='false'){							
-							$('[name="loginError"]').text("請登入後使用。");
-							$('#topmodals').modal('show');
+							jQuery('[name="loginError"]').text("請登入後使用。");
+							jQuery('#topmodals').modal('show');
 						}						
 														
 					}				
@@ -598,8 +598,8 @@ height:200px;
 						SpotId:id},						
 					success : function(data) {						
 						if(data=='false'){							
-							$('[name="loginError"]').text("請登入後使用。");
-							$('#topmodals').modal('show');
+							jQuery('[name="loginError"]').text("請登入後使用。");
+							jQuery('#topmodals').modal('show');
 						}else{
 							jQuery("#"+id).attr('title','取消收藏');
 							jQuery("#"+id).removeAttr("class");
@@ -619,7 +619,8 @@ height:200px;
 
 <script>
 
-(function(jQuey){
+jQuery(document).ready(function() {
+//(function(jQuery){
 	var var_map;
 	var var_location = new google.maps.LatLng(23.973299, 120.978398);
 	var var_marker;
@@ -647,59 +648,59 @@ height:200px;
 	});
 	
 	// config category
-	jQuey('#queryCityIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#queryCityIdMenu .dropdown-menu").show();
+	jQuery('#queryCityIdMenu').on('show.bs.dropdown', function () {
+		jQuery("#queryCityIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+		jQuery("#queryCityIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#queryCityIdMenu .dropdown-menu li").click(function(){
-		//console.log(jQuey(this).text());
-		jQuey("#queryCity").val(jQuey(this).text());
-		jQuey("#queryCityIdMenu .dropdown-menu").hide();
+	jQuery("#queryCityIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuery(this).text());
+		jQuery("#queryCity").val(jQuery(this).text());
+		jQuery("#queryCityIdMenu .dropdown-menu").hide();
 		
 		activeQuery(0, true);
 	}); 
 	
-	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#queryCategoryIdMenu .dropdown-menu").show();
+	jQuery('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuery("#queryCategoryIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+		jQuery("#queryCategoryIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#queryCategoryIdMenu .dropdown-menu li").click(function(){
-		//console.log(jQuey(this).index());
-		jQuey("#queryCategory").val(jQuey(this).text());
-		jQuey("#queryCategoryIdMenu .dropdown-menu").hide();
+	jQuery("#queryCategoryIdMenu .dropdown-menu li").click(function(){
+		//console.log(jQuery(this).index());
+		jQuery("#queryCategory").val(jQuery(this).text());
+		jQuery("#queryCategoryIdMenu .dropdown-menu").hide();
 		
 		// populate subcategory
-		var subcategories = categories[jQuey(this).index()].subtype;
+		var subcategories = categories[jQuery(this).index()].subtype;
 		//console.log(subcategories);
-		jQuey("#subqueryCategory").attr("placeholder", "全部子分類");
-		jQuey("#subqueryCategory").val("");
-		jQuey("#subqueryCategoryIdMenu ul:first").empty();
-		jQuey.each(subcategories, function(index, value){
-			jQuey("#subqueryCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
+		jQuery("#subqueryCategory").attr("placeholder", "全部子分類");
+		jQuery("#subqueryCategory").val("");
+		jQuery("#subqueryCategoryIdMenu ul:first").empty();
+		jQuery.each(subcategories, function(index, value){
+			jQuery("#subqueryCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
 		});
 		
-		if (!jQuey('#subqueryCategoryGroup').is(':visible'))
-			jQuey("#subqueryCategoryGroup").show();
+		if (!jQuery('#subqueryCategoryGroup').is(':visible'))
+			jQuery("#subqueryCategoryGroup").show();
 		
 		activeQuery(0, true);
 	});
 	
 	// config subcategory
-	jQuey("#subqueryCategoryGroup").hide();
-	jQuey('#subqueryCategoryIdMenu').on('show.bs.dropdown', function () {
-		jQuey("#subqueryCategoryIdMenu .dropdown-menu").show();
+	jQuery("#subqueryCategoryGroup").hide();
+	jQuery('#subqueryCategoryIdMenu').on('show.bs.dropdown', function () {
+		jQuery("#subqueryCategoryIdMenu .dropdown-menu").show();
 	}).on("hide.bs.dropdown", function(){
-		jQuey("#subqueryCategoryIdMenu .dropdown-menu").hide();
+		jQuery("#subqueryCategoryIdMenu .dropdown-menu").hide();
 	});
 	
-	jQuey("#subqueryCategoryIdMenu .dropdown-menu").on("click", "li",function(){
-		//console.log(jQuey(this).text());
-		jQuey("#subqueryCategory").val(jQuey(this).text());
-		jQuey("#subqueryCategoryIdMenu .queryItemScrollable").hide();
+	jQuery("#subqueryCategoryIdMenu .dropdown-menu").on("click", "li",function(){
+		//console.log(jQuery(this).text());
+		jQuery("#subqueryCategory").val(jQuery(this).text());
+		jQuery("#subqueryCategoryIdMenu .queryItemScrollable").hide();
 		
 		activeQuery(0, true);
 	});
@@ -761,7 +762,7 @@ height:200px;
 	
 	
 	// input field : spot name
-	jQuey('#querySpotName').on("change", function() {
+	jQuery('#querySpotName').on("change", function() {
 		
 		activeQuery(0, true);
 	}); 
@@ -908,7 +909,7 @@ height:200px;
 					jQuery("#Clist").empty();
 					
 						if(value.State){
-							if($("#userForCouponsUse").text()!=""){
+							if(jQuery("#userForCouponsUse").text()!=""){
 								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
 							}else{
 								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
@@ -927,7 +928,7 @@ height:200px;
 		//console.log(spotInfo.spotComments); 
 		
 		var comments = spotInfo.spotComments;
-		$("#commentList").empty();
+		jQuery("#commentList").empty();
 		
 		if(comments.length == 0) {
 			//console.log("no comments")
@@ -1050,19 +1051,19 @@ height:200px;
 		var cities = [ "全部縣市", "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
 				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
 				"澎湖", "金門", "馬祖" ];
-		jQuey.each(cities, function(index, value) {
+		jQuery.each(cities, function(index, value) {
 			//console.log(value);
 			if (value == 'dummy')
-				jQuey("#queryCityIdMenu ul:first").append("<li class='divider'></li>");
+				jQuery("#queryCityIdMenu ul:first").append("<li class='divider'></li>");
 			else
-				jQuey("#queryCityIdMenu ul:first").append(
+				jQuery("#queryCityIdMenu ul:first").append(
 						"<li><a href='#'>" + value + "</a></li>");
 		});
 
 		// populate category
-		jQuey.each(categories, function(index, value) {
+		jQuery.each(categories, function(index, value) {
 			var type = value.type;
-			jQuey("#queryCategoryIdMenu ul:first").append(
+			jQuery("#queryCategoryIdMenu ul:first").append(
 					"<li><a href='#'>" + type + "</a></li>");
 		});
 	}
@@ -1076,17 +1077,17 @@ height:200px;
 		//console.log("activeQuery : page : " + pageNo);
 		//console.log("activeQuery : redrawIndex : " + redrawIndex);	
 		
-		var spotName = jQuey('#querySpotName').val();
+		var spotName = jQuery('#querySpotName').val();
 		//console.log("querySpotName : " + spotName);
-		var city = jQuey("#queryCity").val();
+		var city = jQuery("#queryCity").val();
 		//console.log("city : " + city);
-		var category = jQuey('#queryCategory').val();
+		var category = jQuery('#queryCategory').val();
 		//console.log("queryCategory : " + category);
-		var subcategory = jQuey('#subqueryCategory').val();
+		var subcategory = jQuery('#subqueryCategory').val();
 		//console.log("subqueryCategory : " + subCategory);
         
 		var totalPageCount = 0;
-		jQuey.ajax({
+		jQuery.ajax({
 			type : "POST",
 			url : '<c:url value='/controller/SearchSpotPaging' />',
 			data : {
@@ -1100,7 +1101,7 @@ height:200px;
 			//console.log("detail from server....." + data);
 			jQuery('#listDetails').empty();	
 			
-			jQuey.each(data, function(index, value){
+			jQuery.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);		
 				if(index == 0) {
 					totalPageCount = value.totalPageCount;
@@ -1224,8 +1225,8 @@ height:200px;
 		var_marker = new google.maps.Marker({
 			position : var_location,
 			map : var_map,
-			maxWidth : $("#searchSpot-map-container").width(),
-			maxHeight : $("#searchSpot-map-container").height(), 
+			maxWidth : jQuery("#searchSpot-map-container").width(),
+			maxHeight : jQuery("#searchSpot-map-container").height(), 
 		});
 		*/
 	} 
@@ -1238,8 +1239,8 @@ height:200px;
 		var_marker = new google.maps.Marker({
 			position : var_location,
 			map : var_map,
-			maxWidth : $("#searchSpot-map-container").width(),
-			maxHeight : $("#searchSpot-map-container").height(), 
+			maxWidth : jQuery("#searchSpot-map-container").width(),
+			maxHeight : jQuery("#searchSpot-map-container").height(), 
 		});
 		
 	}
@@ -1268,8 +1269,8 @@ height:200px;
 		 neighborhood_infowindow.setContent(infoContent(neighbor));
 		 neighborhood_infowindow.open(mapObj, markerObj);			
 	}
-	
-}(jQuery, google));
+});	
+//}(jQuery, google));
 </script>
     	
 </body>
