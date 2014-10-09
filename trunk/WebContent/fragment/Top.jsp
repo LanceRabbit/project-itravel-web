@@ -1998,9 +1998,6 @@
 		    };
 			
 		    neighborhood_map = new google.maps.Map(document.getElementById("map_neighborhood"), mapOptions);
-		    
-		    google.maps.event.trigger(spot_map, "resize");
-			spot_map.setCenter(spot_location);
 			
 			google.maps.event.addListenerOnce(neighborhood_map, 'idle', function() {
 				   google.maps.event.trigger(neighborhood_map, 'resize');
@@ -2016,9 +2013,7 @@
 						dataType : "json",
 				    }).done(function(data){
 				    	
-				    	if(neighbors.length > 0) {
-				    		neighbors.setMap(null);
-				    	}
+				    	neighborMarkers = [];
 				    	
 				    	neighbors = data;
 				    	jQuery.each(data, function(index, value){
