@@ -851,6 +851,23 @@ height:200px;
 				},
 			});
 							
+			// spot info modal 
+			jQuery("#listDetails").on("click", ".jm-item-title", function(){
+				selectedSpotId = jQuery(this).attr("id");
+				console.log("spot id : " + selectedSpotId);
+				jQuery.ajax({
+					type : "POST",
+					url : '<c:url value='/controller/GetSpot' />',
+					data : {
+						spotId : selectedSpotId
+					},
+					dataType : "json"
+				}).done(function(data){
+					displaySpotInfo(data);
+				});
+				//jQuery('#spotInfoModalLabel')
+			});
+			
 			// configure confirmBtn
 			jQuery("#confirmBtn").on('click', function(){
 				var spotId = jQuery("#confirmModalDescription p").attr("id");

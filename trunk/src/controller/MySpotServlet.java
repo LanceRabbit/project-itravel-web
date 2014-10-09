@@ -63,6 +63,7 @@ public class MySpotServlet extends HttpServlet {
 		try {
 			for(SpotDetail o:spotDetails){
 				JSONObject jsonSpot = new JSONObject();
+				jsonSpot.put("spotId", o.getSpotId());
 				jsonSpot.put("spotName", o.getSpotName());
 				jsonSpot.put("spotIntro", o.getSpotIntro());
 				jsonSpot.put("spotID", o.getSpotId());
