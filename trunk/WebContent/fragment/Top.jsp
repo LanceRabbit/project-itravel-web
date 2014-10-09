@@ -1352,6 +1352,9 @@
 		
 		var spot_infowindow = new google.maps.InfoWindow();
 
+		if(spot_marker != null)
+			spot_marker.setMap(null);
+		
 		spot_marker = new google.maps.Marker({
 					
 					position : spot_location,
@@ -1500,8 +1503,11 @@
 	
 
 	function addSpotMarker(lat, lng) {
-		console.log("addSpotMarker()");
+		//console.log("addSpotMarker()");
 		spotInfo_location =  new google.maps.LatLng(lat, lng); 
+		
+		if(spotInfo_marker != null)
+			spotInfo_marker.setMap(null);
 		
 		spotInfo_marker = new google.maps.Marker({
 			position : spotInfo_location,
@@ -2009,8 +2015,12 @@
 						},
 						dataType : "json",
 				    }).done(function(data){
-				    	neighbors = data;
 				    	
+				    	if(neighbors.length > 0) {
+				    		neighbors.setMap(null);
+				    	}
+				    	
+				    	neighbors = data;
 				    	jQuery.each(data, function(index, value){
 				    		
 				    		neighbors[index] = value;
