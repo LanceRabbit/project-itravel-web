@@ -397,7 +397,7 @@ height:200px;
 																					+" '/>' style='width:330px; height:220px;'><div class='jm-item-description'>"
 																					+ value.spotLikeIntro
 																					+ "</div></div>"
-																					+ "<a href='#'><div class='jm-item-title'>"
+																					+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 																					+value.spotLikeName
 																					+"</div></a></div></div></div>");
 																}
@@ -408,6 +408,24 @@ height:200px;
 
 						});
 
+		// spot info modal view 
+		jQuery("#rowSpot").on("click", ".jm-item-title", function(){
+		
+			selectedSpotId = jQuery(this).attr("id");
+			//console.log("spot id : " + selectedSpotId);
+			jQuery.ajax({
+				type : "POST",
+				url : '<c:url value='/controller/GetSpot' />',
+				data : {
+					spotId : selectedSpotId
+				},
+				dataType : "json"
+			}).done(function(data){
+				displaySpotInfo(data);
+			});
+			//jQuery('#spotInfoModalLabel')
+		});
+		
 		jQuery(window).load(
 				function() {
 					var boxheight = jQuery('#myCarousel .carousel-inner')
