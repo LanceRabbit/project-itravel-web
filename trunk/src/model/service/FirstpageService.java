@@ -31,7 +31,7 @@ public class FirstpageService {
 	}
 
 	public static List<SpotDetail> findTopSpot(){
-		List<SpotDetail> result = spotDetailDao.selectTopN(5);
+		List<SpotDetail> result = spotDetailDao.selectTopN(6);
 		
 		
 		return result;
