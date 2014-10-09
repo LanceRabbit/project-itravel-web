@@ -505,11 +505,11 @@ height:200px;
 			//傳入的id是SpotId				
 			console.log(document.getElementById(id));
 			//收回讚
-			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-2x"){
+			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-lg"){
 				//換heart-o圖
 				jQuery("#"+id).attr('title','按讚');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");		
+				jQuery("#"+id).addClass("fa fa-heart-o fa-lg").css("color","#ff443e");		
 				
 				var spotidNo = id.substring(2);	
 				var No = "p"+spotidNo;
@@ -549,7 +549,7 @@ height:200px;
 						}else{							
 							jQuery("#"+id).attr('title','收回讚');
 							jQuery("#"+id).removeAttr("class");
-							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+							jQuery("#"+id).addClass("fa fa-heart fa-lg").css("color","#ff443e");
 							var spotidNo = id.substring(2);	
 							var No = "p"+spotidNo;
 							var N =jQuery("#"+No).text();
@@ -568,10 +568,10 @@ height:200px;
 		function collect(id) {
 			console.log(id);
 		//fa-minus
-			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-2x"){
+			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-lg"){
 				jQuery("#"+id).attr('title','收藏');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-plus fa-2x");				
+				jQuery("#"+id).addClass("fa fa-plus fa-lg");				
 				jQuery.ajax({
 					url : '<c:url value='/controller/SpotReccordServlet'/>',
 					type : "GET",
@@ -603,7 +603,7 @@ height:200px;
 						}else{
 							jQuery("#"+id).attr('title','取消收藏');
 							jQuery("#"+id).removeAttr("class");
-							jQuery("#"+id).addClass("fa fa-minus fa-2x");
+							jQuery("#"+id).addClass("fa fa-minus fa-lg");
 						}						
 														
 					}				
@@ -1112,23 +1112,24 @@ height:200px;
 					jQuery('#listDetails').append(
 							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='"
 							+value.spotThumbnail 
-							+" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
+							+" ' style='width:330px; height:220px;'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><div  class='jm-item-description'>"
 							+value.spotIntro							
 							+ "</div></div>"
 							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
-							+"</div></a></div></div></div>"
-							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
+							+"</div></a></div><p id='"+value.spotId+"' style='text-align:right;'></p></div><p id='"+value.spotId+"' class='pull-right'></p><div>"
+							//+ "<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 				}else{
 					jQuery('#listDetails').append(
 							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive'  src='"
-							+value.spotThumbnail +" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
+							+value.spotThumbnail 
+							+" ' style='width:330px; height:220px;'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><div class='jm-item-description'>"
 							+value.spotIntro							
 							+ "</div></div>"
 							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 							+ value.spotName
-							+"</div></a></div></div></div>"
+							+"</div></a></div><p id='"+value.spotId+"' style='text-align:right;'></p></div><div>"
 							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"
 					); // end of jQuery
 					
@@ -1142,15 +1143,15 @@ height:200px;
 					data : {SpotId:value.spotId},						
 					success : function(data) {						
 						if(data=="NoAccount"){							
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 							
 						}else if(data=="Like"){
 						//有登錄的話依據like紀錄顯示圖片
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart fa-lg' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
 							
 						}else if(data=="NoLike"){
 						//有登錄的話依據like紀錄顯示圖片
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ih"+value.spotId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 						
 						}																						
 					}				
@@ -1165,15 +1166,15 @@ height:200px;
 					data : {SpotId:value.spotId},						
 					success : function(data) {														
 						if(data=="NoAccount"){							
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a>");
 							
 						}else if(data=="Collect"){
 						
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+"' class='fa fa-minus fa-lg'  title='取消收藏' onclick='collect(this.id)'></i></a>");
 							
 						}else if(data=="NoCollect"){
 						
-							jQuery('.'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+							jQuery('#'+value.spotId).append("<a id='social' href='javascript: void(0);' ><i id='ip"+value.spotId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a>");
 						
 						}																						
 					}				
