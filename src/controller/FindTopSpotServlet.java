@@ -52,6 +52,7 @@ public class FindTopSpotServlet extends HttpServlet {
 		try {
 			for (SpotDetail o : resultSpot) {
 				JSONObject jsonSpot = new JSONObject();
+				jsonSpot.put("spotId", o.getSpotId());
 				jsonSpot.put("spotLikeName", o.getSpotName());
 				jsonSpot.put("spotLikeIntro", o.getSpotIntro());
 				String imgId = "team1.jpg";
