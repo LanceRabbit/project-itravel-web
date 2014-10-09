@@ -79,8 +79,8 @@ public class SpotImgDAOHibernate implements SpotImgDAO {
 			SpotDetail spot = (SpotDetail)session.get(SpotDetail.class, spotId);
 			Set<SpotImg> images = spot.getSpotImgs();
 			for(SpotImg image : images) {
-				System.out.println("image id: " + image.getImgId());
-				System.out.println("spot id: " + image.getSpotId());
+				//System.out.println("image id: " + image.getImgId());
+				//System.out.println("spot id: " + image.getSpotId());
 				session.delete(image);	
 			}
 			

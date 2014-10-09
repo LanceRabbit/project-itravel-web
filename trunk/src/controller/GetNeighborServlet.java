@@ -25,7 +25,7 @@ public class GetNeighborServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("GetNeighborServlet processing....");
+		//System.out.println("GetNeighborServlet processing....");
 		
 		OutputStream os = null;
 		

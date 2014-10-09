@@ -59,14 +59,14 @@ public class SearchSpotPagingServlet extends HttpServlet {
 			int totalPageCount = service.getTotalPageCountByConditions(
 					spotName, city, category, subcategory, pageNo);
 			
-			if(spots != null) {
-				for (SpotDetail o : spots) {
-					System.out.println(o.toString());
-				}
-			}
-			else {
-				System.out.println("null list....");
-			}
+//			if(spots != null) {
+//				for (SpotDetail o : spots) {
+//					System.out.println(o.toString());
+//				}
+//			}
+//			else {
+//				System.out.println("null list....");
+//			}
 			
 			String webAppURL = request.getScheme() 
 					+ "://"
