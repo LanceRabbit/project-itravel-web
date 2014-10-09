@@ -4593,7 +4593,7 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	padding: 6px 12px;
 	margin-left: -1px;
 	line-height: 1.42857143;
-	color: #428bca;
+	color: #428bca; /* #e0e8b6;*/
 	text-decoration: none;
 	background-color: #fff;
 	border: 1px solid #ddd
@@ -4622,8 +4622,8 @@ textarea.input-group-sm>.form-control,textarea.input-group-sm>.input-group-addon
 	z-index: 2;
 	color: #fff;
 	cursor: default;
-	background-color: #428bca;
-	border-color: #428bca
+	background-color: #FF6B0E;
+	border-color: #FF6B0E
 }
 
 .pagination>.disabled>span,.pagination>.disabled>span:hover,.pagination>.disabled>span:focus,.pagination>.disabled>a,.pagination>.disabled>a:hover,.pagination>.disabled>a:focus
