@@ -764,8 +764,8 @@
 				<!-- <div class="modal-body"> -->
 
 				<div class="modal-footer">
-					<button id="resetBtn" type="button" class="btn btn-default" data-dismiss="modal">放棄</button>
-					<button id="saveBtn" type="button" class="btn btn-primary">儲存</button>
+					<button id="resetBtn" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="saveBtn" type="button" class="btn btn-primary">新增</button>
 				</div>
 			</div>
 			<!-- <div class="modal-content"> -->
@@ -896,8 +896,8 @@
 				<!-- <div class="modal-body"> -->
 				
 				<div class="modal-footer" id="spotInfoModelFooter" hidden>
-					<button id="commentResetBtn" type="button" class="btn btn-default">放棄</button>
-					<button id="commentSaveBtn" type="button" class="btn btn-primary">儲存</button>
+					<button id="commentResetBtn" type="button" class="btn btn-default">取消</button>
+					<button id="commentSaveBtn" type="button" class="btn btn-primary">張貼</button>
 					<button id="commentCreationBtn" type="button" class="btn btn-primary" >新增評論</button>
 				</div>
 				
