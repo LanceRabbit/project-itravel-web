@@ -10,8 +10,8 @@
 
 <style type="text/css">
 body {
-	padding:20px;	
 	background-color: #529abb;
+	
 }
 
 #topImg{
@@ -23,27 +23,17 @@ overflow:hidden;
 
 height:80px;
 }
-/*
-.img-portfolio {
-margin: 0 auto;
-}
-.img-responsive{
-display: block;
-width: 100% \9;
-max-width: 100%;
-height: auto;
-}
-*/
-p { /*用於內文   多行文字溢出用...取代*/
+/*用於內文   多行文字溢出用...取代
+p { 
 	overflow: hidden;
 	text-overflow: ellipsis;
 	display: -webkit-box;
 	-webkit-line-clamp: 4;
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
-}
+}*/
 
-h4 { /*用於標題   單行文字溢出用...取代*/
+h4 { /*用於標題   單行文字溢出用...取代*/	
 	white-space: nowrap;
 	width: 100%; /* IE6 需要定义宽度 */
 	overflow: hidden;
@@ -90,6 +80,135 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 		display: none;
 	}
 }
+
+/*basic*/
+.jm-item {
+	padding: 10px;
+	display: inline-block;
+	text-align: left;
+}
+
+.jm-item-wrapper {
+	position: relative;
+	padding: 7px;
+	background: #e0e8b6;
+}
+
+.jm-item-image {
+	position: relative;
+	overflow: hidden;
+}
+
+.jm-item-image img {
+	display: block;
+}
+
+.jm-item second{
+width:320px;
+height:200px;
+}
+.jm-item-title {
+	position: absolute;
+	left: -10px;
+	bottom: 17px;
+	background: #FF6B0E;
+	line-height: 1.5em;
+	font-weight: normal;
+	padding: 7px 9px 6px;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.4em;
+}
+
+.jm-item-overlay {
+	background: #000;
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	-webkit-transition: opacity 0.5s ease-in 0s;
+	-moz-transition: opacity 0.5s ease-in 0s;
+	-o-transition: opacity 0.5s ease-in 0s;
+	transition: opacity 0.5s ease-in 0s;
+}
+
+.jm-item-wrapper:hover .jm-item-overlay {
+	opacity: 0.3;
+}
+
+.jm-item-button {
+	
+	height: 50px;
+	width: 50px;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	margin-left: -25px;
+}
+
+.jm-item-button a {
+	
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	background: #FF6B0E;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.2em;
+	line-height: 50px;
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+	text-decoration: none !important;
+	display: block;
+}
+
+.jm-item-button a:hover {
+	background: #3b3b3b;
+}
+/**/
+.second .jm-item-wrapper .jm-item-title {
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-title {
+	/*visibility:hidden;*/
+	
+	left: -10%;
+}
+
+.second .jm-item-description {
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	font-size:20px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
+	top: 100%;
+	-webkit-transition: all 0.5s ease-in 0s;
+	-moz-transition: all 0.5s ease-in 0s;
+	-o-transition: all 0.5s ease-in 0s;
+	transition: all 0.5s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-description {
+	top: 0;
+}
+
+
+
 </style>
 
 </head>
@@ -99,7 +218,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	<!-- Page Content -->
 	
    
-	<div class="container" style="background-color: #529abb">
+	 <div class="container" >
 		
 				<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			
@@ -122,14 +241,14 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 				
 			
 		</div>
-
+   
 		<!-- End Carousel -->
 
-		<h4>最受歡迎景點</h4>
+		
 
 		<div class="row" id="rowSpot"></div>
 
-	</div>
+	 </div>
 	<jsp:include page="fragment/bottom.jsp"></jsp:include>
 	<script type="text/javascript">
 		jQuery(document).ready(
@@ -273,12 +392,14 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 																	jQuery(
 																			'#rowSpot')
 																			.append(
-																					"<div class='col-xs-3'><div class='thumbnail'><img class='img-portfolio img-responsive' src='<c:url value='/" + value.spotThumbnailURL+" '/>' alt=''><h4><a href='#'>"
-																							+ value.spotLikeName
-																							+ "</a></h4>"
-																							+ "<p>"
-																							+ value.spotLikeIntro
-																							+ "</p></div></div></div>");
+																					"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='<c:url value='/"
+																					+ value.spotThumbnailURL
+																					+" '/>' style='width:330px; height:220px;'><div class='jm-item-description'>"
+																					+ value.spotLikeIntro
+																					+ "</div></div>"
+																					+ "<a href='#'><div class='jm-item-title'>"
+																					+value.spotLikeName
+																					+"</div></a></div></div></div>");
 																}
 															});
 										}

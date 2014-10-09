@@ -4,13 +4,14 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */ /*! normalize.css v3.0.1 | MIT License | git.io/normalize */
 html {
-	font-family: sans-serif;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	-webkit-text-size-adjust: 100%;
 	-ms-text-size-adjust: 100%
 }
 
 body {
 	margin: 0;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	
 }
 
@@ -106,7 +107,7 @@ pre {
 }
 
 code,kbd,pre,samp {
-	font-family: monospace, monospace;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	font-size: 1em
 }
 
@@ -1098,7 +1099,7 @@ html {
 }
 
 body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	font-size: 14px;
 	line-height: 1.42857143;
 	color: #333;

@@ -17,9 +17,11 @@
 .error,.btn{
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 }
+/*
 #idTop{
 	padding:20px 0px 0px 0px;
 }
+*/
 .modal-signup{
 	width: 400px;
 }
@@ -84,7 +86,7 @@
 </style>
 </head>
 <body>
-	<div id="idTop" class="container">
+	<!-- <div id="idTop" class="container"> -->
 	<div class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -420,7 +422,7 @@
 				<!-- /.modal-dialog -->
 			</div>
 	</div>
-	</div>
+	<!-- end of container </div> -->
 	
 
 	

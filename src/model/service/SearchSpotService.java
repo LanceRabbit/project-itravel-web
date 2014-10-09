@@ -18,7 +18,7 @@ import model.util.ConstantsUtil;
 
 @Path("/spots")
 public class SearchSpotService {
-	public static final int SPOTS_PER_PAGE = 4;
+	public static final int SPOTS_PER_PAGE = 6;
 	
 	public List<SpotDetail> searchSpotByGeoInfo() {
 		return null;
