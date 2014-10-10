@@ -9,12 +9,10 @@
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
-	
+<!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" />  -->	
 <title>Myspot</title>
 <style type="text/css">
-body {
-	padding: 20px;
-}
+
 p { /*用於內文   多行文字溢出用...取代*/
 	overflow: hidden;
 	text-overflow: ellipsis;

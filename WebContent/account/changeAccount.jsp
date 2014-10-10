@@ -8,12 +8,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" />  -->
 <title>修改帳號資訊</title>
 <style type="text/css">
-body{
-	padding:20px;
-	
-}
+
 .spanPositionCA{
 	font-family:Microsoft JhengHei;
 	font-weight: bold;
