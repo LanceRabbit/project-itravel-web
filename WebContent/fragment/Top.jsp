@@ -71,12 +71,7 @@
 	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
 	margin-left:10px;
 }
-#spotInfoForm {
-	height: auto;
-    max-height: 225px;
-    overflow-x: hidden;
-    overflow-y:auto
-}
+
 .adela-modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
