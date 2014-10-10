@@ -703,7 +703,7 @@
 												<div class="col-md-5 col-md-offset-1">
 													<input id="spotName" name="spotName" type="text"
 														placeholder="景點名稱" class="form-control" 
-														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
+														data-toggle="popover" data-placement="top" data-content="請輸入不包含特殊字元[!@#$%&^*]的名稱">
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
@@ -1581,6 +1581,13 @@
 		jQuery('#spotInfoModal').modal("show");
 	}
 	
+	function isSpotNameValid(spotName) {
+		//console.log("spot name valid : " + spotName);
+		var reg = new RegExp(/[!@#$%&^*]/i);
+		
+		return !(reg.test(spotName));
+	}
+	
 	// execute when DOM is ready
 	jQuery(document).ready(function() {
 		if (jQuery('[name="loginError"]').text() != "") {
@@ -1830,7 +1837,7 @@
 				popoverHandler("#categoryGroup");
 			else if(jQuery("#subcategory").val().length == 0)
 				popoverHandler("#subcategoryGroup");
-			else if(jQuery("#spotName").val().length == 0)
+			else if((jQuery("#spotName").val().length == 0) || (isSpotNameValid(jQuery("#spotName").val()) == false))
 				popoverHandler("#spotName", "#spotName");
 			<c:if test="${user.accountLevel == 2}">
 			else if(jQuery("#spotOwner").val().length == 0)
