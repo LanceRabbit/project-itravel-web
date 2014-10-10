@@ -8,7 +8,7 @@
 <title>Search Spots</title>
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.css" />" />
 <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" />
-<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
+<!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" /> -->
 <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 <style type="text/css">
 p {/*用於內文   多行文字溢出用...取代*/

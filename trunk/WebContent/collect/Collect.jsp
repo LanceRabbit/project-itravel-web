@@ -7,12 +7,11 @@
 <link
 	href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
 	rel="stylesheet">
+<!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" />  -->	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>My Collect</title>
 <style type="text/css">
-body {
-	padding: 20px;
-}
+
 .jm-item-title{ /*用於單行文字溢出用...取代*/
 	white-space: nowrap;
 	max-width: 180px; /* IE6 需要定义宽度 */

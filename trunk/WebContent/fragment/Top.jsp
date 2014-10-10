@@ -10,7 +10,7 @@
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
 <link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
 <link rel="stylesheet" href="<c:url value="/css/dropzone.css" />" />
-<link rel="stylesheet" href="<c:url value="/css/container.css" />" />
+<!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" /> -->
 <link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
 
 <style>
