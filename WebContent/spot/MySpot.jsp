@@ -430,7 +430,7 @@ height:200px;
 								</form>
 							</div>
 						</div>
-						<div class="col-md-6 itravel-block-frame" id="itravel-block-map">
+						<div class="col-md-6 itravel-block-frame" id="alterspot-map">
 							<div class="itravel-block-1-group" id="alterspot-map-container"></div>
 						</div>
 					</div>
@@ -460,9 +460,10 @@ height:200px;
 	Dropzone.autoDiscover = false; //Turn off autoDiscover globally to avoid the second self-created dropzone causing an error (need to be refined....)
 	var alterSpotDropzone;
 	var alterspot_zone_index = 1;
-	var alterspot_location = new google.maps.LatLng(23.973299, 120.978398);
+	var alterspot_location = new google.maps.LatLng(25.051133, 121.555130);
 	var alterspot_map;
 	var alterspot_marker;
+	var alterspot_infowindow;
 	var alterspotInfo;
 	
 	function alter(id){
@@ -480,9 +481,12 @@ height:200px;
 			
 			// modal google map
 			jQuery('#alterSpotModal').on('shown.bs.modal', function() {
+				/*
 				console.log("modal google map.....");
 				google.maps.event.trigger(alterspot_map, "resize");
 				alterspot_map.setCenter(alterspot_location);
+				*/
+				alterspot_map_init();
 			});
 			
 			resetAlterSpotPage();
@@ -496,17 +500,17 @@ height:200px;
 			jQuery("#subalterSpotCategory").val(alterspotInfo.subcategory);
 		
 			jQuery.each(categories, function(index, value){
-				if(categories[index] == alterspotInfo.category) {
+				if(categories[index].type == alterspotInfo.category) {
 					var subcategories = categories[index].subtype;
-					console.log(subcategories);
+					//console.log(subcategories);
 					
 					jQuery.each(subcategories, function(index, value){
 						jQuery("#subalterSpotCategoryIdMenu ul:first").append("<li><a href='#'>"+value+"</a></li>");
 					});
-				}
+				} 
 			});
 			
-			jQuery("#alterSpotName").val(alterspotInfo.spotName); jQuery("#alterSpotName").trigger('change');
+			jQuery("#alterSpotName").val(alterspotInfo.spotName); //jQuery("#alterSpotName").trigger('change');
 			jQuery("#alterSpotAddress").val(alterspotInfo.address);
 			jQuery("#alterSpotPhone").val(alterspotInfo.phone);
 
@@ -655,7 +659,7 @@ height:200px;
 		// reset the form
 		jQuery('#alterSpotInfoForm input').val('');
 		jQuery('#alterSpotIntro').val('');
-		jQuery("#itravel-block-map").hide();
+		jQuery("#alterspot-map").hide();
 		
 		// reset drop zone
 		
@@ -705,7 +709,7 @@ height:200px;
 	}
 	
 	function alterspot_map_init() {
-		console.log("alterspot_map_init called");
+		//console.log("alterspot_map_init called");
 		var alterspot_mapoptions = {
 			center : alterspot_location,
 			zoom : 14,
@@ -715,12 +719,20 @@ height:200px;
 			rotateControl : false,
 			streetViewControl : false,
 		};
+		
 		alterspot_map = new google.maps.Map(document
 				.getElementById("alterspot-map-container"), alterspot_mapoptions);
 		
-		//var spot_infowindow = new google.maps.InfoWindow();
-
-		alterspot_marker = new google.maps.Marker({
+		google.maps.event.addListenerOnce(alterspot_map, 'idle', function() {
+			   google.maps.event.trigger(alterspot_map, 'resize');
+			   alterspot_map.setCenter(alterspot_location);
+			   
+			   alterspot_infowindow = new google.maps.InfoWindow();
+			   
+			   if(alterspot_marker != null)
+				   alterspot_marker.setMap(null);
+			   
+			   alterspot_marker = new google.maps.Marker({
 					
 					position : alterspot_location,
 					map : alterspot_map,
@@ -729,44 +741,50 @@ height:200px;
 					maxHeight : jQuery("#alterspot-map-container").height(), 
 					draggable:true,
 				    animation: google.maps.Animation.DROP
-		});
-
-		//增加標記點的click事件
-		google.maps.event.addListener(alterspot_marker, 'click', function() {
-			console.log("spot marker clicked");
-			//spot_infowindow.open(alterspot_map, alterspot_marker);
-			
-			LatLng = alterspot_marker.getPosition();
-			alterspot_location = LatLng;
-			geocoder.geocode({'latLng': LatLng}, function(results, status) {
-		   		if (status == google.maps.GeocoderStatus.OK) {
-			        if (results[1]) {
-			        	address = results[1].formatted_address;
-			        	alterspot_marker.setTitle(address);	//重新設定標記點的title
-			        	jQuery('#alterSpotAddress').val(address);
-			        	jQuery('#alterSpotAddress').focus();
-			        }
-			    }else 
-			      	console.log("Geocoder failed due to: " + status);
-		   });
-		});
+				});
 		
-		//增加標記點的mouseup事件
-		google.maps.event.addListener(alterspot_marker, 'mouseup', function() {
-			console.log("spot marker mouseup");
-			
-			LatLng = alterspot_marker.getPosition();
-			geocoder.geocode({'latLng': LatLng}, function(results, status) {
-		   		if (status == google.maps.GeocoderStatus.OK) {
-			        if (results[1]) {
-			        	address = results[1].formatted_address;
-			        	alterspot_marker.setTitle(address);	//重新設定標記點的title
-			        	//jQuery('#spotAddress').val(address);
-			        	//jQuery('#spotAddress').focus();
-			        }
-			    }else 
-			      	console.log("Geocoder failed due to: " + status);
-		   });
+				//增加標記點的click事件
+				google.maps.event.addListener(alterspot_marker, 'click', function() {
+					//console.log("spot marker clicked");
+					//spot_infowindow.open(alterspot_map, alterspot_marker);
+					
+					LatLng = alterspot_marker.getPosition();
+					alterspot_location = LatLng;
+					geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	address = results[1].formatted_address;
+					        	alterspot_marker.setTitle(address);	//重新設定標記點的title
+					        	jQuery('#alterSpotAddress').val(address);
+					        	jQuery('#alterSpotAddress').focus();
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				});
+				
+				//增加標記點的mouseup事件
+				google.maps.event.addListener(alterspot_marker, 'mouseup', function() {
+					//console.log("spot marker mouseup");
+					
+					LatLng = alterspot_marker.getPosition();
+					geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	address = results[1].formatted_address;
+					        	alterspot_marker.setTitle(address);	//重新設定標記點的title
+					        	
+					        	promptMarkerInfo(alterspot_map, alterspot_infowindow, alterspot_marker, "按下,可將標記處地址更新至景點資訊中");
+					        	//jQuery('#spotAddress').val(address);
+					        	//jQuery('#spotAddress').focus();
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				});  
+				
+				// trigger as map ready
+				jQuery("#alterSpotName").trigger('change');
 		});
 	} 
 	
@@ -792,6 +810,8 @@ height:200px;
 					        	rev_address = results[1].formatted_address;
 					        	alterspot_marker.setTitle(rev_address);	//重新設定標記點的title
 					        	jQuery('#spotAddress').val(rev_address);
+					        	
+					        	promptMarkerInfo(alterspot_map, alterspot_infowindow, alterspot_marker, "可拖拉更改標記地址");
 					        }
 					    }else 
 					      	console.log("Geocoder failed due to: " + status);
@@ -825,7 +845,7 @@ height:200px;
 	</script>
 	<script type="text/javascript">
 		jQuery(document).ready(	function() {
-			google.maps.event.addDomListener(window, 'load', alterspot_map_init);
+			//google.maps.event.addDomListener(window, 'load', alterspot_map_init);
 		
 			var count = 0;
 			jQuery.ajax({
@@ -852,7 +872,7 @@ height:200px;
 			// spot info modal 
 			jQuery("#listDetails").on("click", ".jm-item-title", function(){
 				selectedSpotId = jQuery(this).attr("id");
-				console.log("spot id : " + selectedSpotId);
+				//console.log("spot id : " + selectedSpotId);
 				jQuery.ajax({
 					type : "POST",
 					url : '<c:url value='/controller/GetSpot' />',
@@ -869,7 +889,7 @@ height:200px;
 			// configure confirmBtn
 			jQuery("#confirmBtn").on('click', function(){
 				var spotId = jQuery("#confirmModalDescription p").attr("id");
-				console.log("confirm button pressed : " + spotId);
+				//console.log("confirm button pressed : " + spotId);
 				
 				jQuery.ajax({
 					url:"<c:url value='/control/DeleteSpot' />",
@@ -897,6 +917,24 @@ height:200px;
 				//console.log(jQuery(this).text());
 				jQuery("#alterSpotCity").val(jQuery(this).text());
 				jQuery("#alterSpotCityIdMenu .dropdown-menu").hide();
+				
+				// redraw map
+				if(!jQuery("#alterspot-map").is(':visible')) {
+					jQuery("#alterspot-map").show();
+					
+					google.maps.event.trigger(alterSpot_map, "resize");
+					alterSpot_map.setCenter(alterSpot_location);
+				}
+				
+				var addr = "台灣";
+				var spot = jQuery("#alterSpotName").val();
+				var city = jQuery("#alterSpotCity").val();
+				if(spot.length > 0)
+					addr = addr + city + spot;
+				else 
+					addr = addr + city;
+				
+				alterSpotGetAddressMarkerByName(addr);
 			}) 
 			
 			jQuery('#alterSpotCategoryIdMenu').on('show.bs.dropdown', function () {
@@ -940,7 +978,7 @@ height:200px;
 			
 			// config image deletion
 			jQuery('.alterSpotImagePreview_zone').on('click', '.alterSpotDeleteImg', function(){
-				console.log('deleting image.....' + jQuery(this));
+				//console.log('deleting image.....' + jQuery(this));
 				var zone = jQuery(this).closest('.alterSpotImagePreview_zone');
 				zone.find('img:first').remove();
 				
@@ -1062,12 +1100,12 @@ height:200px;
 			jQuery("#alterSpotName").change(function(){
 				//console.log("spot name : changing....");
 				
-				if(!jQuery("#itravel-block-map").is(':visible')) {
-					jQuery("#itravel-block-map").show();
+				if(!jQuery("#alterspot-map").is(':visible')) {
+					jQuery("#alterspot-map").show();
+					
+					google.maps.event.trigger(alterspot_map, "resize");
+					alterspot_map.setCenter(alterspot_location);
 				}
-				
-				google.maps.event.trigger(alterspot_map, "resize");
-				alterspot_map.setCenter(alterspot_location);
 				
 				var addr = "台灣";
 				var city = jQuery("#alterSpotCity").val();
@@ -1080,7 +1118,7 @@ height:200px;
 			});
 			
 			jQuery("#alterSpotpotAddress").change(function(){
-				console.log("spot address : changing....");
+				//console.log("spot address : changing....");
 				alterSpotGetAddressMarkerByAddr(jQuery(this).val());
 			});
 			

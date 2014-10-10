@@ -1255,7 +1255,7 @@
 	// spot related 
 	var myDropzone;
 	var zone_index = 1;
-	var spot_location = new google.maps.LatLng(23.973299, 120.978398);
+	var spot_location = new google.maps.LatLng(25.051133, 121.555130);
 	var spot_map;
 	var spot_marker;
 	
@@ -1345,60 +1345,77 @@
 		spot_map = new google.maps.Map(document
 				.getElementById("map-container"), spot_mapoptions);
 		
-		var spot_infowindow = new google.maps.InfoWindow();
+		google.maps.event.addListenerOnce(spot_map, 'idle', function() {
+			   google.maps.event.trigger(spot_map, 'resize');
+			   spot_map.setCenter(spot_location);
+			   
+			   spot_infowindow = new google.maps.InfoWindow();
 
-		if(spot_marker != null)
-			spot_marker.setMap(null);
-		
-		spot_marker = new google.maps.Marker({
+				if(spot_marker != null)
+					spot_marker.setMap(null);
+				
+				spot_marker = new google.maps.Marker({
+							
+							position : spot_location,
+							map : spot_map,
+							title : "台灣",
+							maxWidth : jQuery("#map-container").width(),
+							maxHeight : jQuery("#map-container").height(), 
+							draggable:true,
+						    animation: google.maps.Animation.DROP
+				});
+
+				//增加標記點的click事件
+				google.maps.event.addListener(spot_marker, 'click', function() {
+					//console.log("spot marker clicked");
+					//spot_infowindow.open(spot_map, spot_marker);
 					
-					position : spot_location,
-					map : spot_map,
-					title : "台灣",
-					maxWidth : jQuery("#map-container").width(),
-					maxHeight : jQuery("#map-container").height(), 
-					draggable:true,
-				    animation: google.maps.Animation.DROP
-		});
-
-		//增加標記點的click事件
-		google.maps.event.addListener(spot_marker, 'click', function() {
-			console.log("spot marker clicked");
-			//spot_infowindow.open(spot_map, spot_marker);
-			
-			LatLng = spot_marker.getPosition();
-			spot_location = LatLng;
-			geocoder.geocode({'latLng': LatLng}, function(results, status) {
-		   		if (status == google.maps.GeocoderStatus.OK) {
-			        if (results[1]) {
-			        	address = results[1].formatted_address;
-			        	spot_marker.setTitle(address);	//重新設定標記點的title
-			        	jQuery('#spotAddress').val(address);
-			        	jQuery('#spotAddress').focus();
-			        }
-			    }else 
-			      	console.log("Geocoder failed due to: " + status);
-		   });
-		});
-		
-		//增加標記點的mouseup事件
-		google.maps.event.addListener(spot_marker, 'mouseup', function() {
-			console.log("spot marker mouseup");
-			
-			LatLng = spot_marker.getPosition();
-			geocoder.geocode({'latLng': LatLng}, function(results, status) {
-		   		if (status == google.maps.GeocoderStatus.OK) {
-			        if (results[1]) {
-			        	address = results[1].formatted_address;
-			        	spot_marker.setTitle(address);	//重新設定標記點的title
-			        	//jQuery('#spotAddress').val(address);
-			        	//jQuery('#spotAddress').focus();
-			        }
-			    }else 
-			      	console.log("Geocoder failed due to: " + status);
-		   });
+					LatLng = spot_marker.getPosition();
+					spot_location = LatLng;
+					geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	address = results[1].formatted_address;
+					        	spot_marker.setTitle(address);	//重新設定標記點的title
+					        	jQuery('#spotAddress').val(address);
+					        	jQuery('#spotAddress').focus();
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				});
+				
+				//增加標記點的mouseup事件
+				google.maps.event.addListener(spot_marker, 'mouseup', function() {
+					//console.log("spot marker mouseup");
+					
+					LatLng = spot_marker.getPosition();
+					geocoder.geocode({'latLng': LatLng}, function(results, status) {
+				   		if (status == google.maps.GeocoderStatus.OK) {
+					        if (results[1]) {
+					        	address = results[1].formatted_address;
+					        	spot_marker.setTitle(address);	//重新設定標記點的title
+					        	
+					        	promptMarkerInfo(spot_map, spot_infowindow, spot_marker, "按下,可將標記處地址更新至景點資訊中");
+					        	
+					        	//jQuery('#spotAddress').val(address);
+					        	//jQuery('#spotAddress').focus();
+					        }
+					    }else 
+					      	console.log("Geocoder failed due to: " + status);
+				   });
+				});
 		});
 	} 
+	
+	function promptMarkerInfo(map, infowindow, marker, message) {
+		//console.log("message : " + message);
+		if(infowindow)
+			infowindow.close();
+		
+		infowindow.setContent(message);
+		infowindow.open(map, marker);
+	}
 	
 	function spotGetAddressMarkerByName(address){	 
 		//重新定位地圖位置與標記點位置
@@ -1420,9 +1437,22 @@
 				   		if (status == google.maps.GeocoderStatus.OK) {
 					        if (results[1]) {
 					        	rev_address = results[1].formatted_address;
+					        	//console.log("get the address :" + rev_address);
 					        	spot_marker.setTitle(rev_address);	//重新設定標記點的title
 					        	jQuery('#spotAddress').val(rev_address);
+					        	
+					        	promptMarkerInfo(spot_map, spot_infowindow, spot_marker, "可拖拉更改標記地址");
+					        } else {
+					        	console.log("get anything about the address");
+					        	
+					        	var addr = "台灣";
+								var city = jQuery("#city").val();
+								if(city.length > 0)
+									addr = addr + city;
+								
+					        	jQuery('#spotAddress').val(addr);
 					        }
+					        
 					    }else 
 					      	console.log("Geocoder failed due to: " + status);
 				   });
@@ -1455,7 +1485,7 @@
 	 
 	// spot info modal related
 	var spotInfo_map;
-	var spotInfo_location = new google.maps.LatLng(23.973299, 120.978398);
+	var spotInfo_location = new google.maps.LatLng(25.051133, 121.555130);
 	var spotInfo_marker;
 	
 	// neighborhood related
@@ -1470,7 +1500,7 @@
 	
 	
 	function spotInfoMapInit() {
-		console.log("spotInfoMapInit()");
+		//console.log("spotInfoMapInit()");
 		var var_mapoptions = {
 			center : spotInfo_location,
 			zoom : 14,
@@ -1649,13 +1679,14 @@
 		// spot related
 		initDropzone("#previews_zone_1","#template_1");
 		initElements();
-		google.maps.event.addDomListener(window, 'load', map_init);
+		//google.maps.event.addDomListener(window, 'load', map_init);
 		
 		
 		// modal google map
 		jQuery('#addSpotModal').on('shown.bs.modal', function() {
-			google.maps.event.trigger(spot_map, "resize");
-			spot_map.setCenter(spot_location);
+			//google.maps.event.trigger(spot_map, "resize");
+			//spot_map.setCenter(spot_location);
+			map_init();
 		});
 		
 		// config drop zone
@@ -1730,6 +1761,25 @@
 			//console.log(jQuery(this).text());
 			jQuery("#city").val(jQuery(this).text());
 			jQuery("#cityIdMenu .dropdown-menu").hide();
+			
+			// redraw map
+			if(!jQuery("#itravel-block-map").is(':visible')) {
+				jQuery("#itravel-block-map").show();
+				
+				google.maps.event.trigger(spot_map, "resize");
+				spot_map.setCenter(spot_location);
+			}
+			
+			var addr = "台灣";
+			var spot = jQuery("#spotName").val();
+			var city = jQuery("#city").val();
+			if(spot.length > 0)
+				addr = addr + city + spot;
+			else 
+				addr = addr + city;
+			
+			spotGetAddressMarkerByName(addr);
+			
 		}) 
 		
 		jQuery('#categoryIdMenu').on('show.bs.dropdown', function () {
@@ -1887,16 +1937,18 @@
 			resetPage();
 		});
 		
-		
 		jQuery("#spotName").change(function(){
 			//console.log("spot name : changing....");
 			
 			if(!jQuery("#itravel-block-map").is(':visible')) {
 				jQuery("#itravel-block-map").show();
+				
+				google.maps.event.trigger(spot_map, "resize");
+				spot_map.setCenter(spot_location);
 			}
 			
-			google.maps.event.trigger(spot_map, "resize");
-			spot_map.setCenter(spot_location);
+			//google.maps.event.trigger(spot_map, "resize");
+			//spot_map.setCenter(spot_location);
 			
 			var addr = "台灣";
 			var city = jQuery("#city").val();
@@ -1909,7 +1961,7 @@
 		});
 		
 		jQuery("#spotAddress").change(function(){
-			console.log("spot address : changing....");
+			//console.log("spot address : changing....");
 			spotGetAddressMarkerByAddr(jQuery(this).val());
 		});
 		
