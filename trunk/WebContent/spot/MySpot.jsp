@@ -633,6 +633,7 @@ height:200px;
 	function delet(id){
 		jQuery("#confimModal").modal('show');
 		
+		console.log("delete : " + id);
 		var tokens = id.split("#");
 		var spotId = tokens[0];
 		var spotName = tokens[1];
@@ -867,7 +868,7 @@ height:200px;
 								+value.spotIntro							
 								+ "</div></div>"+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 								+ value.spotName
-								+"</div></a><div style='text-align:right;'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg' >修改</i></a><a class='btn btn-danger btn-sm' id='"+value.spotId+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></div></div></div></div>");			
+								+"</div></a><div style='text-align:right;'><a class='btn btn-primary btn-sm' id='"+value.spotID+"' href='javascript: void(0);' onclick='alter(this.id)'><i  class='fa fa-pencil fa-lg' >修改</i></a><a class='btn btn-danger btn-sm' id='"+(value.spotId+"#"+value.spotName)+"' href='javascript: void(0);' onclick='delet(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></div></div></div></div>");			
 					});
 				},
 			});
