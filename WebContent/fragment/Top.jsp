@@ -827,28 +827,28 @@
 												<form class="form-horizontal" role="form" >
 													
 													<div class="row">
-														<label class="col-md-3">名稱:</label>
-														<p id="spotNameP"></p>
+														<div class="col-md-3" style="text-align: right;">名稱:</div>
+														<div class="col-md-9" style="text-align: left;" id="spotNameP"></div>
 													</div>
 
 													<div class="row">
-														<label class="col-md-3">負責人:</label>
-														<p id="spotOwnerP"></p>
+														<div class="col-md-3" style="text-align: right;">負責人:</div>
+														<div class="col-md-9" style="text-align: left;" id="spotOwnerP"></div>
 													</div>
 													
 													<div class="row">
-														<label class="col-md-3">地址:</label>
-														<p id="spotAddrP"></p>
+														<div class="col-md-3" style="text-align: right;">地址:</div>
+														<div class="col-md-9" style="text-align: left;" id="spotAddrP"></div>
 													</div>
 													
 													<div class="row">
-														<label class="col-md-3">電話:</label>
-														<p  id="spotPhoneP"></p>
+														<div class="col-md-3" style="text-align: right;">電話:</div>
+														<div class="col-md-9" style="text-align: left;" id="spotPhoneP"></div>
 													</div>
 													
 													<div class="row">
-														<label class="col-md-3">簡介:</label>
-														<p id="spotIntroP"></p>
+														<div class="col-md-3" style="text-align: ;">簡介:</div>
+														<div class="col-md-9" style="text-align: left;" id="spotIntroP"></div>
 													</div>
 														
 												</form>
