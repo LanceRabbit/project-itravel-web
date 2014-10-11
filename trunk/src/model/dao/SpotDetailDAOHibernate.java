@@ -74,6 +74,10 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
+			
+			if(spot.getCreationTime() == null)
+				spot.setCreationTime(new java.util.Date());
+			
 			session.update(spot);
 			restSpot = (SpotDetail)session.get(SpotDetail.class, spot.getSpotId());
 			tx.commit();
