@@ -847,7 +847,7 @@
 													</div>
 													
 													<div class="row">
-														<div class="col-md-3" style="text-align: ;">簡介:</div>
+														<div class="col-md-3" style="text-align: right;">簡介:</div>
 														<div class="col-md-9" style="text-align: left;" id="spotIntroP"></div>
 													</div>
 														
