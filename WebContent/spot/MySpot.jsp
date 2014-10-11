@@ -492,6 +492,9 @@ height:200px;
 			resetAlterSpotPage();
 			alterspotInfo = data;
 			
+			if((alterspotInfo.latitude != 0.0) && (alterspotInfo.longitude != 0.0))
+				alterspot_location =  new google.maps.LatLng(alterspotInfo.latitude, alterspotInfo.longitude);
+			
 			// populate the html elements
 			jQuery("#alterSpotCity").val(alterspotInfo.city);
 			
