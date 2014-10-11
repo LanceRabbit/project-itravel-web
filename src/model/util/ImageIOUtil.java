@@ -78,11 +78,18 @@ public class ImageIOUtil {
 	public static String generateImageDirPath(String accountId, String spotId) {
 		String imgPath = null;
 		
+		/*
 		String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
 		if(accountId != null)
 			imgPath = "images" + "/" + dateDir + "/" + accountId + "/" + spotId;
 		else 
 			imgPath = "images" + "/" + dateDir + "/" + "temp"    + "/" + spotId;
+		*/
+		
+		if(accountId != null)
+			imgPath = "images" + "/"  + accountId + "/" + spotId;
+		else 
+			imgPath = "images" + "/"  + "temp"    + "/" + spotId;
 		
 		return imgPath;
 	}

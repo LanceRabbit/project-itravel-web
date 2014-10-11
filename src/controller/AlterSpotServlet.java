@@ -104,9 +104,12 @@ public class AlterSpotServlet extends HttpServlet {
     			if(name.equals("team1.jpg"))
     				continue;
     			
+    			/*
     			String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
     			path = request.getServletContext().getRealPath("/") + "images/" + dateDir + "/" + accountId + "/" + spotId + "/";
     			System.out.println("old image path : " + path);
+    			*/
+    			path = request.getServletContext().getRealPath("/") + "images" +  "/" + accountId + "/" + spotId + "/";
     		}
     		
     		if((name == null) || (path == null))
