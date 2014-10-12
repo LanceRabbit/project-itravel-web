@@ -824,7 +824,7 @@
 									<div class="row">
 										<div class="col-md-12 itravel-block-frame">
 											<div class="well itravel-block-1-group">
-												<form class="form-horizontal" role="form" >
+												<form class="form-horizontal spot-scrollable" role="form" >
 													
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">名稱:</div>
@@ -848,7 +848,7 @@
 													
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">簡介:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotIntroP"></div>
+														<div class="col-md-9" style="text-align: left;" id="spotIntroP" ></div>
 													</div>
 														
 												</form>
