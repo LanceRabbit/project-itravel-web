@@ -41,7 +41,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
 }
 
-#myCarousel .carousel-caption {
+#FirstCarousel .carousel-caption {
 	left: 0;
 	right: 0;
 	bottom: 0;
@@ -51,32 +51,32 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 	text-shadow: none;
 }
 
-#myCarousel .list-group {
+#FirstCarousel .list-group {
 	position: absolute;
 	top: 0;
 	right: 0;
 }
 
-#myCarousel .list-group-item {
+#FirstCarousel .list-group-item {
 	border-radius: 0px;
 	cursor: pointer;
 }
 
-#myCarousel .list-group .active {
+#FirstCarousel .list-group .active {
 	background-color: #eee;
 }
 
 @media ( min-width : 992px) {
-	#myCarousel {
+	#FirstCarousel {
 		padding-right: 33.3333%;
 	}
-	#myCarousel .carousel-controls {
+	#FirstCarousel .carousel-controls {
 		display: none;
 	}
 }
 
 @media ( max-width : 991px) {
-	.carousel-caption p,#myCarousel .list-group {
+	.carousel-caption p,#FirstCarousel .list-group {
 		display: none;
 	}
 }
@@ -214,13 +214,13 @@ height:200px;
 </head>
 <body>
 	<!-- Page Content -->
-	<jsp:include page="/fragment/Top.jsp" />
+	<jsp:include page="/fragment/Top.jsp" /> 
 	<!-- Page Content -->
 	
    
 	 <div class="container" >
 		
-				<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<div id="FirstCarousel" class="carousel slide" data-ride="carousel">
 			
 				
 					<!-- Wrapper for slides -->
@@ -230,10 +230,10 @@ height:200px;
 		
 					</ul>
 					<div class="carousel-controls">
-						<a class="left carousel-control" href="#myCarousel"
+						<a class="left carousel-control" href="#FirstCarousel"
 							data-slide="prev"> <span
 							class="glyphicon glyphicon-chevron-left"></span>
-						</a> <a class="right carousel-control" href="#myCarousel"
+						</a> <a class="right carousel-control" href="#FirstCarousel"
 							data-slide="next"> <span
 							class="glyphicon glyphicon-chevron-right"></span>
 						</a>
@@ -274,7 +274,7 @@ height:200px;
 																		jQuery(
 																				'#itemtag')
 																				.append(			               																			
-																						"<div class='item active' ><div id='topImg'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
+																						"<div class='item active' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
@@ -283,7 +283,7 @@ height:200px;
 																		jQuery(
 																				'#itemtag')
 																				.append(
-																						"<div class='item ' ><div id='topImg'><img src='<c:url value='/" + value.spotThumbnailURL+" '/>' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
+																						"<div class='item ' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
 																								+ value.spotName
 																								+ "</a></h4><p>"
 																								+ value.spotIntro
@@ -317,14 +317,14 @@ height:200px;
 																	jQuery(
 																			'#list')
 																			.append(
-																					"<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"
+																					"<li data-target='#FirstCarousel' data-slide-to='"+i+"'class='list-group-item active'><h4>"
 																							+ value.spotName
 																							+ "</h4></li>");
 																} else {
 																	jQuery(
 																			'#list')
 																			.append(
-																					"<li data-target='#myCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"
+																					"<li data-target='#FirstCarousel' data-slide-to='"+i+"'class='list-group-item '><h4>"
 																							+ value.spotName
 																							+ "</h4></li>");
 																}
@@ -336,7 +336,7 @@ height:200px;
 
 							var clickEvent = false;
 
-							jQuery('#myCarousel')
+							jQuery('#FirstCarousel')
 									.carousel({
 										interval : 4000
 									})
@@ -428,11 +428,11 @@ height:200px;
 		
 		jQuery(window).load(
 				function() {
-					var boxheight = jQuery('#myCarousel .carousel-inner')
+					var boxheight = jQuery('#FirstCarousel .carousel-inner')
 							.innerHeight();
-					var itemlength = jQuery('#myCarousel .item').length;
+					var itemlength = jQuery('#FirstCarousel .item').length;
 					var triggerheight = Math.round(boxheight / itemlength + 1);
-					jQuery('#myCarousel .list-group-item').outerHeight(
+					jQuery('#FirstCarousel .list-group-item').outerHeight(
 							triggerheight);
 				});
 	</script>
