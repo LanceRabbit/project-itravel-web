@@ -222,124 +222,7 @@ height:200px;
 	</div>
 		<!-- Modal -->
 
-	<div class="modal fade" id="spotInfoModal" tabindex="-1" role="dialog"
-		aria-labelledby="spotInfoModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<!--  <h4 class="modal-title" id="spotInfoModalLabel">新增景點  縣市 分類資訊</h4> -->
-				</div>
-
-				<div class="modal-body">
-					<ul class="nav nav-tabs" role="tablist" id="myTab">
-						<li class="active"><a href="#info" role="tab"
-							data-toggle="tab" id="briefInfoTab">景點資訊</a></li>
-						<li><a href="#regions" role="tab" data-toggle="tab" id="regionInfoTab">附近景點</a></li>
-						<li><a href="#coupons" role="tab" data-toggle="tab" id="couponInfoTab">折價券</a></li>
-						<li><a href="#comments" role="tab" data-toggle="tab" id="commentInfoTab">評論</a></li>
-					</ul>
-
-					<div class="tab-content">
-						<div class="tab-pane active itravel-tab" id="info">
-							<div class="row">
-								<div class="col-md-6 itravel-straight-block-frame">
-									<div class="itravel-straight-block-1-pic" id="imagePreview_zone">
-
-										<div id="myCarousel" class="carousel slide well"
-											data-ride="carousel">
-											<!-- Wrapper for slides -->
-											<div class="carousel-inner">
-												
-												<div class="item active">
-													<img src="../images/D1409001.jpg" alt="...">
-												</div>
-												<!-- 
-												<div class="item">
-													<img src="../images/team2.jpg" alt="...">
-												</div>
-												 -->
-											</div>
-											<!-- End Carousel Inner -->
-
-										</div>
-										<!-- End Carousel -->
-									</div>
-									<!-- <div class="itravel-block-1-pic well" id="imagePreview_zone"> -->
-
-								</div>
-								<!-- <div class="col-md-6 itravel-block-frame"> -->
-
-
-								<div class="col-md-6 itravel-straight-block-frame">
-									<div class="row">
-										<div class="col-md-12 itravel-block-frame">
-											<div class="well itravel-block-1-group">
-												<form class="form-horizontal" role="form" >
-													
-													<div class="row">
-														<label class="col-md-3">名稱:</label>
-														<p id="spotNameP"></p>
-													</div>
-
-													<div class="row">
-														<label class="col-md-3">負責人:</label>
-														<p id="spotOwnerP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">地址:</label>
-														<p id="spotAddrP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">電話:</label>
-														<p  id="spotPhoneP"></p>
-													</div>
-													
-													<div class="row">
-														<label class="col-md-3">簡介:</label>
-														<p id="spotIntroP"></p>
-													</div>
-														
-												</form>
-											</div>
-										</div>
-									</div>
-									<!-- <div class="row"> -->
-
-									<div class="row">
-										<div class="col-md-12 itravel-block-frame">
-											<div class="itravel-block-1-group" id="searchSpot-map-container"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- <div class="row"> -->
-
-						</div>
-						<!-- <div class="tab-pane active" id="info"> -->
-
-						<div class="tab-pane itravel-tab" id="region">region...</div>
-						<div class="tab-pane itravel-tab" id="coupons">
-							<label id="userForCouponsUse" hidden>${user}</label>
-							<div class="row">
-								<div id="Clist" class="col-sm-12">
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane itravel-tab" id="comments">
-							<div class="list-group" id="commentList">
-							</div> <!-- <div class="list-group"> -->
-						</div>
-					</div>
-
-
-				</div>
-				<!-- <div class="modal-body"> -->
+	
 	
 	<!-- Modal -->
 		<div class="modal modal-wide fade" id="tripmodals">
@@ -429,7 +312,7 @@ height:200px;
 		
 	}
 	</script>
-<script type="text/javascript">
+	<script type="text/javascript">
 		jQuery(document).ready(	function() {
 											
 							var count = 0;
@@ -636,8 +519,6 @@ height:200px;
 								var_my_trip_map.setCenter(var_my_trip_location);
 							});
 
-
-							
 							function my_trip_map_init() {
 						
 								var var_my_trip_mapoptions = {
@@ -652,7 +533,6 @@ height:200px;
 								var_my_trip_map = new google.maps.Map(document
 										.getElementById("my-trip-map-container"), var_my_trip_mapoptions);
 							}
-						
 
 							/**
 							* When modal shown, reset the its content 
@@ -661,7 +541,6 @@ height:200px;
 								$('.scrollable').scrollTop(0);
 							});	
 							
-							var selectedSpotId;
 							jQuery("#listDetails").on("click", ".jm-item-title", function(){
 								
 								selectedSpotId = jQuery(this).attr("id");
@@ -674,85 +553,10 @@ height:200px;
 									},
 									dataType : "json"
 								}).done(function(data){
-									spotInfo = data;
-									jQuery("#spotNameP").text(spotInfo.spotName);
-									jQuery("#spotAddrP").text(spotInfo.address);
-									jQuery("#spotPhoneP").text(spotInfo.phone);
-									jQuery("#spotIntroP").text(spotInfo.spotIntro);
-									
-									jQuery(".carousel-inner:first").empty();
-									jQuery.each(spotInfo.spotImgs, function(index, value) {
-										console.log("image url : " + value);
-										if(index == 0) {
-											jQuery(".carousel-inner:first").append("<div class='item active'><img src='"
-													+ value
-													+"'></div>");
-										} else {
-											jQuery(".carousel-inner:first").append("<div class='item'><img src='"
-													+ value
-													+"'></div>");
-										}
-									});
-											
-									if(!((spotInfo.leader != null) && (spotInfo.leader.length > 0))) {
-										jQuery("a[href='#coupons']").hide();
-										jQuery('#spotOwnerP').text("負責人").parent().hide();
-									} else {
-										jQuery("a[href='#coupons']").show();
-										jQuery("#spotOwnerP").text(spotInfo.leader).parent().show();
-									}
-							
-									// set google map marker
-									//console.log("lat : " + spotInfo.latitude);
-									//console.log("lng : " + spotInfo.longitude);
-									addSpotMarker(spotInfo.latitude, spotInfo.longitude);
-									
-									jQuery("#briefInfoTab").click();
-									jQuery('#spotInfoModal').modal("show");
+									displaySpotInfo(data);
 								});
 								//jQuery('#spotInfoModalLabel')
 							});
-							var var_map;
-							var var_location = new google.maps.LatLng(23.973299, 120.978398);
-							var var_marker;
-							
-							initElements();
-							google.maps.event.addDomListener(window, 'load', map_init);
-							
-							// modal google map
-							jQuery('#spotInfoModal').on('shown.bs.modal', function() {
-								google.maps.event.trigger(var_map, "resize");
-								var_map.setCenter(var_location);
-							});
-							
-							
-							function map_init() {
-								//console.log("map_init()");
-								var var_mapoptions = {
-									center : var_location,
-									zoom : 14,
-									mapTypeId : google.maps.MapTypeId.ROADMAP,
-									mapTypeControl : false,
-									panControl : false,
-									rotateControl : false,
-									streetViewControl : false,
-								};
-							var_map = new google.maps.Map(document
-										.getElementById("searchSpot-map-container"), var_mapoptions);
-							} 
-							function addSpotMarker(lat, lng) {
-								//console.log("addSpotMarker()");
-								var_location =  new google.maps.LatLng(lat, lng); 
-								
-								
-								var_marker = new google.maps.Marker({
-									position : var_location,
-									map : var_map,
-									maxWidth : $("#searchSpot-map-container").width(),
-									maxHeight : $("#searchSpot-map-container").height(), 
-								});
-								
-							}
 		});
 	</script>
 </body>
