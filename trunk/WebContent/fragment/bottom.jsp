@@ -17,5 +17,6 @@
 	console.log("Hello, jQuery!! from bottom.jsp");
 }(jQuery));
 </script>
+<script src="${pageContext.request.contextPath}/js/jquery.printElement.min.js"></script>
 </body>
 </html>
