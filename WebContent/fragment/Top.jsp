@@ -943,7 +943,7 @@
 				<div class="modal-footer">
 					<button id="resetBtn" type="button" class="btn btn-default"
 						data-dismiss="modal">取消</button>
-					<button id="saveBtn" type="button" class="btn btn-primary">新增</button>
+					<button id="saveBtn" type="button" class="btn btn-info">建立</button>
 				</div>
 			</div>
 			<!-- <div class="modal-content"> -->
@@ -1086,7 +1086,7 @@
 					<button id="commentResetBtn" type="button" class="btn btn-default">取消</button>
 					<button id="commentSaveBtn" type="button" class="btn btn-primary">張貼</button>
 					<button id="commentCreationBtn" type="button"
-						class="btn btn-primary">新增評論</button>
+						class="btn btn-info">新增評論</button>
 				</div>
 
 			</div>
