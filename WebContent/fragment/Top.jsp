@@ -1100,7 +1100,7 @@
 		<!-- <div class="modal-dialog modal-lg"> -->
 	</div>
 	<!-- Modal -->
-	<div id="CouponModals">
+	<div id="CouponModals" class="container">
 	<!-- 放Coupon的空間 -->
 	</div>
 	<script
@@ -1823,17 +1823,21 @@
 	
 ///print coupon
 	function btnPrint(id){
-		/* $("#"+id+"Modal").modal('show');
-		$("#"+id+"Modal").attr('name','printArea');
-		$('.container').toggleClass('notPrintArea');
-		$('.modal-content').toggleClass('notPrintArea');
-		$("#"+id+"Modal").find('ul').toggleClass('notPrintArea');
+		/* $("#"+id+"Modal").printElement(); */
+		$("#"+id+"Modal").modal('show');
 		window.print();
-		$("[name='printArea']").toggleClass('notPrintArea');
-		$('.modal-content').toggleClass('notPrintArea');
+		/* $("#"+id+"Modal").attr('name','printArea');
 		$('.container').toggleClass('notPrintArea');
+		$('.modal-content').toggleClass('notPrintArea');
+		$("#"+id+"Modal").toggleClass('notPrintArea'); */
+		/* window.print();
+		$("[name='printArea']").toggleClass('notPrintArea');
+		$('.modal-content').toggleClass('notPrintArea'); */
+		/* $("#"+id+"Modal").toggleClass('notPrintArea');
+		$("#"+id+"Modal").find('div').toggleClass('notPrintArea');
+		$('div').toggleClass('notPrintArea');
 		$("#"+id+"Modal").removeAttr('name');
-		$("#"+id+"Modal").modal('hide'); */
+		$("#"+id+"Modal").modal('hide');*/
 	        }; 
 	
 	// execute when DOM is ready
