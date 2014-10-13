@@ -26,7 +26,7 @@ font-weight: bold;
 	<div id="home" class="home">
 		<div class="text-vcenter">
 			<h1>i ♥ Travel</h1>
-			<h3>Planing & Sharing Your Trip</h3>
+			<h3>Planning & Sharing Your Trip</h3>
 			<a href="first.jsp" class="btn btn-default btn-lg">Let's go!</a>
 		</div>
 	</div>
