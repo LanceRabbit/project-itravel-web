@@ -1103,7 +1103,10 @@ body {
 	font-size: 14px;
 	line-height: 1.42857143;
 	color: #333;
-	background-color: #fff
+	background-image:url(../images/background_blue.jpg);
+	background-repeat:no-repeat;
+	background-size:100%;
+	/* background-color: #fff */
 }
 
 input,button,select,textarea {

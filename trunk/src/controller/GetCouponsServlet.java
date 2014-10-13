@@ -56,7 +56,7 @@ public class GetCouponsServlet extends HttpServlet {
 				jsonCoupon.put("Image", imgURL);
 				jsonCoupons.put(jsonCoupon);
 			}
-			System.out.println("InitialBlacklist Test= "+jsonCoupons.toString());
+			System.out.println("GetCouponsServlet Data= "+jsonCoupons.toString());
 			os.write(jsonCoupons.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();
