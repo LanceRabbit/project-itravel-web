@@ -1084,7 +1084,7 @@
 
 				<div class="modal-footer" id="spotInfoModelFooter" hidden>
 					<button id="commentResetBtn" type="button" class="btn btn-default">取消</button>
-					<button id="commentSaveBtn" type="button" class="btn btn-primary">張貼</button>
+					<button id="commentSaveBtn" type="button" class="btn btn-info">張貼</button>
 					<button id="commentCreationBtn" type="button"
 						class="btn btn-info">新增評論</button>
 				</div>
