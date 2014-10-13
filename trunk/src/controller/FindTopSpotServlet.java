@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import model.SpotDetail;
 import model.SpotImg;
 import model.service.FirstpageService;
+import model.service.SearchSpotService;
 import model.util.ImageIOUtil;
 
 /**
@@ -47,7 +48,12 @@ public class FindTopSpotServlet extends HttpServlet {
 		OutputStream os = response.getOutputStream();
 		// request.setAttribute("TopSpot", resultSpot);
 		
-		
+		String webAppURL = request.getScheme() 
+				+ "://"
+				+ request.getServerName()
+				+ ":"
+				+ request.getServerPort()
+				+ request.getContextPath();
 		
 		try {
 			for (SpotDetail o : resultSpot) {
@@ -55,24 +61,31 @@ public class FindTopSpotServlet extends HttpServlet {
 				jsonSpot.put("spotId", o.getSpotId());
 				jsonSpot.put("spotLikeName", o.getSpotName());
 				jsonSpot.put("spotLikeIntro", o.getSpotIntro());
-				String imgId = "team1.jpg";
-				Set<SpotImg> imgs = o.getSpotImgs();
-				Iterator<SpotImg> it = imgs.iterator();
-				while (it.hasNext()) {
-					SpotImg image = it.next();
-					System.out.println("Topimage : " + image.getImgId() + ";"+ image.getSpotImg());
-
-					if (image.getSpotImg() != null) {
-						ImageIOUtil.saveImage(image.getImgId(),image.getSpotImg());
-						imgId = image.getImgId();
-						break;
+								
+				SpotImg thumbnail = (new SearchSpotService()).getSpotThumbnail(o);
+				String imgURL = null;
+				if(thumbnail != null) {
+					String imgPath = ImageIOUtil.generateImageDirPath(o.getAccountId(), o.getSpotId());
+					String deployDir = getServletContext().getRealPath("/");					
+					
+					
+					byte[] content = thumbnail.getSpotImg();
+					if(( content != null) && (content.length > 0)) {
+						ImageIOUtil.saveImage((deployDir+imgPath), thumbnail.getImgId()+".jpg", thumbnail.getSpotImg());
+						imgURL = webAppURL + "/" + imgPath + "/" + thumbnail.getImgId()+".jpg";
+						
+						System.out.println("1. thumbnail saved at : " + (deployDir+imgPath));
+					} else {
+						imgURL = webAppURL + "/images/team1.jpg";
 					}
 				}
-				// ImageIOUtil.saveImage(imgId + ".jpg", o.getSpotImgs());
-				jsonSpot.put("spotThumbnailURL", "images/" + imgId);
+				else 
+					imgURL = webAppURL + "/images/team1.jpg";
+				
+				jsonSpot.put("spotThumbnailURL", imgURL);
 				jsonSpotsLike.put(jsonSpot);
 			}
-			System.out.println(jsonSpotsLike.toString());
+			System.out.println("******" + jsonSpotsLike.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpotsLike.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {

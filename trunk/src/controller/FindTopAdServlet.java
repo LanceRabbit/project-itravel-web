@@ -28,7 +28,7 @@ import model.util.ImageIOUtil;
  */
 @WebServlet("/controller/FindTopAdServlet")
 public class FindTopAdServlet extends HttpServlet {
-	public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
+	//public final static String DIR_PATH = "C:/Travel/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/TravelWeb/images/";
 	private static final long serialVersionUID = 1L;
 
 	public FindTopAdServlet() {
@@ -53,14 +53,28 @@ public class FindTopAdServlet extends HttpServlet {
 		
 		OutputStream os = response.getOutputStream();
 	
+		String webAppURL = request.getScheme() 
+				+ "://"
+				+ request.getServerName()
+				+ ":"
+				+ request.getServerPort()
+				+ request.getContextPath();
+		
 		try {
 			for (Ad o : result) {
 				JSONObject jsonSpot = new JSONObject();
 				jsonSpot.put("spotName", o.getSpotDetail().getSpotName());
 				jsonSpot.put("spotIntro", o.getSpotDetail().getSpotIntro());
-				String imgId = o.getAdId();
-				ImageIOUtil.saveImage(imgId + ".jpg", o.getAdImg());
-				jsonSpot.put("spotThumbnailURL", "images/" + imgId + ".jpg");
+				String adId = o.getAdId();
+				
+				String imgPath = ImageIOUtil.generateImageDirPath(o.getSpotDetail().getAccountId(), o.getSpotDetail().getSpotId());
+				String deployDir = getServletContext().getRealPath("/");
+				System.out.println("ad saved at : " + (deployDir+imgPath));
+				
+				ImageIOUtil.saveImage((deployDir+imgPath), adId+".jpg", o.getAdImg());
+				String imgURL = webAppURL + "/" + imgPath + "/" + adId+".jpg";
+				
+				jsonSpot.put("spotThumbnailURL", imgURL);
 				jsonSpots.put(jsonSpot);
 
 			}	
