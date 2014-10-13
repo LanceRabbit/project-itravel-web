@@ -619,7 +619,7 @@ jQuery(document).ready(function() {
 							+" ' style='width:330px; height:220px;'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><div class='jm-item-description'>"
 							+value.spotIntro							
 							+ "</div></div>"
-							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
+							+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'><img src='../images/hometag.png' style='width:25px; hight:25px;'/>"
 							+ value.spotName
 							+"</div></a></div><div id='l"+value.spotId+"' style='text-align:right;'></div></div><div>"
 							//+ "</div><div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.spotId+"' class='pull-right'> "+value.spotLike+"</p><t class='"+value.spotId+"'>"

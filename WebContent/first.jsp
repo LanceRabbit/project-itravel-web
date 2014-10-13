@@ -63,7 +63,7 @@ h4 { /*用於標題   單行文字溢出用...取代*/
 }
 
 #FirstCarousel .list-group .active {
-	background-color: #eee;
+	background-color: #FF6B0E;
 }
 
 @media ( min-width : 992px) {
@@ -392,9 +392,9 @@ height:200px;
 																	jQuery(
 																			'#rowSpot')
 																			.append(
-																					"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='<c:url value='/"
+																					"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail' ><div class='jm-item-image'><img class='img-portfolio img-responsive' src='<c:url value='/"
 																					+ value.spotThumbnailURL
-																					+" '/>' style='width:330px; height:220px;'><div class='jm-item-description'>"
+																					+" '/>' style='width:330px; height:220px;' ><div class='jm-item-description'>"
 																					+ value.spotLikeIntro
 																					+ "</div></div>"
 																					+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
