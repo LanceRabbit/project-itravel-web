@@ -2353,7 +2353,7 @@
 			
 			if(comments.length == 0) {
 				//console.log("no comments")
-				jQuery("#commentList").append("<div><a href='#' class='list-group-item'><div class='panel panel-default'><div class='panel-heading'>尚無任何評論</div></div></a></div>");
+				jQuery("#commentList").append("<h4 class='text-danger'>尚無任何評論。</h4>");
 			}
 			else {
 				jQuery.each(comments, function(index, value){
