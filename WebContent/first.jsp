@@ -392,9 +392,9 @@ height:200px;
 																	jQuery(
 																			'#rowSpot')
 																			.append(
-																					"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail' ><div class='jm-item-image'><img class='img-portfolio img-responsive' src='<c:url value='/"
+																					"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail' ><div class='jm-item-image'><img class='img-portfolio img-responsive' src='"
 																					+ value.spotThumbnailURL
-																					+" '/>' style='width:330px; height:220px;' ><div class='jm-item-description'>"
+																					+"' style='width:330px; height:220px;' ><div class='jm-item-description'>"
 																					+ value.spotLikeIntro
 																					+ "</div></div>"
 																					+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
