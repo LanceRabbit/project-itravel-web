@@ -423,10 +423,11 @@ height:200px;
 				
 			}			
 		}		
+		/*已經搬到top了唷! 
 		function btnPrint(id){
 			console.log(id);
 			
-		}
+		} */
 </script>
 
 <script>
