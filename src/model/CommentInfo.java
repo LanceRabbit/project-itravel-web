@@ -1,5 +1,7 @@
 package model;
 
+import java.text.SimpleDateFormat;
+
 public class CommentInfo {
 	private static final long serialVersionUID = 1L;
 	
@@ -16,7 +18,9 @@ public class CommentInfo {
 		this.commentId = comment.getCommentId();
 		this.commenterId = comment.getAccountId();
 		this.comment = comment.getComment();
-		this.creationDate = comment.getCmtDt().toString();
+		
+		SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		this.creationDate = fmt.format(comment.getCmtDt());
 	}
 	
 	// getter and setter
