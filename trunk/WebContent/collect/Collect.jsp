@@ -28,6 +28,17 @@
 	-webkit-box-orient: vertical;
 	display: -webkit-box;
 }
+
+#tripmodals .modal-body {
+} 
+#tripmodals .modal-title {
+	text-align: center;
+}
+.scrollable {
+    height: auto;
+    max-height: 400px;
+    overflow-x: hidden;
+}
 /* 浮動效果
 .col-xs-4 {
     margin: 10px 10px 10px 10px;
@@ -330,7 +341,43 @@ height:200px;
 				</div>
 				<!-- <div class="modal-body"> -->
 	
-	
+	<!-- Modal -->
+		<div class="modal modal-wide fade" id="tripmodals">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div id="tripTitle" class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="modal-title">1234</h4>
+					</div>
+					<div class="modal-body" >
+						<div class="container-fluid">
+							<div class="row-fluid" style=" border-collapse:collapse;">
+								<div class="col-sm-5"  >
+									<ul class="nav nav-tabs" id="mytab" style=" margin: 0px;">
+									<li class="active"><a data-toggle="tab" href="#page1">Home</a></li>
+									</ul>
+
+									<div class="tab-content scrollable" id="tabContent" >
+									<div class="tab-pane active" id="page1" autofocus="">1234</div>
+									</div>
+								</div>
+								<div class="col-sm-7"  >
+									<div id="my-trip-map-container" ></div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="close" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
 	<jsp:include page="/fragment/bottom.jsp" />
 	<script>
 	function delet(id){
@@ -429,12 +476,22 @@ height:200px;
 									console.log(i);
 									if(data){
 										jQuery.each(data,function(index,value) {				
-										
-											jQuery('#TriplistDetails').append("<div id='div"+i+"'class='col-xs-3'><div class='thumbnail'><img src='"+value.tripThumbnail+"' alt=''><div class='caption'><h4><a href='#'>"
-																	+ value.tripName
-																	+ "</a></h4><p>行程天數:"
-																	+ value.tripDay
-																	+ "</p></div><div class='ratings'><p class='pull-right'><a class='btn btn-danger btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='deletTrip(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></p><p>"+value.tripLike+"個人按讚</p></div></div></div>");
+											jQuery('#TriplistDetails').append("<div name='test' id='"+value.tripId+"' class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'>"
+													+"<div class='thumbnail'>"
+													+"<div class='jm-item-image'><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+													+"<img class='img-portfolio img-responsive' src='<c:url value='/controller/TripImageServlet?id="
+													+value.tripId+"'/>' style='width:330px; height:220px;'></a></div>"
+													+"<div class='jm-item-title'>"
+													+value.tripName+"</div><div ><h5 style='text-align:right;'>行程天數:"
+													+value.totalDay+"</h5><h5 style='text-align:right;'>遊玩日期:"+value.startDate+"</h5></div>"
+													+"</div><div style='text-align:right;'>"
+																			
+													+"<a class='btn btn-danger btn-sm' id='"+value.tripId+"' href='javascript: void(0);' onclick='deletTrip(this.id)'><i class='fa fa-trash-o fa-lg '>刪除</i></a></div>"
+													+"<span id='tripId' hidden>"+value.tripId+"</span>"+
+													"<span id='tripName' hidden>"+value.tripName+"</span>"+
+													"<span id='startDate' hidden>"+value.startDate+"</span>"+
+													"<span id='totalDay' hidden>"+value.totalDay+"</span>"+
+													"</div></div>");
 											i++;
 											
 										});
@@ -445,6 +502,164 @@ height:200px;
 									}
 								}
 							});
+							
+							 $("#TriplistDetails").on("click",".jm-item-image", function() {
+								 my_trip_map_init();
+								var tripId = $("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:first").text();
+								var totalDay =$("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:last").text();
+								var tripName = $("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:eq(1)").text();
+								console.log(tripId);
+								console.log(totalDay);
+								console.log(tripName);
+								console.log("AAAAA="+$(this).parent().parent().parent().parent().attr("id"));
+								
+								// when .modal-wide opened, set content-body height based on browser height; 
+								// 200 is appx height of modal padding, modal title and button bar
+								var height = $(window).height() - 200;
+								$(this).find(".modal-body").css("max-height",
+										height);
+								
+								//According to trip day to dynamic create Tabs. 
+								$("#mytab , #tabContent ").empty();
+								$("#tripTitle").html('<h4 class="modal-title">'
+										+tripName+
+										'</h4>');
+								//based on Trip Day to create Trip Details
+								for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
+									
+									$('#mytab').append(
+											$('<li><a href="#day' 
+													+ dayNum 
+													+ '">' 
+													+'Day' 
+													+ dayNum 
+													+'</a></li>'));
+									
+									$.ajax({
+										
+										 url:"<c:url value='/controller/TripDetailServlet' />",
+										 type:"post",
+										 data:{"TripId":tripId,"totalDay":dayNum},
+										 dataType:"json", //xml,text
+										 async: false,
+										 success:function(data){
+											 //console.log("get data from server....");
+											 console.log(data);
+											 //console.log(data.length);
+											 count = 1 ;
+
+											 (data.length==0)?$('#tabContent').append('<div class="tab-pane" id="day' 
+													 + dayNum +'"><div class="row" "></div></div>'):
+											 $.each(data,function(index,value){
+												(count==1) ?	
+													$('#tabContent').append(
+														$('<div class="tab-pane" id="day' + dayNum +'">'
+															+'<div class="row" style="border-bottom: 1px solid;">'
+																		+'<div class="col-xs-6 ">'
+																			+'<div class="tabimg"><img src="<c:url value="/controller/TripDetailImageServlet?id='
+																			+value.spotId+'&index=1"/>"  alt="'+value.spotName+'"'
+																			+'title="'+value.spotName+'"/></div>'
+																		+'</div><div class="clearfix visible-xs-block"></div>'
+																		+'<div class="col-xs-6 " >'
+																			+'<div class="title"><label>'+value.spotName+'</label></div>'
+													        				//+'<div class="title"><label>'+value.spotAddress+'</label></div>'
+													       			 		+'<div class="title"><label>停留時間:'+value.stayTime+'分</label></div>'
+												        				+'</div>'
+													       	+'</div>'
+													      +'</div>')
+													)
+													:
+													$('#day'+dayNum).append(
+														$('<div class="row" style="border-bottom: 1px solid;">' 
+																+'<div class="col-xs-6 "  >'
+																+'<div class="tabimg"><img src="<c:url value="/controller/TripDetailImageServlet?id='
+																+value.spotId+'&index=1"/>"    alt="'+value.spotName+'"'
+																+'title="'+value.spotName+'"/>'
+																+'</div></div><div class="clearfix visible-xs-block"></div>'
+																+'<div class="col-xs-6 " >'
+																+'<div class="title"><label>'+value.spotName+'</label></div>'
+														        //+'<div class="title"><label>'+value.spotAddress+'</label></div>'
+														        +'<div class="title"><label>停留時間:'+value.stayTime+'分</label></div>'
+														        +'</div></div>'
+														    	+'</div><')
+													) ;
+														
+													
+														var_my_trip_location = new google.maps.LatLng(value.Lat,value.Lng)
+														var_my_trip_marker = new google.maps.Marker({
+																		position : var_my_trip_location,
+																		map : var_my_trip_map,
+																		title : value.spotName,
+																		maxWidth : 200,
+																		maxHeight : 200
+																	});
+														google.maps.event.addListener(var_my_trip_marker, 'click', function() {
+															console.log("spot marker clicked");
+															//spot_infowindow.open(alterspot_map, alterspot_marker);
+															
+															LatLng = var_my_trip_marker.getPosition();
+															var_my_trip_location = LatLng;
+															geocoder.geocode({'latLng': LatLng}, function(results, status) {
+														   		if (status == google.maps.GeocoderStatus.OK) {
+															        if (results[1]) {
+															        	address = results[1].formatted_address;
+															        	var_my_trip_marker.setTitle(address);	//重新設定標記點的title
+															        	//jQuery('#alterSpotAddress').val(address);
+															        	//jQuery('#alterSpotAddress').focus();
+															        }
+															    }else 
+															      	console.log("Geocoder failed due to: " + status);
+														   	});
+														});
+									
+														
+												    count++;
+													$('#day' + dayNum).tab('show');	 
+											 });//.each	
+										 }
+									 });//ajax
+
+								}//for loop
+								
+								$('#mytab a:first').tab('show');
+								
+							}); //on click
+							var var_my_trip_map;
+							var var_my_trip_location = new google.maps.LatLng(23.973299, 120.978398);
+							var var_my_trip_marker;
+
+							google.maps.event.addDomListener(window, 'load', my_trip_map_init);
+
+							//start of modal google map
+							$('#tripmodals').on('shown.bs.modal', function() {
+								google.maps.event.trigger(var_my_trip_map, "resize");
+								var_my_trip_map.setCenter(var_my_trip_location);
+							});
+
+
+							
+							function my_trip_map_init() {
+						
+								var var_my_trip_mapoptions = {
+									center : var_my_trip_location,
+									zoom : 8,
+									mapTypeId : google.maps.MapTypeId.ROADMAP,
+									mapTypeControl : false,
+									panControl : false,
+									rotateControl : false,
+									streetViewControl : false,
+								};
+								var_my_trip_map = new google.maps.Map(document
+										.getElementById("my-trip-map-container"), var_my_trip_mapoptions);
+							}
+						
+
+							/**
+							* When modal shown, reset the its content 
+							*/	
+							$('#TriplistDetails').on('shown.bs.modal', function (e) {
+								$('.scrollable').scrollTop(0);
+							});	
 							
 							var selectedSpotId;
 							jQuery("#listDetails").on("click", ".jm-item-title", function(){

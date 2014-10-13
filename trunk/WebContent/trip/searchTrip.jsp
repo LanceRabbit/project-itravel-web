@@ -91,6 +91,133 @@ border-collapse:collapse;
     max-height: 400px;
     overflow-x: hidden;
 }
+
+/*basic*/
+.jm-item {
+	padding: 10px;
+	display: inline-block;
+	text-align: left;
+}
+
+.jm-item-wrapper {
+	position: relative;
+	padding: 7px;
+	background: #e0e8b6;
+}
+
+.jm-item-image {
+	position: relative;
+	overflow: hidden;
+}
+
+.jm-item-image img {
+	display: block;
+}
+
+.jm-item second{
+width:320px;
+height:200px;
+}
+.jm-item-title {
+	position: absolute;
+	left: -10px;
+	bottom: 17px;
+	background: #FF6B0E;
+	line-height: 1.5em;	
+	font-weight: normal;
+	padding: 7px 9px 6px;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.4em;
+}
+
+.jm-item-overlay {
+	background: #000;
+	opacity: 0;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	-webkit-transition: opacity 0.5s ease-in 0s;
+	-moz-transition: opacity 0.5s ease-in 0s;
+	-o-transition: opacity 0.5s ease-in 0s;
+	transition: opacity 0.5s ease-in 0s;
+}
+
+.jm-item-wrapper:hover .jm-item-overlay {
+	opacity: 0.3;
+}
+
+.jm-item-button {
+	
+	height: 50px;
+	width: 50px;
+	text-align: center;
+	position: absolute;
+	left: 50%;
+	margin-left: -25px;
+}
+
+.jm-item-button a {
+	
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	background: #FF6B0E;
+	text-transform: uppercase;
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	color: #FFFFFF;
+	font-size: 1.2em;
+	line-height: 50px;
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+	text-decoration: none !important;
+	display: block;
+}
+
+.jm-item-button a:hover {
+	background: #3b3b3b;
+}
+/**/
+.second .jm-item-wrapper .jm-item-title {
+	-webkit-transition: all 0.2s ease-in 0s;
+	-moz-transition: all 0.2s ease-in 0s;
+	-o-transition: all 0.2s ease-in 0s;
+	transition: all 0.2s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-title {
+	/*visibility:hidden;*/
+	
+	left: -10%;
+}
+
+.second .jm-item-description {
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	font-size:20px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background: rgba(0, 0, 0, 0.4);
+	color: #fff;
+	top: 100%;
+	-webkit-transition: all 0.5s ease-in 0s;
+	-moz-transition: all 0.5s ease-in 0s;
+	-o-transition: all 0.5s ease-in 0s;
+	transition: all 0.5s ease-in 0s;
+}
+
+.second .jm-item-wrapper:hover .jm-item-description {
+	top: 0;
+}
+
 </style>
 </head>
 
@@ -451,15 +578,15 @@ border-collapse:collapse;
 	});
 	
 	function list(value, count) {
-		$("#listTrips").append("<div id='"+count+"' class='col-xs-3'>"
+		$("#listTrips").append("<div id='"+value.tripId+"' class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'>"
 				+"<div class='thumbnail'>"
-				+"<div style='border-bottom: 1px solid; margin-bottom:5px'><h4>"
-				+value.tripName+"</h4></div>"
-				+"<a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+				+"<div class='jm-item-title'>"
+				+value.tripName+"</div>"
+				+"<div class='jm-item-image'><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
 				+"<img class='temp' src='<c:url value='/controller/TripImageServlet?id="
-				+value.tripId+"'/>'></a><div ><h5>行程天數:"
-				+value.totalDay+"</h5><h5>遊玩日期:"+value.startDate+"</h5></div>"
-				+"<div class='ratings'><p class='pull-right'>個人按讚</p><p id='p"+value.tripId+"' class='pull-right'> "+value.tripLike+"</p><t class='"+value.tripId+"'>");
+				+value.tripId+"'/>' style='width:330px; height:220px;'></a></div><div ><h5 style='text-align:right;'>行程天數:"
+				+value.totalDay+"</h5><h5 style='text-align:right;'>遊玩日期:"+value.startDate+"</h5><h5 style='text-align:right;'>"+value.tripLike+"個人按讚<h5></div></div>"
+				+"<div class='"+value.tripId+"' style='text-align:right;'>");
 	 	
 	 	jQuery.ajax({
 			url : '<c:url value='/controller/CheckTripLikeServlet'/>',
@@ -470,15 +597,15 @@ border-collapse:collapse;
 			data : {TripId:value.tripId},						
 			success : function(data) {						
 				if(data=="NoAccount"){							
-					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 					
 				}else if(data=="Like"){
 				//有登錄的話依據like紀錄顯示圖片
-					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-2x' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart fa-lg' style='color:#ff443e;' title='收回讚' onclick='like(this.id)'></i></a>");
 					
 				}else if(data=="NoLike"){
 				//有登錄的話依據like紀錄顯示圖片
-					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-2x' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='like' href='javascript: void(0);' ><i id='ih"+value.tripId+"' class='fa fa-heart-o fa-lg' style='color:#ff443e;' title='按讚' onclick='like(this.id)'></i></a>");
 				
 				}																						
 			}				
@@ -492,15 +619,15 @@ border-collapse:collapse;
 			data : {TripId:value.tripId},						
 			success : function(data) {														
 				if(data=="NoAccount"){							
-					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a></div>");
 					
 				}else if(data=="Collect"){
 				
-					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-2x'  title='取消收藏' onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+"' class='fa fa-minus fa-lg'  title='取消收藏' onclick='collect(this.id)'></i></a></div>");
 					
 				}else if(data=="NoCollect"){
 				
-					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-2x' title='收藏'onclick='collect(this.id)'></i></a>");
+					jQuery('.'+value.tripId).append("<a id='social' class='collect' href='javascript: void(0);' ><i id='ip"+value.tripId+ "' class='fa fa-plus fa-lg' title='收藏'onclick='collect(this.id)'></i></a></div>");
 				
 				}																						
 			}				
@@ -523,13 +650,19 @@ border-collapse:collapse;
 	 
 	$("#listTrips").on("click",".temp", function() {
 		search_map_init();
-		var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
-		var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
-		var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
+		//var tripId = $("#"+($(this).parent().parent().parent().index()+1)+" span:first").text();
+		//var totalDay =$("#"+($(this).parent().parent().parent().index()+1)+" span:last").text();
+		//var tripName = $("#"+($(this).parent().parent().parent().index()+1)+" span:eq(1)").text();
+		var tripId = $("#"+($(this).parent().parent().parent().parent().parent().parent().attr("id"))+" span:first").text();
+		var totalDay =$("#"+($(this).parent().parent().parent().parent().parent().parent().attr("id"))+" span:last").text();
+		var tripName = $("#"+($(this).parent().parent().parent().parent().parent().parent().attr("id"))+" span:eq(1)").text();
+		
+		
 		console.log(tripId);
 		console.log(totalDay);
 		console.log(tripName);
-		console.log($(this).parent().parent().parent().index());
+		//console.log($(this).parent().parent().parent().index());
+	 	console.log("CCCCC="+$(this).parent().parent().parent().parent().parent().parent().attr("id"));
 		// when .modal-wide opened, set content-body height based on browser height; 
 		// 200 is appx height of modal padding, modal title and button bar
 		var height = $(window).height() - 200;

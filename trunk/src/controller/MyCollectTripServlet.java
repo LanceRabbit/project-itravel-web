@@ -91,7 +91,8 @@ public class MyCollectTripServlet extends HttpServlet {
 				try {
 					jsonSpot.put("state", true);
 					jsonSpot.put("tripId", sp.getTripId());
-					jsonSpot.put("tripDay", sp.getTotalDay());
+					jsonSpot.put("startDate", sp.getStartDate());
+					jsonSpot.put("totalDay", sp.getTotalDay());
 					jsonSpot.put("tripName", sp.getTripName());
 					Integer likeCount = null;
 					if (sp.getLikeCount() == null) {
