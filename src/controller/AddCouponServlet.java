@@ -85,9 +85,16 @@ public class AddCouponServlet extends HttpServlet {
 		String path = request.getContextPath();
 		DisseminateService service = new DisseminateService();
 		
-		//字串轉date,先預設7天後
-		java.util.Date validdate = service.findDate();
+		
+//		java.util.Date validdate = service.findDate();
 		DateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+		java.util.Date validdate;
+		try {
+			validdate = sdFormat.parse(date);
+		} catch (ParseException e1) {
+			validdate = service.findDate();
+			e1.printStackTrace();
+		}
 		
 		try {
 			validdate = sdFormat.parse(date);

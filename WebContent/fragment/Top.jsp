@@ -6,78 +6,91 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Top Fragment</title>
-<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link
+	href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"
+	rel="stylesheet">
 <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet">
-<link href="<c:url value="/css/jquery.datetimepicker.css"/>" rel="stylesheet">
+<link href="<c:url value="/css/jquery.datetimepicker.css"/>"
+	rel="stylesheet">
 <link rel="stylesheet" href="<c:url value="/css/dropzone.css" />" />
 <!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" /> -->
 <link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
 
 <style>
-.error,.btn{
-	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+.error,.btn {
+	font-family: 'Microsoft JhengHei', "微軟正黑體", sans-serif;
 }
 /*
 #idTop{
 	padding:20px 0px 0px 0px;
 }
 */
-.modal-signup{
+.modal-signup {
 	width: 400px;
 }
-.signuptd{
+
+.signuptd {
 	width: 175px;
 }
-#idImgLimitation{
-	font-family:Microsoft JhengHei;
-	font-size:14px
+
+#idImgLimitation {
+	font-family: Microsoft JhengHei;
+	font-size: 14px
 }
-.emptyTr{
+
+.emptyTr {
 	line-height: 5px;
 }
-.spanPosition{
-	position:absolute;
-	margin-left:-115px;
-	margin-top:-8px;
-	color:red;
+
+.spanPosition {
+	position: absolute;
+	margin-left: -115px;
+	margin-top: -8px;
+	color: red;
 }
-.spanPositionForgotPsw{
-	margin-left:5px;
-	color:red;
+
+.spanPositionForgotPsw {
+	margin-left: 5px;
+	color: red;
 }
-#resultForgotPsw{
-	font-family:Microsoft JhengHei;
-	font-size:16px;
-	color:red;
-	margin-left:15px;
+
+#resultForgotPsw {
+	font-family: Microsoft JhengHei;
+	font-size: 16px;
+	color: red;
+	margin-left: 15px;
 }
-.modal-jumpout{
-	width:350px;
+
+.modal-jumpout {
+	width: 350px;
 }
-#signupError,#signupOK{
-	margin-top:100px;
-	font-size:16px;
+
+#signupError,#signupOK {
+	margin-top: 100px;
+	font-size: 16px;
 }
-.modal-forgotPsw{
-	width:350px;
+
+.modal-forgotPsw {
+	width: 350px;
 }
-.top-form-control{
-	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+
+.top-form-control {
+	font-family: 'Microsoft JhengHei', "微軟正黑體", sans-serif;
 	width: 175px;
-	border:1px solid #848484;
-	border-radius:3px;
+	border: 1px solid #848484;
+	border-radius: 3px;
 }
-.top-modal-body,.adela-modal-title{
-	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
-	margin-left:10px;
+
+.top-modal-body,.adela-modal-title {
+	font-family: 'Microsoft JhengHei', "微軟正黑體", sans-serif;
+	margin-left: 10px;
 }
 
 .adela-modal-header {
-  padding: 15px;
-  border-bottom: 1px solid #e5e5e5;
-  min-height: 16.42857143px;
+	padding: 15px;
+	border-bottom: 1px solid #e5e5e5;
+	min-height: 16.42857143px;
 }
-
 </style>
 </head>
 <body>
@@ -88,172 +101,181 @@
 				data-target=".navbar-responsive-collapse">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
-			</button>						
-			
+			</button>
+
 			<a class="navbar-brand" href="<c:url value="/index.jsp"/>">iTravel</a>
 		</div>
 		<div class="navbar-collapse collapse navbar-responsive-collapse">
-			<ul class="nav navbar-nav">			
+			<ul class="nav navbar-nav">
 				<li><a href="<c:url value="/first.jsp"/>">News</a></li>
 				<li><a href="<c:url value="/spot/searchSpot.jsp"/>">找景點</a></li>
 				<li><a href="<c:url value="/trip/searchTrip.jsp"/>">找行程</a></li>
-				<li><a href="<c:url value="/coupon/coupon.jsp"/>">coupon</a></li>
+				<li><a href="<c:url value="/coupon/coupon.jsp"/>">優惠券</a></li>
 
 			</ul>
-			
 
-				<c:if test="${empty user }">
-					<ul class="nav navbar-nav navbar-right">
-						<li class="dropdown"><a href="#topmodals" data-toggle="modal">
-								<i class="glyphicon glyphicon-user"></i>登入
-						</a></li>
-				</c:if>
-			
-			<c:if test="${! empty user }">
-			<c:if test="${user.accountLevel==1}">
+
+			<c:if test="${empty user }">
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><c:if test="${! empty user.image }">
-								<img width="25" height="25"
-									src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
-							</c:if> <c:if test="${ empty user.image }">
-								<i class="glyphicon glyphicon-user"></i>
-							</c:if> ${user.nickname}<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
-									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
-							<li><a href="<c:url value="/trip/MyTrip.jsp"/>"><i class="glyphicon glyphicon-flag"></i>
-									我的行程</a></li>
-							<li><a href="<c:url value="/collect/Collect.jsp"/>"><i class="glyphicon glyphicon-heart"></i>
-									我的收藏</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal"
-										data-target="#addSpotModal"> 新增景點</a></li>
-							<li><a href="#" data-toggle="modal"
-										data-target="#addTripModal"> 新增行程</a></li>
-						</ul></li>
-
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <i class=" glyphicon glyphicon-cog"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/account/changeAccount.jsp"/>"> 帳號</a></li>
-							<li><a href="<c:url value='/controller/LogoutServlet' />"> 登出</a></li>
-						</ul></li>
-				</ul>
-				</c:if>
-				
-				<div class="modal fade" id="addTripModal" tabindex="-1" role="dialog"
-		aria-labelledby="addTripModal" aria-hidden="true">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">新增行程</h4>
-				</div>
-				<div class="top-modal-body">
-					<form action="<c:url value="/trip/addTripDetail.jsp"/>;"
-						method="POST">
-						<table>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td style="font-weight: bold; width: 75px">行程名稱：</td>
-								<td><input type="text" name="tripName" class="top-form-control"
-									required></td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td style="font-weight: bold;">起始日期：</td>
-								<td><input id="date_timepicker_start" type="text" name="dateStart"
-									class="top-form-control" required></td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-							</tr>
-							<tr>
-								<td style="font-weight: bold;">結束日期：</td>
-								<td><input id="date_timepicker_end" type="text" name="date=-end"
-									class="top-form-control" required></td>
-							</tr>
-							<tr>
-								<td>&nbsp;</td>
-								<td><input id="totalDay" name="totalDay" type="text" hidden></td>
-							</tr>
-						</table>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" 
-						data-dismiss="modal">取消</button>
-					<input type="submit" class="btn btn-info" value="繼續" />
-					
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-				
+					<li class="dropdown"><a href="#topmodals" data-toggle="modal">
+							<i class="glyphicon glyphicon-user"></i>登入
+					</a></li>
 			</c:if>
-				<c:if test="${! empty user }">
+
+			<c:if test="${! empty user }">
+				<c:if test="${user.accountLevel==1}">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><c:if test="${! empty user.image }">
+									<img width="25" height="25"
+										src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
+								</c:if> <c:if test="${ empty user.image }">
+									<i class="glyphicon glyphicon-user"></i>
+								</c:if> ${user.nickname}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
+										class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
+								<li><a href="<c:url value="/trip/MyTrip.jsp"/>"><i
+										class="glyphicon glyphicon-flag"></i> 我的行程</a></li>
+								<li><a href="<c:url value="/collect/Collect.jsp"/>"><i
+										class="glyphicon glyphicon-heart"></i> 我的收藏</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i
+								class=" glyphicon glyphicon-pencil"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#" data-toggle="modal"
+									data-target="#addSpotModal"> 新增景點</a></li>
+								<li><a href="#" data-toggle="modal"
+									data-target="#addTripModal"> 新增行程</a></li>
+							</ul></li>
+
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class=" glyphicon glyphicon-cog"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/account/changeAccount.jsp"/>">
+										帳號</a></li>
+								<li><a href="<c:url value='/controller/LogoutServlet' />">
+										登出</a></li>
+							</ul></li>
+					</ul>
+				</c:if>
+
+				<div class="modal fade" id="addTripModal" tabindex="-1"
+					role="dialog" aria-labelledby="addTripModal" aria-hidden="true">
+					<div class="modal-dialog modal-sm">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">新增行程</h4>
+							</div>
+							<div class="top-modal-body">
+								<form action="<c:url value="/trip/addTripDetail.jsp"/>;"
+									method="POST">
+									<table>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td style="font-weight: bold; width: 75px">行程名稱：</td>
+											<td><input type="text" name="tripName"
+												class="top-form-control" required></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">起始日期：</td>
+											<td><input id="date_timepicker_start" type="text"
+												name="dateStart" class="top-form-control" required></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td style="font-weight: bold;">結束日期：</td>
+											<td><input id="date_timepicker_end" type="text"
+												name="date=-end" class="top-form-control" required></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+											<td><input id="totalDay" name="totalDay" type="text"
+												hidden></td>
+										</tr>
+									</table>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal">取消</button>
+								<input type="submit" class="btn btn-info" value="繼續" />
+
+							</div>
+							</form>
+						</div>
+					</div>
+				</div>
+
+
+			</c:if>
+			<c:if test="${! empty user }">
 				<c:if test="${user.accountLevel==2}">
 					<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><c:if test="${! empty user.image }">
-								<img width="25" height="25"
-									src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
-							</c:if> <c:if test="${ empty user.image }">
-								<i class="glyphicon glyphicon-user"></i>
-							</c:if> ${user.nickname}<b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
-									class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
-						</ul></li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <i class=" glyphicon glyphicon-pencil"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="#" data-toggle="modal" data-target="#addSpotModal"> 新增景點</a></li>
-							<li><a href="<c:url value="/store/Disseminate.jsp"/>">宣傳店鋪</a></li>
-						</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><c:if test="${! empty user.image }">
+									<img width="25" height="25"
+										src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
+								</c:if> <c:if test="${ empty user.image }">
+									<i class="glyphicon glyphicon-user"></i>
+								</c:if> ${user.nickname}<b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/spot/MySpot.jsp"/>"><i
+										class="glyphicon glyphicon-map-marker"></i> 我的景點</a></li>
+							</ul></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i
+								class=" glyphicon glyphicon-pencil"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="#" data-toggle="modal"
+									data-target="#addSpotModal"> 新增景點</a></li>
+								<li><a href="<c:url value="/store/Disseminate.jsp"/>">宣傳店鋪</a></li>
+							</ul></li>
 
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <i class=" glyphicon glyphicon-cog"></i></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/account/changeAccount.jsp"/>"> 帳號</a></li>
-							<li><a href="<c:url value='/controller/LogoutServlet' />"> 登出</a></li>
-						</ul></li>
-				</ul>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class=" glyphicon glyphicon-cog"></i></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/account/changeAccount.jsp"/>">
+										帳號</a></li>
+								<li><a href="<c:url value='/controller/LogoutServlet' />">
+										登出</a></li>
+							</ul></li>
+					</ul>
 				</c:if>
-				</c:if>
-				<c:if test="${! empty user }">
+			</c:if>
+			<c:if test="${! empty user }">
 				<c:if test="${user.accountLevel==9}">
 					<ul class="nav navbar-nav navbar-right">
-					<li><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"><c:if test="${! empty user.image }">
-								<img width="25" height="25"
-									src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
-							</c:if> <c:if test="${ empty user.image }">
-								<i class="glyphicon glyphicon-user"></i>
-							</c:if> ${user.nickname}<b class="caret"></b></a>
-					</li>
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
-						data-toggle="dropdown"> <i class="fa fa-bars">管理</i></a>
-						<ul class="dropdown-menu">
-							<li><a href="<c:url value="/admin/blackList.jsp"/>"><i class="fa fa-users" style="margin-right:5px"></i>黑名單</a></li>
-							<li><a href="#"><i class="glyphicon glyphicon-list-alt" style="margin-right:5px"></i>統計報表</a></li>
-						</ul></li>
+						<li><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><c:if test="${! empty user.image }">
+									<img width="25" height="25"
+										src="<c:url value='/controller/GetImageServlet?id=${user.accountId}'/>" />
+								</c:if> <c:if test="${ empty user.image }">
+									<i class="glyphicon glyphicon-user"></i>
+								</c:if> ${user.nickname}<b class="caret"></b></a></li>
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"> <i class="fa fa-bars">管理</i></a>
+							<ul class="dropdown-menu">
+								<li><a href="<c:url value="/admin/blackList.jsp"/>"><i
+										class="fa fa-users" style="margin-right: 5px"></i>黑名單</a></li>
+								<li><a href="#"><i class="glyphicon glyphicon-list-alt"
+										style="margin-right: 5px"></i>統計報表</a></li>
+							</ul></li>
 
-					<li><a href="<c:url value='/controller/LogoutServlet' />" >
-					<i class=" glyphicon glyphicon-cog">登出</i></a>
-					</li>
-				</ul>
+						<li><a href="<c:url value='/controller/LogoutServlet' />">
+								<i class=" glyphicon glyphicon-cog">登出</i>
+						</a></li>
+					</ul>
 				</c:if>
-				</c:if>
-			<div id="topmodals" class="modal fade" style="margin-top:100px">
+			</c:if>
+			<div id="topmodals" class="modal fade" style="margin-top: 100px">
 				<div class="modal-dialog modal-sm">
 					<div class="modal-content">
 						<div class="adela-modal-header">
@@ -263,20 +285,32 @@
 						</div>
 						<div class="top-modal-body">
 
-							<form action="<c:url value="/controller/LoginServlet"/>;" method="POST" >
+							<form action="<c:url value="/controller/LoginServlet"/>;"
+								method="POST">
 								<table>
-									<tr><td>&nbsp;</td><td><span class="error" style="color:red" name="loginError">${errorMsgs.login}</span></td></tr>
 									<tr>
-										<td style="font-weight: bold;width:50px">Email </td>
-										<td><input type="text" name="email" class="top-form-control needClaer"
-											value="${param.email}"  required></td>
+										<td>&nbsp;</td>
+										<td><span class="error" style="color: red"
+											name="loginError">${errorMsgs.login}</span></td>
 									</tr>
-									<tr><td>&nbsp;</td></tr>
+									<tr>
+										<td style="font-weight: bold; width: 50px">Email</td>
+										<td><input type="text" name="email"
+											class="top-form-control needClaer" value="${param.email}"
+											required></td>
+									</tr>
+									<tr>
+										<td>&nbsp;</td>
+									</tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="top-form-control needClaer" required></td>
+										<td><input type="password" name="password"
+											class="top-form-control needClaer" required></td>
 									</tr>
-									<tr><td>&nbsp;</td><td><a STYLE="cursor:pointer;" id="idForgotPsw">忘記密碼?</a></td></tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td><a STYLE="cursor: pointer;" id="idForgotPsw">忘記密碼?</a></td>
+									</tr>
 								</table>
 						</div>
 						<div class="modal-footer">
@@ -290,9 +324,10 @@
 				</div>
 				<!-- /.modal-dialog -->
 			</div>
-			
-			
-			<div id="signupmodalsMember" class="modal fade" style="margin-top:100px">
+
+
+			<div id="signupmodalsMember" class="modal fade"
+				style="margin-top: 100px">
 				<div class="modal-dialog modal-signup">
 					<div class="modal-content">
 						<div class="adela-modal-header">
@@ -302,48 +337,80 @@
 						</div>
 						<div class="top-modal-body">
 
-							<form action="<c:url value="/controller/SignupServlet"/>;" method="POST" enctype="multipart/form-data" name="formSignupMem">
-								<table >
-									<tr><td>&nbsp;</td><td><span id="checkImageMember"  name="imageError" style="color:red">${errorImageMember}</span></td></tr>
-									
+							<form action="<c:url value="/controller/SignupServlet"/>;"
+								method="POST" enctype="multipart/form-data" name="formSignupMem">
+								<table>
 									<tr>
-										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="top-form-control signuptd needClaer"
-											value="${param.email}" id="idEmail"  required ></td>
-										<td><span id="checkEmail" class="spanPosition" name="spanCheck"></span></td>
+										<td>&nbsp;</td>
+										<td><span id="checkImageMember" name="imageError"
+											style="color: red">${errorImageMember}</span></td>
 									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
+
+									<tr>
+										<td style="font-weight: bold; width: 70px">Email</td>
+										<td><input type="text" name="email"
+											class="top-form-control signuptd needClaer"
+											value="${param.email}" id="idEmail" required></td>
+										<td><span id="checkEmail" class="spanPosition"
+											name="spanCheck"></span></td>
+									</tr>
+									<tr class="emptyTr">
+										<td>&nbsp;</td>
+									</tr>
 									<tr>
 										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="top-form-control signuptd needClaer"  maxlength="12" id="idPsw1" required></td>
-										<td><span id="checkPsw1" class="spanPosition" name="spanCheck"></span></td>
+										<td><input type="password" name="password"
+											class="top-form-control signuptd needClaer" maxlength="12"
+											id="idPsw1" required></td>
+										<td><span id="checkPsw1" class="spanPosition"
+											name="spanCheck"></span></td>
 									</tr>
-									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
+									<tr>
+										<td>&nbsp;</td>
+										<td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td>
+									</tr>
 									<tr>
 										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="top-form-control signuptd needClaer"  maxlength="12" id="idPsw2" required></td>
-										<td><span id="checkPsw2" class="spanPosition" name="spanCheck"></span></td>
+										<td><input type="password" name="passwordck"
+											class="top-form-control signuptd needClaer" maxlength="12"
+											id="idPsw2" required></td>
+										<td><span id="checkPsw2" class="spanPosition"
+											name="spanCheck"></span></td>
 									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
+									<tr class="emptyTr">
+										<td>&nbsp;</td>
+									</tr>
 									<tr>
 										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="top-form-control signuptd needClaer" id="idNick" required></td>
-										<td><span id="checkNick" class="spanPosition" name="spanCheck"></span></td>
+										<td><input type="text" name="nickname"
+											class="top-form-control signuptd needClaer" id="idNick"
+											required></td>
+										<td><span id="checkNick" class="spanPosition"
+											name="spanCheck"></span></td>
 									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
+									<tr class="emptyTr">
+										<td>&nbsp;</td>
+									</tr>
 									<tr>
 										<td style="font-weight: bold;">顯示圖片</td>
-										<td><input type="file" name="image"  id="idImage" style="width:175px"></td>
-										<td><span id="checkImage" class="spanPosition needClaer" name="spanCheck"></span></td>
+										<td><input type="file" name="image" id="idImage"
+											style="width: 175px"></td>
+										<td><span id="checkImage" class="spanPosition needClaer"
+											name="spanCheck"></span></td>
 									</tr>
-									<tr><td>&nbsp;</td><td id="idImgLimitation">檔案大小限制 8MB</td></tr>
-									
+									<tr>
+										<td>&nbsp;</td>
+										<td id="idImgLimitation">檔案大小限制 8MB</td>
+									</tr>
+
 								</table>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" id="backtoSelectCha1">返回</button>
-							<input type="reset" class="btn btn-default" name="cancel" id="cancel" value="重填" />
-							<input type="submit" class="btn btn-info" value="註冊" id="idSubmit"/>
+							<button type="button" class="btn btn-default"
+								id="backtoSelectCha1">返回</button>
+							<input type="reset" class="btn btn-default" name="cancel"
+								id="cancel" value="重填" /> <input type="submit"
+								class="btn btn-info" value="註冊" id="idSubmit" />
 						</div>
 						</form>
 					</div>
@@ -352,205 +419,296 @@
 				<!-- /.modal-dialog -->
 			</div>
 		</div>
-		<div id="signupmodalsOwner" class="modal fade" style="margin-top:100px">
-				<div class="modal-dialog modal-signup">
-					<div class="modal-content">
-						<div class="adela-modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">&times;</button>
-							<h4 class="adela-modal-title" style="font-weight: bold;">店家註冊</h4>
-						</div>
-						<div class="top-modal-body">
-
-							<form action="<c:url value="/controller/SignupServlet"/>;" method="POST" enctype="multipart/form-data" name="formSignupOwn">
-								<table >
-									<tr><td>&nbsp;</td><td><span id="checkImageOwner"  name="imageError" style="color:red">${errorImageOwner}</span></td></tr>
-									<tr>
-										<td style="font-weight: bold;width:70px">Email </td>
-										<td><input type="text" name="email" class="top-form-control signuptd needClaer"
-											value="${param.email}" id="idEmailO"  required ></td>
-										<td><span id="checkEmailO" class="spanPosition" name="spanCheckO"></span></td>
-									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
-									<tr>
-										<td style="font-weight: bold;">密碼</td>
-										<td><input type="password" name="password" class="top-form-control signuptd needClaer" id="idPswO1" maxlength="12" required></td>
-										<td><span id="checkPswO1" class="spanPosition" name="spanCheckO"></span></td>
-									</tr>
-									<tr><td>&nbsp;</td><td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td></tr>
-									<tr>
-										<td style="font-weight: bold;">密碼確認</td>
-										<td><input type="password" name="passwordck" class="top-form-control signuptd needClaer" maxlength="12" id="idPswO2" required></td>
-										<td><span id="checkPswO2" class="spanPosition" name="spanCheckO"></span></td>
-									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
-									<tr>
-										<td style="font-weight: bold;">用戶名</td>
-										<td><input type="text" name="nickname" class="top-form-control signuptd needClaer" id="idNickO" required></td>
-										<td><span id="checkNickO" class="spanPosition" name="spanCheckO"></span></td>
-									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
-									<tr>
-										<td style="font-weight: bold;">負責人</td>
-										<td><input type="text" name="owner" class="top-form-control signuptd needClaer" id="idOwnerO" required></td>
-										<td><span id="checkOwnerO" class="spanPosition" name="spanCheckO"></span></td>
-									</tr>
-									<tr class="emptyTr"><td>&nbsp;</td></tr>
-									<tr>
-										<td style="font-weight: bold;">顯示圖片</td>
-										<td><input type="file" name="image"  id="idImageO" style="width:175px"></td>
-										<td><span id="checkImageO" class="spanPosition needClaer" name="spanCheckO"></span></td>
-									</tr>
-									<tr><td>&nbsp;</td><td id="idImgLimitation">檔案大小限制 8MB</td></tr>
-									
-								</table>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" id="backtoSelectCha2">返回</button>
-							<input type="reset" class="btn btn-default" name="cancel" id="cancel" value="重填" />
-							<input type="submit" class="btn btn-info" value="註冊" id="idSubmitO"/>
-						</div>
-						</form>
+		<div id="signupmodalsOwner" class="modal fade"
+			style="margin-top: 100px">
+			<div class="modal-dialog modal-signup">
+				<div class="modal-content">
+					<div class="adela-modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+						<h4 class="adela-modal-title" style="font-weight: bold;">店家註冊</h4>
 					</div>
-					<!-- /.modal-content -->
+					<div class="top-modal-body">
+
+						<form action="<c:url value="/controller/SignupServlet"/>;"
+							method="POST" enctype="multipart/form-data" name="formSignupOwn">
+							<table>
+								<tr>
+									<td>&nbsp;</td>
+									<td><span id="checkImageOwner" name="imageError"
+										style="color: red">${errorImageOwner}</span></td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold; width: 70px">Email</td>
+									<td><input type="text" name="email"
+										class="top-form-control signuptd needClaer"
+										value="${param.email}" id="idEmailO" required></td>
+									<td><span id="checkEmailO" class="spanPosition"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr class="emptyTr">
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">密碼</td>
+									<td><input type="password" name="password"
+										class="top-form-control signuptd needClaer" id="idPswO1"
+										maxlength="12" required></td>
+									<td><span id="checkPswO1" class="spanPosition"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td colspan="2">(不可空白，不包含中文，限制6-12個字且必須包含英文字母、數字)</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">密碼確認</td>
+									<td><input type="password" name="passwordck"
+										class="top-form-control signuptd needClaer" maxlength="12"
+										id="idPswO2" required></td>
+									<td><span id="checkPswO2" class="spanPosition"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr class="emptyTr">
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">用戶名</td>
+									<td><input type="text" name="nickname"
+										class="top-form-control signuptd needClaer" id="idNickO"
+										required></td>
+									<td><span id="checkNickO" class="spanPosition"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr class="emptyTr">
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">負責人</td>
+									<td><input type="text" name="owner"
+										class="top-form-control signuptd needClaer" id="idOwnerO"
+										required></td>
+									<td><span id="checkOwnerO" class="spanPosition"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr class="emptyTr">
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td style="font-weight: bold;">顯示圖片</td>
+									<td><input type="file" name="image" id="idImageO"
+										style="width: 175px"></td>
+									<td><span id="checkImageO" class="spanPosition needClaer"
+										name="spanCheckO"></span></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td id="idImgLimitation">檔案大小限制 8MB</td>
+								</tr>
+
+							</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							id="backtoSelectCha2">返回</button>
+						<input type="reset" class="btn btn-default" name="cancel"
+							id="cancel" value="重填" /> <input type="submit"
+							class="btn btn-info" value="註冊" id="idSubmitO" />
+					</div>
+					</form>
 				</div>
-				<!-- /.modal-dialog -->
+				<!-- /.modal-content -->
 			</div>
+			<!-- /.modal-dialog -->
+		</div>
 	</div>
 	<!-- end of container </div> -->
-	
-
-	
-<div id="signupTypeSelect" class="modal fade" style="margin-top:100px">
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" style="font-weight: bold;">選擇註冊身分</h4>
-      </div>
-      <!-- dialog body -->
-      <div class="top-modal-body" style="margin-left:45px"></i>
-        	<label class="radio">
-  			<input type="radio" name="signupRadio" id="signupAsMember" value="asMember" checked>
-  			註冊為會員
-			</label>
-			<label class="radio">
- 			<input type="radio" name="signupRadio" id="signupAsOwner" value="asOwner">
-			註冊為店家
-			</label>
-      </div>
-      <!-- dialog buttons -->
-      <div class="modal-footer">
-      <button type="button" class="btn btn-default" id="backtoLogin">返回</button>
-      <button type="button" class="btn btn-primary" id="chekCharactar">確定</button></div>
-    </div>
-  </div>
-</div>	
 
 
 
-<div id="modalForgotPsw" class="modal fade " style="margin-top:100px">
-  <div class="modal-dialog modal-forgotPsw">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px;font-weight: bold;">忘記密碼</h4>
-      </div>
-      <!-- dialog body -->
-     <form action="<c:url value="/controller/ForgotPswServlet" />" method="post"> 
-     <table>
-     	<tr><td>&nbsp;</td></tr>
-     	<tr><td colspan="3" ><span id="resultForgotPsw" >${sendMailMsgForgotPsw}${errorTimeout}</span></td></tr>
-		<tr>
-			<td style="font-weight: bold;width:40px; padding:15px;">Email </td>
-			<td><input type="text" name="email" class="top-form-control needClaer" required></td>
-			<td><span class="error spanPositionForgotPsw" name="spanForgotPsw" >${errorEmail}</span></td>
-		</tr>
-		<tr><td>&nbsp;</td></tr>
-	</table>  
-      <!-- dialog buttons -->
-      <div class="modal-footer">
-      <button type="button" class="btn btn-default" id="backtoLoginfromForgotPsw">返回</button>
-      <input type="submit" class="btn btn-info" id="btOKForgotPsw" value="提交"></div>
-    </form>
-    </div>
-  </div>
-</div>
+	<div id="signupTypeSelect" class="modal fade" style="margin-top: 100px">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" style="font-weight: bold;">選擇註冊身分</h4>
+				</div>
+				<!-- dialog body -->
+				<div class="top-modal-body" style="margin-left: 45px">
+					</i> <label class="radio"> <input type="radio"
+						name="signupRadio" id="signupAsMember" value="asMember" checked>
+						註冊為會員
+					</label> <label class="radio"> <input type="radio"
+						name="signupRadio" id="signupAsOwner" value="asOwner">
+						註冊為店家
+					</label>
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" id="backtoLogin">返回</button>
+					<button type="button" class="btn btn-primary" id="chekCharactar">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 
-<label id="activated" hidden>${activated}</label>
-<div id="unactivated" class="modal fade" style="margin-top:100px">
-  <div class="modal-dialog modal-jumpout">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
-      </div>
-      <!-- dialog body -->
-      <div class="top-modal-body" style="color:red;font-size:14px"></i>
-        	帳號尚未啟用，請至註冊信箱收信啟用。
-      </div>
-      <!-- dialog buttons -->
-      <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK3">確定</button></div>
-    </div>
-  </div>
-</div>
-<label id="resultBlacklistLogin" hidden>${accountLocked}</label>
-<div id="atBlackListAnnouncement" class="modal fade" style="margin-top:100px">
-  <div class="modal-dialog modal-jumpout">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" id="myModalLabel" style="height:30px;padding-top:5px"><i class="fa fa-exclamation-circle fa-lg"></i></h4>
-      </div>
-      <!-- dialog body -->
-      <div class="top-modal-body" style="color:red;font-size:14px;margin-left:20px"></i>
-        <table>
-        	<tr><td>&nbsp;</td></tr>
-        	<tr><td>${accountLocked}</td></tr>
-        	<tr><td>&nbsp;</td></tr>
-      	</table>
-      </div>
-      <!-- dialog buttons -->
-      <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK4">確定</button></div>
-    </div>
-  </div>
-</div>		
-	
-<label id="resultSignup" hidden>${signupOK}</label>
-<div id="signupOK" class="modal fade">
-  <div class="modal-dialog modal-jumpout">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;">註冊結果</h4>
-      </div>
-      <!-- dialog body -->
-      <div class="top-modal-body" style="color:green"><i class="glyphicon glyphicon-ok" ></i>
-        	註冊成功，請至註冊信箱收信啟用帳號!
-      </div>
-      <!-- dialog buttons -->
-      <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK1">確定</button></div>
-    </div>
-  </div>
-</div>
-<div id="signupError" class="modal fade">
-  <div class="modal-dialog modal-jumpout">
-    <div class="modal-content">
-    	<div class="adela-modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="adela-modal-title" id="myModalLabel" style="font-weight: bold;"><i class="fa "></i>註冊結果</h4>
-      </div>
-      <!-- dialog body -->
-      <div class="top-modal-body" style="color:red"><i class="fa fa-exclamation-circle fa-lg"></i>
-        	發生錯誤，請重新操作。
-      </div>
-      <!-- dialog buttons -->
-      <div class="modal-footer"><button type="button" class="btn btn-primary" id="btOK2">確定</button></div>
-    </div>
-  </div>
-</div>
+	<div id="modalForgotPsw" class="modal fade " style="margin-top: 100px">
+		<div class="modal-dialog modal-forgotPsw">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" id="myModalLabel"
+						style="height: 30px; padding-top: 5px; font-weight: bold;">忘記密碼</h4>
+				</div>
+				<!-- dialog body -->
+				<form action="<c:url value="/controller/ForgotPswServlet" />"
+					method="post">
+					<table>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="3"><span id="resultForgotPsw">${sendMailMsgForgotPsw}${errorTimeout}</span></td>
+						</tr>
+						<tr>
+							<td style="font-weight: bold; width: 40px; padding: 15px;">Email
+							</td>
+							<td><input type="text" name="email"
+								class="top-form-control needClaer" required></td>
+							<td><span class="error spanPositionForgotPsw"
+								name="spanForgotPsw">${errorEmail}</span></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+					<!-- dialog buttons -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default"
+							id="backtoLoginfromForgotPsw">返回</button>
+						<input type="submit" class="btn btn-info" id="btOKForgotPsw"
+							value="提交">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+
+	<label id="activated" hidden>${activated}</label>
+	<div id="unactivated" class="modal fade" style="margin-top: 100px">
+		<div class="modal-dialog modal-jumpout">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" id="myModalLabel"
+						style="height: 30px; padding-top: 5px">
+						<i class="fa fa-exclamation-circle fa-lg"></i>
+					</h4>
+				</div>
+				<!-- dialog body -->
+				<div class="top-modal-body" style="color: red; font-size: 14px">
+					</i> 帳號尚未啟用，請至註冊信箱收信啟用。
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btOK3">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<label id="resultBlacklistLogin" hidden>${accountLocked}</label>
+	<div id="atBlackListAnnouncement" class="modal fade"
+		style="margin-top: 100px">
+		<div class="modal-dialog modal-jumpout">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" id="myModalLabel"
+						style="height: 30px; padding-top: 5px">
+						<i class="fa fa-exclamation-circle fa-lg"></i>
+					</h4>
+				</div>
+				<!-- dialog body -->
+				<div class="top-modal-body"
+					style="color: red; font-size: 14px; margin-left: 20px">
+					</i>
+					<table>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td>${accountLocked}</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+					</table>
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btOK4">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<label id="resultSignup" hidden>${signupOK}</label>
+	<div id="signupOK" class="modal fade">
+		<div class="modal-dialog modal-jumpout">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" id="myModalLabel"
+						style="font-weight: bold;">註冊結果</h4>
+				</div>
+				<!-- dialog body -->
+				<div class="top-modal-body" style="color: green">
+					<i class="glyphicon glyphicon-ok"></i> 註冊成功，請至註冊信箱收信啟用帳號!
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btOK1">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="signupError" class="modal fade">
+		<div class="modal-dialog modal-jumpout">
+			<div class="modal-content">
+				<div class="adela-modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h4 class="adela-modal-title" id="myModalLabel"
+						style="font-weight: bold;">
+						<i class="fa "></i>註冊結果
+					</h4>
+				</div>
+				<!-- dialog body -->
+				<div class="top-modal-body" style="color: red">
+					<i class="fa fa-exclamation-circle fa-lg"></i> 發生錯誤，請重新操作。
+				</div>
+				<!-- dialog buttons -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btOK2">確定</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- Modal for spot -->
@@ -563,13 +721,15 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" style="text-align: center;" id="addSpotModalLabel">新增景點</h4>
+					<h4 class="modal-title" style="text-align: center;"
+						id="addSpotModalLabel">新增景點</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 
-							<div class="itravel-block-1-pic well imagePreview_zone" id="imagePreview_zone_1">
+							<div class="itravel-block-1-pic well imagePreview_zone"
+								id="imagePreview_zone_1">
 								<span
 									class="glyphicon glyphicon-picture itravel-block-1-pic-content fileinput-button"
 									id="fileinputBtn"></span>
@@ -582,14 +742,17 @@
 
 						</div>
 						<!-- <div class="col-md-6 itravel-block">  -->
-						
-						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-thumbnails">
+
+						<div class="col-md-6 itravel-block-frame hidden-element"
+							id="itravel-block-thumbnails">
 							<div class="row">
-								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
+								<div
+									class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_2" class='imagePreview_zone'>
 									</div>
 								</div>
-								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
+								<div
+									class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_3" class='imagePreview_zone'>
 									</div>
 								</div>
@@ -597,11 +760,13 @@
 							</div>
 							<!-- <div class="row"> -->
 							<div class="row">
-								<div class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
+								<div
+									class="col-md-offset-1 col-md-5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_4" class='imagePreview_zone'>
 									</div>
 								</div>
-								<div class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
+								<div
+									class="col-md-5 col-md-offset-0.5 itravel-block-1-thumbnail well">
 									<div id="imagePreview_zone_5" class='imagePreview_zone'>
 									</div>
 									<div id="imagePreview_zone_6" class='imagePreview_zone hidden'>
@@ -615,9 +780,12 @@
 					<div class="row">
 						<div class="col-md-6 itravel-block-frame">
 							<div class="well well-md itravel-block-1-group">
-								<form class="form-horizontal" method="post" id="spotInfoForm" action='<c:url value="/controller/AddSpot" />'>
+								<form class="form-horizontal" method="post" id="spotInfoForm"
+									action='<c:url value="/controller/AddSpot" />'>
 									<fieldset>
-										<legend class="text-center header"><h4>景點資訊</h4></legend>
+										<legend class="text-center header">
+											<h4>景點資訊</h4>
+										</legend>
 
 
 
@@ -631,7 +799,9 @@
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
 
-													<div class="input-group" id="cityGroup" data-toggle="popover" data-placement="top" data-content="請選擇縣市">
+													<div class="input-group" id="cityGroup"
+														data-toggle="popover" data-placement="top"
+														data-content="請選擇縣市">
 														<input id="city" name="city" type="text" placeholder="縣市"
 															class="form-control" disabled>
 														<div class="input-group-btn" id="cityIdMenu">
@@ -640,7 +810,9 @@
 																data-toggle="dropdown">
 																選擇 <span class="caret"></span>
 															</button>
-															<ul class="dropdown-menu dropdown-menu-right spot-scrollable" role="menu">
+															<ul
+																class="dropdown-menu dropdown-menu-right spot-scrollable"
+																role="menu">
 															</ul>
 														</div>
 														<!-- /btn-group -->
@@ -651,12 +823,14 @@
 											<!-- <div class="row"> -->
 										</div>
 										<!-- <div class="form-group"> -->
-										
+
 										<!-- 大小分類 -->
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
-													<div class="input-group" id="categoryGroup" data-toggle="popover" data-toggle="popover" data-placement="top" data-content="請選擇分類">
+													<div class="input-group" id="categoryGroup"
+														data-toggle="popover" data-toggle="popover"
+														data-placement="top" data-content="請選擇分類">
 														<input id="category" name="category" type="text"
 															placeholder="分類" class="form-control" disabled>
 														<div class="input-group-btn" id="categoryIdMenu">
@@ -665,7 +839,9 @@
 																data-toggle="dropdown">
 																選擇 <span class="caret"></span>
 															</button>
-															<ul class="dropdown-menu dropdown-menu-right spot-scrollable-small" role="menu">
+															<ul
+																class="dropdown-menu dropdown-menu-right spot-scrollable-small"
+																role="menu">
 															</ul>
 														</div>
 														<!-- /btn-group -->
@@ -674,7 +850,9 @@
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
-													<div class="input-group" id="subcategoryGroup" data-toggle="popover" data-placement="top" data-content="請選擇子分類">
+													<div class="input-group" id="subcategoryGroup"
+														data-toggle="popover" data-placement="top"
+														data-content="請選擇子分類">
 														<input id="subcategory" name="subcategory" type="text"
 															placeholder="子分類" class="form-control" disabled>
 														<div class="input-group-btn" id="subcategoryIdMenu">
@@ -683,7 +861,9 @@
 																data-toggle="dropdown">
 																選擇 <span class="caret"></span>
 															</button>
-															<ul class="dropdown-menu dropdown-menu-right spot-scrollable-small" role="menu">
+															<ul
+																class="dropdown-menu dropdown-menu-right spot-scrollable-small"
+																role="menu">
 															</ul>
 														</div>
 														<!-- /btn-group -->
@@ -692,25 +872,27 @@
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-5 col-md-offset-1">
 													<input id="spotName" name="spotName" type="text"
-														placeholder="景點名稱" class="form-control" 
-														data-toggle="popover" data-placement="top" data-content="請輸入不包含特殊字元[!@#$%&^*]的名稱">
+														placeholder="景點名稱" class="form-control"
+														data-toggle="popover" data-placement="top"
+														data-content="請輸入不包含特殊字元[!@#$%&^*]的名稱">
 												</div>
 
 												<div class="col-md-5 col-md-offset-0">
 													<c:if test="${user.accountLevel == 2}">
-													<input id="spotOwner" name="spotOwner" type="text"
-														placeholder="分店負責人" class="form-control"
-														data-toggle="popover" data-placement="top" data-content="請輸入名稱">
-													</c:if>	
+														<input id="spotOwner" name="spotOwner" type="text"
+															placeholder="分店負責人" class="form-control"
+															data-toggle="popover" data-placement="top"
+															data-content="請輸入名稱">
+													</c:if>
 												</div>
 											</div>
 										</div>
-										
+
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-10 col-md-offset-1">
@@ -741,8 +923,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-md-10 col-md-offset-1">
-													<div class="input-group" id="hiddens">
-													</div>
+													<div class="input-group" id="hiddens"></div>
 												</div>
 											</div>
 										</div>
@@ -751,7 +932,8 @@
 								</form>
 							</div>
 						</div>
-						<div class="col-md-6 itravel-block-frame hidden-element" id="itravel-block-map">
+						<div class="col-md-6 itravel-block-frame hidden-element"
+							id="itravel-block-map">
 							<div class="itravel-block-1-group" id="map-container"></div>
 						</div>
 					</div>
@@ -759,20 +941,21 @@
 				<!-- <div class="modal-body"> -->
 
 				<div class="modal-footer">
-					<button id="resetBtn" type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="resetBtn" type="button" class="btn btn-default"
+						data-dismiss="modal">取消</button>
 					<button id="saveBtn" type="button" class="btn btn-primary">新增</button>
 				</div>
 			</div>
 			<!-- <div class="modal-content"> -->
 		</div>
 	</div>
-	
+
 	<!-- Spot Info Modal -->
 	<div class="modal fade" id="spotInfoModal" tabindex="-1" role="dialog"
 		aria-labelledby="spotInfoModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
-				
+
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -784,24 +967,28 @@
 					<ul class="nav nav-tabs" role="tablist" id="myTab">
 						<li class="active"><a href="#info" role="tab"
 							data-toggle="tab" id="briefInfoTab">景點資訊</a></li>
-						<li><a href="#regions" role="tab" data-toggle="tab" id="regionInfoTab">附近景點</a></li>
-						<li><a href="#coupons" role="tab" data-toggle="tab" id="couponInfoTab">折價券</a></li>
-						<li><a href="#comments" role="tab" data-toggle="tab" id="commentInfoTab">評論</a></li>
+						<li><a href="#regions" role="tab" data-toggle="tab"
+							id="regionInfoTab">附近景點</a></li>
+						<li><a href="#coupons" role="tab" data-toggle="tab"
+							id="couponInfoTab">折價券</a></li>
+						<li><a href="#comments" role="tab" data-toggle="tab"
+							id="commentInfoTab">評論</a></li>
 					</ul>
 
 					<div class="tab-content">
 						<div class="tab-pane active itravel-tab" id="info">
 							<div class="row">
 								<div class="col-md-6 itravel-straight-block-frame">
-									<div class="itravel-straight-block-1-pic" id="imagePreview_zone">
+									<div class="itravel-straight-block-1-pic"
+										id="imagePreview_zone">
 
 										<div id="myCarousel" class="carousel slide well"
 											data-ride="carousel">
 											<!-- Wrapper for slides -->
 											<div class="carousel-inner">
-												
+
 												<div class="item active">
-													<img src="../images/D1409001.jpg" alt="...">
+													<!-- <img src="../images/D1409001.jpg" alt="..."> -->
 												</div>
 												<!-- 
 												<div class="item">
@@ -824,33 +1011,38 @@
 									<div class="row">
 										<div class="col-md-12 itravel-block-frame">
 											<div class="well itravel-block-1-group">
-												<form class="form-horizontal spot-scrollable" role="form" >
-													
+												<form class="form-horizontal spot-scrollable" role="form">
+
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">名稱:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotNameP"></div>
+														<div class="col-md-9" style="text-align: left;"
+															id="spotNameP"></div>
 													</div>
 
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">負責人:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotOwnerP"></div>
+														<div class="col-md-9" style="text-align: left;"
+															id="spotOwnerP"></div>
 													</div>
-													
+
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">地址:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotAddrP"></div>
+														<div class="col-md-9" style="text-align: left;"
+															id="spotAddrP"></div>
 													</div>
-													
+
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">電話:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotPhoneP"></div>
+														<div class="col-md-9" style="text-align: left;"
+															id="spotPhoneP"></div>
 													</div>
-													
+
 													<div class="row">
 														<div class="col-md-3" style="text-align: right;">簡介:</div>
-														<div class="col-md-9" style="text-align: left;" id="spotIntroP" ></div>
+														<div class="col-md-9" style="text-align: left;"
+															id="spotIntroP"></div>
 													</div>
-														
+
 												</form>
 											</div>
 										</div>
@@ -859,7 +1051,8 @@
 
 									<div class="row">
 										<div class="col-md-12 itravel-block-frame">
-											<div class="itravel-block-1-group" id="searchSpot-map-container"></div>
+											<div class="itravel-block-1-group"
+												id="searchSpot-map-container"></div>
 										</div>
 									</div>
 								</div>
@@ -870,43 +1063,49 @@
 						<!-- <div class="tab-pane active" id="info"> -->
 
 						<div class="tab-pane itravel-tab" id="regions">
-							<div id="map_neighborhood" style="width:100%; height:100%;"></div>
+							<div id="map_neighborhood" style="width: 100%; height: 100%;"></div>
 						</div>
-						
+
 						<div class="tab-pane itravel-tab" id="coupons">
 							<label id="userForCouponsUse" hidden>${user}</label>
 							<div class="row">
-								<div id="Clist" class="col-sm-12">
-								</div>
+								<div id="Clist" class="col-sm-12"></div>
 							</div>
 						</div>
 						<div class="tab-pane itravel-tab" id="comments">
-							<div class="list-group" id="commentList">
-							</div> <!-- <div class="list-group"> -->
+							<div class="list-group" id="commentList"></div>
+							<!-- <div class="list-group"> -->
 						</div>
 					</div>
 
 
 				</div>
 				<!-- <div class="modal-body"> -->
-				
+
 				<div class="modal-footer" id="spotInfoModelFooter" hidden>
 					<button id="commentResetBtn" type="button" class="btn btn-default">取消</button>
 					<button id="commentSaveBtn" type="button" class="btn btn-primary">張貼</button>
-					<button id="commentCreationBtn" type="button" class="btn btn-primary" >新增評論</button>
+					<button id="commentCreationBtn" type="button"
+						class="btn btn-primary">新增評論</button>
 				</div>
-				
-			</div> <!-- <div class="modal-content"> -->	
-				
-		</div> <!-- <div class="modal-dialog modal-lg"> -->
-	</div> <!-- Modal -->
-		
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
-<script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=zh-TW"></script>
 
-<script>
+			</div>
+			<!-- <div class="modal-content"> -->
+
+		</div>
+		<!-- <div class="modal-dialog modal-lg"> -->
+	</div>
+	<!-- Modal -->
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/js/jquery.datetimepicker.js"></script>
+	<script src="${pageContext.request.contextPath}/js/dropzone.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?v=3.exp&language=zh-TW"></script>
+
+	<script>
 	
 	// account related
 	jQuery("#idForgotPsw").click(function() {
@@ -1185,6 +1384,9 @@
 		return re.test(password);
 
 	}
+
+		
+		
 
 	// trip related
 		 jQuery('#date_timepicker_start').datetimepicker({
@@ -1612,6 +1814,14 @@
 		
 		return !(reg.test(spotName));
 	}
+	
+///print coupon
+	 function btnPrint(id){
+		 jQuery('[name="printCoupon"]').parents('ul').attr('id','printArea');
+	//Q_____Q怎麼印啦
+		
+		
+	        }
 	
 	// execute when DOM is ready
 	jQuery(document).ready(function() {
@@ -2090,6 +2300,7 @@
 			}); 
 		});
 		
+		
 		//coupon tab click
 		jQuery("#couponInfoTab").on("click",function(){
 			var couponSpotId = selectedSpotId;
@@ -2105,19 +2316,20 @@
 						
 							if(value.State){
 								if(jQuery("#userForCouponsUse").text()!=""){
-									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)'  class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
 								}else{
 									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
 								}
 							}else{
-								jQuery("#Clist").append("<h3 class='text-danger'>店家暫無張貼coupon!</h3>");	
+								jQuery("#Clist").append("<h4 class='text-danger' >店家暫無張貼折價券。</h4>");	
 							}
 					});						
 				}				
 			});	
 			
 		});
-		
+
+
 		jQuery("#commentInfoTab").on("click", function(){
 			//console.log("selectedSpotId : " + selectedSpotId + "'s tab of comments pressed");		
 			//console.log(spotInfo.spotComments); 

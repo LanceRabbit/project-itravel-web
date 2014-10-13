@@ -55,7 +55,7 @@
 
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#Myadvert" data-toggle="tab">廣告</a></li>
-			<li class=""><a href="#Mycoupon" data-toggle="tab">coupon</a></li>
+			<li class=""><a href="#Mycoupon" data-toggle="tab">折價券</a></li>
 		</ul>
 		<div id="myTabContent" class="tab-content">
 			<div class="tab-pane fade active in" id="Myadvert">
@@ -114,11 +114,11 @@
 						</button>
 					</div>
 
-					<div class="col-sm-8">
-						<p>新增coupon</p>
+					<div class="col-sm-11">
+						<!-- <p>新增折價券</p> -->
 					</div>
 					<div class="col-sm-12">
-						<hr>
+						
 					</div>
 					<div class="row">
 						<div id="Clist" class="col-sm-12">
@@ -191,7 +191,7 @@
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
 					</button>
-					<h4 class="modal-title" id="myCouponModalLabel">上傳Coupon</h4>
+					<h4 class="modal-title" id="myCouponModalLabel">上傳折價券</h4>
 				</div>
 				<div class="modal-body">
 					<div class="row">
@@ -200,7 +200,7 @@
 							method="POST" enctype="multipart/form-data" name="formC">
 							<div class="col-sm-8">
 								<div class="form-group">
-									<label for="Cdate">選擇使用Coupon的景點 </label> <select
+									<label for="Cdate">選擇使用折價券的景點 </label> <select
 										id="CspotIdList" name="CspotIdList" class="form-control">
 
 									</select>
@@ -259,7 +259,7 @@
 						Did : id	},								
 					success : function(data) {
 						if(data){
-						alert("刪除成功");
+						//alert("刪除成功");
 						 location.reload();
 						}else{
 							console.log("Error Ad delet");
@@ -282,7 +282,7 @@
 						Did : id	},								
 					success : function(data) {
 						if(data){
-						alert("刪除成功");
+						//alert("刪除成功");
 						 location.reload();
 						}else{
 							console.log("Error Coupon delet");

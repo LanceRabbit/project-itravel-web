@@ -83,7 +83,7 @@
 							
 						}
 					}else{
-						console.log("沒有Coupon唷!");
+						console.log("沒有折價券唷!");
 					}
 					 
 				});
