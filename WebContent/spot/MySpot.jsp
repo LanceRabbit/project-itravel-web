@@ -864,7 +864,7 @@ height:200px;
 						jQuery('#listDetails').append(
 							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='"
 								+value.spotThumbnail
-								+" ' style='width:330px; height:220px;'><div  class='jm-item-description'>"
+								+" ' style='width:330px; height:220px;'><div class='jm-item-description'>"
 								+value.spotIntro							
 								+ "</div></div>"+ "<a href='#'><div class='jm-item-title' id='" + value.spotId + "'>"
 								+ value.spotName
