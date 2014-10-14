@@ -1122,7 +1122,7 @@ height:200px;
 				alterSpotGetAddressMarkerByName(addr);
 			});
 			
-			jQuery("#alterSpotpotAddress").change(function(){
+			jQuery("#alterSpotAddress").change(function(){
 				//console.log("spot address : changing....");
 				alterSpotGetAddressMarkerByAddr(jQuery(this).val());
 			});
