@@ -30,6 +30,7 @@ public class GetCouponsServlet extends HttpServlet {
     }
     protected void doGetCoupons(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	DisseminateService service = new DisseminateService();
+    	
     	response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 		JSONArray jsonCoupons = new JSONArray();
@@ -41,6 +42,7 @@ public class GetCouponsServlet extends HttpServlet {
 				jsonCoupon.put("Description", c.getCouponDescription());
 				jsonCoupon.put("ValidDate", c.getValidDay());
 				jsonCoupon.put("CouponId", c.getCouponId());
+				jsonCoupon.put("SpotName", c.getSpotDetail().getSpotName());
 				String imgURL = null;
 				String dateDir = (new SimpleDateFormat("yyyy-MM-dd")).format(new Date());
 				String imgPath = "images" + "/" + dateDir + "/coupons";
