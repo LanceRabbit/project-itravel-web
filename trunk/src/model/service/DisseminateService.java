@@ -1,8 +1,5 @@
 package model.service;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -17,13 +14,14 @@ import model.SpotDetail;
 import model.dao.AccountDAOHibernate;
 import model.dao.AdDAOHibernate;
 import model.dao.CouponsDAOHibernate;
+import model.dao.SpotDetailDAOHibernate;
 
 public class DisseminateService {
 	AdDAO dao = new AdDAOHibernate();
 	Ad ad = new Ad();
 	CouponsDAO daoCoupon = new CouponsDAOHibernate();
 	Coupons coupon = new Coupons();
-
+	SpotDetailDAOHibernate daoSpotDetail = new SpotDetailDAOHibernate();
 	// 從account 去找他自己的景點
 	// 取得景點ID
 
@@ -158,7 +156,10 @@ public class DisseminateService {
 	public List<Coupons> getWholeCoupons(){
 		return daoCoupon.selectAll();
 	}
-	
+	public SpotDetail getSpotDetail(String spotId){
+		return daoSpotDetail.selectBySpotId(spotId);
+	}
+	 
 	
 	
 }

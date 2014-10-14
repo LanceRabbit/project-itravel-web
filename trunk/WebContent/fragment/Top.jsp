@@ -98,7 +98,12 @@
 	margin-left:-65px;
 	width:620px;
 }
-
+.couponScrollable {
+    height: auto;
+    max-height: 570px;
+    overflow-x: hidden;
+    overflow-y:auto
+}
 </style>
 </head>
 <body>
@@ -118,7 +123,7 @@
 				<li><a href="<c:url value="/first.jsp"/>">News</a></li>
 				<li><a href="<c:url value="/spot/searchSpot.jsp"/>">找景點</a></li>
 				<li><a href="<c:url value="/trip/searchTrip.jsp"/>">找行程</a></li>
-				<li><a href="<c:url value="/coupon/coupon.jsp"/>">優惠券</a></li>
+				<li><a href="<c:url value="/coupon/coupon.jsp"/>">折價券</a></li>
 
 			</ul>
 
@@ -1077,7 +1082,7 @@
 						<div class="tab-pane itravel-tab" id="coupons">
 							<label id="userForCouponsUse" hidden>${user}</label>
 							<div class="row">
-								<div id="Clist" class="col-sm-12"></div>
+								<div id="Clist" class="col-sm-12 couponScrollable"></div>
 							</div>
 						</div>
 						<div class="tab-pane itravel-tab" id="comments">
@@ -1827,17 +1832,21 @@
 	
 ///print coupon
 	function btnPrint(id){
-		$('.container').toggleClass('notPrintArea');	
+		/* $('.container').toggleClass('notPrintArea');	
 		$('#myTab').toggleClass('notPrintArea');
 		$('.modal-header').toggleClass('notPrintArea');	
 		$('button').toggleClass('notPrintArea');
-		$('.printCouponDiv').toggleClass('printCouponStyleTop');
+		$('.printCouponDiv').toggleClass('notPrintArea');
+		$('#'+id+'').toggleClass('notPrintArea');
+		$('#'+id+'').toggleClass('printCouponStyleTop');
 		window.print();
-		$('.printCouponDiv').toggleClass('printCouponStyleTop');
+		$('#'+id+'').toggleClass('printCouponStyleTop');
+		$('#'+id+'').toggleClass('notPrintArea');
+		$('.printCouponDiv').toggleClass('notPrintArea');
 		$('button').toggleClass('notPrintArea');
 		$('.modal-header').toggleClass('notPrintArea');	
 		$('#myTab').toggleClass('notPrintArea');
-		$('.container').toggleClass('notPrintArea');
+		$('.container').toggleClass('notPrintArea'); */
 		
 	        }; 
 	
@@ -2321,6 +2330,7 @@
 		
 		//coupon tab click
 		jQuery("#couponInfoTab").on("click",function(){
+			jQuery("#Clist").empty();
 			var couponSpotId = selectedSpotId;
 			jQuery.ajax({
 				url : '<c:url value='/controller/SearchCouponServlet'/>',
@@ -2330,12 +2340,12 @@
 				data : {SpotId:couponSpotId},						
 				success : function(data) {			
 					jQuery.each(data,function(index,value) {
-						jQuery("#Clist").empty();
+						
 						
 							if(value.State){
 								if(jQuery("#userForCouponsUse").text()!=""){
-									/* jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)'  class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>"); */
-									jQuery("#Clist").append("<div class='printCouponDiv'><ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'  style='float:left; margin-top:10px'><div class='thumbnail clearfix'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><table style='margin-top:30px'><tr><td><div><img src='"+value.couponThumbnailURL+"' style='width:480px; height:240px;margin-left:10px;' class='pull-left span2 clearfix'></div></td></tr><tr><td><div class='caption'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><input type='button' class='pull-right btPrintCoupon' id='"+value.CouponId+"' onclick='btnPrint(this.id)' value='列印'/></td></tr></table></div></li></ul></div>");
+									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix' style='margin-left:-20px;'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)'  class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
+									/* jQuery("#Clist").append("<div class='printCouponDiv' id='"+value.CouponId+"'><ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'  style='float:left; margin-top:10px'><div class='thumbnail clearfix'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><table style='margin-top:30px'><tr><td><div><img src='"+value.couponThumbnailURL+"' style='width:480px; height:240px;margin-left:10px;' class='pull-left span2 clearfix'></div></td></tr><tr><td><div class='caption'><h3><p>"+value.Description+"</p></h3><input type='button' class='pull-right btPrintCoupon' id='"+value.CouponId+"' onclick='btnPrint(this.id)' value='列印'/><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></td></tr></table></div></li></ul></div>"); */
 								}else{
 									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
 								}
