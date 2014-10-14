@@ -207,7 +207,26 @@ height:200px;
 	top: 0;
 }
 
+/*hr style*/
 
+hr.style-eight {
+    padding: 0;
+    border: none;
+    border-top: medium double #333;
+    color: #660000;
+    text-align: center;
+}
+hr.style-eight:after {
+	font-family:'Microsoft JhengHei',"微軟正黑體",sans-serif;
+    content: "最受歡迎景點";    
+    display: inline-block;
+    FILTER: alpha(opacity=100);
+    position: relative; 
+    top: -0.7em;  
+    font-size: 1.5em;
+    padding: 0 0.25em;
+    background: white;
+}
 
 </style>
 
@@ -245,6 +264,7 @@ height:200px;
 		<!-- End Carousel -->
 
 		
+		<hr class="style-eight">
 
 		<div class="row" id="rowSpot"></div>
 

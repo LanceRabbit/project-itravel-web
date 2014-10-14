@@ -202,7 +202,7 @@ height:200px;
 	<!-- Page Content -->
 	
 	<div class="container">		
-			<h4>我的景點</h4>
+			
 			<div class="row" id="listDetails">
 
 			</div>
