@@ -158,8 +158,8 @@
 
 				<div class="modal-footer">
 					<button id="resetBtn" type="button" class="btn btn-default"
-						data-dismiss="modal">放棄</button>
-					<button id="saveADBtn" type="submit" class="btn btn-primary">完成</button>
+						data-dismiss="modal">取消</button>
+					<button id="saveADBtn" type="submit" class="btn btn-info">上傳</button>
 				</div>
 			</div>
 		</div>
@@ -217,8 +217,8 @@
 
 				<div class="modal-footer">
 					<button id="resetCBtn" type="button" class="btn btn-default"
-						data-dismiss="modal">放棄</button>
-					<button id="saveCBtn" type="submit" class="btn btn-primary">完成</button>
+						data-dismiss="modal">取消</button>
+					<button id="saveCBtn" type="submit" class="btn btn-info">上傳</button>
 				</div>
 			</div>
 		</div>
