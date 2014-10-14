@@ -2,21 +2,25 @@ sqlcmd -E -i DB.sql
 
 sqlcmd -E -i Scripts/Account.sql
 
-sqlcmd -E -i Scripts/BlacklistRecord.sql
-sqlcmd -E -i Scripts/CodeList.sql
-sqlcmd -E -i Scripts/SerNoLength.sql
-sqlcmd -E -i Scripts/SpotDetail.sql
-sqlcmd -E -i Scripts/SpotImg.sql
-sqlcmd -E -i Scripts/SpotLikeRecord.sql
-sqlcmd -E -i Scripts/SpotCollectRecord.sql
-sqlcmd -E -i Scripts/SpotCommentRecord.sql
-sqlcmd -E -i Scripts/SpotOwner.sql
+sqlcmd -E -i Scripts/BLACKLIST.sql
+
+sqlcmd -E -i Scripts/CODE_LIST.sql
+
+
+sqlcmd -E -i Scripts/SER_NO_LENGTH.sql
+
+sqlcmd -E -i Scripts/SPOT_DETAIL.sql
+sqlcmd -E -i Scripts/SPOT_IMG.sql
+sqlcmd -E -i Scripts/SPOT_LIKE_RECORD.sql
+sqlcmd -E -i Scripts/SPOT_COLLECT_RECORD.sql
+sqlcmd -E -i Scripts/SPOT_COMMENT_RECORD.sql
+sqlcmd -E -i Scripts/SPOT_OWNER.sql
 sqlcmd -E -i Scripts/AD.sql
 sqlcmd -E -i Scripts/Coupons.sql
-sqlcmd -E -i Scripts/Trip.sql
-sqlcmd -E -i Scripts/TripCollectRecord.sql
-sqlcmd -E -i Scripts/TripDetail.sql
-sqlcmd -E -i Scripts/TripLikeRecord.sql
+sqlcmd -E -i Scripts/TRIP.sql
+sqlcmd -E -i Scripts/TRIP_COLLECT_RECORD.sql
+sqlcmd -E -i Scripts/TRIP_DETAIL.sql
+sqlcmd -E -i Scripts/TRIP_LIKE_RECORD.sql
 
 
 sqlcmd -E -i TRIGGER/T_ACCOUNT.sql
