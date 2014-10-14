@@ -170,7 +170,7 @@ height:200px;
 	width: 100%;
 	height: 100%;
 	padding: 10px;
-	font-size:20px;
+	font-size:14px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
