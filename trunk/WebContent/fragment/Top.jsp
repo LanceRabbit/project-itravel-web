@@ -94,6 +94,10 @@
 .notPrintArea{
 	display:none;
 }
+.printCouponStyleTop{
+	margin-left:-65px;
+	width:620px;
+}
 
 </style>
 </head>
@@ -1823,21 +1827,18 @@
 	
 ///print coupon
 	function btnPrint(id){
-		/* $("#"+id+"Modal").printElement(); */
-		$("#"+id+"Modal").modal('show');
+		$('.container').toggleClass('notPrintArea');	
+		$('#myTab').toggleClass('notPrintArea');
+		$('.modal-header').toggleClass('notPrintArea');	
+		$('button').toggleClass('notPrintArea');
+		$('.printCouponDiv').toggleClass('printCouponStyleTop');
 		window.print();
-		/* $("#"+id+"Modal").attr('name','printArea');
+		$('.printCouponDiv').toggleClass('printCouponStyleTop');
+		$('button').toggleClass('notPrintArea');
+		$('.modal-header').toggleClass('notPrintArea');	
+		$('#myTab').toggleClass('notPrintArea');
 		$('.container').toggleClass('notPrintArea');
-		$('.modal-content').toggleClass('notPrintArea');
-		$("#"+id+"Modal").toggleClass('notPrintArea'); */
-		/* window.print();
-		$("[name='printArea']").toggleClass('notPrintArea');
-		$('.modal-content').toggleClass('notPrintArea'); */
-		/* $("#"+id+"Modal").toggleClass('notPrintArea');
-		$("#"+id+"Modal").find('div').toggleClass('notPrintArea');
-		$('div').toggleClass('notPrintArea');
-		$("#"+id+"Modal").removeAttr('name');
-		$("#"+id+"Modal").modal('hide');*/
+		
 	        }; 
 	
 	// execute when DOM is ready
@@ -2333,8 +2334,8 @@
 						
 							if(value.State){
 								if(jQuery("#userForCouponsUse").text()!=""){
-									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)'  class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");
-									jQuery("#CouponModals").append("<div id='"+value.CouponId+"Modal' class='modal fade printCouponDiv'><ul name='couponList' class='thumbnails' style='list-style:none;'><li class='col-md-6 col-md-offset-3 clearfix'  style='float:left; margin-top:10px'><div class='thumbnail clearfix'><table style='margin-top:30px'><tr><td><div><img src='"+value.couponThumbnailURL+"' style='width:480px; height:240px;margin-left:10px;' class='pull-left span2 clearfix'></div></td></tr><tr><td><div class='caption'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></td></tr></table></div></li></ul></div>");
+									/* jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='"+value.couponThumbnailURL+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)'  class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>"); */
+									jQuery("#Clist").append("<div class='printCouponDiv'><ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'  style='float:left; margin-top:10px'><div class='thumbnail clearfix'><button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Close</span></button><table style='margin-top:30px'><tr><td><div><img src='"+value.couponThumbnailURL+"' style='width:480px; height:240px;margin-left:10px;' class='pull-left span2 clearfix'></div></td></tr><tr><td><div class='caption'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><input type='button' class='pull-right btPrintCoupon' id='"+value.CouponId+"' onclick='btnPrint(this.id)' value='列印'/></td></tr></table></div></li></ul></div>");
 								}else{
 									jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-12 clearfix'><div class='thumbnail clearfix'><img src='<c:url value='/images/Coupons_Empty.jpg'/>' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='btnPrint(this.id)' class='btn btn-danger icon  pull-right'>列印</button><div class='caption' class='pull-left'><h3><p>"+value.Description+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div></div></li></ul>");	
 								}

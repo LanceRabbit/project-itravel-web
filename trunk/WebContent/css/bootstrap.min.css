@@ -1105,7 +1105,8 @@ body {
 	color: #333;
 	background-image:url(../images/background_blue.jpg);
 	background-repeat:no-repeat;
-	background-size:100%;
+	background-size:100% 100%;
+	background-attachment: fixed;
 	/* background-color: #fff */
 }
 
