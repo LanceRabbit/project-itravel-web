@@ -601,7 +601,8 @@ jQuery(document).ready(function() {
 				}
 				
 				var owner=value.Leader;
-				if(owner==""){						
+				console.log(owner);
+				if(owner==undefined ){						
 					jQuery('#listDetails').append(
 							"<div class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'><div class='thumbnail'><div class='jm-item-image'><img class='img-portfolio img-responsive' src='"
 							+value.spotThumbnail 

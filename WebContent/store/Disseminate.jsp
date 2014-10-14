@@ -77,24 +77,7 @@
 					</div>
 					<div class="row">
 						<div id="Adlist" class="col-sm-12 col-sm-offset-1">
-							<!--  
-    					<ul class="thumbnails" style="list-style:none;">
-					 		<li class="col-sm-8 clearfix">
-                  			<div class="thumbnail clearfix">
-                    			 <div id="divpic" style="width:320px; height:200px;">  
-                    			<img src="http://placehold.it/320x200"  class="pull-left span2 clearfix" style='margin-right:10px'>
-                    		</div>
-                    			<button id="btnDetel" class="btn btn-danger icon  pull-right">刪除</button>
-                    			<div class="caption" class="pull-left">                      				
-                     			 	<h3>      
-                      				<p>AdName</p>
-                      				</h3>
-                      			<small><b class="text-danger">截止日期: </b>2014-10-15</small>                      			
-                    			</div>                    			
-                  				</div>                  				
-               				 </li>               				 
-						</ul>
-						-->
+							
 
 						</div>
 					</div>
@@ -121,7 +104,7 @@
 						
 					</div>
 					<div class="row">
-						<div id="Clist" class="col-sm-12">
+						<div id="CDisslist" class="col-sm-12 col-sm-offset-1">
 						</div>
 					</div>
 				</div>
@@ -333,7 +316,7 @@
 						jQuery.each(data,function(index,value) {
 							console.log(value.spotName);
 							if(value.spotId!="false"){
-								jQuery("#Clist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='CbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><b class='text-danger'>說明內容:</b><h4>"+value.Description+"</h4></div></li></ul>");
+								jQuery("#CDisslist").append("<ul id='CUllist' class='thumbnails' style='list-style:none;'><li class='col-sm-8 clearfix'><div class='thumbnail clearfix'><img src='"+value.spotThumbnail+"' style='width:320px; height:200px; margin-right:10px;' class='pull-left span2 clearfix' style='margin-right:10px'><button id='"+value.CouponId+"' onclick='CbtnDetel(this.id)' class='btn btn-danger icon  pull-right'>刪除</button><div class='caption' class='pull-left'><h3><p>"+value.spotName+"</p></h3><small><b class='text-danger'>截止日期: </b>"+value.ValidDate+"</small></div><b class='text-danger'>說明內容:</b><h4>"+value.Description+"</h4></div></li></ul>");
 															
 							}else{
 								console.log("沒有Coupon唷!");
