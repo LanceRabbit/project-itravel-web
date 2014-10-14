@@ -521,7 +521,8 @@ height:200px;
 				jQuery("#alterSpotOwner").val(alterspotInfo.leader);
 			</c:if>
 			
-			jQuery("#alterSpotIntro").val(alterspotInfo.intro);
+			//console.log("intro : " + alterspotInfo.spotIntro);
+			jQuery("#alterSpotIntro").val(alterspotInfo.spotIntro);
 			jQuery("#alterSpotModal").modal('show');
 			
 			// images
