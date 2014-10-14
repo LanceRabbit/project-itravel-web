@@ -328,11 +328,11 @@ height:200px;
 		function like(id) {
 			
 			//收回讚
-			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-2x"){
+			if(jQuery("#"+id).attr("class")=="fa fa-heart fa-lg"){
 				//換heart-o圖
 				jQuery("#"+id).attr('title','按讚');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-heart-o fa-2x").css("color","#ff443e");				
+				jQuery("#"+id).addClass("fa fa-heart-o fa-lg").css("color","#ff443e");				
 				
 				var tripidNo = id.substring(2);	
 				var No = "p"+tripidNo;
@@ -372,7 +372,7 @@ height:200px;
 						}else{							
 							jQuery("#"+id).attr('title','收回讚');
 							jQuery("#"+id).removeAttr("class");
-							jQuery("#"+id).addClass("fa fa-heart fa-2x").css("color","#ff443e");
+							jQuery("#"+id).addClass("fa fa-heart fa-lg").css("color","#ff443e");
 							var tripidNo = id.substring(2);	
 							var No = "p"+tripidNo;
 							var N =jQuery("#"+No).text();
@@ -391,10 +391,10 @@ height:200px;
 		function collect(id) {
 			console.log(id);
 		//fa-minus
-			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-2x"){
+			if(jQuery("#"+id).attr("class")=="fa fa-minus fa-lg"){
 				jQuery("#"+id).attr('title','收藏');
 				jQuery("#"+id).removeAttr("class");
-				jQuery("#"+id).addClass("fa fa-plus fa-2x");
+				jQuery("#"+id).addClass("fa fa-plus fa-lg");
 				
 				jQuery.ajax({
 					url : '<c:url value='/controller/TripRecordServlet'/>',
@@ -427,7 +427,7 @@ height:200px;
 						}else{
 							jQuery("#"+id).attr('title','取消收藏');
 							jQuery("#"+id).removeAttr("class");
-							jQuery("#"+id).addClass("fa fa-minus fa-2x");
+							jQuery("#"+id).addClass("fa fa-minus fa-lg");
 						}						
 														
 					}				
