@@ -48,6 +48,7 @@ public class TripDetailServlet extends HttpServlet {
 		String sessionId = request.getSession().getId();
 		
 		String tripId = request.getParameter("TripId");
+		System.out.println("tripId="+tripId);
 		int days = Integer.parseInt(request.getParameter("totalDay"));
 		OutputStream os = null;
 		

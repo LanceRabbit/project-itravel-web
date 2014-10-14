@@ -233,7 +233,7 @@ height:200px;
 							aria-hidden="true">&times;</button>
 						<h4 class="modal-title">1234</h4>
 					</div>
-					<div class="modal-body" >
+					<div class="modal-body tripbody" >
 						<div class="container-fluid">
 							<div class="row-fluid" style=" border-collapse:collapse;">
 								<div class="col-sm-5"  >
@@ -361,7 +361,7 @@ height:200px;
 										jQuery.each(data,function(index,value) {				
 											jQuery('#TriplistDetails').append("<div name='test' id='"+value.tripId+"' class='col-xs-4'><div class='jm-item second'><div class='jm-item-wrapper'>"
 													+"<div class='thumbnail'>"
-													+"<div class='jm-item-image'><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
+													+"<div class='jm-item-image temp'><a href='#tripmodals' data-toggle='modal' data-target='#tripmodals'>"
 													+"<img class='img-portfolio img-responsive' src='<c:url value='/controller/TripImageServlet?id="
 													+value.tripId+"'/>' style='width:330px; height:220px;'></a></div>"
 													+"<div class='jm-item-title'>"
@@ -386,21 +386,20 @@ height:200px;
 								}
 							});
 							
-							 $("#TriplistDetails").on("click",".jm-item-image", function() {
+							 $("#TriplistDetails").on("click",".jm-item-image", function(e) {
+								 e.stopPropagation();
 								 my_trip_map_init();
 								var tripId = $("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:first").text();
 								var totalDay =$("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:last").text();
 								var tripName = $("#"+($(this).parent().parent().parent().parent().attr("id"))+" span:eq(1)").text();
-								console.log(tripId);
-								console.log(totalDay);
-								console.log(tripName);
+								
 								console.log("AAAAA="+$(this).parent().parent().parent().parent().attr("id"));
 								
 								// when .modal-wide opened, set content-body height based on browser height; 
 								// 200 is appx height of modal padding, modal title and button bar
-								var height = $(window).height() - 200;
+							/* 	var height = $(window).height() - 200;
 								$(this).find(".modal-body").css("max-height",
-										height);
+										height); */
 								
 								//According to trip day to dynamic create Tabs. 
 								$("#mytab , #tabContent ").empty();
@@ -409,7 +408,9 @@ height:200px;
 										'</h4>');
 								//based on Trip Day to create Trip Details
 								for(var dayNum=1,max=totalDay; dayNum<=max; dayNum++) { 
-									
+									console.log(tripId);
+									console.log(totalDay);
+									console.log(tripName);
 									$('#mytab').append(
 											$('<li><a href="#day' 
 													+ dayNum 
@@ -517,6 +518,7 @@ height:200px;
 							$('#tripmodals').on('shown.bs.modal', function() {
 								google.maps.event.trigger(var_my_trip_map, "resize");
 								var_my_trip_map.setCenter(var_my_trip_location);
+								$('.scrollable').scrollTop(0);
 							});
 
 							function my_trip_map_init() {
@@ -533,13 +535,6 @@ height:200px;
 								var_my_trip_map = new google.maps.Map(document
 										.getElementById("my-trip-map-container"), var_my_trip_mapoptions);
 							}
-
-							/**
-							* When modal shown, reset the its content 
-							*/	
-							$('#TriplistDetails').on('shown.bs.modal', function (e) {
-								$('.scrollable').scrollTop(0);
-							});	
 							
 							jQuery("#listDetails").on("click", ".jm-item-title", function(){
 								

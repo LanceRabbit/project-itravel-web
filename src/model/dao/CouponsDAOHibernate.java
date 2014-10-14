@@ -168,7 +168,7 @@ public class CouponsDAOHibernate implements CouponsDAO {
 		List<Coupons> result = null;
 		try {
 			tx = session.beginTransaction();
-			Query query = session.createQuery("from Coupons");//用HQL寫
+			Query query = session.createQuery("from Coupons c where (c.validDay > getDate()-1 ) order by c.validDay ASC");//用HQL寫
 			result = query.list();
 			tx.commit();
 		} catch (Exception e) {
