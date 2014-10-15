@@ -273,14 +273,8 @@
 								</c:if> <c:if test="${ empty user.image }">
 									<i class="glyphicon glyphicon-user"></i>
 								</c:if> ${user.nickname}<b class="caret"></b></a></li>
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown"> <i class="fa fa-bars">管理</i></a>
-							<ul class="dropdown-menu">
-								<li><a href="<c:url value="/admin/blackList.jsp"/>"><i
+						<li><a href="<c:url value="/admin/blackList.jsp"/>"><i
 										class="fa fa-users" style="margin-right: 5px"></i>黑名單</a></li>
-								<li><a href="#"><i class="glyphicon glyphicon-list-alt"
-										style="margin-right: 5px"></i>統計報表</a></li>
-							</ul></li>
 
 						<li><a href="<c:url value='/controller/LogoutServlet' />">
 								<i class=" glyphicon glyphicon-cog">登出</i>
