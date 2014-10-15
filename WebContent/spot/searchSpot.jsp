@@ -96,7 +96,7 @@ height:330px;
 .jm-item-wrapper {
 	position: relative;
 	padding: 7px;
-	background: #e0e8b6;
+	background: #FFF2BD;
 }
 
 .jm-item-image {

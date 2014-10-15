@@ -142,7 +142,7 @@ public class AdDAOHibernate implements AdDAO {
 			tx = session.beginTransaction();
 
 			Query query = session
-					.createQuery("FROM Ad ads where (ads.validDay > getDate()-1 ) order by ads.validDay ASC");
+					.createQuery("FROM Ad ads where (ads.validDay > getDate()-1 ) order by ads.validDay DESC");
 			query.setMaxResults(num);
 			for (Object o : query.list()) {
 				ads.add((Ad) o);
