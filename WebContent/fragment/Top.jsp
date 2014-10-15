@@ -2199,6 +2199,13 @@
 		
 		jQuery("#spotAddress").change(function(){
 			//console.log("spot address : changing....");
+			if(!jQuery("#itravel-block-map").is(':visible')) {
+				jQuery("#itravel-block-map").show();
+				
+				google.maps.event.trigger(spot_map, "resize");
+				//spot_map.setCenter(spot_location);
+			}
+						
 			spotGetAddressMarkerByAddr(jQuery(this).val());
 		});
 		
