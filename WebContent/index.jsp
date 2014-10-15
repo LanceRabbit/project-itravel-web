@@ -40,12 +40,12 @@ font-weight: bold;
 					<img src="images/Taiwan_happy.png" alt="" />
 				</div>
 				<div class="col-sm-6 text-center">
-					<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Donec in sem cras amet.</h2>
-					<p class="lead">Lorem ipsum dolor sit amet, consectetur
-						adipiscing elit. Sed interdum metus et ligula venenatis, at
-						rhoncus nisi molestie. Pellentesque porttitor elit suscipit massa
-						laoreet metus.</p>
+					<h2>旅行是忙碌生活中的小小幸福</h2>
+					<br>
+					<p class="lead"> 忙碌的生活中，最期待假期的到來，騎著腳踏車在鄉間小路上漫遊，在清境的午後欣賞沿途優美的景致，讓微風輕輕吹過髮梢，忘掉一切煩惱，恣意的享受著大自然的懷抱。
+					<br>					             
+					<br>    提起行李循著旅程中沿路的幸福足跡，發現旅行是簡單又容易的小確幸，一起分享你我的足跡。  
+                                    
 				</div>
 			</div>
 		</div>
@@ -95,33 +95,19 @@ font-weight: bold;
 				<div class="col-sm-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2 class="panel-title">Additional information</h2>
+							<h2 class="panel-title">旅行最重要的意義，在於分享。</h2><h2 class="panel-title" style="text-align:right" >by Janet</h2>
 						</div>
-						<div id="test" class="panel-body lead">資策會 資策會 資策會 ipsum dolor sit amet,
-							consectetur adipiscing elit. Sed hendrerit adipiscing blandit.
-							Aliquam placerat, velit a fermentum fermentum, mi felis vehicula
-							justo, a dapibus quam augue non massa. Duis euismod, augue et
-							tempus consequat, lorem mauris porttitor quam, consequat
-							ultricies mauris mi a metus. Phasellus congue, leo sed ultricies
-							tristique, nunc libero tempor ligula, at varius mi nibh in nisi.
-							Aliquam erat volutpat. Maecenas rhoncus, neque facilisis rhoncus
-							tempus, elit ligula varius dui, quis amet.</div>
+						<div id="test" class="panel-body lead">我覺得自己的旅行，像是在寫一封又一封的信，寄往遠方的信，寄回家裡的信，不管身在何處，我都有好多話想告訴他們，所以旅途中，我從來都不是一個人！
+					<br>
+					<br>
+					永遠沒有不可能，永遠不會沒時間，這個世界一直都在眼前，只要去嘗試、去碰觸、去體會，每分每秒都將充滿各種樂趣與生命力！
+					</div>
 					</div>
 				</div>
 				<div class="col-sm-6">
 					<div class="panel panel-default">
-						<div class="panel-heading">
-							<h2 class="panel-title">Additional information</h2>
-						</div>
-						<div class="panel-body lead">Lorem ipsum dolor sit amet,
-							consectetur adipiscing elit. Sed hendrerit adipiscing blandit.
-							Aliquam placerat, velit a fermentum fermentum, mi felis vehicula
-							justo, a dapibus quam augue non massa. Duis euismod, augue et
-							tempus consequat, lorem mauris porttitor quam, consequat
-							ultricies mauris mi a metus. Phasellus congue, leo sed ultricies
-							tristique, nunc libero tempor ligula, at varius mi nibh in nisi.
-							Aliquam erat volutpat. Maecenas rhoncus, neque facilisis rhoncus
-							tempus, elit ligula varius dui, quis amet.</div>
+					<img alt="" src="images/janet.jpg">
+						
 					</div>
 				</div>
 			</div>

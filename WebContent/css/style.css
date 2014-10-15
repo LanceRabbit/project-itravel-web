@@ -63,9 +63,10 @@ html, body {
 }
 
 #information {
-  background: url(../images/bg_index3.jpg) no-repeat center center fixed; 
+  background: url(../images/bg_index3.jpg) no-repeat center center fixed ;  
+  opacity:60%;
   display: table;
-  height: 800px;
+  height: 450px;
   position: relative;
   width: 100%;
   -webkit-background-size: cover;
