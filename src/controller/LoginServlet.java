@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 		//抓出request的最後一個"/"之後的資料，例如"/frist.jsp"
 		String referer = request.getHeader("referer");
 		
-		String fromAndTo = referer.substring(31);
+		String fromAndTo = referer.substring(33);
 		String end4 = referer.substring(referer.length()-4);
 		HttpSession session = request.getSession();
 		String path = request.getContextPath();
@@ -125,8 +125,7 @@ public class LoginServlet extends HttpServlet {
 			errors.put("login", "Email或密碼錯誤，請重新登入。");
 //			session.setAttribute("errorMsgs_login", "Email或密碼錯誤，請重新登入。");
 //			response.sendRedirect(referer);
-			request.getRequestDispatcher(
-					(String)session.getAttribute("requestFrom")).forward(request, response);
+			request.getRequestDispatcher((String)session.getAttribute("requestFrom")).forward(request, response);
 			
 			
 //			response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
