@@ -58,29 +58,25 @@ font-weight: bold;
 			<hr />
 			<div class="row text-center">
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/team1.jpg" class="img-circle">
+					<img alt="" src="images/1.jpg" class="img-circle">
 					
 					<h4>Angela</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Donec in sem cras amet. Donec in sem cras amet.</p>
+					<p>景點以及行程按讚、收藏功能、網頁版型的設計、廣告以及折價券維護、後端功能實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/team2.jpg" class="img-circle">
+					<img alt="" src="images/2.jpg" class="img-circle">
 					<h4>Adela</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Donec in sem cras amet. Donec in sem cras amet.</p>
+					<p>註冊及帳戶資訊功能、後臺管理者的黑名單功能、折價券設計與列印功能維護、後端功能實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/team3.jpg" class="img-circle">
+					<img alt="" src="images/3.jpg" class="img-circle">
 					<h4>Lolita</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Donec in sem cras amet. Donec in sem cras amet.</p>
+					<p>景點部分的編輯與維護、景點評論、goole map API與附近景點的結合、資料庫的架設、後端功能實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
-					<img alt="" src="images/team4.jpg" class="img-circle">
+					<img alt="" src="images/4.jpg" class="img-circle">
 					<h4>CH Lin</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-						Donec in sem cras amet. Donec in sem cras amet.</p>
+					<p>組長以及身兼被毆打的沙包角色、行程部分的編輯與維護、goole map API使用、架設雲端伺服器、專題版本控管、資料庫的架設、後端功能實作</p>
 				</div>
 			</div>
 		</div>
@@ -95,7 +91,7 @@ font-weight: bold;
 				<div class="col-sm-6">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h2 class="panel-title">旅行最重要的意義，在於分享。</h2><h2 class="panel-title" style="text-align:right" >by Janet</h2>
+							<p style="font-size:20px; font-weight: bolder;">旅行最重要的意義，在於分享。</p><p style="text-align:right;font-size:20px; font-weight: bolder;" >by Janet</h2>
 						</div>
 						<div id="test" class="panel-body lead">我覺得自己的旅行，像是在寫一封又一封的信，寄往遠方的信，寄回家裡的信，不管身在何處，我都有好多話想告訴他們，所以旅途中，我從來都不是一個人！
 					<br>
