@@ -1407,12 +1407,12 @@
 		 jQuery('#date_timepicker_start').datetimepicker({
 		  format:'Y/m/d',
 		  startDate:0,
-         minDate:0,
+          minDate:0,
 		  closeOnDateSelect:true,
 		  onShow:function( ct ){
 		   this.setOptions({
 			minDate:jQuery('#date_timepicker_end').val()
-				?new Date(Date.reduceDay(new Date(jQuery('#date_timepicker_end').val()))):0,
+				?new Date(Date.reduceDay(new Date(jQuery('#date_timepicker_end').val()))):false,
 			maxDate:jQuery('#date_timepicker_end').val()
 				?jQuery('#date_timepicker_end').val():false
 		   });
@@ -1427,7 +1427,7 @@
 		  onShow:function( ct ){
 		   this.setOptions({
 			minDate:(jQuery('#date_timepicker_start').val().length!=0)
-				?jQuery('#date_timepicker_start').val():0,
+				?jQuery('#date_timepicker_start').val():false,
 			maxDate:(jQuery('#date_timepicker_start').val().length!=0)
 				?new Date(Date.addFiveDay(new Date(jQuery('#date_timepicker_start').val())))
 				:false,
