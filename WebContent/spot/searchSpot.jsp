@@ -23,13 +23,7 @@
 	display: -webkit-box;
 }
 
-h4 { /*用於標題   單行文字溢出用...取代*/
-	white-space: nowrap;
-	width: 100%; /* IE6 需要定义宽度 */
-	overflow: hidden;
-	-o-text-overflow: ellipsis; /* Opera */
-	text-overflow: ellipsis; /* IE, Safari (WebKit) */
-}
+
 /*
 .col-xs-3{
 width:220px;
@@ -113,6 +107,12 @@ width:320px;
 height:200px;
 }
 .jm-item-title {
+	white-space: nowrap;
+	max-width: 160px; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+	
 	position: absolute;
 	left: -10px;
 	bottom: 17px;
