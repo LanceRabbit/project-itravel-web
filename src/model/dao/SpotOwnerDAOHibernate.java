@@ -35,11 +35,11 @@ public class SpotOwnerDAOHibernate implements SpotOwnerDAO {
 		
 		//SelectById Test
 		sp = dao.selectById("M14090001");
-		System.out.println("SelectById Test: "+sp);
+		//System.out.println("SelectById Test: "+sp);
 		
 		//SelectAll Test
 		List<SpotOwner> sp1 = dao.selectAll();
-		System.out.println("SelectAll Test: "+sp1);
+		//System.out.println("SelectAll Test: "+sp1);
 		
 		//Delete Test
 //		int result = dao.delete("M14090002");
@@ -53,8 +53,8 @@ public class SpotOwnerDAOHibernate implements SpotOwnerDAO {
 		Transaction tx = null;
 		try {
 			tx = session.beginTransaction();
-			System.out.println("spot owner : accountId = " + spotOwner.getAccountId());
-			System.out.println("spot owner : name = " + spotOwner.getOwnerName());
+			//System.out.println("spot owner : accountId = " + spotOwner.getAccountId());
+			//System.out.println("spot owner : name = " + spotOwner.getOwnerName());
 			session.save(spotOwner);
 			//Serializable id = session.save(spotOwner);
 			//result = (SpotOwner)session.get(SpotOwner.class, id);
@@ -135,7 +135,7 @@ public class SpotOwnerDAOHibernate implements SpotOwnerDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}

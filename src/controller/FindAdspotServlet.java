@@ -75,7 +75,7 @@ public class FindAdspotServlet extends HttpServlet {
 									+ o.getAdId();
 
 						}
-						System.out.println("image url : " + imgURL);
+						//System.out.println("image url : " + imgURL);
 						jsonSpot.put("spotThumbnail", imgURL);
 						jsonSpots.put(jsonSpot);
 					} catch (JSONException e) {
@@ -121,7 +121,7 @@ public class FindAdspotServlet extends HttpServlet {
 			
 			
 		}
-		System.out.println(jsonSpots.toString());
+		//System.out.println(jsonSpots.toString());
 		// os.write(jsonSpots.toString().getBytes());
 		os.write(jsonSpots.toString().getBytes("UTF-8"));
 	}

@@ -134,7 +134,7 @@ public class CouponsDAOHibernate implements CouponsDAO {
 //			System.out.println("刪除失敗");
 //		}
 		List<Coupons> result =dao.selectBySpotId("NAT14100001");
-		System.out.println(result);
+		//System.out.println(result);
 	}
 
 	@Override

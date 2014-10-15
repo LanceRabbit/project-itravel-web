@@ -30,20 +30,20 @@ public class DisseminateService {
 		DisseminateService s = new DisseminateService();
 		//s.findAdsByAccountId("M14100001");
 		s.findCouponsByAccountId("M14100001");
-		System.out.println("DisseminateService getWholeCoupons = "+s.getWholeCoupons());
+		//System.out.println("DisseminateService getWholeCoupons = "+s.getWholeCoupons());
 		
 	}
 	public List<Coupons> findCouponsByAccountId(String accountId) {
 
 		List<Coupons> result = daoCoupon.selectByAccountId(accountId);	
-		System.out.println("Coupon list:"+result);
+		//System.out.println("Coupon list:"+result);
 				
 		return result;
 	}
 	public List<Coupons> findCouponsBySpotId(String spotId) {
 
 		List<Coupons> result = daoCoupon.selectBySpotId(spotId);	
-		System.out.println("Coupon list:"+result);
+		//System.out.println("Coupon list:"+result);
 				
 		return result;
 	}
@@ -75,7 +75,7 @@ public class DisseminateService {
 	public List<Ad> findAdsByAccountId(String accountId) {
 
 		List<Ad> result = dao.selectByAccountId(accountId);	
-		System.out.println("Ad list:"+result);
+		//System.out.println("Ad list:"+result);
 		
 		
 		
@@ -119,7 +119,7 @@ public class DisseminateService {
 		coupon.setTempCouponId("EMP");
 		coupon = daoCoupon.insert(coupon);
 		if (coupon != null) {
-			System.out.println(coupon.toString());
+			//System.out.println(coupon.toString());
 			return true;
 		} else {
 			return false;

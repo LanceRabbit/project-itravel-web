@@ -31,7 +31,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		tripRec.setTripId("T14090003");
 		trip = new TripLikeRecord(tripRec);
 		trip = dao.insert(trip);
-		System.out.println("已新增 ="+trip);
+		//System.out.println("已新增 ="+trip);
 
 		// test: delet
 		// 測試刪除須先檢查DB內有無資料
@@ -69,7 +69,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -90,7 +90,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			return -100;
 		}
@@ -114,7 +114,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -135,17 +135,17 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 			tx = session.beginTransaction();
 			List<?> trips = session.createQuery("FROM TripLikeRecord trips where trips.id.accountId = ?").setString(0, accountId).list();
 			
-			System.out.println("liked trips : " + trips.size());
+			//System.out.println("liked trips : " + trips.size());
 			for (Object o : trips) {
 				TripLikeRecord trip = (TripLikeRecord)o;
-			    System.out.println(accountId + "likes trip id: " + trip.getId().getTripId());
+			    //System.out.println(accountId + "likes trip id: " + trip.getId().getTripId());
 			}			
 			
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -164,7 +164,7 @@ public class TripLikeRecordDAOHibernate implements TripLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			return -100;
 		}

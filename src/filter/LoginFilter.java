@@ -71,7 +71,7 @@ public class LoginFilter implements Filter {
 	private boolean checkLogin(HttpServletRequest req) {
 		HttpSession session = req.getSession();
 		Account loginToken = (Account) session.getAttribute("user");
-		System.out.println("LoginFilter Test  =  "+loginToken);
+		//System.out.println("LoginFilter Test  =  "+loginToken);
 		if (loginToken == null) {
 			return false;
 		} else {

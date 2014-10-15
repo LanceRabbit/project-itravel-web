@@ -121,7 +121,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 //			}
 //		}
 		TripDetail test = dao.selectOneByTripId("T14090006", 1);
-		System.out.println(test);
+		//System.out.println(test);
 		test.getSpotDetail().getSpotId();
 		SpotImgDAOHibernate imgdao = new SpotImgDAOHibernate();
 		SpotImg img = imgdao.selectByImgId("I140900036");
@@ -207,7 +207,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
@@ -241,7 +241,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		} catch (Exception e) {
 			if (tx != null)
 				tx.rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
@@ -254,7 +254,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 		Transaction tx = null;
 		// 0 : success
 		int result = 0;
-		System.out.println("tripId====="+ tripId);
+		//System.out.println("tripId====="+ tripId);
 		try {
 			tx = session.beginTransaction();
 			// delete related detail of tripId
@@ -266,7 +266,7 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 			 int x = query.executeUpdate();
 			  if(x>0){
 				  result = 0;
-				  System.out.println("result====="+ result);
+				  //System.out.println("result====="+ result);
 			  }
 			
 //			if (query!=null){
@@ -279,10 +279,10 @@ public class TripDetailDAOHibrenate implements TripDetailDAO {
 			result = 1; 
 			if (tx != null)
 				tx.rollback();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("result====="+ result);
+		//System.out.println("result====="+ result);
 		return result;
 	}
 

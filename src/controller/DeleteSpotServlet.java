@@ -29,7 +29,7 @@ public class DeleteSpotServlet extends HttpServlet {
 			out = response.getWriter();
 			
 			String spotId = request.getParameter("SpotId");
-			System.out.println("spotId : " + spotId);
+			//System.out.println("spotId : " + spotId);
 
 			
 			DeleteSpotService service = new DeleteSpotService();

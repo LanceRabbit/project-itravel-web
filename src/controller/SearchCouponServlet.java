@@ -67,7 +67,7 @@ public class SearchCouponServlet extends HttpServlet {
 							o.getCouponId(), o.getCouponImg());
 					imgURL = webAppURL + "/" + imgPath + "/"
 							+ o.getCouponId();
-					System.out.println("image url : " + imgURL);					
+					//System.out.println("image url : " + imgURL);					
 					jsonSpot.put("couponThumbnailURL", imgURL);
 					jsonSpots.put(jsonSpot);
 
@@ -85,7 +85,7 @@ public class SearchCouponServlet extends HttpServlet {
 			jsonSpots.put(jsonSpot);
 			
 		}
-		System.out.println(jsonSpots.toString());
+		//System.out.println(jsonSpots.toString());
 		// os.write(jsonSpots.toString().getBytes());
 		os.write(jsonSpots.toString().getBytes("UTF-8"));
 

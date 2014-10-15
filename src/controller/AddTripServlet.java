@@ -31,28 +31,28 @@ public class AddTripServlet extends HttpServlet {
 
 	private void createTrip(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		System.out.println("create Trip  testing~!!!! Lance");
+		//System.out.println("create Trip  testing~!!!! Lance");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out =  response.getWriter();;
 		String addTrip = request.getParameter("tripInfo");
 		if (addTrip!=null && addTrip.trim().length()!=0) {
-			System.out.println(addTrip);
+			//System.out.println(addTrip);
 			Gson gson = new Gson();
 			Type listType = new TypeToken<Map>() {}.getType();
 			
 			Map<?, ?> tempList = gson.fromJson(addTrip, listType);
-			System.out.println("TETETETETETETETETE=" + tempList);
+			//System.out.println("TETETETETETETETETE=" + tempList);
 	
 			String accountId = (String) tempList.get("userId");
-			System.out.println("userId=" + accountId);
+			//System.out.println("userId=" + accountId);
 	
 			String tripName = (String) tempList.get("tripName");
-			System.out.println("tripName=" + tripName);
+			//System.out.println("tripName=" + tripName);
 			String startDay = (String) tempList.get("startDay");
-			System.out.println("tripName=" + startDay);
+			//System.out.println("tripName=" + startDay);
 	
 			int totalDay = Integer.parseInt((String) tempList.get("totalDay"));
-			System.out.println("totalDay=" + totalDay);
+			//System.out.println("totalDay=" + totalDay);
 	
 			AddTripService service = new AddTripService();
 			Account account = new Account();
@@ -70,12 +70,12 @@ public class AddTripServlet extends HttpServlet {
 			trip.setTempTripId("NewTrip");
 			trip = service.creatTrip(trip);
 	
-			System.out.println(trip);
+			//System.out.println(trip);
 	
 			List<?> list = (List<?>) tempList.get("spot");
 	
-			System.out.println("+list+list+=" + list);
-			System.out.println("+list+Size+=" + list.size());
+			//System.out.println("+list+list+=" + list);
+			//System.out.println("+list+Size+=" + list.size());
 			int dayOrder = 1;
 			int spotOrder = 1;
 	
@@ -86,7 +86,7 @@ public class AddTripServlet extends HttpServlet {
 				while (iterator.hasNext()) {
 	
 					Map<?, ?> map = (Map<?, ?>) iterator.next();
-					System.out.println("iterator==" + map);
+					//System.out.println("iterator==" + map);
 					spotDetail = new SpotDetail();
 					spotDetail.setSpotId((String) map.get("spotId"));
 					tripDetail = new TripDetail();
@@ -98,12 +98,12 @@ public class AddTripServlet extends HttpServlet {
 							.get("stayTime")));
 					tripDetail.setTempTripDetailId("EMP");
 					service.addTripDetail(tripDetail);
-					System.out.println("tripDetail=" + tripDetail);
+					//System.out.println("tripDetail=" + tripDetail);
 	
 					spotOrder++;
 	
 				}
-				System.out.println("dayOrder==" + dayOrder);
+				//System.out.println("dayOrder==" + dayOrder);
 				dayOrder++;
 			}
 			out.print(true);
@@ -116,13 +116,13 @@ public class AddTripServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doGet() called");
+		//System.out.println(this.getClass().toString() + " : doGet() called");
 		this.createTrip(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(this.getClass().toString() + " : doPost() called");
+		//System.out.println(this.getClass().toString() + " : doPost() called");
 		this.createTrip(request, response);
 	}
 

@@ -41,11 +41,11 @@ public class SearchTripService {
 		result = dao.selectByInput("東");
 		 if (result!=null) {
 		 for (Object o : result) {
-		 System.out.println(o);
+		 //System.out.println(o);
 		 } 
 		 } else {
 			 
-			 System.out.println("Can not find out for this search");
+			 //System.out.println("Can not find out for this search");
 		 }
 
 

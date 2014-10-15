@@ -65,7 +65,7 @@ public class ChangeAccountServlet extends HttpServlet {
 			}
 			nickname = request.getParameter("nickname");
 			Part filePart = request.getPart("image");
-			System.out.println("ServletFileSize="+filePart.getSize());
+			//System.out.println("ServletFileSize="+filePart.getSize());
 			if(filePart.getSize() != 0){
 				 try {
 						inputStream = filePart.getInputStream();

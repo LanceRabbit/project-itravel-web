@@ -67,8 +67,8 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("redirectTo", referer);
 			session.setAttribute("requestFrom", fromAndTo);
 		}
-		System.out.println("TEST==Redirect============="+(String)session.getAttribute("redirectTo"));
-		System.out.println("TEST===Forward============"+(String)session.getAttribute("requestFrom"));
+		//System.out.println("TEST==Redirect============="+(String)session.getAttribute("redirectTo"));
+		//System.out.println("TEST===Forward============"+(String)session.getAttribute("requestFrom"));
 		if(bean!=null) {
 			if(bean.getAccountLevel()==3||bean.getAccountLevel()==5){
 				session.setAttribute("activated", "false");

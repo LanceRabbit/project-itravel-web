@@ -62,17 +62,17 @@ public class AccountDAOHibernate implements AccountDAO {
 //			Trip trips = (Trip)tripDetail.next();
 //			System.out.println("GET TRIP FROM ACCOUNT: "+trips);
 //		}
-		System.out.println("SelectById Test:" + acc);
+		//System.out.println("SelectById Test:" + acc);
 		
 		//SelectByEmail Test
 		acc = dao.selectByEmail("user1@gmail.com");
-		System.out.println("SelectByEmail Test:" + acc);
+		//System.out.println("SelectByEmail Test:" + acc);
 		//SelectAll Test
 		List<Account> accAll = dao.selectAll();
-		System.out.println("SelectAll Test:"+accAll);
+		//System.out.println("SelectAll Test:"+accAll);
 		
 		List<Account> accByAccountLevel = dao.selectBlackList();
-		System.out.println("SelectByAccountLevel Test= "+accByAccountLevel);
+		//System.out.println("SelectByAccountLevel Test= "+accByAccountLevel);
 	}
 
 	private SessionFactory sessionFactory = null;

@@ -300,11 +300,11 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 		List<SpotDetail> list =hibernateDAO.selectByHQL(query, 2);
 		if(list != null) {
 			for (SpotDetail o : list) {
-				System.out.println(o.toString());
+				//System.out.println(o.toString());
 			}
 		}
 		else {
-			System.out.println("null list....");
+			//System.out.println("null list....");
 		}
 	}
 }

@@ -92,7 +92,7 @@ public class AdminService {
 		Calendar calendar = Calendar.getInstance();
     	calendar.setTime(current);
 		for (Account black : blacks) {
-			System.out.println("getTempBlacklist black= "+black);
+			//System.out.println("getTempBlacklist black= "+black);
 			Date deadline = black.getLastLogonDt();
 	    	calendar.add(Calendar.MONTH, 2);
 			if(deadline.before(calendar.getTime())){
@@ -108,7 +108,7 @@ public class AdminService {
 		Calendar calendar = Calendar.getInstance();
     	calendar.setTime(current);
 		for (Account black : blacks) {
-			System.out.println("getPermBlacklist black= "+black);
+			//System.out.println("getPermBlacklist black= "+black);
 			Date deadline = black.getLastLogonDt();
 	    	calendar.add(Calendar.MONTH, 2);
 			if(deadline.after(calendar.getTime())){

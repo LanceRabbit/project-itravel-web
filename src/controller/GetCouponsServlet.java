@@ -49,7 +49,7 @@ public class GetCouponsServlet extends HttpServlet {
 				String deployDir = getServletContext().getRealPath("/");
 				String referer = request.getHeader("referer");
 				String webAppURL = referer.substring(0,43);
-				System.out.println("GetCouponsServlet webAppURL= "+webAppURL);
+				//System.out.println("GetCouponsServlet webAppURL= "+webAppURL);
 				if (c.getCouponId() != null) {
 					ImageIOUtil.saveImage((deployDir + imgPath),
 							c.getCouponId(), c.getCouponImg());
@@ -58,7 +58,7 @@ public class GetCouponsServlet extends HttpServlet {
 				jsonCoupon.put("Image", imgURL);
 				jsonCoupons.put(jsonCoupon);
 			}
-			System.out.println("GetCouponsServlet Data= "+jsonCoupons.toString());
+			//System.out.println("GetCouponsServlet Data= "+jsonCoupons.toString());
 			os.write(jsonCoupons.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();

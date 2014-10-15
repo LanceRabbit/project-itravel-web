@@ -38,7 +38,7 @@ public class GetInitialBlacklistServlet extends HttpServlet {
 			for (BlacklistRecord b : result1) {
 				SpotCommentRecord result2 = service.getSpotCommentRecorByCommentId(b.getId().getCommentId());
 				String accountLevel = service.getAccountLevelById(b.getId().getReportedId());
-				System.out.println("GetInitialBlacklistServlet Account Level = "+accountLevel);
+				//System.out.println("GetInitialBlacklistServlet Account Level = "+accountLevel);
 				JSONObject jsonBlack = new JSONObject();
 				jsonBlack.put("Reporter", b.getId().getReporterId());
 				jsonBlack.put("Reported", b.getId().getReportedId());
@@ -50,7 +50,7 @@ public class GetInitialBlacklistServlet extends HttpServlet {
 				jsonBlack.put("Reason", b.getReason());
 				jsonSpots.put(jsonBlack);
 			}
-			System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
+			//System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();

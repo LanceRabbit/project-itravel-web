@@ -48,7 +48,7 @@ public class TripRecordServlet extends HttpServlet {
 		String State = request.getParameter("State");
 		String TripId = request.getParameter("TripId");
 		TripId = TripId.substring(2);
-		System.out.println(AccountId + "...." + TripId);
+		//System.out.println(AccountId + "...." + TripId);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 
@@ -59,14 +59,14 @@ public class TripRecordServlet extends HttpServlet {
 
 			request.getRequestDispatcher("/trip/searchTrip.jsp").forward(
 					request, response);
-			System.out.println("Like成功");
+			//System.out.println("Like成功");
 		}else if(State.equals("delet") && !LikeService.isTripLikeEmpty(AccountId, TripId)) {
 
 			LikeService.deletTripLike(AccountId, TripId);
 			
 			request.getRequestDispatcher("/trip/searchTrip.jsp").forward(
 					request, response);
-			System.out.println("delet成功");
+			//System.out.println("delet成功");
 		}else if(State.equals("deletCollect") && !LikeService.isTripCollectEmpty(AccountId, TripId)){
 			LikeService.deletTripCollect(AccountId, TripId);
 			
@@ -77,7 +77,7 @@ public class TripRecordServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/trip/searchTrip.jsp").forward(
 					request, response);
-			System.out.println("-----------");
+			//System.out.println("-----------");
 		}
 		//
 		

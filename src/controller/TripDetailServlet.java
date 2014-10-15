@@ -48,7 +48,7 @@ public class TripDetailServlet extends HttpServlet {
 		String sessionId = request.getSession().getId();
 		
 		String tripId = request.getParameter("TripId");
-		System.out.println("tripId="+tripId);
+		//System.out.println("tripId="+tripId);
 		int days = Integer.parseInt(request.getParameter("totalDay"));
 		OutputStream os = null;
 		
@@ -86,7 +86,7 @@ public class TripDetailServlet extends HttpServlet {
 			os.write(jsonTrips.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		} finally{
 			
 			if(os != null) {

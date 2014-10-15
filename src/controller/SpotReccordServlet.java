@@ -48,7 +48,7 @@ public class SpotReccordServlet extends HttpServlet {
 		String State = request.getParameter("State");
 		String SpotId = request.getParameter("SpotId");
 		SpotId = SpotId.substring(2);
-		System.out.println(AccountId + "...." + SpotId);
+		//System.out.println(AccountId + "...." + SpotId);
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
 
@@ -59,14 +59,14 @@ public class SpotReccordServlet extends HttpServlet {
 
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
-			System.out.println("Like成功");
+			//System.out.println("Like成功");
 		}else if(State.equals("delet") && !LikeService.isLikeEmpty(AccountId, SpotId)) {
 
 			LikeService.deletSpotLike(AccountId, SpotId);
 			
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
-			System.out.println("delet成功");
+			//System.out.println("delet成功");
 		}else if(State.equals("deletCollect") && !LikeService.isCollectEmpty(AccountId, SpotId) ){
 			LikeService.deletSpotCollect(AccountId, SpotId);
 			
@@ -77,7 +77,7 @@ public class SpotReccordServlet extends HttpServlet {
 			
 			request.getRequestDispatcher("/spot/TestSearchSpot.jsp").forward(
 					request, response);
-			System.out.println("-----------");
+			//System.out.println("-----------");
 		}
 		//
 

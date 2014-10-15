@@ -83,7 +83,7 @@ public class FindCouponSpotServlet extends HttpServlet {
 									+ o.getCouponId();
 
 						}
-						System.out.println("image url : " + imgURL);
+						//System.out.println("image url : " + imgURL);
 						jsonSpot.put("spotThumbnail", imgURL);
 						jsonSpots.put(jsonSpot);
 					} catch (JSONException e) {
@@ -126,7 +126,7 @@ public class FindCouponSpotServlet extends HttpServlet {
 
 			}
 		}
-		System.out.println(jsonSpots.toString());
+		//System.out.println(jsonSpots.toString());
 		// os.write(jsonSpots.toString().getBytes());
 		os.write(jsonSpots.toString().getBytes("UTF-8"));
 	}

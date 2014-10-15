@@ -27,7 +27,7 @@ public class BlacklistRecordDAOHibernate implements BlacklistRecordDAO {
 		bRecord.setReportDt(new java.util.Date());
 		bRecord.setStatus(0);
 		bRecord = dao.insert(bRecord);
-		System.out.println("Insert Test:"+bRecord);
+		//System.out.println("Insert Test:"+bRecord);
 		
 //		//Select Test
 //		List<BlacklistRecord> bRecord1 = null;

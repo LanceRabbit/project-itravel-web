@@ -45,17 +45,17 @@ public class AddCouponServlet extends HttpServlet {
 			spotId = request.getParameter("CspotIdList");			
 			date = request.getParameter("Cdate");
 			text = request.getParameter("Ctext");
-			System.out.println(spotId+":"+date+":"+text);
+			//System.out.println(spotId+":"+date+":"+text);
 			
 			InputStream inputStream = null;
 			Part filePart = request.getPart("Cimage");
-			System.out.println("Print FilePart Size= "+filePart.getSize());
-			System.out.println(filePart);
+			//System.out.println("Print FilePart Size= "+filePart.getSize());
+			//System.out.println(filePart);
 			if (filePart.getSize() != 0) {  
 			    // debug messages  
-            System.out.println(filePart.getName());  
-            System.out.println(filePart.getSize());  
-            System.out.println(filePart.getContentType());  
+            //System.out.println(filePart.getName());  
+            //System.out.println(filePart.getSize());  
+            //System.out.println(filePart.getContentType());  
   
 			    // obtains input stream of the upload file  
 			    try {
@@ -66,7 +66,7 @@ public class AddCouponServlet extends HttpServlet {
 				}
 //            System.out.println(bytes);
 			}else if(filePart.getSize() == 0){
-				System.out.println("here");
+				//System.out.println("here");
 				String path = request.getContextPath();
 //				try {
 //					inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
@@ -92,7 +92,7 @@ public class AddCouponServlet extends HttpServlet {
 		try {
 			
 			validdate = sdFormat.parse(date);
-			System.out.println(validdate);
+			//System.out.println(validdate);
 			
 		} catch (ParseException e1) {
 			validdate = service.findDate();
@@ -107,10 +107,10 @@ public class AddCouponServlet extends HttpServlet {
 		
 		
 		if(service.CouponInsert(spotId, text, validdate, image)){
-			System.out.println("coupon Add 成功");
+			//System.out.println("coupon Add 成功");
 			response.sendRedirect(path+"/store/Disseminate.jsp");
 		}else{
-			System.out.println("coupon Add 失敗");			
+			//System.out.println("coupon Add 失敗");			
 			response.sendRedirect(path+"/store/Disseminate.jsp");
 		}
 		

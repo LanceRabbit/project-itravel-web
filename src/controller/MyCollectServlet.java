@@ -50,7 +50,7 @@ public class MyCollectServlet extends HttpServlet {
 
 		// 取得AccountId 撈出spot
 		String AccountId = request.getParameter("AccountId");
-		System.out.println(AccountId);
+		//System.out.println(AccountId);
 		JSONArray jsonSpots = new JSONArray();
 		OutputStream os = response.getOutputStream();
 		MyCollectService service = new MyCollectService();
@@ -95,7 +95,7 @@ public class MyCollectServlet extends HttpServlet {
 		    
 				while(it.hasNext()){
 					SpotDetail sp = it.next();
-					System.out.println(sp);
+					//System.out.println(sp);
 						JSONObject jsonSpot;
 						try {
 							jsonSpot = new JSONObject();						
@@ -122,7 +122,7 @@ public class MyCollectServlet extends HttpServlet {
 							imgURL = webAppURL + "/images/team1.jpg";
 							while (itimg.hasNext()) {
 								SpotImg image = itimg.next();
-								System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
+								//System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
 
 								if (image.getSpotImg() != null) {
 									ImageIOUtil.saveImage((deployDir+imgPath),image.getImgId(),image.getSpotImg());
@@ -130,7 +130,7 @@ public class MyCollectServlet extends HttpServlet {
 									break;
 								}
 							}									
-							System.out.println("image url : " + imgURL);
+							//System.out.println("image url : " + imgURL);
 							jsonSpot.put("spotThumbnail", imgURL);
 							
 							jsonSpots.put(jsonSpot);
@@ -141,7 +141,7 @@ public class MyCollectServlet extends HttpServlet {
 
 						
 					}
-				System.out.println(jsonSpots.toString().getBytes("UTF-8"));
+				//System.out.println(jsonSpots.toString().getBytes("UTF-8"));
 					os.write(jsonSpots.toString().getBytes("UTF-8"));
 
 			

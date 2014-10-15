@@ -42,7 +42,7 @@ public class DeletCollectServlet extends HttpServlet {
 		String AccountId = request.getParameter("AccountId");
 		String State = request.getParameter("State");
 		
-		System.out.println(AccountId+";"+State);
+		//System.out.println(AccountId+";"+State);
 		
 		PrintWriter out = response.getWriter();
 		//OutputStream os = response.getOutputStream();
