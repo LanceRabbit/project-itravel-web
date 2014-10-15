@@ -23,7 +23,7 @@ p { /*用於內文   多行文字溢出用...取代*/
 }
 .jm-item-title{ /*用於單行文字溢出用...取代*/
 	white-space: nowrap;
-	max-width: 180px; /* IE6 需要定义宽度 */
+	max-width: 160px; /* IE6 需要定义宽度 */
 	overflow: hidden;
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
@@ -76,7 +76,7 @@ height:330px;
 .jm-item-wrapper {
 	position: relative;
 	padding: 7px;
-	background: #e0e8b6;
+	background: #FFF2BD;
 }
 
 .jm-item-image {

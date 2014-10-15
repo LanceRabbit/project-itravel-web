@@ -19,9 +19,9 @@ p {/*用於內文   多行文字溢出用...取代*/
 	display: -webkit-box;
 }
 
-h4 {/*用於標題   單行文字溢出用...取代*/
+.jm-item-title {/*用於標題   單行文字溢出用...取代*/
 	white-space: nowrap;
-	width: 100%; /* IE6 需要定义宽度 */
+	width: 160px; /* IE6 需要定义宽度 */
 	overflow: hidden;
 	-o-text-overflow: ellipsis; /* Opera */
 	text-overflow: ellipsis; /* IE, Safari (WebKit) */
@@ -117,7 +117,7 @@ border-collapse:collapse;
 .jm-item-wrapper {
 	position: relative;
 	padding: 7px;
-	background: #e0e8b6;
+	background: #FFF2BD;
 }
 
 .jm-item-image {
