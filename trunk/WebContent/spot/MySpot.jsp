@@ -789,7 +789,13 @@ height:200px;
 				});  
 				
 				// trigger as map ready
-				jQuery("#alterSpotName").trigger('change');
+				// redraw map
+				if(!jQuery("#alterspot-map").is(':visible')) {
+					jQuery("#alterspot-map").show();
+					
+					google.maps.event.trigger(alterspot_map, "resize");
+					alterspot_map.setCenter(alterspot_location);
+				}
 		});
 	} 
 	
@@ -814,7 +820,7 @@ height:200px;
 					        if (results[1]) {
 					        	rev_address = results[1].formatted_address;
 					        	alterspot_marker.setTitle(rev_address);	//重新設定標記點的title
-					        	jQuery('#spotAddress').val(rev_address);
+					        	jQuery('#alterSpotAddress').val(rev_address);
 					        	
 					        	promptMarkerInfo(alterspot_map, alterspot_infowindow, alterspot_marker, "可拖拉更改標記地址");
 					        }
@@ -822,7 +828,7 @@ height:200px;
 					      	console.log("Geocoder failed due to: " + status);
 				   });
 				   
-				   jQuery('#spotAddress').focus();
+				   jQuery('#alterSpotAddress').focus();
 				} // end of if(status==google.maps.GeocoderStatus.OK) 
 			 }// end of function
 		 ); // end of  geocoder.geocode({'address':address},function (results,status) 
@@ -927,8 +933,8 @@ height:200px;
 				if(!jQuery("#alterspot-map").is(':visible')) {
 					jQuery("#alterspot-map").show();
 					
-					google.maps.event.trigger(alterSpot_map, "resize");
-					alterSpot_map.setCenter(alterSpot_location);
+					google.maps.event.trigger(alterspot_map, "resize");
+					alterspot_map.setCenter(alterspot_location);
 				}
 				
 				var addr = "台灣";
@@ -1123,7 +1129,6 @@ height:200px;
 			});
 			
 			jQuery("#alterSpotAddress").change(function(){
-				//console.log("spot address : changing....");
 				alterSpotGetAddressMarkerByAddr(jQuery(this).val());
 			});
 			
