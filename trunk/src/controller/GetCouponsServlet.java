@@ -48,7 +48,7 @@ public class GetCouponsServlet extends HttpServlet {
 				String imgPath = "images" + "/" + dateDir + "/coupons";
 				String deployDir = getServletContext().getRealPath("/");
 				String referer = request.getHeader("referer");
-				String webAppURL = referer.substring(0,31);
+				String webAppURL = referer.substring(0,43);
 				System.out.println("GetCouponsServlet webAppURL= "+webAppURL);
 				if (c.getCouponId() != null) {
 					ImageIOUtil.saveImage((deployDir + imgPath),
