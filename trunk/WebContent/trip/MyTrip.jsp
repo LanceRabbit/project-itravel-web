@@ -477,7 +477,7 @@ height:200px;
 	 jQuery('#modifyDate').datetimepicker({
 	  format:'Y/m/d',
 	  startDate:0,
-      minDate:0,
+      minDate:false,
 	  closeOnDateSelect:true,
 	  onShow:function( ct ){
 	  },
