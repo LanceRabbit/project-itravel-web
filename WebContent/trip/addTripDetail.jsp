@@ -179,12 +179,15 @@ width: 300px;
 				</form>
 		</div>
 		</div>
+		
 	</div>
 
 	
 			<div class="row scrollable" id="listDetails">
 			
 			</div>	
+			<div class="row" style="margin-top: 40px;text-align: center;" id="pages">
+    		</div>
 		</div>
 
 		<div class="tab-pane" id="spot_2">
@@ -212,6 +215,7 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/jquery.dynatable.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.sortable.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.twbsPagination.js"></script>
 <script>
 
 var currentDiv = "#contact_1";
@@ -523,7 +527,7 @@ jQuery(document).ready(	function() {
 		jQuey("#queryCity").val(jQuey(this).text());
 		jQuey("#queryCityIdMenu .dropdown-menu").hide();
 		
-		activeQuery();
+		activeQuery(0, true);
 	}); 
 	
 	jQuey('#queryCategoryIdMenu').on('show.bs.dropdown', function () {
@@ -549,23 +553,23 @@ jQuery(document).ready(	function() {
 		
 
 		
-		activeQuery();
+		activeQuery(0, true);
 	});
 
 	// input field : spot name
 	jQuey('#querySpotName').on("change", function() {
 		
-		activeQuery();
+		activeQuery(0, true);
 	}); 
 	
 	// load data from server
-	activeQuery();
+	activeQuery(0, true);
 	
 	function initElements() {
 		// populate city ids
 		var cities = [ "全部縣市", "基隆", "台北", "桃園", "新竹", "苗栗", "dummy", "彰化", "台中", "南投",
-			"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "綠島", "蘭嶼",
-			"澎湖", "金門", "馬祖" ];
+				"雲林", "嘉義", "dummy", "台南", "高雄", "屏東", "dummy", "宜蘭", "花蓮", "台東", "dummy", "綠島", "蘭嶼",
+				"澎湖", "金門", "馬祖" ];
 		jQuey.each(cities, function(index, value) {
 			//console.log(value);
 			if (value == 'dummy')
@@ -588,22 +592,23 @@ jQuery(document).ready(	function() {
 	var rootPath = window.location.protocol+"//"+window.location.host+
 					":"+window.location.port+"/"
 	*/					
-	function activeQuery() {
+	function activeQuery(pageNo, redrawIndex) {
 		var spotName = jQuey('#querySpotName').val();
 		//console.log("querySpotName : " + spotName);
 		var city = jQuey("#queryCity").val();
 		//console.log("city : " + city);
 		var category = jQuey('#queryCategory').val();
 		//console.log("queryCategory : " + category);
-
+		var totalPageCount = 0;
 		jQuey.ajax({
 			type : "POST",
-			url : '<c:url value='/controller/SearchSpot' />',
+			url : '<c:url value='/controller/SearchSpotPaging' />',
 			data : {
 				spotName : spotName,
 				city : city,
 				category : category,
-				subcategory : null
+				subcategory : null,
+				pageNo:pageNo
 			}
 		}).done(function(data) {
 			//console.log("detail from server....." + data);
@@ -611,7 +616,10 @@ jQuery(document).ready(	function() {
 			$("#mycollect").empty();
 			jQuey.each(data, function(index, value){
 				//console.log("Hello" + index + ":" + value);
-	
+				if(index == 0) {
+					totalPageCount = value.totalPageCount;
+					return;
+				}
 		
 				jQuery('#listDetails').append(
 						"<div id='"+value.spotId+"'class='col-xs-12'><div class='row'>"
@@ -626,6 +634,23 @@ jQuery(document).ready(	function() {
 						+ "</p></div></div>"
 						+ "</div></div>"
 				); // end of jQuery
+				
+				// pagination
+				if(redrawIndex == true) {
+					jQuery("#pages").empty();
+					jQuery("#pages").append("<ul id='pagination' class='pagination-sm' ></ul>");
+					
+					jQuery('#pagination').twbsPagination({
+				        totalPages: totalPageCount,
+				        visiblePages: 5,
+				        
+				        onPageClick: function (event, page) {
+				        	//console.log("select page : " + page);
+				            jQuery('#page-content').text('Page ' + page);
+				            activeQuery(page, false);
+				        }
+				    });
+				}
 				//console.log(value.spotId);
 				//console.log("+++="+$('#'+value.spotId).attr("id"));
 				//-- add spot into trip when click this spot.
