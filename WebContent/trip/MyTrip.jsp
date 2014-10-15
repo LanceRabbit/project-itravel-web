@@ -413,7 +413,7 @@ height:200px;
 		var var_my_trip_map;
 		var var_my_trip_location = new google.maps.LatLng(23.973299, 120.978398);
 		var var_my_trip_marker;
-
+		var var_my_trip_infowindow = new google.maps.InfoWindow();  
 		google.maps.event.addDomListener(window, 'load', my_trip_map_init);
 
 		//start of modal google map
@@ -617,22 +617,7 @@ height:200px;
 												maxHeight : 200
 											});
 								google.maps.event.addListener(var_my_trip_marker, 'click', function() {
-									console.log("spot marker clicked");
-									//spot_infowindow.open(alterspot_map, alterspot_marker);
-									
-									LatLng = var_my_trip_marker.getPosition();
-									var_my_trip_location = LatLng;
-									geocoder.geocode({'latLng': LatLng}, function(results, status) {
-								   		if (status == google.maps.GeocoderStatus.OK) {
-									        if (results[1]) {
-									        	address = results[1].formatted_address;
-									        	var_my_trip_marker.setTitle(address);	//重新設定標記點的title
-									        	//jQuery('#alterSpotAddress').val(address);
-									        	//jQuery('#alterSpotAddress').focus();
-									        }
-									    }else 
-									      	console.log("Geocoder failed due to: " + status);
-								   	});
+									spotInfo(var_my_trip_map,value,var_my_trip_marker);
 								});
 			
 								
@@ -647,7 +632,33 @@ height:200px;
 		$('#mytab a:first').tab('show');
 		
 	}); //on click
-
+	function infoContent(spotObj) {
+		
+		//<img src=""
+		//設定資訊視窗內容要呈現什麼	
+		 var html = "<div style='width:100px; height:100px;'>";
+		 html += "<img src='<c:url value='/controller/TripDetailImageServlet?id="+spotObj.spotId+"&index=1'/>' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
+		 //html += "<img src='"+ neighbor.spotThumbnail + "' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
+		 html += "<div>" + spotObj.spotName + "</div>";
+		 
+		 return html;
+	}
+	  
+	function spotInfo(mapObj , spotObj, marker) {
+		/*
+		console.log("showInfo : " + mapObj);
+		console.log("showInfo : " + markerObj);
+		console.log("name : " + neighbor.spotName);
+		console.log("thumbnail : " + neighbor.spotThumbnail);
+		*/
+		
+		//開啟資訊視窗		
+		 if (var_my_trip_infowindow)
+			 var_my_trip_infowindow.close();
+		
+		var_my_trip_infowindow.setContent(infoContent(spotObj));
+		var_my_trip_infowindow.open(mapObj, marker);			
+	}
 
 	/**
 	* When modal shown, reset the its content 

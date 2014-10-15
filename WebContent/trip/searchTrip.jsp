@@ -119,6 +119,12 @@ width:320px;
 height:200px;
 }
 .jm-item-title {
+    white-space: nowrap;
+	max-width: 160px; /* IE6 需要定义宽度 */
+	overflow: hidden;
+	-o-text-overflow: ellipsis; /* Opera */
+	text-overflow: ellipsis; /* IE, Safari (WebKit) */
+	
 	position: absolute;
 	left: -10px;
 	bottom: 17px;
@@ -469,6 +475,7 @@ height:200px;
 	});
 	var var_search_map;
 	var var_search_location = new google.maps.LatLng(23.973299, 120.978398);
+	var var_search_infowindow = new google.maps.InfoWindow();  
 	var var_search_marker;
 	var var_list = [];
 	google.maps.event.addDomListener(window, 'load', search_map_init);
@@ -750,23 +757,12 @@ height:200px;
 										maxWidth : 200,
 										maxHeight : 200
 									});
+							
+							//google.maps.event.addListener(neighborMarkers[index], 'click', function() {
+				    		//	showInfo(neighborhood_map, neighborMarkers[index], neighbors[index]);			
+				    		//});
 							google.maps.event.addListener(var_search_marker, 'click', function() {
-								console.log("spot marker clicked");
-								//spot_infowindow.open(alterspot_map, alterspot_marker);
-								
-								LatLng = var_search_marker.getPosition();
-								var_search_location = LatLng;
-								geocoder.geocode({'latLng': LatLng}, function(results, status) {
-							   		if (status == google.maps.GeocoderStatus.OK) {
-								        if (results[1]) {
-								        	address = results[1].formatted_address;
-								        	var_search_marker.setTitle(address);	//重新設定標記點的title
-								        	//jQuery('#alterSpotAddress').val(address);
-								        	//jQuery('#alterSpotAddress').focus();
-								        }
-								    }else 
-								      	console.log("Geocoder failed due to: " + status);
-							   	});
+								spotInfo(var_search_map,value,var_search_marker);
 							});
 
 					
@@ -782,7 +778,34 @@ height:200px;
 		$('#mytab a:first').tab('show');
 		
 	}); //on click
-
+	
+	function infoContent(spotObj) {
+		
+		//<img src=""
+		//設定資訊視窗內容要呈現什麼	
+		 var html = "<div style='width:100px; height:100px;'>";
+		 html += "<img src='<c:url value='/controller/TripDetailImageServlet?id="+spotObj.spotId+"&index=1'/>' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
+		 //html += "<img src='"+ neighbor.spotThumbnail + "' style='max-width:100%; max-height:100%;margin:auto;display:block;'></div>";
+		 html += "<div>" + spotObj.spotName + "</div>";
+		 
+		 return html;
+	}
+	  
+	function spotInfo(mapObj , spotObj, marker) {
+		/*
+		console.log("showInfo : " + mapObj);
+		console.log("showInfo : " + markerObj);
+		console.log("name : " + neighbor.spotName);
+		console.log("thumbnail : " + neighbor.spotThumbnail);
+		*/
+		
+		//開啟資訊視窗		
+		 if (var_search_infowindow)
+			 var_search_infowindow.close();
+		
+		var_search_infowindow.setContent(infoContent(spotObj));
+		var_search_infowindow.open(mapObj, marker);			
+	}
 
 	/**
 	* When modal shown, reset the its content 
