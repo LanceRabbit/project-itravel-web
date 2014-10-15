@@ -2384,9 +2384,9 @@
 					var commentTextClass = "style='color:blue'";
 					var addReportBtnClass = "addReportBtn";
 					
-					if(comment.comment.trim().length <= 0) {
-						
-						commentText = "此評論已被檢舉!!";
+					//if(comment.comment.trim().length <= 0) {
+					if(comment.comment.indexOf("不當評論已屏蔽") >= 0) {
+						//commentText = "此評論已被檢舉!!";
 						commentTextClass = "style='color:red'";
 						addReportBtnClass = "hidden";
 					} else if (comment.commenterId == "${user.accountId}") {

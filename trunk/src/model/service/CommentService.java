@@ -59,8 +59,8 @@ public class CommentService {
 		bRecord.setReportDt(new java.util.Date());
 		bRecord.setStatus(0);
 		
-		SpotCommentRecordDAO commentDAO = new SpotCommentRecordDAOHibernate();
-		commentDAO.update(commentId, "");
+		//SpotCommentRecordDAO commentDAO = new SpotCommentRecordDAOHibernate();
+		//commentDAO.update(commentId, "");
 		
 		BlacklistRecordDAO bListDAO =new BlacklistRecordDAOHibernate();
 		bRecord = bListDAO.insert(bRecord);
