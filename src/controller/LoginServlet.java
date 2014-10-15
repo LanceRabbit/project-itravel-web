@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 		//抓出request的最後一個"/"之後的資料，例如"/frist.jsp"
 		String referer = request.getHeader("referer");
 		
-		String fromAndTo = referer.substring(33);
+		String fromAndTo = referer.substring(43);
 		String end4 = referer.substring(referer.length()-4);
 		HttpSession session = request.getSession();
 		String path = request.getContextPath();
