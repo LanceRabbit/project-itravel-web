@@ -78,6 +78,11 @@ html, body {
   opacity: 0.85;
 }
 
+#information .panel-title {
+ text-size:16px;
+ font-weight:bold;
+ 
+}
 #google_map {
 
   height: 500px;
