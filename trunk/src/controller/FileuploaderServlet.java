@@ -50,14 +50,16 @@ public class FileuploaderServlet extends HttpServlet {
 			List<FileItem> items = uploadHandler.parseRequest(request);
 			for (FileItem item : items) {
 				if (!item.isFormField()) {
+					/*
 					System.out.println("file path : "
 							+ request.getServletContext().getRealPath("/")
 							+ "images/" + accountId + "/");
+							*/
 					
 					String imgPath = request.getServletContext().getRealPath("/") + "images/" + accountId + "/temp/";
-					System.out.println("imgPath : " + imgPath);
-					System.out.println("fileName : " + item.getName());
-					System.out.println("bytes : " + item.get());
+					//System.out.println("imgPath : " + imgPath);
+					//System.out.println("fileName : " + item.getName());
+					//System.out.println("bytes : " + item.get());
 					ImageIOUtil.saveImage(imgPath, item.getName(), item.get());
 					JSONObject jsono = new JSONObject();
 					jsono.put("name", item.getName());
@@ -69,7 +71,7 @@ public class FileuploaderServlet extends HttpServlet {
 							"UploadServlet?delfile=" + item.getName());
 					jsono.put("delete_type", "GET");
 					json.put(jsono);
-					System.out.println(json.toString());
+					//System.out.println(json.toString());
 				}
 			}
 		} catch (FileUploadException e) {

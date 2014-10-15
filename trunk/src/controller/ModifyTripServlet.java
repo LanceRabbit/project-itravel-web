@@ -48,32 +48,32 @@ public class ModifyTripServlet extends HttpServlet {
 	}
 	private void modifyTrip(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
-		System.out.println("create Trip  testing~!!!! Lance");
+		//System.out.println("create Trip  testing~!!!! Lance");
 		request.setCharacterEncoding("UTF-8");
 		PrintWriter out =  response.getWriter();;
 		String addTrip = request.getParameter("tripInfo");
 		if (addTrip!=null && addTrip.trim().length()!=0) {
-			System.out.println(addTrip);
+			//System.out.println(addTrip);
 			Gson gson = new Gson();
 			Type listType = new TypeToken<Map>() {}.getType();
 			
 			Map<?, ?> tempList = gson.fromJson(addTrip, listType);
-			System.out.println("TETETETETETETETETE=" + tempList);
+			//System.out.println("TETETETETETETETETE=" + tempList);
 	
 			String accountId = (String) tempList.get("userId");
-			System.out.println("userId=" + accountId);
+			//System.out.println("userId=" + accountId);
 			
 			String tripId = (String) tempList.get("tripId");
-			System.out.println("tripId=" + tripId);
+			//System.out.println("tripId=" + tripId);
 			
 			String tripName = (String) tempList.get("tripName");
-			System.out.println("tripName=" + tripName);
+			//System.out.println("tripName=" + tripName);
 			String startDay = (String) tempList.get("startDay");
-			System.out.println("startDay=" + startDay);
+			//System.out.println("startDay=" + startDay);
 			//System.out.println("totalDay=" + tempList.get("totalDay"));
 			double totalDay = (Double) tempList.get("totalDay");
 			//int totalDay = Integer.parseInt(tempList.get("totalDay"));
-			System.out.println("totalDay=" + totalDay);
+			//System.out.println("totalDay=" + totalDay);
 	
 			AddTripService service = new AddTripService();
 			Account account = new Account();
@@ -91,7 +91,7 @@ public class ModifyTripServlet extends HttpServlet {
 			trip.setStartDate(service.convertDate(startDay));
 			//trip.setTempTripId("NewTrip");
 			trip = service.updateTrip(trip);
-			System.out.println(trip);
+			//System.out.println(trip);
 			
 			service.deleteTripDetail(tripId);
 			List<?> list = (List<?>) tempList.get("spot");
@@ -137,7 +137,7 @@ public class ModifyTripServlet extends HttpServlet {
 	}
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		//System.out.println("MODIFY!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		this.modifyTrip(request, response);
 //		String sessionId = request.getSession().getId();
 //		String tripId = request.getParameter("tripId").trim();

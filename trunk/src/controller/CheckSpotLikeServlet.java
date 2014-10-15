@@ -48,7 +48,7 @@ public class CheckSpotLikeServlet extends HttpServlet {
 		}
 		String SpotId = request.getParameter("SpotId");
 		//System.out.println(AccountId + ",,,,," + SpotId);
-		System.out.println("from CheckSpotLikeServlet");
+		//System.out.println("from CheckSpotLikeServlet");
 		
 		if(LikeService.checkSpotLike(AccountId, SpotId)){
 			out.print("Like");

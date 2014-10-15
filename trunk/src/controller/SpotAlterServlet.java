@@ -44,7 +44,7 @@ public class SpotAlterServlet extends HttpServlet {
 		//取得AccountId spotId
 		String AccountId = request.getParameter("AccountId");
 		String SpotId = request.getParameter("SpotId");		
-		System.out.println(AccountId+","+SpotId);
+		//System.out.println(AccountId+","+SpotId);
 		
 		AlterService service = new AlterService();
 		

@@ -196,13 +196,13 @@ public class SearchSpotService {
 	@Produces("application/json;charset=utf-8")
 	public SpotInfo getSpotById(@PathParam("spotId") String spotId) {
 		
-		System.out.println("getSpotById : spot id : " + spotId);
+		//System.out.println("getSpotById : spot id : " + spotId);
 		SpotInfo result = null;
 		
 		SpotDetailDAO dao = new SpotDetailDAOHibernate();
 		SpotDetail spot = dao.selectBySpotId(spotId);
 		
-		System.out.println("spot : " + spot.toString());
+		//System.out.println("spot : " + spot.toString());
 		if(spot != null)
 			result = new SpotInfo(spot, null, null, null);
 		
@@ -213,7 +213,7 @@ public class SearchSpotService {
 	@GET
 	@Produces("text/html;charset=utf-8")
 	public String getMessage() {
-		System.out.println("message : .....");
+		//System.out.println("message : .....");
 		return "<h1>哈囉, RESTful~</h1>";
 	}
 	
@@ -226,16 +226,16 @@ public class SearchSpotService {
 			for (Object o : list) {
 				SpotDetail spot = (SpotDetail)o;
 				
-				System.out.println("============================================== " + o.toString() + " : neighbors ==============================================");
+				//System.out.println("============================================== " + o.toString() + " : neighbors ==============================================");
 				List<SpotDetail> neighbors = service.getNeighborhood(spot.getSpotId());
 				
 				for(SpotDetail neighbor : neighbors) {
-					System.out.println(neighbor.toString());
+					//System.out.println(neighbor.toString());
 				}
 			}
 		}
 		else {
-			System.out.println("null list....");
+			//System.out.println("null list....");
 		}
 	}
 	

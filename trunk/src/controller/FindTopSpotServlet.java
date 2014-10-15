@@ -36,11 +36,11 @@ public class FindTopSpotServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String sessionId = request.getSession().getId();
-		System.out.println("sessionId : " + sessionId);
+		//System.out.println("sessionId : " + sessionId);
 		FirstpageService service = new FirstpageService();
 		// find 最受歡迎的景點
 		List<SpotDetail> resultSpot = service.findTopSpot();
-		System.out.println(resultSpot);
+		//System.out.println(resultSpot);
 
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("application/json;charset=UTF-8");
@@ -74,7 +74,7 @@ public class FindTopSpotServlet extends HttpServlet {
 						ImageIOUtil.saveImage((deployDir+imgPath), thumbnail.getImgId()+".jpg", thumbnail.getSpotImg());
 						imgURL = webAppURL + "/" + imgPath + "/" + thumbnail.getImgId()+".jpg";
 						
-						System.out.println("1. thumbnail saved at : " + (deployDir+imgPath));
+						//System.out.println("1. thumbnail saved at : " + (deployDir+imgPath));
 					} else {
 						imgURL = webAppURL + "/images/team1.jpg";
 					}
@@ -85,7 +85,7 @@ public class FindTopSpotServlet extends HttpServlet {
 				jsonSpot.put("spotThumbnailURL", imgURL);
 				jsonSpotsLike.put(jsonSpot);
 			}
-			System.out.println("******" + jsonSpotsLike.toString());
+			//System.out.println("******" + jsonSpotsLike.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpotsLike.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {

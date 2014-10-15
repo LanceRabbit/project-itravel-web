@@ -45,7 +45,7 @@ public class GetTempBlacklistServlet extends HttpServlet {
 				jsonBlack.put("Deadline", acc.getLastLogonDt());
 				jsonSpots.put(jsonBlack);
 			}
-			System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
+			//System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();

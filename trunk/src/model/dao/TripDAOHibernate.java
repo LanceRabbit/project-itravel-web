@@ -161,13 +161,13 @@ public class TripDAOHibernate implements TripDAO {
 		// list = dao.selectAll();
 		 list = dao.selectByInput("東");
 		 if (list!=null) {
-			 System.out.println("========"+list.size());
+			 //System.out.println("========"+list.size());
 			 for (Object o : list) {
-				 System.out.println(o);
+				 //System.out.println(o);
 			 } 
 		 } else {
 			 
-			 System.out.println("Can not find out for this search");
+			 //System.out.println("Can not find out for this search");
 		 }
 			
 	}

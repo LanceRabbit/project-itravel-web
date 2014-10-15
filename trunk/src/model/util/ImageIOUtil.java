@@ -48,11 +48,11 @@ public class ImageIOUtil {
 	
 	public static void saveImage(String destFilename, byte[] data) {
 		if(!((data != null) && (data.length != 0))) {
-			System.out.println("ERROR!! No data input!!");
+			//System.out.println("ERROR!! No data input!!");
 			return;
 		}
 			
-		System.out.println("save image at : " + (ImageIOUtil.DIR_PATH + destFilename));
+		//System.out.println("save image at : " + (ImageIOUtil.DIR_PATH + destFilename));
 		File dest = new File(ImageIOUtil.DIR_PATH + destFilename);
 		try {
 			org.apache.commons.io.FileUtils.writeByteArrayToFile(dest, data) ;
@@ -63,7 +63,7 @@ public class ImageIOUtil {
 	
 	public static void saveImage(String path, String destFilename, byte[] data) {
 		if(!((data != null) && (data.length != 0))) {
-			System.out.println("ERROR!! No data input!!");
+			//System.out.println("ERROR!! No data input!!");
 			return;
 		}
 			
@@ -98,6 +98,6 @@ public class ImageIOUtil {
 		//ImageIOUtil.saveImage("slide1.jpg", ImageIOUtil.getImageByFilename("src.jpg"));
 		Date dt = new Date();
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		System.out.println(format.format(dt));
+		//System.out.println(format.format(dt));
 	}
 }

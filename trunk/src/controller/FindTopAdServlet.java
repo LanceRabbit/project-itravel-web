@@ -39,7 +39,7 @@ public class FindTopAdServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String sessionId = request.getSession().getId();
-		System.out.println("sessionId : " + sessionId);
+		//System.out.println("sessionId : " + sessionId);
 		FirstpageService service = new FirstpageService();
 		
 		//find 廣告檔資料
@@ -69,7 +69,7 @@ public class FindTopAdServlet extends HttpServlet {
 				
 				String imgPath = ImageIOUtil.generateImageDirPath(o.getSpotDetail().getAccountId(), o.getSpotDetail().getSpotId());
 				String deployDir = getServletContext().getRealPath("/");
-				System.out.println("ad saved at : " + (deployDir+imgPath));
+				//System.out.println("ad saved at : " + (deployDir+imgPath));
 				
 				ImageIOUtil.saveImage((deployDir+imgPath), adId+".jpg", o.getAdImg());
 				String imgURL = webAppURL + "/" + imgPath + "/" + adId+".jpg";
@@ -79,7 +79,7 @@ public class FindTopAdServlet extends HttpServlet {
 
 			}	
 			
-			System.out.println(jsonSpots.toString());
+			//System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 			//os.write(jsonSpotsLike.toString().getBytes("UTF-8"));

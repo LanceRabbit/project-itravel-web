@@ -41,7 +41,7 @@ public class GetPermBlacklistServlet extends HttpServlet {
 				jsonBlack.put("AccountLevel",accountLevel );
 				jsonSpots.put(jsonBlack);
 			}
-			System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
+			//System.out.println("InitialBlacklist Test= "+jsonSpots.toString());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		} catch (JSONException e) {
 			e.printStackTrace();

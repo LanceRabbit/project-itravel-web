@@ -31,23 +31,23 @@ public class AlterSpotServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
     	
-		String spotId = request.getParameter("spotId").trim(); System.out.println("spotId : " + spotId);
-    	String spotName = request.getParameter("alterSpotName").trim(); System.out.println("spotName : " + spotName);
-    	String city = request.getParameter("dupCity").trim(); System.out.println("city : " + city);
-    	System.out.println("cityMap : " + ConstantsUtil.getCityMap().get(city));
-    	Integer cityId = ConstantsUtil.getCityMap().get(city); System.out.println("cityId : " + cityId);
-    	String category = request.getParameter("dupCategory").trim(); System.out.println("category : " + category);
-    	Integer categoryId = ConstantsUtil.getCategoryMap().get(category); System.out.println("categoryId : " + categoryId);
-    	String subcategory = request.getParameter("dupSubcategory").trim(); System.out.println("subcategory : " + subcategory); 	
-    	String subcategoryId = ConstantsUtil.getSubcategoryMap().get(subcategory); System.out.println("subcategoryId : " + subcategoryId);
-    	String address = request.getParameter("alterSpotAddress").trim(); System.out.println("address : " + address);
-    	String phone = request.getParameter("alterSpotPhone").trim(); System.out.println("phone : " + phone);
-    	String intro = request.getParameter("alterSpotIntro").trim(); System.out.println("intro : " + intro);
-    	String img1 = request.getParameter("alterSpotImagePreview_zone_1").trim(); System.out.println("img1 : " + img1);
-    	String img2 = request.getParameter("alterSpotImagePreview_zone_2").trim(); System.out.println("img2 : " + img2);
-    	String img3 = request.getParameter("alterSpotImagePreview_zone_3").trim(); System.out.println("img3 : " + img3);
-    	String img4 = request.getParameter("alterSpotImagePreview_zone_4").trim(); System.out.println("img4 : " + img4);
-    	String img5 = request.getParameter("alterSpotImagePreview_zone_5").trim(); System.out.println("img5 : " + img5);
+		String spotId = request.getParameter("spotId").trim(); //System.out.println("spotId : " + spotId);
+    	String spotName = request.getParameter("alterSpotName").trim(); //System.out.println("spotName : " + spotName);
+    	String city = request.getParameter("dupCity").trim(); //System.out.println("city : " + city);
+    	//System.out.println("cityMap : " + ConstantsUtil.getCityMap().get(city));
+    	Integer cityId = ConstantsUtil.getCityMap().get(city); //System.out.println("cityId : " + cityId);
+    	String category = request.getParameter("dupCategory").trim(); //System.out.println("category : " + category);
+    	Integer categoryId = ConstantsUtil.getCategoryMap().get(category); //System.out.println("categoryId : " + categoryId);
+    	String subcategory = request.getParameter("dupSubcategory").trim(); //System.out.println("subcategory : " + subcategory); 	
+    	String subcategoryId = ConstantsUtil.getSubcategoryMap().get(subcategory); //System.out.println("subcategoryId : " + subcategoryId);
+    	String address = request.getParameter("alterSpotAddress").trim(); //System.out.println("address : " + address);
+    	String phone = request.getParameter("alterSpotPhone").trim(); //System.out.println("phone : " + phone);
+    	String intro = request.getParameter("alterSpotIntro").trim(); //System.out.println("intro : " + intro);
+    	String img1 = request.getParameter("alterSpotImagePreview_zone_1").trim(); //System.out.println("img1 : " + img1);
+    	String img2 = request.getParameter("alterSpotImagePreview_zone_2").trim(); //System.out.println("img2 : " + img2);
+    	String img3 = request.getParameter("alterSpotImagePreview_zone_3").trim(); //System.out.println("img3 : " + img3);
+    	String img4 = request.getParameter("alterSpotImagePreview_zone_4").trim(); //System.out.println("img4 : " + img4);
+    	String img5 = request.getParameter("alterSpotImagePreview_zone_5").trim(); //System.out.println("img5 : " + img5);
     	List<String> imgs = new ArrayList<String>();
     	imgs.add(img1);
     	imgs.add(img2);
@@ -55,8 +55,8 @@ public class AlterSpotServlet extends HttpServlet {
     	imgs.add(img4);
     	imgs.add(img5);
     	
-    	String lng = request.getParameter("lng").trim(); System.out.println("lng : " + lng);
-    	String lat = request.getParameter("lat").trim(); System.out.println("lat : " + lat);
+    	String lng = request.getParameter("lng").trim(); //System.out.println("lng : " + lng);
+    	String lat = request.getParameter("lat").trim(); //System.out.println("lat : " + lat);
     	
 		Double longitude = Double.parseDouble(lng);
 		Double latitude = Double.parseDouble(lat);
@@ -67,7 +67,7 @@ public class AlterSpotServlet extends HttpServlet {
     	if(user!= null) {
     		accountId = user.getAccountId();
     		if(user.getAccountLevel() == 2) 
-    			spotOwner = request.getParameter("alterSpotOwner").trim(); System.out.println("spotOwner : " + spotOwner);
+    			spotOwner = request.getParameter("alterSpotOwner").trim(); //System.out.println("spotOwner : " + spotOwner);
     	}
 
     	// temporarily
@@ -100,7 +100,7 @@ public class AlterSpotServlet extends HttpServlet {
     		String name = imgName;
     		if(name.startsWith("http")) {
     			String[] dirs = name.split("/");
-    			name = dirs[dirs.length - 1]; System.out.println("image name : " + name);
+    			name = dirs[dirs.length - 1]; //System.out.println("image name : " + name);
     			if(name.equals("team1.jpg"))
     				continue;
     			

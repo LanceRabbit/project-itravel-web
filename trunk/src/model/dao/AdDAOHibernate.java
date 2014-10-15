@@ -217,7 +217,7 @@ public class AdDAOHibernate implements AdDAO {
 //			dao.update(ad);
 		
 			//System.out.println(dao.selectBySpotId("LAN14100001"));
-			System.out.println(dao.selectByAccountId("M14100001"));
+			//System.out.println(dao.selectByAccountId("M14100001"));
 	}
 
 	@Override

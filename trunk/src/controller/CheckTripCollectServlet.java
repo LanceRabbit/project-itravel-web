@@ -47,7 +47,7 @@ public class CheckTripCollectServlet extends HttpServlet {
 		}
 		String TripId = request.getParameter("TripId");
 		//System.out.println(AccountId + ",,,,," + SpotId);
-		System.out.println("from CheckTripCollectServlet");
+		//System.out.println("from CheckTripCollectServlet");
 		if(LikeService.checkTripCollect(AccountId, TripId)){
 			out.print("Collect");
 			

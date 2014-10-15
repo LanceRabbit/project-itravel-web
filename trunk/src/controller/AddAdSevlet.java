@@ -46,17 +46,17 @@ public class AddAdSevlet extends HttpServlet {
 			//name = request.getParameter("ADname");//廣告名稱
 			date = request.getParameter("ADdate");//
 			//text = request.getParameter("ADtext");
-			System.out.println(spotId+":"+date);
+			//System.out.println(spotId+":"+date);
 			
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
-			System.out.println("Print FilePart Size= "+filePart.getSize());
-			System.out.println(filePart);
+			//System.out.println("Print FilePart Size= "+filePart.getSize());
+			//System.out.println(filePart);
 			if (filePart.getSize() != 0) {  
 			    // debug messages  
-            System.out.println(filePart.getName());  
-            System.out.println(filePart.getSize());  
-            System.out.println(filePart.getContentType());  
+            //System.out.println(filePart.getName());  
+            //System.out.println(filePart.getSize());  
+            //System.out.println(filePart.getContentType());  
   
 			    // obtains input stream of the upload file  
 			    try {
@@ -67,7 +67,7 @@ public class AddAdSevlet extends HttpServlet {
 				}
 //            System.out.println(bytes);
 			}else if(filePart.getSize() == 0){
-				System.out.println("here");
+				//System.out.println("here");
 				String path = request.getContextPath();
 //				try {
 //					inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
@@ -87,10 +87,10 @@ public class AddAdSevlet extends HttpServlet {
 		DisseminateService service = new DisseminateService();
 		
 		if(service.AdInsert(spotId, image)){
-			System.out.println("成功");
+			//System.out.println("成功");
 			response.sendRedirect(path+"/store/Disseminate.jsp");
 		}else{
-			System.out.println("失敗");			
+			//System.out.println("失敗");			
 			response.sendRedirect(path+"/store/Disseminate.jsp");
 		}
 		

@@ -62,7 +62,7 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -83,7 +83,7 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			return -100;
 			
@@ -105,7 +105,7 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -127,18 +127,20 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 								"FROM TripCollectRecord trips where trips.id.accountId = ?")
 						.setString(0, accountId).list();
 
-				System.out.println("liked trips : " + trips.size());
+				//System.out.println("liked trips : " + trips.size());
 				for (Object o : trips) {
 					TripCollectRecord trip = (TripCollectRecord) o;
+					/*
 					System.out.println(accountId + "likes trip id: "
 							+ trip.getId().getTripId());
+					*/
 				}
 
 				tx.commit();
 			} catch (HibernateException e) {
 				if (tx != null) {
 					tx.rollback();
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 				}
 				e.printStackTrace();
 			}
@@ -179,13 +181,13 @@ public class TripCollectRecordDAOHibernate implements TripCollectRecordDAO {
 				tx = session.beginTransaction();
 				result = session.createQuery("FROM TripCollectRecord trips where trips.id.accountId = ?").setString(0, accountId).list();
 
-				System.out.println("TripCollectRecord List by selectByAccountId ="+result);
+				//System.out.println("TripCollectRecord List by selectByAccountId ="+result);
 
 				tx.commit();
 			} catch (HibernateException e) {
 				if (tx != null) {
 					tx.rollback();
-					System.out.println(e.getMessage());
+					//System.out.println(e.getMessage());
 				}
 				e.printStackTrace();
 			}

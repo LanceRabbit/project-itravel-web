@@ -38,7 +38,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//顯示所有景點
 		String sessionId = request.getSession().getId();
-		System.out.println("sessionId : " + sessionId);
+		//System.out.println("sessionId : " + sessionId);
 		HttpSession session = request.getSession();
 
 		
@@ -62,7 +62,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 				Iterator<SpotImg> it = imgs.iterator();
 				while(it.hasNext()){
 					SpotImg image = it.next();
-					System.out.println("image : " + image.getImgId() + ";" + image.getSpotImg());
+					//System.out.println("image : " + image.getImgId() + ";" + image.getSpotImg());
 					
 					if(image.getSpotImg() != null) {
 						ImageIOUtil.saveImage(image.getImgId(), image.getSpotImg());
@@ -78,7 +78,7 @@ public class SearchSpotTestServlet extends HttpServlet {
 			}
 				
 			
-			System.out.println(jsonSpots.toString());
+			//System.out.println(jsonSpots.toString());
 			// os.write(jsonSpots.toString().getBytes());
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 		}catch (JSONException e) {

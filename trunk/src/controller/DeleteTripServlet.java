@@ -32,7 +32,7 @@ public class DeleteTripServlet extends HttpServlet {
 			out = response.getWriter();
 			
 			String tripId = request.getParameter("TripId");
-			System.out.println("tripId" + tripId);
+			//System.out.println("tripId" + tripId);
 
 			tripDao	= new TripDAOHibernate();
 			Trip trip = tripDao.select(tripId);

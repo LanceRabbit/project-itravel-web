@@ -33,7 +33,7 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		 spot.setAccountId("M14090001");
 		 spot.setSpotId("RES14090019");
 		 spot = dao.insert(spot);
-		 System.out.println(spot);
+		 //System.out.println(spot);
 		
 
 		// test: select
@@ -81,7 +81,7 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -102,7 +102,7 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -123,7 +123,7 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -138,13 +138,13 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		try {
 			tx = session.beginTransaction();
 			  result = session.createQuery("FROM SpotCommentRecord sp where sp.spotId = ?").setString(0, spotId).list();
-			System.out.println(result.size());
+			//System.out.println(result.size());
 
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -165,7 +165,7 @@ public class SpotCommentRecordDAOHibernate implements SpotCommentRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}

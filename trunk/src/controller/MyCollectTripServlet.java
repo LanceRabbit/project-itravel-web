@@ -43,7 +43,7 @@ public class MyCollectTripServlet extends HttpServlet {
 
 		// 取得AccountId 撈出trip
 		String AccountId = request.getParameter("AccountId");
-		System.out.println(AccountId);
+		//System.out.println(AccountId);
 		// String AccountId="M14090005";
 		JSONArray jsonSpots = new JSONArray();
 		OutputStream os = response.getOutputStream();
@@ -110,9 +110,9 @@ public class MyCollectTripServlet extends HttpServlet {
 					while (ittripDetail.hasNext()) {
 						trip = ittripDetail.next();
 
-						System.out.println("trip" + trip);
+						//System.out.println("trip" + trip);
 						SpotDetail spot = trip.getSpotDetail();
-						System.out.println("spotId" + spot.getSpotId());
+						//System.out.println("spotId" + spot.getSpotId());
 
 						String imgURL = webAppURL + "/images/team1.jpg";
 						String imgPath = ImageIOUtil.generateImageDirPath(
@@ -127,9 +127,11 @@ public class MyCollectTripServlet extends HttpServlet {
 
 						while (itimg.hasNext()) {
 							SpotImg image = itimg.next();
+							/*
 							System.out.println("MyTripSpotimage : "
 									+ image.getImgId() + ";"
 									+ image.getSpotImg());
+							*/
 
 							if (image.getSpotImg() != null) {
 								ImageIOUtil.saveImage((deployDir + imgPath),
@@ -139,7 +141,7 @@ public class MyCollectTripServlet extends HttpServlet {
 								break;
 							}
 						}
-						System.out.println("image url : " + imgURL);
+						//System.out.println("image url : " + imgURL);
 						jsonSpot.put("tripThumbnail", imgURL);
 						break;
 					}
@@ -151,7 +153,7 @@ public class MyCollectTripServlet extends HttpServlet {
 
 				
 			}
-			System.out.println(jsonSpots.toString().getBytes("UTF-8"));
+			//System.out.println(jsonSpots.toString().getBytes("UTF-8"));
 			os.write(jsonSpots.toString().getBytes("UTF-8"));
 			response.setContentType("application/json;charset=UTF-8");
 			// System.out.println(jsonSpots.toString());

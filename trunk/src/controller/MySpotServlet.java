@@ -44,7 +44,7 @@ public class MySpotServlet extends HttpServlet {
 
 		//取得AccountId 撈出spot
 		String AccountId = request.getParameter("AccountId");
-		System.out.println(AccountId);
+		//System.out.println(AccountId);
 		AccountDAO dao = new AccountDAOHibernate();
 		Account acc = new Account();
 		acc = dao.selectById(AccountId);
@@ -80,7 +80,7 @@ public class MySpotServlet extends HttpServlet {
 				imgURL = webAppURL + "/images/team1.jpg";
 				while (itimg.hasNext()) {
 					SpotImg image = itimg.next();
-					System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
+					//System.out.println("MySpotimage : " + image.getImgId() + ";"+ image.getSpotImg());
 					
 					if (image.getSpotImg() != null) {
 						ImageIOUtil.saveImage((deployDir+imgPath),image.getImgId(),image.getSpotImg());
@@ -88,7 +88,7 @@ public class MySpotServlet extends HttpServlet {
 						break;
 					}
 				}									
-				System.out.println("image url : " + imgURL);
+				//System.out.println("image url : " + imgURL);
 				jsonSpot.put("spotThumbnail", imgURL);
 				
 				

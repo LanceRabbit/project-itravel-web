@@ -39,7 +39,7 @@ public class SpotCommServlet extends HttpServlet {
 		// System.out.println("SpotId : " + spotId);
 
 		String sessionId = request.getSession().getId();
-		System.out.println("sessionId : " + sessionId);
+		//System.out.println("sessionId : " + sessionId);
 		// 取得此景點的spotId
 		//
 		//
@@ -72,10 +72,10 @@ public class SpotCommServlet extends HttpServlet {
 				jsonSpotComms.put(jsonSpotComm);
 
 			}
-			System.out.println(jsonSpotComms.toString());
+			//System.out.println(jsonSpotComms.toString());
 			
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			e.printStackTrace();
 		}finally {
 

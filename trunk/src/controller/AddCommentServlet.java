@@ -21,9 +21,9 @@ public class AddCommentServlet extends HttpServlet {
 		PrintWriter writer = null;
 		try {
 			request.setCharacterEncoding("UTF-8");
-			String commenterId = request.getParameter("commenterId"); System.out.println("commenter id : " + commenterId);
-			String spotId = request.getParameter("spotId"); System.out.println("spot id : " + spotId);
-			String comment = request.getParameter("comment"); System.out.println("comment : " + comment);
+			String commenterId = request.getParameter("commenterId"); //System.out.println("commenter id : " + commenterId);
+			String spotId = request.getParameter("spotId"); //System.out.println("spot id : " + spotId);
+			String comment = request.getParameter("comment"); //System.out.println("comment : " + comment);
 			
 			CommentService service = new CommentService();
 			response.setCharacterEncoding("UTF-8");

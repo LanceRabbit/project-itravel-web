@@ -60,7 +60,7 @@ public class SpotInfo implements java.io.Serializable {
 
 		// images
 		if(spotDetail.getSpotImgs().size() == 0) {
-			String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
+			String path = webAppURL + "/images/team1.jpg"; //System.out.println("img url : " + path);
 			spotImgs.add(path);
 		} else {
 			int count = 0;
@@ -77,7 +77,7 @@ public class SpotInfo implements java.io.Serializable {
 			}
 			
 			if(count == 0) {
-				String path = webAppURL + "/images/team1.jpg"; System.out.println("img url : " + path);
+				String path = webAppURL + "/images/team1.jpg"; //System.out.println("img url : " + path);
 				spotImgs.add(path);
 			}
 		}

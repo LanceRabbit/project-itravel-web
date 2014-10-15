@@ -31,7 +31,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		spotColRec.setSpotId("RES14090002");
 		spot = new SpotCollectRecord(spotColRec);
 		spot = dao.insert(spot);
-		System.out.println("已新增 =" + spot);
+		//System.out.println("已新增 =" + spot);
 
 		// test: delet
 		// spotColRec.setAccountId("M14090002");
@@ -63,7 +63,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -84,7 +84,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			return -100;
 			
@@ -107,7 +107,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -128,18 +128,20 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 							"FROM SpotCollectRecord spots where spots.id.accountId = ?")
 					.setString(0, accountId).list();
 
-			System.out.println("liked spots : " + spots.size());
+			//System.out.println("liked spots : " + spots.size());
 			for (Object o : spots) {
 				SpotCollectRecord spot = (SpotCollectRecord) o;
+				/*
 				System.out.println(accountId + "likes spot id: "
 						+ spot.getId().getSpotId());
+				*/		
 			}
 
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -158,7 +160,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 			return -100;
@@ -181,7 +183,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 							"FROM SpotCollectRecord spots where spots.id.accountId = ?")
 					.setString(0, accountId).list();
 
-			System.out.println("Collect spots : " + spots.size());
+			//System.out.println("Collect spots : " + spots.size());
 //			for (Object o : spots) {
 //				SpotCollectRecord spot = (SpotCollectRecord) o;
 //				System.out.println(accountId + "likes spot id: "
@@ -198,7 +200,7 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			return false;
 		}
@@ -217,13 +219,13 @@ public class SpotCollectRecordDAOHibernate implements SpotCollectRecordDAO {
 			tx = session.beginTransaction();
 			result = session.createQuery("FROM SpotCollectRecord spots where spots.id.accountId = ?").setString(0, accountId).list();
 
-			System.out.println("SpotCollectRecord List by selectByAccountId ="+result);
+			//System.out.println("SpotCollectRecord List by selectByAccountId ="+result);
 
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}

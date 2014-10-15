@@ -43,7 +43,7 @@ public class CheckSpotCollectServlet extends HttpServlet {
 		}
 		String SpotId = request.getParameter("SpotId");
 		//System.out.println(AccountId + ",,,,," + SpotId);
-		System.out.println("from CheckSpotCollectServlet");
+		//System.out.println("from CheckSpotCollectServlet");
 		if(LikeService.checkSpotCollect(AccountId, SpotId)){
 			out.print("Collect");
 			

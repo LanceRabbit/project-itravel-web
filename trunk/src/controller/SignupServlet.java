@@ -40,7 +40,7 @@ public class SignupServlet extends HttpServlet {
 			email = request.getParameter("email");
 			password = request.getParameter("password");
 			nickname = request.getParameter("nickname");
-			System.out.println("Servlet Nickname="+nickname);
+			//System.out.println("Servlet Nickname="+nickname);
 			owner = request.getParameter("owner");
 			InputStream inputStream = null;
 			Part filePart = request.getPart("image");
@@ -65,7 +65,7 @@ public class SignupServlet extends HttpServlet {
 				String path = request.getContextPath();
 				try {
 					inputStream = new URL("http://localhost:8080/TravelWeb/images/default_profile_pic.jpg").openStream();
-					System.out.println(inputStream);
+					//System.out.println(inputStream);
 					image = IOUtils.toByteArray(inputStream);
 				} catch (Exception e) {
 					e.printStackTrace();

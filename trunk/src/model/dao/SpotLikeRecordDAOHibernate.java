@@ -31,7 +31,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 //		spot = dao.insert(spot);
 //		System.out.println(spot);
 		int i=dao.insert2(spot);
-		System.out.println(i);
+		//System.out.println(i);
 		
 		//test: delet
 		//測試刪除須先檢查DB內有無資料
@@ -70,7 +70,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -92,7 +92,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 			return -100;
@@ -115,7 +115,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -138,17 +138,17 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 			tx = session.beginTransaction();
 			List<?> spots = session.createQuery("FROM SpotLikeRecord spot where spot.id.accountId = ?").setString(0, accountId).list();
 			
-			System.out.println("liked spots : " + spots.size());
+			//System.out.println("liked spots : " + spots.size());
 			for (Object o : spots) {
 				SpotLikeRecord spot = (SpotLikeRecord)o;
-			    System.out.println(accountId + "likes spot id: " + spot.getId().getSpotId());
+			    //System.out.println(accountId + "likes spot id: " + spot.getId().getSpotId());
 			}			
 			
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 		}
@@ -167,7 +167,7 @@ public class SpotLikeRecordDAOHibernate implements SpotLikeRecordDAO {
 		} catch (HibernateException e) {
 			if (tx != null) {
 				tx.rollback();
-				System.out.println(e.getMessage());
+				//System.out.println(e.getMessage());
 			}
 			e.printStackTrace();
 			return -100;
