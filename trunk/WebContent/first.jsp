@@ -294,20 +294,16 @@ hr.style-eight:after {
 																		jQuery(
 																				'#itemtag')
 																				.append(			               																			
-																						"<div class='item active' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
-																								+ value.spotName
-																								+ "</a></h4><p>"
-																								+ value.spotIntro
-																								+ "<br><br></p></div></div></div>");
+																						"<div class='item active' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/>"
+																								+ value.spotName																								
+																								+ "</div></div>");
 																	} else {
 																		jQuery(
 																				'#itemtag')
 																				.append(
-																						"<div class='item ' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/><div class='carousel-caption'><h4><a href='#'>"
-																								+ value.spotName
-																								+ "</a></h4><p>"
-																								+ value.spotIntro
-																								+ "<br><br></p></div></div></div>");
+																						"<div class='item ' ><div id='topImg'><img src='" + value.spotThumbnailURL+" ' style='width:100%;height:100%'/>"
+																								+ value.spotName																								
+																								+ "</div></div>");
 																		//buttom <a class='label label-primary' href='#' target='_blank'>"+ value.spotName+"</a>
 																	}
 																	picactive = false;
