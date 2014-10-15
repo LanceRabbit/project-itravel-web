@@ -185,6 +185,8 @@ width: 300px;
 			<div class="row scrollable" id="listDetails">
 			
 			</div>	
+			<div class="row" style="margin-top: 40px;text-align: center;" id="pages">
+    		</div>
 		</div>
 
 		<div class="tab-pane" id="spot_2">
@@ -212,6 +214,7 @@ width: 300px;
 <script src="${pageContext.request.contextPath}/js/jquery.dynatable.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.sortable.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.twbsPagination.js"></script>
 <script>
 
 var currentDiv = "#contact_1";
