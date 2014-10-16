@@ -75,7 +75,7 @@ font-weight: bold;
 				</div>
 				<div class="col-sm-3 col-xs-6">
 					<img alt="" src="images/4.jpg" class="img-circle">
-					<h4>林政翰 /CH Lin</h4>
+					<h4>林政翰 /Lance</h4>
 					<p>組長以及身兼被毆打的沙包角色、行程部分的編輯與維護、goole map API使用、架設雲端伺服器、專題版本控管、資料庫的架設、後端功能的實作</p>
 				</div>
 			</div>
