@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Spots</title>
+<title>Search Trips</title>
 <link rel="stylesheet" href="<c:url value="/css/bootstrap.min.css" />" />
 <!--  <link rel="stylesheet" href="<c:url value="/css/bootstrap-theme.css" />" /> -->
 <!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" /> -->

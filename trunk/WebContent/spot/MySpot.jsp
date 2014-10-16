@@ -10,7 +10,7 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="<c:url value="/css/spot-modalview.css" />" />
 <!--  <link rel="stylesheet" href="<c:url value="/css/container.css" />" />  -->	
-<title>Myspot</title>
+<title>My Spot</title>
 <style type="text/css">
 
 p { /*用於內文   多行文字溢出用...取代*/

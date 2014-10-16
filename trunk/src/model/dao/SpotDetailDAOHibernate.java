@@ -167,7 +167,7 @@ public class SpotDetailDAOHibernate implements SpotDetailDAO {
 			tx = session.beginTransaction();
 
 			Query query = session
-					.createQuery("FROM SpotDetail spot order by spot.creationTime DESC");
+					.createQuery("FROM SpotDetail spot order by spot.likeCount DESC");
 			query.setMaxResults(num);
 			for (Object o : query.list()) {
 				spots.add((SpotDetail) o);
