@@ -60,7 +60,7 @@ public class EmailUtil {
     }  
     public static Session getSession() {  
         Properties props = new Properties(); 
-        
+        props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.setProperty("mail.transport.protocol", "smtp");  
         props.setProperty("mail.smtp.host", "smtp.gmail.com");  
         props.setProperty("mail.smtp.port", "465");  //465、587
