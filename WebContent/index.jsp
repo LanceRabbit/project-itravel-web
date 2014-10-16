@@ -44,7 +44,7 @@ font-weight: bold;
 					<br>
 					<p class="lead"> 忙碌的生活中，最期待假期的到來，騎著腳踏車在鄉間小路上漫遊，在清境的午後欣賞沿途優美的景致，讓微風輕輕吹過髮梢，忘掉一切煩惱，恣意的享受著大自然的懷抱。
 					<br>					             
-					<br>    提起行李循著旅程中沿路的幸福足跡，發現旅行是簡單又容易的小確幸，一起分享你我的足跡。  
+					<br>    提起行李循著旅程中沿路的幸福足跡，發現旅行是簡單又容易的小確幸，希望能透過「愛旅遊」一起分享你我的足跡。  
                                     
 				</div>
 			</div>
@@ -60,23 +60,23 @@ font-weight: bold;
 				<div class="col-sm-3 col-xs-6">
 					<img alt="" src="images/1.jpg" class="img-circle">
 					
-					<h4>Angela</h4>
-					<p>景點以及行程按讚、收藏功能、網頁版型的設計、廣告以及折價券維護、後端功能實作、資料的蒐集與建立</p>
+					<h4>王思涵  /Angela</h4>
+					<p>景點以及行程按讚、收藏功能、網頁版型的設計、廣告以及折價券維護、後端功能的實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
 					<img alt="" src="images/2.jpg" class="img-circle">
-					<h4>Adela</h4>
-					<p>註冊及帳戶資訊功能、後臺管理者的黑名單功能、折價券設計與列印功能維護、後端功能實作、資料的蒐集與建立</p>
+					<h4>葉延芸 /Adela</h4>
+					<p>註冊及帳戶資訊功能、後臺管理者的黑名單功能、折價券設計與列印功能維護、後端功能的實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
 					<img alt="" src="images/3.jpg" class="img-circle">
-					<h4>Lolita</h4>
-					<p>景點部分的編輯與維護、景點評論、goole map API與附近景點的結合、資料庫的架設、後端功能實作、資料的蒐集與建立</p>
+					<h4>莊若純 /Lolita</h4>
+					<p>景點部分的編輯與維護、景點評論、goole map API與附近景點的結合、資料庫的架設、後端功能的實作、資料的蒐集與建立</p>
 				</div>
 				<div class="col-sm-3 col-xs-6">
 					<img alt="" src="images/4.jpg" class="img-circle">
-					<h4>CH Lin</h4>
-					<p>組長以及身兼被毆打的沙包角色、行程部分的編輯與維護、goole map API使用、架設雲端伺服器、專題版本控管、資料庫的架設、後端功能實作</p>
+					<h4>林政翰 /CH Lin</h4>
+					<p>組長以及身兼被毆打的沙包角色、行程部分的編輯與維護、goole map API使用、架設雲端伺服器、專題版本控管、資料庫的架設、後端功能的實作</p>
 				</div>
 			</div>
 		</div>
